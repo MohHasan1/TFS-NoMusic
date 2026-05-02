@@ -70,6 +70,8 @@ export interface Config {
   collections: {
     admins: Admin;
     users: User;
+    whitelist: Whitelist;
+    requests: Request;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -79,6 +81,8 @@ export interface Config {
   collectionsSelect: {
     admins: AdminsSelect<false> | AdminsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    whitelist: WhitelistSelect<false> | WhitelistSelect<true>;
+    requests: RequestsSelect<false> | RequestsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -143,7 +147,7 @@ export interface UserAuthOperations {
 export interface Admin {
   id: number;
   fullName: string;
-  role: 'level_1' | 'level_2' | 'level_3';
+  role: 'level_1' | 'level_2' | 'level_3' | 'level_4';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -171,6 +175,7 @@ export interface User {
   id: number;
   fullName: string;
   isApproved?: boolean | null;
+  role?: ('level_1' | 'level_2' | 'level_3' | 'level_4') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -189,6 +194,38 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "whitelist".
+ */
+export interface Whitelist {
+  id: number;
+  email: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "requests".
+ */
+export interface Request {
+  id: number;
+  type: 'access_request' | 'music_request' | 'general_feedback' | 'bug_report';
+  email: string;
+  message?: string | null;
+  status?: ('pending' | 'approved' | 'rejected') | null;
+  metadata?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -221,6 +258,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'whitelist';
+        value: number | Whitelist;
+      } | null)
+    | ({
+        relationTo: 'requests';
+        value: number | Request;
       } | null);
   globalSlug?: string | null;
   user:
@@ -305,6 +350,7 @@ export interface AdminsSelect<T extends boolean = true> {
 export interface UsersSelect<T extends boolean = true> {
   fullName?: T;
   isApproved?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -321,6 +367,28 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "whitelist_select".
+ */
+export interface WhitelistSelect<T extends boolean = true> {
+  email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "requests_select".
+ */
+export interface RequestsSelect<T extends boolean = true> {
+  type?: T;
+  email?: T;
+  message?: T;
+  status?: T;
+  metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

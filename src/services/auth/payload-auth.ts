@@ -15,6 +15,24 @@ export async function signInWithPayload(input: {
   })
 }
 
+export async function isWhitelistedEmail(email: string) {
+  const payload = await getPayloadClient()
+
+  const result = await payload.find({
+    collection: "whitelist",
+    depth: 0,
+    limit: 1,
+    pagination: false,
+    where: {
+      email: {
+        equals: email.toLowerCase(),
+      },
+    },
+  })
+
+  return result.docs.length > 0
+}
+
 export async function signUpWithPayload(input: {
   email: string
   password: string
@@ -25,7 +43,7 @@ export async function signUpWithPayload(input: {
   return payload.create({
     collection: "users",
     data: {
-      email: input.email,
+      email: input.email.toLowerCase(),
       password: input.password,
       fullName: input.fullName,
     },

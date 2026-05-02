@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import {
+  isWhitelistedEmail,
   logoutWithPayload,
   signInWithPayload,
   signUpWithPayload,
@@ -39,7 +40,7 @@ export async function signUpAction(
   formData: FormData,
 ): Promise<AuthActionState> {
   const fullName = getString(formData, "fullName");
-  const email = getString(formData, "email");
+  const email = getString(formData, "email").toLowerCase();
   const password = getString(formData, "password");
 
   if (!fullName || !email || !password) {
@@ -48,6 +49,15 @@ export async function signUpAction(
 
   if (password.length < 8) {
     return { error: "Password must be at least 8 characters." };
+  }
+
+  const allowed = await isWhitelistedEmail(email);
+
+  if (!allowed) {
+    return {
+      error:
+        "This email is not approved for signup yet. Contact support for access.",
+    };
   }
 
   try {
