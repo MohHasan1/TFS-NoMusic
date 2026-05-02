@@ -72,6 +72,8 @@ export interface Config {
     users: User;
     whitelist: Whitelist;
     requests: Request;
+    media: Media;
+    nomusic: Nomusic;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -83,6 +85,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     whitelist: WhitelistSelect<false> | WhitelistSelect<true>;
     requests: RequestsSelect<false> | RequestsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    nomusic: NomusicSelect<false> | NomusicSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -229,6 +233,47 @@ export interface Request {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  type?: ('audio' | 'image' | 'other') | null;
+  size?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nomusic".
+ */
+export interface Nomusic {
+  id: number;
+  title: string;
+  artist?: string | null;
+  album?: string | null;
+  duration?: number | null;
+  audioFile: number | Media;
+  streamURL: string;
+  coverImage?: {
+    source?: ('url' | 'upload') | null;
+    url?: string | null;
+    upload?: (number | null) | Media;
+  };
+  language?: ('english' | 'hindi' | 'bangla' | 'arabic' | 'other') | null;
+  genre?: ('pop' | 'hiphop' | 'rock' | 'electronic' | 'lofi' | 'classical' | 'jazz' | 'other') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -266,6 +311,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'requests';
         value: number | Request;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'nomusic';
+        value: number | Nomusic;
       } | null);
   globalSlug?: string | null;
   user:
@@ -387,6 +440,47 @@ export interface RequestsSelect<T extends boolean = true> {
   message?: T;
   status?: T;
   metadata?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  type?: T;
+  size?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nomusic_select".
+ */
+export interface NomusicSelect<T extends boolean = true> {
+  title?: T;
+  artist?: T;
+  album?: T;
+  duration?: T;
+  audioFile?: T;
+  streamURL?: T;
+  coverImage?:
+    | T
+    | {
+        source?: T;
+        url?: T;
+        upload?: T;
+      };
+  language?: T;
+  genre?: T;
   updatedAt?: T;
   createdAt?: T;
 }
