@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import {
+  logoutWithPayload,
   signInWithPayload,
   signUpWithPayload,
 } from "@/services/auth/payload-auth";
@@ -53,6 +54,16 @@ export async function signUpAction(
     await signUpWithPayload({ fullName, email, password });
   } catch {
     return { error: "Unable to create account. Try a different email." };
+  }
+
+  redirect("/login");
+}
+
+export async function logoutAction() {
+  try {
+    await logoutWithPayload();
+  } catch {
+    // Keep logout idempotent for UX; still redirect.
   }
 
   redirect("/login");

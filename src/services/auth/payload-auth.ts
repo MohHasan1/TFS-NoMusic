@@ -1,17 +1,17 @@
+import config from "@payload-config"
+import { login, logout } from "@payloadcms/next/auth"
+
 import { getPayloadClient } from "@/lib/payload-client"
 
 export async function signInWithPayload(input: {
   email: string
   password: string
 }) {
-  const payload = await getPayloadClient()
-
-  return payload.login({
+  return login({
     collection: "users",
-    data: {
-      email: input.email,
-      password: input.password,
-    },
+    config,
+    email: input.email,
+    password: input.password,
   })
 }
 
@@ -29,5 +29,12 @@ export async function signUpWithPayload(input: {
       password: input.password,
       fullName: input.fullName,
     },
+  })
+}
+
+export async function logoutWithPayload() {
+  return logout({
+    allSessions: true,
+    config,
   })
 }
