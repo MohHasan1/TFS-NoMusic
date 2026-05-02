@@ -1,9 +1,12 @@
-
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { buildConfig } from 'payload'
+import { collections, Admins } from './src/collections'
 
 export default buildConfig({
-    collections: [],
+    collections,
+    admin: {
+        user: Admins.slug,
+    },
     secret: process.env.PAYLOAD_SECRET || '',
     db: sqliteAdapter({
         client: {
