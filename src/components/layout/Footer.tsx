@@ -3,7 +3,7 @@ export function Footer() {
     <footer className="flex flex-col items-center gap-4 px-8 pb-8">
       {/* Waveform decoration */}
       <div
-        className="w-full flex items-end justify-center gap-[3px] pb-8 opacity-20"
+        className="w-full flex items-end justify-center gap-0.75 pb-8 opacity-20"
         aria-hidden="true"
       >
         {[
