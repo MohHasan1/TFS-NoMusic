@@ -1,16 +1,6 @@
 "use server";
 
-import { createRequest } from "@/services/requests/payload-requests";
-
-export type RequestAccessState = {
-  error?: string;
-  success?: string;
-};
-
-function getString(formData: FormData, key: string) {
-  const value = formData.get(key);
-  return typeof value === "string" ? value.trim() : "";
-}
+import { createRequest } from "@/services/requests/requests.ports";
 
 export async function submitRequestAccessAction(
   _prevState: RequestAccessState,
@@ -38,9 +28,20 @@ export async function submitRequestAccessAction(
     });
 
     return {
-      success: "Access request submitted. We will review it and get back to you.",
+      success:
+        "Access request submitted. We will review it and get back to you.",
     };
   } catch {
     return { error: "Unable to submit request right now. Please try again." };
   }
+}
+
+export type RequestAccessState = {
+  error?: string;
+  success?: string;
+};
+
+function getString(formData: FormData, key: string) {
+  const value = formData.get(key);
+  return typeof value === "string" ? value.trim() : "";
 }

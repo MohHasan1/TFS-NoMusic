@@ -1,6 +1,6 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { buildConfig } from 'payload'
-import { collections, Admins } from './src/collections'
+import { collections, Admins } from './collections'
 
 export default buildConfig({
     collections,

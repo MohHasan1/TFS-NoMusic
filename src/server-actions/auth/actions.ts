@@ -2,23 +2,14 @@
 
 import { redirect } from "next/navigation";
 
-import {
-  isWhitelistedEmail,
-  logoutWithPayload,
-  signInWithPayload,
-  signUpWithPayload,
-} from "@/services/auth/payload-auth.adapter";
-import type { AuthActionState } from "@/services/auth/types";
-
-function getString(formData: FormData, key: string) {
-  const value = formData.get(key);
-  return typeof value === "string" ? value.trim() : "";
-}
+import { logoutUser, signIn, signUp } from "@/services/auth/auth.ports";
+import type { AuthActionStateDTO } from "@/services/auth/dto";
+import { isWhitelistedEmail } from "@/services/whitelist/whitelist.ports";
 
 export async function signInAction(
-  _prevState: AuthActionState,
+  _prevState: AuthActionStateDTO,
   formData: FormData,
-): Promise<AuthActionState> {
+): Promise<AuthActionStateDTO> {
   const email = getString(formData, "email");
   const password = getString(formData, "password");
 
@@ -27,7 +18,7 @@ export async function signInAction(
   }
 
   try {
-    await signInWithPayload({ email, password });
+    await signIn({ email, password });
   } catch {
     return { error: "Invalid email or password." };
   }
@@ -36,9 +27,9 @@ export async function signInAction(
 }
 
 export async function signUpAction(
-  _prevState: AuthActionState,
+  _prevState: AuthActionStateDTO,
   formData: FormData,
-): Promise<AuthActionState> {
+): Promise<AuthActionStateDTO> {
   const fullName = getString(formData, "fullName");
   const email = getString(formData, "email").toLowerCase();
   const password = getString(formData, "password");
@@ -61,7 +52,7 @@ export async function signUpAction(
   }
 
   try {
-    await signUpWithPayload({ fullName, email, password });
+    await signUp({ fullName, email, password });
   } catch {
     return { error: "Unable to create account. Try a different email." };
   }
@@ -71,10 +62,16 @@ export async function signUpAction(
 
 export async function logoutAction() {
   try {
-    await logoutWithPayload();
+    await logoutUser();
   } catch {
     // Keep logout idempotent for UX; still redirect.
   }
 
   redirect("/login");
+}
+
+
+function getString(formData: FormData, key: string) {
+  const value = formData.get(key);
+  return typeof value === "string" ? value.trim() : "";
 }

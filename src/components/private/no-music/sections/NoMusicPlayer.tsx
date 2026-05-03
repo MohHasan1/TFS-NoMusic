@@ -5,7 +5,7 @@ import { PlayerArtwork } from "@/components/private/no-music/elements/PlayerArtw
 import { PlayerControls } from "@/components/private/no-music/elements/PlayerControls";
 import { PlayerProgress } from "@/components/private/no-music/elements/PlayerProgress";
 
-const previewTrack = {
+const previewNoMusic = {
   title: "Midnight Vocals",
   artist: "No Music Library",
 };
@@ -25,10 +25,10 @@ function DesktopNoMusicPlayer() {
             <PlayerArtwork isPlaying />
             <div className="min-w-0">
               <h4 className="truncate text-sm font-bold text-card-foreground">
-                {previewTrack.title}
+                {previewNoMusic.title}
               </h4>
               <p className="truncate text-xs text-muted-foreground">
-                {previewTrack.artist}
+                {previewNoMusic.artist}
               </p>
             </div>
           </div>
@@ -59,10 +59,10 @@ function MobileNoMusicPlayer() {
 
               <div className="min-w-0">
                 <h4 className="truncate pr-2 text-xs font-bold text-card-foreground">
-                  {previewTrack.title}
+                  {previewNoMusic.title}
                 </h4>
                 <p className="truncate text-[10px] text-muted-foreground">
-                  {previewTrack.artist}
+                  {previewNoMusic.artist}
                 </p>
               </div>
             </div>

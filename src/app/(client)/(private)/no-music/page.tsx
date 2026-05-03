@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 
-import { getCurrentUser } from "@/services/auth/session";
+import { getCurrentUser } from "@/services/auth/auth.ports";
 import NoMusicHeader from "@/components/private/no-music/sections/NoMusicHeader";
 import { NoMusicBrowser } from "@/components/private/no-music/sections/NoMusicBrowser";
-import { listBrowsableTracks } from "@/services/noMusic/payload-tracks";
+import { listBrowsableNoMusic } from "@/services/no-music/no-music.ports";
 import { NoMusicPlayer } from "@/components/private/no-music/sections/NoMusicPlayer";
 
 export default async function NoMusicPage() {
@@ -12,12 +12,12 @@ export default async function NoMusicPage() {
     redirect("/login");
   }
 
-  const tracks = await listBrowsableTracks();
+  const noMusic = await listBrowsableNoMusic();
 
   return (
     <div className="grow pt-24 pb-32 max-w-7xl mx-auto w-full px-4 lg:px-8 space-y-10">
       <NoMusicHeader />
-      <NoMusicBrowser tracks={tracks} />
+      <NoMusicBrowser noMusic={noMusic} />
       <NoMusicPlayer />
     </div>
   );

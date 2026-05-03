@@ -10,9 +10,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import type { BrowsableTrack } from "@/services/noMusic/payload-tracks";
+import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
 
-export function NoMusicCard({ isActive, onSelect, track }: NoMusicCardProps) {
+export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
   return (
     <Button
       type="button"
@@ -28,10 +28,10 @@ export function NoMusicCard({ isActive, onSelect, track }: NoMusicCardProps) {
         }`}
       >
         <CardHeader className="relative aspect-square overflow-hidden bg-muted">
-          {track.coverURL ? (
+          {noMusic.coverURL ? (
             <Image
-              src={track.coverURL}
-              alt={track.title}
+              src={noMusic.coverURL}
+              alt={noMusic.title}
               fill
               unoptimized
               sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
@@ -58,15 +58,15 @@ export function NoMusicCard({ isActive, onSelect, track }: NoMusicCardProps) {
           <div className="truncate pr-2 md:pr-4">
             <h3
               className="truncate pl-1 text-[11px] font-bold text-card-foreground md:text-sm"
-              title={track.title}
+              title={noMusic.title}
             >
-              {track.title}
+              {noMusic.title}
             </h3>
 
             <div className="flex items-center gap-1 text-[9px] md:text-xs text-zinc-500 mt-1">
               <RiUser3Line className="w-2.5 h-2.5 md:w-3 md:h-3" />
               <span className="truncate">
-                {track.artist || "Unknown Artist"}
+                {noMusic.artist || "Unknown Artist"}
               </span>
             </div>
           </div>
@@ -74,7 +74,7 @@ export function NoMusicCard({ isActive, onSelect, track }: NoMusicCardProps) {
           <div className="flex items-center gap-2 border-border border-t pt-2 md:gap-3 md:pt-3">
             <div className="flex items-center gap-1 text-[8px] font-bold tracking-wider text-muted-foreground uppercase md:text-[10px]">
               <RiGlobalLine className="h-2.5 w-2.5 md:h-3 md:w-3" />
-              {track.language || "Unknown"}
+              {noMusic.language || "Unknown"}
             </div>
             <span className="ml-auto text-[10px] text-muted-foreground">
               {"--:--"}
@@ -88,6 +88,6 @@ export function NoMusicCard({ isActive, onSelect, track }: NoMusicCardProps) {
 
 type NoMusicCardProps = {
   isActive: boolean;
+  noMusic: BrowsableNoMusicDTO;
   onSelect: () => void;
-  track: BrowsableTrack;
 };
