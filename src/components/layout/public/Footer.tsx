@@ -15,7 +15,7 @@ export function Footer() {
           <div
             // biome-ignore lint/suspicious/noArrayIndexKey: static decorative barsx
             key={i}
-            className="w-1 rounded-full bg-purple-400"
+            className="w-1 rounded-full bg-primary"
             style={{ height: `${h}px` }}
           />
         ))}

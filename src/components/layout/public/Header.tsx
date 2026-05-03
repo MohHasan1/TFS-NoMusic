@@ -5,7 +5,7 @@ export function Header() {
         href="/"
         className="text-sm font-semibold tracking-[0.2em] uppercase text-white/50 hover:text-white/80 transition-colors"
       >
-        No Music
+        NoMusic
       </a>
       <a
         href="/admin"

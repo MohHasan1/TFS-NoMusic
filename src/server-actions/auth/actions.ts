@@ -7,7 +7,7 @@ import {
   logoutWithPayload,
   signInWithPayload,
   signUpWithPayload,
-} from "@/services/auth/payload-auth";
+} from "@/services/auth/payload-auth.adapter";
 import type { AuthActionState } from "@/services/auth/types";
 
 function getString(formData: FormData, key: string) {
