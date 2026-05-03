@@ -32,7 +32,7 @@ export async function signInAction(
     return { error: "Invalid email or password." };
   }
 
-  redirect("/");
+  redirect("/no-music");
 }
 
 export async function signUpAction(
