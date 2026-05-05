@@ -1,16 +1,13 @@
 "use client";
 
 import { RiMusic2Line, RiShuffleLine } from "@remixicon/react";
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-type RepeatMode = "off" | "one" | "all";
+import type { RepeatMode } from "@/features/noMusicQueue/engine.noMusicQueue";
+import { useNoMusicQueue } from "@/features/noMusicQueue/hook.noMusicQueue";
 
 const NoMusicHeader = () => {
-  const [isShuffleEnabled, setIsShuffleEnabled] = useState(false);
-  const [repeatMode, setRepeatMode] = useState<RepeatMode>("off");
+  const { shuffle, repeatMode, setShuffle, setRepeatMode } = useNoMusicQueue();
 
   return (
     <header className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
@@ -23,9 +20,9 @@ const NoMusicHeader = () => {
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button type="button" variant={isShuffleEnabled ? "secondary" : "outline"} onClick={() => setIsShuffleEnabled((value) => !value)} aria-pressed={isShuffleEnabled} className="rounded-full">
+        <Button type="button" variant={shuffle ? "secondary" : "outline"} onClick={() => setShuffle(!shuffle)} aria-pressed={shuffle} className="rounded-full">
           <RiShuffleLine className="size-4" />
-          Shuffle {isShuffleEnabled ? "On" : "Off"}
+          Shuffle {shuffle ? "On" : "Off"}
         </Button>
 
         <Select value={repeatMode} onValueChange={(value) => setRepeatMode(value as RepeatMode)}>

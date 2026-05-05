@@ -13,9 +13,13 @@ export class QueueEngine {
   }
 
   getNextIndex(): number | null {
-    const { queue, currentIndex, repeatMode } = this.state;
+    const { queue, currentIndex, repeatMode, shuffle } = this.state;
 
     if (queue.length === 0) return null;
+
+    if (shuffle) {
+      return this.getRandomIndex();
+    }
 
     const isLast = currentIndex >= queue.length - 1;
 
@@ -34,8 +38,18 @@ export class QueueEngine {
     return currentIndex + 1;
   }
 
-  getPrevIndex(): number {
-    const { currentIndex, queue, repeatMode } = this.state;
+  getPrevIndex(): number | null {
+    const { currentIndex, queue, repeatMode, shuffle } = this.state;
+
+    if (queue.length === 0) return null;
+
+    if (shuffle) {
+      return this.getRandomIndex();
+    }
+
+    if (repeatMode === "one") {
+      return currentIndex;
+    }
 
     if (currentIndex > 0) return currentIndex - 1;
 
@@ -58,20 +72,6 @@ export class QueueEngine {
     }
 
     return next;
-  }
-
-  next(): number | null {
-    const { shuffle } = this.state;
-
-    if (shuffle) {
-      return this.getRandomIndex();
-    }
-
-    return this.getNextIndex();
-  }
-
-  prev(): number {
-    return this.getPrevIndex();
   }
 
   mergeQueue(newTracks: NoMusicTrack[]) {

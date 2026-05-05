@@ -12,6 +12,8 @@ export function useNoMusicQueue() {
 
   const setQueue = store.use.setQueue();
   const setCurrentIndex = store.use.setCurrentIndex();
+  const setShuffle = store.use.setShuffle();
+  const setRepeatMode = store.use.setRepeatMode();
   const addToQueue = store.use.addToQueue();
   const removeFromQueue = store.use.removeFromQueue();
   const clearQueue = store.use.clearQueue();
@@ -27,7 +29,7 @@ export function useNoMusicQueue() {
       shuffle,
       repeatMode,
     });
-    const nextIndex = queueEngine.next();
+    const nextIndex = queueEngine.getNextIndex();
 
     if (nextIndex === null) return null;
 
@@ -43,7 +45,9 @@ export function useNoMusicQueue() {
       shuffle,
       repeatMode,
     });
-    const prevIndex = queueEngine.prev();
+    const prevIndex = queueEngine.getPrevIndex();
+
+    if (prevIndex === null) return null;
 
     setCurrentIndex(prevIndex);
     return queue[prevIndex] ?? null;
@@ -53,12 +57,16 @@ export function useNoMusicQueue() {
     queue,
     currentIndex,
     currentTrack,
+    shuffle,
+    repeatMode,
 
     next,
     prev,
 
     setQueue,
     setCurrentIndex,
+    setShuffle,
+    setRepeatMode,
     addToQueue,
     removeFromQueue,
     clearQueue,

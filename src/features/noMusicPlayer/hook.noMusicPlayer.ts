@@ -41,8 +41,10 @@ export function useNoMusicPlayer() {
 
   // Public action: select a track in state and start playback.
   const playTrack = useCallback(
-    (track: NoMusicTrack) => {
-      if (currentTrack?.id === track.id && isPlaying) return;
+    (track: NoMusicTrack, options?: { restart?: boolean }) => {
+      const shouldRestart = options?.restart === true;
+
+      if (!shouldRestart && currentTrack?.id === track.id && isPlaying) return;
 
       setCurrentTrack(track);
       playAudioForTrack(track);
