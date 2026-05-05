@@ -10,7 +10,7 @@ export const createNoMusicPlayerSlice = combine(
     queue: [] as NoMusicTrack[],
   },
   (set, get) => ({
-    play: (track: NoMusicTrack) =>
+    setCurrentTrack: (track: NoMusicTrack) =>
       set((state) => {
         if (state.currentTrack?.id === track.id) {
           return { isPlaying: true };
@@ -23,9 +23,9 @@ export const createNoMusicPlayerSlice = combine(
         };
       }),
 
-    pause: () => set({ isPlaying: false }),
+    setIsPlaying: (isPlaying: boolean) => set({ isPlaying }),
 
-    toggle: () => set((s) => ({ isPlaying: !s.isPlaying })),
+    toggleIsPlaying: () => set((s) => ({ isPlaying: !s.isPlaying })),
 
     setVolume: (volume: number) => set({ volume }),
 
@@ -33,9 +33,9 @@ export const createNoMusicPlayerSlice = combine(
 
     setDuration: (duration: number) => set({ duration }),
 
-    setQueue: (tracks: NoMusicTrack[]) => set({ queue: tracks }),
+    setTrackQueue: (tracks: NoMusicTrack[]) => set({ queue: tracks }),
 
-    next: () => {
+    goToNextTrack: () => {
       const { queue, currentTrack } = get();
       if (!currentTrack || queue.length === 0) return;
 
@@ -51,7 +51,7 @@ export const createNoMusicPlayerSlice = combine(
       }
     },
 
-    prev: () => {
+    goToPrevTrack: () => {
       const { queue, currentTrack } = get();
       if (!currentTrack || queue.length === 0) return;
 

@@ -1,24 +1,13 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-
-import { useNoMusicPlayer } from "@/features/noMusicPlayer/hook.noMusicPlayer";
 import { PlayerArtwork } from "@/components/private/no-music/elements/PlayerArtwork";
 import { PlayerControls } from "@/components/private/no-music/elements/PlayerControls";
 import { PlayerProgress } from "@/components/private/no-music/elements/PlayerProgress";
+import { Card } from "@/components/ui/card";
+import { useNoMusicPlayer } from "@/features/noMusicPlayer/hook.noMusicPlayer";
 
 function DesktopNoMusicPlayer() {
-  const {
-    currentTrack,
-    isPlaying,
-    currentTime,
-    duration,
-    progress,
-    toggle,
-    next,
-    prev,
-    seek,
-  } = useNoMusicPlayer();
+  const { currentTrack, isPlaying, currentTime, duration, progress, togglePlayback, playNextTrack, playPrevTrack, seek } = useNoMusicPlayer();
 
   if (!currentTrack) return null;
 
@@ -29,28 +18,14 @@ function DesktopNoMusicPlayer() {
           <div className="flex min-w-0 items-center gap-3">
             <PlayerArtwork isPlaying={isPlaying} />
             <div className="min-w-0">
-              <h4 className="truncate text-sm font-bold text-card-foreground">
-                {currentTrack.title}
-              </h4>
-              <p className="truncate text-xs text-muted-foreground">
-                {currentTrack.artist || "Unknown Artist"}
-              </p>
+              <h4 className="truncate text-sm font-bold text-card-foreground">{currentTrack.title}</h4>
+              <p className="truncate text-xs text-muted-foreground">{currentTrack.artist || "Unknown Artist"}</p>
             </div>
           </div>
 
           <div className="flex w-full flex-col items-center gap-2">
-            <PlayerControls
-              isPlaying={isPlaying}
-              onPrevious={prev}
-              onTogglePlay={toggle}
-              onNext={next}
-            />
-            <PlayerProgress
-              currentTime={currentTime}
-              duration={duration}
-              progress={progress}
-              onSeek={seek}
-            />
+            <PlayerControls isPlaying={isPlaying} onPrevious={playPrevTrack} onTogglePlay={togglePlayback} onNext={playNextTrack} />
+            <PlayerProgress currentTime={currentTime} duration={duration} progress={progress} onSeek={seek} />
           </div>
           <div />
         </div>
@@ -60,14 +35,7 @@ function DesktopNoMusicPlayer() {
 }
 
 function MobileNoMusicPlayer() {
-  const {
-    currentTrack,
-    isPlaying,
-    progress,
-    toggle,
-    next,
-    seek,
-  } = useNoMusicPlayer();
+  const { currentTrack, isPlaying, progress, togglePlayback, playNextTrack, seek } = useNoMusicPlayer();
 
   if (!currentTrack) return null;
 
@@ -80,22 +48,12 @@ function MobileNoMusicPlayer() {
               <PlayerArtwork isPlaying={isPlaying} />
 
               <div className="min-w-0">
-                <h4 className="truncate pr-2 text-xs font-bold text-card-foreground">
-                  {currentTrack.title}
-                </h4>
-                <p className="truncate text-[10px] text-muted-foreground">
-                  {currentTrack.artist || "Unknown Artist"}
-                </p>
+                <h4 className="truncate pr-2 text-xs font-bold text-card-foreground">{currentTrack.title}</h4>
+                <p className="truncate text-[10px] text-muted-foreground">{currentTrack.artist || "Unknown Artist"}</p>
               </div>
             </div>
 
-            <PlayerControls
-              showPrevious={false}
-              isPlaying={isPlaying}
-              onPrevious={() => undefined}
-              onTogglePlay={toggle}
-              onNext={next}
-            />
+            <PlayerControls showPrevious={false} isPlaying={isPlaying} onPrevious={() => undefined} onTogglePlay={togglePlayback} onNext={playNextTrack} />
           </div>
 
           <PlayerProgress progress={progress} showTime={false} onSeek={seek} />

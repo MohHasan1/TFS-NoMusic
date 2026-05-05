@@ -16,13 +16,13 @@ export function useNoMusicPlayer() {
   const duration = store.use.duration();
   const setTime = store.use.setTime();
   const setDuration = store.use.setDuration();
-  const setQueue = store.use.setQueue();
-  const play = store.use.play();
-  const pause = store.use.pause();
-  const next = store.use.next();
-  const prev = store.use.prev();
+  const setTrackQueueState = store.use.setTrackQueue();
+  const setCurrentTrack = store.use.setCurrentTrack();
+  const setIsPlaying = store.use.setIsPlaying();
+  const goToNextTrack = store.use.goToNextTrack();
+  const goToPrevTrack = store.use.goToPrevTrack();
 
-  const startPlayback = useCallback(
+  const playAudioForTrack = useCallback(
     (track: NoMusicTrack) => {
       const p = engine.play({
         id: track.id,
@@ -32,65 +32,65 @@ export function useNoMusicPlayer() {
 
       if (p) {
         p.catch(() => {
-          pause();
+          setIsPlaying(false);
         });
       }
 
       setDuration(engine.getDuration());
     },
-    [pause, setDuration],
+    [setDuration, setIsPlaying],
   );
 
   const playTrack = useCallback(
     (track: NoMusicTrack) => {
       if (currentTrack?.id === track.id && isPlaying) return;
 
-      play(track);
-      startPlayback(track);
+      setCurrentTrack(track);
+      playAudioForTrack(track);
     },
-    [currentTrack?.id, isPlaying, play, startPlayback],
+    [currentTrack?.id, isPlaying, setCurrentTrack, playAudioForTrack],
   );
 
-  const togglePlay = useCallback(() => {
+  const togglePlayback = useCallback(() => {
     if (!currentTrack) return;
 
     if (isPlaying) {
       engine.pause();
-      pause();
+      setIsPlaying(false);
       return;
     }
 
     playTrack(currentTrack);
-  }, [currentTrack, isPlaying, pause, playTrack]);
+  }, [currentTrack, isPlaying, playTrack, setIsPlaying]);
 
   const setTrackQueue = useCallback(
     (tracks: NoMusicTrack[]) => {
-      setQueue(tracks);
+      setTrackQueueState(tracks);
     },
-    [setQueue],
+    [setTrackQueueState],
   );
 
-  const playNext = useCallback(() => {
-    next();
+  const playNextTrack = useCallback(() => {
+    goToNextTrack();
     const nextTrack = store.getState().currentTrack;
 
     if (!nextTrack) {
       engine.pause();
-      pause();
+      setIsPlaying(false);
       return;
     }
 
-    startPlayback(nextTrack);
-  }, [next, pause, startPlayback]);
+    playAudioForTrack(nextTrack);
+  }, [goToNextTrack, playAudioForTrack, setIsPlaying]);
 
-  const playPrev = useCallback(() => {
-    prev();
+  const playPrevTrack = useCallback(() => {
+    goToPrevTrack();
     const prevTrack = store.getState().currentTrack;
 
     if (!prevTrack) return;
 
-    startPlayback(prevTrack);
-  }, [prev, startPlayback]);
+    playAudioForTrack(prevTrack);
+  }, [goToPrevTrack, playAudioForTrack]);
 
   useEffect(() => {
     engine.setVolume(volume);
@@ -105,9 +105,9 @@ export function useNoMusicPlayer() {
 
   useEffect(() => {
     return engine.subscribeEnded(() => {
-      playNext();
+      playNextTrack();
     });
-  }, [playNext]);
+  }, [playNextTrack]);
 
   const progress = useMemo(() => {
     if (duration <= 0) return 0;
@@ -122,9 +122,9 @@ export function useNoMusicPlayer() {
     progress,
     playTrack,
     setTrackQueue,
-    toggle: togglePlay,
-    next: playNext,
-    prev: playPrev,
+    togglePlayback,
+    playNextTrack,
+    playPrevTrack,
     seek: (time: number) => {
       engine.seek(time);
       setTime(time);
