@@ -1,9 +1,10 @@
 "use client";
 
-import { RiArrowDownSLine, RiMusic2Line, RiShuffleLine } from "@remixicon/react";
+import { RiMusic2Line, RiShuffleLine } from "@remixicon/react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type RepeatMode = "off" | "one" | "all";
 
@@ -27,19 +28,16 @@ const NoMusicHeader = () => {
           Shuffle {isShuffleEnabled ? "On" : "Off"}
         </Button>
 
-        <div className="relative">
-          <select
-            value={repeatMode}
-            onChange={(event) => setRepeatMode(event.target.value as RepeatMode)}
-            className="h-9 appearance-none rounded-full border border-border bg-card pl-4 pr-10 text-sm text-foreground outline-none transition-colors hover:border-muted-foreground/40 focus-visible:ring-2 focus-visible:ring-ring"
-            aria-label="Repeat mode"
-          >
-            <option value="off">Repeat Off</option>
-            <option value="one">Repeat One</option>
-            <option value="all">Repeat All</option>
-          </select>
-          <RiArrowDownSLine className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground" />
-        </div>
+        <Select value={repeatMode} onValueChange={(value) => setRepeatMode(value as RepeatMode)}>
+          <SelectTrigger className="min-w-38">
+            <SelectValue placeholder="Repeat mode" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="off">Repeat Off</SelectItem>
+            <SelectItem value="one">Repeat One</SelectItem>
+            <SelectItem value="all">Repeat All</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </header>
   );
