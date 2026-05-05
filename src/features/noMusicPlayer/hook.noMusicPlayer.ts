@@ -22,6 +22,7 @@ export function useNoMusicPlayer() {
   const goToNextTrack = store.use.goToNextTrack();
   const goToPrevTrack = store.use.goToPrevTrack();
 
+  // Starts browser audio playback for a specific track and syncs duration.
   const playAudioForTrack = useCallback(
     (track: NoMusicTrack) => {
       const p = engine.play({
@@ -41,6 +42,7 @@ export function useNoMusicPlayer() {
     [setDuration, setIsPlaying],
   );
 
+  // Public action: select a track in state and start playback.
   const playTrack = useCallback(
     (track: NoMusicTrack) => {
       if (currentTrack?.id === track.id && isPlaying) return;
@@ -51,6 +53,7 @@ export function useNoMusicPlayer() {
     [currentTrack?.id, isPlaying, setCurrentTrack, playAudioForTrack],
   );
 
+  // Toggles playback for the currently selected track.
   const togglePlayback = useCallback(() => {
     if (!currentTrack) return;
 
@@ -63,6 +66,7 @@ export function useNoMusicPlayer() {
     playTrack(currentTrack);
   }, [currentTrack, isPlaying, playTrack, setIsPlaying]);
 
+  // Replaces the player queue used by next/previous navigation.
   const setTrackQueue = useCallback(
     (tracks: NoMusicTrack[]) => {
       setTrackQueueState(tracks);
@@ -70,6 +74,7 @@ export function useNoMusicPlayer() {
     [setTrackQueueState],
   );
 
+  // Advances to the next track in queue (looping) and starts playback.
   const playNextTrack = useCallback(() => {
     goToNextTrack();
     const nextTrack = store.getState().currentTrack;
@@ -83,6 +88,7 @@ export function useNoMusicPlayer() {
     playAudioForTrack(nextTrack);
   }, [goToNextTrack, playAudioForTrack, setIsPlaying]);
 
+  // Moves to the previous track in queue (looping) and starts playback.
   const playPrevTrack = useCallback(() => {
     goToPrevTrack();
     const prevTrack = store.getState().currentTrack;
@@ -108,6 +114,14 @@ export function useNoMusicPlayer() {
       playNextTrack();
     });
   }, [playNextTrack]);
+
+  // Stops audio when the player hook unmounts (for example, after logout redirect).
+  useEffect(() => {
+    return () => {
+      engine.pause();
+      setIsPlaying(false);
+    };
+  }, [setIsPlaying]);
 
   const progress = useMemo(() => {
     if (duration <= 0) return 0;
