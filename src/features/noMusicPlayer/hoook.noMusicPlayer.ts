@@ -33,6 +33,8 @@ export function useNoMusicPlayer() {
     //     pause();
     //   });
 
+    if (currentTrack?.id === track.id && isPlaying) return;
+
     const p = engine.play({
       id: track.id,
       title: track.title,

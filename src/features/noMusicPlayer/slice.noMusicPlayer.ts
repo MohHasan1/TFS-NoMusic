@@ -48,7 +48,10 @@ export const createNoMusicPlayerSlice = combine(
           isPlaying: true,
           currentTime: 0,
         });
+        return;
       }
+
+      set({ isPlaying: false });
     },
 
     prev: () => {

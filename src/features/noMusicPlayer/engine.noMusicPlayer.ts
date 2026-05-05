@@ -99,6 +99,7 @@ export class NoMusicEngine {
     };
   }
 
+  // when a noMusic ends
   subscribeEnded(cb: () => void) {
     this.endedHandlers.add(cb);
 
