@@ -5,26 +5,18 @@ import { useEffect, useMemo } from "react";
 
 import { NoMusicCard } from "@/components/private/no-music/sections/NoMusicCard";
 import { useNoMusicPlayer } from "@/features/noMusicPlayer/hook.noMusicPlayer";
+import { useNoMusicQueue } from "@/features/noMusicQueue/hook.noMusicQueue";
+import { mapBrowsableNoMusicToTrack } from "@/features/noMusicQueue/noMusicQueue.mapper";
 import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
 
 export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
-  const { currentTrack, playTrack, setTrackQueue } = useNoMusicPlayer();
+  const { currentTrack, playTrack } = useNoMusicPlayer();
+  const { setQueue, setCurrentIndex } = useNoMusicQueue();
 
-  const queue = useMemo(
-    () =>
-      noMusic.map((item) => ({
-        id: item.id,
-        title: item.title,
-        streamUrl: item.streamURL,
-        artist: item.artist,
-        coverImage: item.coverURL,
-      })),
-    [noMusic],
-  );
-
+  const queue = useMemo(() => noMusic.map(mapBrowsableNoMusicToTrack), [noMusic]);
   useEffect(() => {
-    setTrackQueue(queue);
-  }, [queue, setTrackQueue]);
+    setQueue(queue);
+  }, [queue, setQueue]);
 
   if (!noMusic.length) {
     return (
@@ -37,20 +29,14 @@ export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
 
   return (
     <section className="grid grid-cols-2 gap-4 pb-40 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-      {noMusic.map((track) => (
+      {noMusic.map((track, index) => (
         <NoMusicCard
           key={track.id}
           isActive={currentTrack?.id === track.id}
           noMusic={track}
           onSelect={() => {
-            const nextTrack = {
-              id: track.id,
-              title: track.title,
-              streamUrl: track.streamURL,
-              artist: track.artist,
-              coverImage: track.coverURL,
-            };
-
+            const nextTrack = mapBrowsableNoMusicToTrack(track);
+            setCurrentIndex(index);
             playTrack(nextTrack);
           }}
         />

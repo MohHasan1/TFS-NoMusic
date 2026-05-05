@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo } from "react";
 
 import { noMusicEngine } from "@/features/noMusicPlayer/engine.noMusicPlayer";
-import type { NoMusicTrack } from "@/features/noMusicPlayer/slice.noMusicPlayer";
 import { store } from "@/store";
+import type { NoMusicTrack } from "@/types/no-music.type";
 
 const engine = noMusicEngine;
 
@@ -16,11 +16,8 @@ export function useNoMusicPlayer() {
   const duration = store.use.duration();
   const setTime = store.use.setTime();
   const setDuration = store.use.setDuration();
-  const setTrackQueueState = store.use.setTrackQueue();
   const setCurrentTrack = store.use.setCurrentTrack();
   const setIsPlaying = store.use.setIsPlaying();
-  const goToNextTrack = store.use.goToNextTrack();
-  const goToPrevTrack = store.use.goToPrevTrack();
 
   // Starts browser audio playback for a specific track and syncs duration.
   const playAudioForTrack = useCallback(
@@ -66,38 +63,6 @@ export function useNoMusicPlayer() {
     playTrack(currentTrack);
   }, [currentTrack, isPlaying, playTrack, setIsPlaying]);
 
-  // Replaces the player queue used by next/previous navigation.
-  const setTrackQueue = useCallback(
-    (tracks: NoMusicTrack[]) => {
-      setTrackQueueState(tracks);
-    },
-    [setTrackQueueState],
-  );
-
-  // Advances to the next track in queue (looping) and starts playback.
-  const playNextTrack = useCallback(() => {
-    goToNextTrack();
-    const nextTrack = store.getState().currentTrack;
-
-    if (!nextTrack) {
-      engine.pause();
-      setIsPlaying(false);
-      return;
-    }
-
-    playAudioForTrack(nextTrack);
-  }, [goToNextTrack, playAudioForTrack, setIsPlaying]);
-
-  // Moves to the previous track in queue (looping) and starts playback.
-  const playPrevTrack = useCallback(() => {
-    goToPrevTrack();
-    const prevTrack = store.getState().currentTrack;
-
-    if (!prevTrack) return;
-
-    playAudioForTrack(prevTrack);
-  }, [goToPrevTrack, playAudioForTrack]);
-
   useEffect(() => {
     engine.setVolume(volume);
   }, [volume]);
@@ -108,12 +73,6 @@ export function useNoMusicPlayer() {
       setDuration(engine.getDuration());
     });
   }, [setDuration, setTime]);
-
-  useEffect(() => {
-    return engine.subscribeEnded(() => {
-      playNextTrack();
-    });
-  }, [playNextTrack]);
 
   // Stops audio when the player hook unmounts (for example, after logout redirect).
   useEffect(() => {
@@ -135,10 +94,7 @@ export function useNoMusicPlayer() {
     duration,
     progress,
     playTrack,
-    setTrackQueue,
     togglePlayback,
-    playNextTrack,
-    playPrevTrack,
     seek: (time: number) => {
       engine.seek(time);
       setTime(time);
