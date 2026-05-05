@@ -14,6 +14,16 @@ export function getCoverURL(coverImage: Nomusic["coverImage"]) {
   return undefined;
 }
 
+export function getAudioURL(audioFile: Nomusic["audioFile"]) {
+  if (!audioFile) return undefined;
+
+  if (isMedia(audioFile) && audioFile.type === "audio") {
+    return audioFile.url ?? undefined;
+  }
+
+  return undefined;
+}
+
 export function isMedia(value: unknown): value is Media {
   return typeof value === "object" && value !== null && "id" in value;
 }

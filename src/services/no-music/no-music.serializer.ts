@@ -1,6 +1,6 @@
 import type { Nomusic } from "@/payload-types";
 import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
-import { getCoverURL, isMedia } from "@/services/no-music/no-music.helpers";
+import { getAudioURL, getCoverURL, isMedia } from "@/services/no-music/no-music.helpers";
 
 export function serializeBrowsableNoMusic(docs: Nomusic[]): BrowsableNoMusicDTO[] {
   return docs.flatMap((doc) => {
@@ -14,7 +14,8 @@ function serializeBrowsableNoMusicItem(doc: Nomusic): BrowsableNoMusicDTO | null
     return null;
   }
 
-  if (!doc.streamURL) {
+  const streamURL = doc.streamURL || getAudioURL(doc.audioFile);
+  if (!streamURL) {
     return null;
   }
 
@@ -26,7 +27,7 @@ function serializeBrowsableNoMusicItem(doc: Nomusic): BrowsableNoMusicDTO | null
     duration: doc.duration ?? undefined,
     genre: doc.genre ?? undefined,
     language: doc.language ?? undefined,
-    streamURL: doc.streamURL,
+    streamURL,
     coverURL: getCoverURL(doc.coverImage),
   };
 }
