@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 
-import { useNoMusicPlayer } from "@/features/noMusicPlayer/hoook.noMusicPlayer";
+import { useNoMusicPlayer } from "@/features/noMusicPlayer/hook.noMusicPlayer";
 import { PlayerArtwork } from "@/components/private/no-music/elements/PlayerArtwork";
 import { PlayerControls } from "@/components/private/no-music/elements/PlayerControls";
 import { PlayerProgress } from "@/components/private/no-music/elements/PlayerProgress";

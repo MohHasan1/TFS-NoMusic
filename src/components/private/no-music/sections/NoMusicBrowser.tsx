@@ -1,29 +1,30 @@
 "use client";
 
 import { RiMusic2Line } from "@remixicon/react";
+import { useEffect, useMemo } from "react";
 
 import { NoMusicCard } from "@/components/private/no-music/sections/NoMusicCard";
-import { useNoMusicPlayer } from "@/features/noMusicPlayer/hoook.noMusicPlayer";
+import { useNoMusicPlayer } from "@/features/noMusicPlayer/hook.noMusicPlayer";
 import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
 
 export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
-  const { currentTrack, playTrack } = useNoMusicPlayer();
+  const { currentTrack, playTrack, setTrackQueue } = useNoMusicPlayer();
 
-  // const queue = useMemo(
-  //   () =>
-  //     noMusic.map((item) => ({
-  //       id: item.id,
-  //       title: item.title,
-  //       streamUrl: item.streamURL,
-  //       artist: item.artist,
-  //       coverImage: item.coverURL,
-  //     })),
-  //   [noMusic],
-  // );
+  const queue = useMemo(
+    () =>
+      noMusic.map((item) => ({
+        id: item.id,
+        title: item.title,
+        streamUrl: item.streamURL,
+        artist: item.artist,
+        coverImage: item.coverURL,
+      })),
+    [noMusic],
+  );
 
-  // useEffect(() => {
-  //   setQueue(queue);
-  // }, [queue, setQueue]);
+  useEffect(() => {
+    setTrackQueue(queue);
+  }, [queue, setTrackQueue]);
 
   if (!noMusic.length) {
     return (

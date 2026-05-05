@@ -37,10 +37,10 @@ export const createNoMusicPlayerSlice = combine(
 
     next: () => {
       const { queue, currentTrack } = get();
-      if (!currentTrack) return;
+      if (!currentTrack || queue.length === 0) return;
 
       const i = queue.findIndex((t) => t.id === currentTrack.id);
-      const next = queue[i + 1];
+      const next = queue[i + 1] ?? queue[0];
 
       if (next) {
         set({
@@ -48,18 +48,15 @@ export const createNoMusicPlayerSlice = combine(
           isPlaying: true,
           currentTime: 0,
         });
-        return;
       }
-
-      set({ isPlaying: false });
     },
 
     prev: () => {
       const { queue, currentTrack } = get();
-      if (!currentTrack) return;
+      if (!currentTrack || queue.length === 0) return;
 
       const i = queue.findIndex((t) => t.id === currentTrack.id);
-      const prev = queue[i - 1];
+      const prev = queue[i - 1] ?? queue[queue.length - 1];
 
       if (prev) {
         set({
