@@ -1,5 +1,5 @@
 import { getPayloadClient } from "@/lib/payload-client";
-import { CreateRequestDTO } from "./dto";
+import type { CreateRequestDTO } from "./dto";
 
 export async function createRequest(input: CreateRequestDTO) {
   const payload = await getPayloadClient();
@@ -8,7 +8,7 @@ export async function createRequest(input: CreateRequestDTO) {
     collection: "requests",
     data: {
       type: input.type,
-      email: input.email.toLowerCase(),
+      email: (input.email ?? "pending@request.local").toLowerCase(),
       message: input.message,
       status: "pending",
       metadata: input.metadata,
