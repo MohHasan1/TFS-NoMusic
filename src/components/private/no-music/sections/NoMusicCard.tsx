@@ -1,12 +1,7 @@
 "use client";
 
+import { RiGlobalLine, RiMusic2Line, RiPlayFill, RiUser3Line } from "@remixicon/react";
 import Image from "next/image";
-import {
-  RiGlobalLine,
-  RiMusic2Line,
-  RiPlayFill,
-  RiUser3Line,
-} from "@remixicon/react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -14,19 +9,8 @@ import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
 
 export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      onClick={onSelect}
-      className="group h-auto cursor-pointer rounded-2xl p-0 text-left hover:bg-transparent"
-    >
-      <Card
-        className={`relative w-full overflow-hidden rounded-2xl transition-all duration-300 ${
-          isActive
-            ? "border-primary bg-accent ring-2 ring-primary/40"
-            : "border-border bg-card group-hover:border-muted-foreground/40"
-        }`}
-      >
+    <Button type="button" variant="ghost" onClick={() => onSelect(noMusic.id)} className="group h-auto cursor-pointer rounded-2xl p-0 text-left hover:bg-transparent">
+      <Card className={`relative w-full overflow-hidden rounded-2xl transition-all duration-300 ${isActive ? "border-primary bg-accent ring-2 ring-primary/40" : "border-border bg-card group-hover:border-muted-foreground/40"}`}>
         <CardHeader className="relative aspect-square overflow-hidden bg-muted">
           {noMusic.coverURL ? (
             <Image
@@ -43,11 +27,7 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
             </div>
           )}
 
-          <div
-            className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity ${
-              isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"
-            }`}
-          >
+          <div className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity ${isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/80 text-primary-foreground shadow-2xl transition-all md:group-hover:bg-primary">
               <RiPlayFill className="h-6 w-6 translate-x-0.5 fill-current" />
             </div>
@@ -56,18 +36,13 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
 
         <CardContent className="space-y-2 p-3 md:space-y-3 md:p-4">
           <div className="truncate pr-2 md:pr-4">
-            <h3
-              className="truncate pl-1 text-[11px] font-bold text-card-foreground md:text-sm"
-              title={noMusic.title}
-            >
+            <h3 className="truncate pl-1 text-[11px] font-bold text-card-foreground md:text-sm" title={noMusic.title}>
               {noMusic.title}
             </h3>
 
             <div className="flex items-center gap-1 text-[9px] md:text-xs text-zinc-500 mt-1">
               <RiUser3Line className="w-2.5 h-2.5 md:w-3 md:h-3" />
-              <span className="truncate">
-                {noMusic.artist || "Unknown Artist"}
-              </span>
+              <span className="truncate">{noMusic.artist || "Unknown Artist"}</span>
             </div>
           </div>
 
@@ -76,9 +51,7 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
               <RiGlobalLine className="h-2.5 w-2.5 md:h-3 md:w-3" />
               {noMusic.language || "Unknown"}
             </div>
-            <span className="ml-auto text-[10px] text-muted-foreground">
-              {"--:--"}
-            </span>
+            <span className="ml-auto text-[10px] text-muted-foreground">{"--:--"}</span>
           </div>
         </CardContent>
       </Card>
@@ -89,5 +62,5 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
 type NoMusicCardProps = {
   isActive: boolean;
   noMusic: BrowsableNoMusicDTO;
-  onSelect: () => void;
+  onSelect: (id: number) => void;
 };

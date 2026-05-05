@@ -1,4 +1,4 @@
-import { PrivateNavbar } from "@/components/layout/private/PrivateNavbar";
+import { PrivateNavbar } from "@/components/_layout/private/PrivateNavbar";
 
 export default function PrivateLayout({
   children,

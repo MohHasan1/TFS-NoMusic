@@ -1,8 +1,8 @@
-import { Footer } from "@/components/layout/public/Footer"
-import { Header } from "@/components/layout/public/Header"
-import { GlowOrb } from "@/components/home/GlowOrb"
-import { HeroCTAs } from "@/components/home/HeroCTAs"
-import { HeroTitle } from "@/components/home/HeroTitle"
+import { Footer } from "@/components/_layout/public/Footer"
+import { Header } from "@/components/_layout/public/Header"
+import { GlowOrb } from "@/components/public/home/GlowOrb"
+import { HeroCTAs } from "@/components/public/home/HeroCTAs"
+import { HeroTitle } from "@/components/public/home/HeroTitle"
 
 export default function Home() {
   return (

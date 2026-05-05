@@ -1,18 +1,29 @@
 "use client";
 
-import { useState } from "react";
 import { RiMusic2Line } from "@remixicon/react";
 
 import { NoMusicCard } from "@/components/private/no-music/sections/NoMusicCard";
+import { useNoMusicPlayer } from "@/features/noMusicPlayer/hoook.noMusicPlayer";
 import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
 
 export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
-  const [activeNoMusicId, setActiveNoMusicId] = useState<number | null>(
-    noMusic[0]?.id ?? null,
-  );
+  const { currentTrack, playTrack } = useNoMusicPlayer();
 
-  const activeNoMusic =
-    noMusic.find((item) => item.id === activeNoMusicId) || noMusic[0] || null;
+  // const queue = useMemo(
+  //   () =>
+  //     noMusic.map((item) => ({
+  //       id: item.id,
+  //       title: item.title,
+  //       streamUrl: item.streamURL,
+  //       artist: item.artist,
+  //       coverImage: item.coverURL,
+  //     })),
+  //   [noMusic],
+  // );
+
+  // useEffect(() => {
+  //   setQueue(queue);
+  // }, [queue, setQueue]);
 
   if (!noMusic.length) {
     return (
@@ -25,12 +36,22 @@ export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
 
   return (
     <section className="grid grid-cols-2 gap-4 pb-40 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-      {noMusic.map((item) => (
+      {noMusic.map((track) => (
         <NoMusicCard
-          key={item.id}
-          isActive={activeNoMusic?.id === item.id}
-          noMusic={item}
-          onSelect={() => setActiveNoMusicId(item.id)}
+          key={track.id}
+          isActive={currentTrack?.id === track.id}
+          noMusic={track}
+          onSelect={() => {
+            const nextTrack = {
+              id: track.id,
+              title: track.title,
+              streamUrl: track.streamURL,
+              artist: track.artist,
+              coverImage: track.coverURL,
+            };
+
+            playTrack(nextTrack);
+          }}
         />
       ))}
     </section>

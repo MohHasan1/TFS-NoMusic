@@ -1,8 +1,8 @@
 import type { ReactNode } from "react"
 
-import { Footer } from "@/components/layout/public/Footer"
-import { Header } from "@/components/layout/public/Header"
-import { GlowOrb } from "@/components/home/GlowOrb"
+import { Footer } from "@/components/_layout/public/Footer"
+import { Header } from "@/components/_layout/public/Header"
+import { GlowOrb } from "@/components/public/home/GlowOrb"
 
 type AuthShellProps = {
   children: ReactNode

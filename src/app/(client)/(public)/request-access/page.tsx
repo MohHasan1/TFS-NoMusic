@@ -1,4 +1,4 @@
-import { RequestAccessForm } from "@/components/requests/RequestAccessForm";
+import { RequestAccessForm } from "@/components/public/requests/RequestAccessForm";
 import { AuthShell } from "@/components/shared/AuthShell";
 
 export default function RequestAccessPage() {

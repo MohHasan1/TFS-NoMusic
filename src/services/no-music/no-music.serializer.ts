@@ -1,6 +1,6 @@
 import type { Nomusic } from "@/payload-types";
-import { getCoverURL, isMedia } from "@/services/no-music/no-music.helpers";
 import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
+import { getCoverURL, isMedia } from "@/services/no-music/no-music.helpers";
 
 export function serializeBrowsableNoMusic(docs: Nomusic[]): BrowsableNoMusicDTO[] {
   return docs.flatMap((doc) => {
