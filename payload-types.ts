@@ -261,7 +261,7 @@ export interface Nomusic {
   album?: string | null;
   duration?: number | null;
   audioFile: string | Media;
-  streamURL: string;
+  streamURL?: string | null;
   coverImage?: {
     source?: ('url' | 'upload') | null;
     url?: string | null;
