@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useMemo } from "react";
 
-import { noMusicEngine } from "@/features/noMusicPlayer/engine.noMusicPlayer";
+
 import { store } from "@/store";
 import type { NoMusicTrack } from "@/types/no-music.type";
+import { noMusicEngine } from "./engine.noMusicPlayer";
 
 const engine = noMusicEngine;
 
