@@ -4,7 +4,7 @@ import { PlayerArtwork } from "@/components/private/no-music/elements/PlayerArtw
 import { PlayerControls } from "@/components/private/no-music/elements/PlayerControls";
 import { PlayerProgress } from "@/components/private/no-music/elements/PlayerProgress";
 import { Card } from "@/components/ui/card";
-import { useNoMusicPlaybackController } from "@/features/hook.noMusicPlaybackController";
+import { useNoMusicPlaybackController } from "@/features/nomusic/hook.noMusicPlaybackController";
 
 export function NoMusicPlayer() {
   const { currentTrack, isPlaying, currentTime, duration, progress, togglePlayback, seek, playNextTrack, playPrevTrack } = useNoMusicPlaybackController();

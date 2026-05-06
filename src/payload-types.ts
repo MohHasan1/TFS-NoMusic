@@ -237,6 +237,7 @@ export interface Request {
  */
 export interface Media {
   id: number;
+  folder: 'vocal' | 'images/users' | 'images/vocals' | 'images/playlist';
   alt?: string | null;
   type?: ('audio' | 'image' | 'other') | null;
   size?: number | null;
@@ -257,11 +258,11 @@ export interface Media {
 export interface Nomusic {
   id: number;
   title: string;
+  audioFile: number | Media;
+  streamURL?: string | null;
   artist?: string | null;
   album?: string | null;
   duration?: number | null;
-  audioFile: number | Media;
-  streamURL: string;
   coverImage?: {
     source?: ('url' | 'upload') | null;
     url?: string | null;
@@ -448,6 +449,7 @@ export interface RequestsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
+  folder?: T;
   alt?: T;
   type?: T;
   size?: T;
@@ -467,11 +469,11 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface NomusicSelect<T extends boolean = true> {
   title?: T;
+  audioFile?: T;
+  streamURL?: T;
   artist?: T;
   album?: T;
   duration?: T;
-  audioFile?: T;
-  streamURL?: T;
   coverImage?:
     | T
     | {

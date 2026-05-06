@@ -1,7 +1,8 @@
 import { create, type ExtractState } from "zustand";
-import { createNoMusicPlayerSlice, type TNoMusicPlayer } from "@/features/noMusicPlayer/slice.noMusicPlayer";
-import { createNoMusicQueueSlice, type TNoMusicQueue } from "@/features/noMusicQueue/slice.noMusicQueue";
+
 import { createSelectors } from "./selector";
+import { TNoMusicPlayer, createNoMusicPlayerSlice } from "@/features/nomusic/noMusicPlayer/slice.noMusicPlayer";
+import { TNoMusicQueue, createNoMusicQueueSlice } from "@/features/nomusic/noMusicQueue/slice.noMusicQueue";
 
 export const useStore = create<TNoMusicPlayer & TNoMusicQueue>()((...a) => ({
   ...createNoMusicPlayerSlice(...a),

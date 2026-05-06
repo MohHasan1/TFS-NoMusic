@@ -3,8 +3,9 @@
 import { RiMusic2Line, RiShuffleLine } from "@remixicon/react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { RepeatMode } from "@/features/noMusicQueue/engine.noMusicQueue";
-import { useNoMusicQueue } from "@/features/noMusicQueue/hook.noMusicQueue";
+import { RepeatMode } from "@/features/nomusic/noMusicQueue/engine.noMusicQueue";
+import { useNoMusicQueue } from "@/features/nomusic/noMusicQueue/hook.noMusicQueue";
+
 
 const NoMusicHeader = () => {
   const { shuffle, repeatMode, setShuffle, setRepeatMode } = useNoMusicQueue();

@@ -1,37 +1,5 @@
-import type { CollectionBeforeValidateHook, CollectionConfig } from "payload";
-
-const syncStreamURLFromAudioFile: CollectionBeforeValidateHook = async ({ data, req }) => {
-  if (!data) return data;
-
-  const audioFile = data.audioFile;
-  if (!audioFile) return data;
-
-  if (typeof audioFile === "object" && audioFile !== null && "url" in audioFile) {
-    const mediaURL = typeof audioFile.url === "string" ? audioFile.url : undefined;
-    if (!mediaURL) return data;
-
-    return {
-      ...data,
-      streamURL: mediaURL,
-    };
-  }
-
-  if (typeof audioFile === "number" || typeof audioFile === "string") {
-    const media = await req.payload.findByID({
-      collection: "media",
-      id: audioFile,
-    });
-
-    if (typeof media?.url !== "string") return data;
-
-    return {
-      ...data,
-      streamURL: media.url,
-    };
-  }
-
-  return data;
-};
+import type { CollectionConfig } from "payload";
+import { syncStreamURLFromAudioFile } from "./hooks/noMusic";
 
 export const NoMusic: CollectionConfig = {
   slug: "nomusic",
@@ -58,6 +26,19 @@ export const NoMusic: CollectionConfig = {
       required: true,
     },
     {
+      name: "audioFile",
+      type: "upload",
+      relationTo: "media",
+      required: true,
+    },
+    {
+      name: "streamURL",
+      type: "text",
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       name: "artist",
       type: "text",
     },
@@ -68,17 +49,6 @@ export const NoMusic: CollectionConfig = {
     {
       name: "duration",
       type: "number",
-    },
-    {
-      name: "audioFile",
-      type: "upload",
-      relationTo: "media",
-      required: true,
-    },
-    {
-      name: "streamURL",
-      type: "text",
-      required: false,
     },
     {
       name: "coverImage",
