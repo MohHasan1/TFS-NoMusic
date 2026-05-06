@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { REQUEST_TYPE_OPTIONS } from "./constants/requests";
 import { enrichRequestIdentityBeforeValidate } from "./hooks/requests";
 
 export const Requests: CollectionConfig = {
@@ -26,7 +27,12 @@ export const Requests: CollectionConfig = {
       name: "type",
       type: "select",
       required: true,
-      options: ["access_request", "nomusic_request", "general_feedback", "bug_report"],
+      options: [...REQUEST_TYPE_OPTIONS],
+    },
+
+    {
+      name: "name",
+      type: "text",
     },
 
     {
@@ -39,6 +45,12 @@ export const Requests: CollectionConfig = {
       name: "message",
       type: "textarea",
     },
+
+    {
+      name: "url",
+      type: "text",
+    },
+
 
     {
       name: "status",

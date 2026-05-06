@@ -51,17 +51,19 @@ export async function submitNoMusicRequestAction(_prevState: RequestNoMusicState
   }
 
   const user = await getCurrentUser();
+  const email = user?.email?.toLowerCase() ?? "";
+
+  if (!email) {
+    return { error: "Signed-in user email is required." };
+  }
 
   try {
     await createRequest({
       type: "nomusic_request",
-      youtubeURL,
+      name: user?.fullName ?? "",
+      email,
+      url: youtubeURL,
       message: description,
-      metadata: {
-        source: "private-request-songs-page",
-        requestedByEmail: user?.email,
-        requestedByName: user?.fullName,
-      },
     });
 
     return { success: "Request submitted. We will review and add it if available." };

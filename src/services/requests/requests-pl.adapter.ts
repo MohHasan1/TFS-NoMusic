@@ -8,8 +8,9 @@ export async function createRequest(input: CreateRequestDTO) {
     collection: "requests",
     data: {
       type: input.type,
+      name: input.name,
       email: (input.email ?? "pending@request.local").toLowerCase(),
-      youtubeURL: input.youtubeURL,
+      url: input.url,
       message: input.message,
       status: "pending",
       metadata: input.metadata,

@@ -216,8 +216,10 @@ export interface Whitelist {
 export interface Request {
   id: number;
   type: 'access_request' | 'nomusic_request' | 'general_feedback' | 'bug_report';
+  name?: string | null;
   email: string;
   message?: string | null;
+  url?: string | null;
   status?: ('pending' | 'approved' | 'rejected') | null;
   metadata?:
     | {
@@ -437,8 +439,10 @@ export interface WhitelistSelect<T extends boolean = true> {
  */
 export interface RequestsSelect<T extends boolean = true> {
   type?: T;
+  name?: T;
   email?: T;
   message?: T;
+  url?: T;
   status?: T;
   metadata?: T;
   updatedAt?: T;
