@@ -2,13 +2,20 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { buildConfig } from "payload";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { Admins, collections } from "./collections";
 
 const dbProvider = process.env.DB_PROVIDER?.toLowerCase();
 const useMongo = dbProvider === "mongodb" || (!dbProvider && process.env.NODE_ENV === "production");
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
+  typescript: {
+    outputFile: path.resolve(dirname, "payload-types.ts"),
+  },
   collections,
   admin: {
     user: Admins.slug,

@@ -1,7 +1,13 @@
 import type { CollectionConfig } from "payload";
+import { detectMediaTypeFromMimeType, setMediaPrefixByFolder } from "./hooks/media";
+import { DEFAULT_MEDIA_FOLDER, MEDIA_FOLDER_OPTIONS } from "./helpers/media";
 
 export const Media: CollectionConfig = {
   slug: "media",
+
+  hooks: {
+    beforeValidate: [setMediaPrefixByFolder, detectMediaTypeFromMimeType],
+  },
 
   admin: {
     useAsTitle: "filename",
@@ -22,6 +28,13 @@ export const Media: CollectionConfig = {
 
   fields: [
     {
+      name: "folder",
+      type: "select",
+      required: true,
+      defaultValue: DEFAULT_MEDIA_FOLDER,
+      options: MEDIA_FOLDER_OPTIONS,
+    },
+    {
       name: "alt",
       type: "text",
     },
@@ -29,12 +42,12 @@ export const Media: CollectionConfig = {
     {
       name: "type",
       type: "select",
+      defaultValue: "audio",
       options: [
         { label: "Audio", value: "audio" },
         { label: "Image", value: "image" },
         { label: "Other", value: "other" },
       ],
-      defaultValue: "image",
     },
 
     {
