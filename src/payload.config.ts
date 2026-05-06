@@ -33,8 +33,10 @@ export default buildConfig({
   plugins: [
     s3Storage({
       enabled: Boolean(process.env.R2_BUCKET),
+      alwaysInsertFields: true,
       collections: {
         media: {
+          prefix: "nomusic",
           disablePayloadAccessControl: true,
           generateFileURL: ({ filename, prefix }) => {
             const key = prefix ? `${prefix}/${filename}` : filename;
@@ -42,6 +44,7 @@ export default buildConfig({
           },
         },
       },
+      useCompositePrefixes: true,
       bucket: process.env.R2_BUCKET || "",
       config: {
         credentials: {
