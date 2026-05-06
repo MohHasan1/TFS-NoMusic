@@ -1,49 +1,24 @@
-import { s3Storage } from "@payloadcms/storage-s3";
 import { buildConfig } from "payload";
-import path from "node:path";
+
 import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 import { Admins, collections } from "./collections";
-import { db } from "./plugins/db";
+import { db } from "./db";
+import { r2StoragePlugin } from "./plugins/storage/r2";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
-  typescript: {
-    outputFile: path.resolve(dirname, "payload-types.ts"),
-  },
+  secret: process.env.PAYLOAD_SECRET || "",
+  db,
   collections,
   admin: {
     user: Admins.slug,
   },
-  secret: process.env.PAYLOAD_SECRET || "",
-  db,
-  plugins: [
-    s3Storage({
-      enabled: Boolean(process.env.R2_BUCKET),
-      alwaysInsertFields: true,
-      collections: {
-        media: {
-          prefix: "nomusic",
-          disablePayloadAccessControl: true,
-          generateFileURL: ({ filename, prefix }) => {
-            const key = prefix ? `${prefix}/${filename}` : filename;
-            return `${process.env.R2_PUBLIC_URL}/${key}`;
-          },
-        },
-      },
-      useCompositePrefixes: true,
-      bucket: process.env.R2_BUCKET || "",
-      config: {
-        credentials: {
-          accessKeyId: process.env.R2_ACCESS_KEY_ID || "",
-          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || "",
-        },
-        region: "auto",
-        endpoint: process.env.R2_ENDPOINT || "",
-        forcePathStyle: true,
-      },
-    }),
-  ],
+  typescript: {
+    outputFile: path.resolve(dirname, "payload-types.ts"),
+  },
+  plugins: [r2StoragePlugin],
 });
