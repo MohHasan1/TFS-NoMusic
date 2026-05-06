@@ -39,6 +39,18 @@ export const NoMusic: CollectionConfig = {
       },
     },
     {
+      name: "visibility",
+      type: "select",
+      defaultValue: "public",
+      options: [
+        { label: "Public", value: "public" },
+        { label: "Private", value: "private" },
+      ],
+      admin: {
+        readOnly: true,
+      },
+    },
+    {
       name: "artist",
       type: "text",
     },

@@ -262,6 +262,7 @@ export interface Nomusic {
   title: string;
   audioFile: number | Media;
   streamURL?: string | null;
+  idk?: string | null;
   artist?: string | null;
   album?: string | null;
   duration?: number | null;
@@ -475,6 +476,7 @@ export interface NomusicSelect<T extends boolean = true> {
   title?: T;
   audioFile?: T;
   streamURL?: T;
+  idk?: T;
   artist?: T;
   album?: T;
   duration?: T;
