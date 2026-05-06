@@ -54,11 +54,11 @@ export async function submitNoMusicRequestAction(_prevState: RequestNoMusicState
 
   try {
     await createRequest({
-      type: "music_request",
+      type: "nomusic_request",
+      youtubeURL,
       message: description,
       metadata: {
         source: "private-request-songs-page",
-        youtubeURL,
         requestedByEmail: user?.email,
         requestedByName: user?.fullName,
       },

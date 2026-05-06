@@ -1,11 +1,11 @@
 import type { CollectionConfig } from "payload";
-import { syncStreamURLFromAudioFile } from "./hooks/noMusic";
+import { syncStreamURLBeforeValidate } from "./hooks/noMusic";
 
 export const NoMusic: CollectionConfig = {
   slug: "nomusic",
 
   hooks: {
-    beforeValidate: [syncStreamURLFromAudioFile],
+    beforeValidate: [syncStreamURLBeforeValidate],
   },
 
   admin: {

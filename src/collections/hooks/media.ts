@@ -2,7 +2,7 @@ import type { CollectionBeforeValidateHook } from "payload";
 import { MEDIA_FOLDER_PREFIX } from "../helpers/media";
 import { Media } from "@/payload-types";
 
-export const setMediaPrefixByFolder: CollectionBeforeValidateHook<Media> = ({ data }) => {
+export const setMediaPrefixBeforeValidate: CollectionBeforeValidateHook<Media> = ({ data }) => {
   if (!data) return data;
 
   const folder = typeof data.folder === "string" ? data.folder : null;
@@ -18,7 +18,7 @@ export const setMediaPrefixByFolder: CollectionBeforeValidateHook<Media> = ({ da
   return data;
 };
 
-export const detectMediaTypeFromMimeType: CollectionBeforeValidateHook<Media> = ({ data }) => {
+export const detectMediaTypeBeforeValidate: CollectionBeforeValidateHook<Media> = ({ data }) => {
   if (!data) return data;
 
   const mimeType = typeof data.mimeType === "string" ? data.mimeType.toLowerCase() : "";

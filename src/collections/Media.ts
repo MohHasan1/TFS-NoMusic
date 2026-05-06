@@ -1,12 +1,12 @@
 import type { CollectionConfig } from "payload";
-import { detectMediaTypeFromMimeType, setMediaPrefixByFolder } from "./hooks/media";
+import { detectMediaTypeBeforeValidate, setMediaPrefixBeforeValidate } from "./hooks/media";
 import { DEFAULT_MEDIA_FOLDER, MEDIA_FOLDER_OPTIONS } from "./helpers/media";
 
 export const Media: CollectionConfig = {
   slug: "media",
 
   hooks: {
-    beforeValidate: [setMediaPrefixByFolder, detectMediaTypeFromMimeType],
+    beforeValidate: [setMediaPrefixBeforeValidate, detectMediaTypeBeforeValidate],
   },
 
   admin: {

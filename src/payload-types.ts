@@ -215,7 +215,7 @@ export interface Whitelist {
  */
 export interface Request {
   id: number;
-  type: 'access_request' | 'music_request' | 'general_feedback' | 'bug_report';
+  type: 'access_request' | 'nomusic_request' | 'general_feedback' | 'bug_report';
   email: string;
   message?: string | null;
   status?: ('pending' | 'approved' | 'rejected') | null;

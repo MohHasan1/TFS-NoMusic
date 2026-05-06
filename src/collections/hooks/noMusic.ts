@@ -1,7 +1,7 @@
 import { Nomusic } from "@/payload-types";
 import { type CollectionBeforeValidateHook } from "payload";
 
-export const syncStreamURLFromAudioFile: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
+export const syncStreamURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
   if (!data) return data;
 
   const audioFile = data.audioFile;

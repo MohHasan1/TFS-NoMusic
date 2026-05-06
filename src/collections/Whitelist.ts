@@ -9,9 +9,9 @@ export const Whitelist: CollectionConfig = {
 
   access: {
     read: () => true,
-    create: () => true,
-    update: () => false,
-    delete: () => false,
+    create: ({ req }) => req.user?.role === 'level_1',
+    update: ({ req }) => req.user?.role === 'level_1',
+    delete: ({ req }) => req.user?.role === 'level_1',
   },
 
   fields: [
