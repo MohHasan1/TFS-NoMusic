@@ -1,3 +1,4 @@
+import type { Media } from "@/payload-types";
 import { MEDIA_FOLDERS } from "../constants/media";
 
 export type TMediaFolderValue = (typeof MEDIA_FOLDERS)[number]["value"];

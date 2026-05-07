@@ -1,11 +1,10 @@
-import { Nomusic } from "@/payload-types";
-import { type CollectionBeforeValidateHook } from "payload";
+import type { CollectionBeforeValidateHook } from "payload";
+import type { Nomusic } from "@/payload-types";
+import { isID } from "@/lib/utils";
 
-export const syncStreamURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
-  if (!data) return data;
-
+export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
+  if (!data?.audioFile) return data;
   const audioFile = data.audioFile;
-  if (!audioFile) return data;
 
   // -- If the relation is populated, read the media URL directly.
   if (typeof audioFile === "object" && audioFile !== null && "url" in audioFile) {
@@ -14,12 +13,12 @@ export const syncStreamURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> 
 
     return {
       ...data,
-      streamURL: mediaURL,
+      uploadAudioURL: mediaURL,
     };
   }
 
-  // -- If the relation is an ID, fetch media first, then copy its URL.
-  if (typeof audioFile === "number" || typeof audioFile === "string") {
+  // -- If the relation is an ID, fetch media first, then copy its URL. (id can be num or string)
+  if (isID(audioFile)) {
     const media = await req.payload.findByID({
       collection: "media",
       id: audioFile,
@@ -29,7 +28,46 @@ export const syncStreamURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> 
 
     return {
       ...data,
-      streamURL: media.url,
+      uploadAudioURL: media.url,
+    };
+  }
+
+  return data;
+};
+
+export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
+  if (!data?.coverImage?.imageFile) return data;
+  const imageFile = data.coverImage.imageFile;
+
+  // -- If the relation is populated, read the media URL directly.
+  if (typeof imageFile === "object" && imageFile !== null && "url" in imageFile) {
+    const mediaURL = typeof imageFile.url === "string" ? imageFile.url : undefined;
+    if (!mediaURL) return data;
+
+    return {
+      ...data,
+      coverImage: {
+        ...data.coverImage,
+        uploadImageURL: mediaURL,
+      },
+    };
+  }
+
+  // -- If the relation is an ID, fetch media first, then copy its URL.
+  if (isID(imageFile)) {
+    const media = await req.payload.findByID({
+      collection: "media",
+      id: imageFile,
+    });
+
+    if (typeof media?.url !== "string") return data;
+
+    return {
+      ...data,
+      coverImage: {
+        ...data.coverImage,
+        uploadImageURL: media.url,
+      },
     };
   }
 

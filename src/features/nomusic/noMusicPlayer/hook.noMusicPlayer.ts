@@ -1,11 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo } from "react";
-
-
 import { store } from "@/store";
-import type { NoMusicTrack } from "@/types/no-music.type";
 import { noMusicEngine } from "./engine.noMusicPlayer";
+import { TNoMusic } from "@/types/nomusic";
 
 const engine = noMusicEngine;
 
@@ -22,11 +20,11 @@ export function useNoMusicPlayer() {
 
   // Starts browser audio playback for a specific track and syncs duration.
   const playAudioForTrack = useCallback(
-    (track: NoMusicTrack) => {
+    (track: TNoMusic) => {
       const p = engine.play({
         id: track.id,
         title: track.title,
-        url: track.streamUrl,
+        url: track.audioStreamUrl,
       });
 
       if (p) {
@@ -42,7 +40,7 @@ export function useNoMusicPlayer() {
 
   // Public action: select a track in state and start playback.
   const playTrack = useCallback(
-    (track: NoMusicTrack, options?: { restart?: boolean }) => {
+    (track: TNoMusic, options?: { restart?: boolean }) => {
       const shouldRestart = options?.restart === true;
 
       if (!shouldRestart && currentTrack?.id === track.id && isPlaying) return;

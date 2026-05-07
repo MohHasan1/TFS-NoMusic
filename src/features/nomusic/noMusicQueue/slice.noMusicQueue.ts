@@ -1,10 +1,10 @@
 import { combine } from "zustand/middleware";
-import type { NoMusicTrack } from "@/types/no-music.type";
+import type { TNoMusic } from "@/types/nomusic";
 import type { RepeatMode } from "./engine.noMusicQueue";
 
 export const createNoMusicQueueSlice = combine(
   {
-    queue: [] as NoMusicTrack[],
+    queue: [] as TNoMusic[],
     currentIndex: 0,
     shuffle: false,
     repeatMode: "off" as RepeatMode,
@@ -12,7 +12,7 @@ export const createNoMusicQueueSlice = combine(
   (set) => ({
     // --- basic setters
 
-    setQueue: (queue: NoMusicTrack[]) =>
+    setQueue: (queue: TNoMusic[]) =>
       set({
         queue,
         currentIndex: 0,
@@ -35,7 +35,7 @@ export const createNoMusicQueueSlice = combine(
 
     // --- queue mutations (simple only)
 
-    addToQueue: (track: NoMusicTrack) =>
+    addToQueue: (track: TNoMusic) =>
       set((state) => ({
         queue: [...state.queue, track],
       })),

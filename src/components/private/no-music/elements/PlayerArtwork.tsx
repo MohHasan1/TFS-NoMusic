@@ -1,3 +1,4 @@
+import { TNoMusic } from "@/types/nomusic";
 import { RiMusic2Line } from "@remixicon/react";
 import Image from "next/image";
 
@@ -21,5 +22,5 @@ export function PlayerArtwork({ isPlaying = false, imageURL }: PlayerArtworkProp
 
 type PlayerArtworkProps = {
   isPlaying?: boolean;
-  imageURL?: string;
+  imageURL?: TNoMusic["coverImage"];
 };

@@ -3,7 +3,10 @@
 import { getCurrentUser } from "@/services/auth/auth.ports";
 import { createRequest } from "@/services/requests/requests.ports";
 
-export async function submitRequestAccessAction(_prevState: RequestAccessState, formData: FormData): Promise<RequestAccessState> {
+export async function submitRequestAccessAction(
+  _prevState: RequestAccessState,
+  formData: FormData,
+): Promise<RequestAccessState> {
   const email = getString(formData, "email").toLowerCase();
   const message = getString(formData, "message");
 
@@ -20,9 +23,9 @@ export async function submitRequestAccessAction(_prevState: RequestAccessState, 
       type: "access_request",
       email,
       message,
-      metadata: {
-        source: "request-access-page",
-      },
+      name: undefined,
+      url: undefined,
+      metadata: undefined,
     });
 
     return {
@@ -38,7 +41,10 @@ export type RequestAccessState = {
   success?: string;
 };
 
-export async function submitNoMusicRequestAction(_prevState: RequestNoMusicState, formData: FormData): Promise<RequestNoMusicState> {
+export async function submitNoMusicRequestAction(
+  _prevState: RequestNoMusicState,
+  formData: FormData,
+): Promise<RequestNoMusicState> {
   const youtubeURL = getString(formData, "youtubeURL");
   const description = getString(formData, "description");
 
@@ -64,6 +70,7 @@ export async function submitNoMusicRequestAction(_prevState: RequestNoMusicState
       email,
       url: youtubeURL,
       message: description,
+      metadata: undefined
     });
 
     return { success: "Request submitted. We will review and add it if available." };

@@ -15,9 +15,7 @@ export const Requests: CollectionConfig = {
 
   access: {
     create: () => true,
-    read: ({ req }) => {
-      return req.user?.role === "level_1";
-    },
+    read: ({ req }) => req.user?.role === "level_1",
     update: ({ req }) => req.user?.role === "level_1",
     delete: ({ req }) => req.user?.role === "level_1",
   },
@@ -50,7 +48,6 @@ export const Requests: CollectionConfig = {
       name: "url",
       type: "text",
     },
-
 
     {
       name: "status",

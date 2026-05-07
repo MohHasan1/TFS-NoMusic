@@ -5,16 +5,23 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
+import { TNoMusic } from "@/types/nomusic";
 
 export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
   return (
-    <Button type="button" variant="ghost" onClick={() => onSelect(noMusic.id)} className="group h-auto cursor-pointer rounded-2xl p-0 text-left hover:bg-transparent">
-      <Card className={`relative w-full overflow-hidden rounded-2xl transition-all duration-300 ${isActive ? "border-primary bg-accent ring-2 ring-primary/40" : "border-border bg-card group-hover:border-muted-foreground/40"}`}>
+    <Button
+      type="button"
+      variant="ghost"
+      onClick={() => onSelect(noMusic.id)}
+      className="group h-auto cursor-pointer rounded-2xl p-0 text-left hover:bg-transparent"
+    >
+      <Card
+        className={`relative w-full overflow-hidden rounded-2xl transition-all duration-300 ${isActive ? "border-primary bg-accent ring-2 ring-primary/40" : "border-border bg-card group-hover:border-muted-foreground/40"}`}
+      >
         <CardHeader className="relative aspect-square overflow-hidden bg-muted">
-          {noMusic.coverURL ? (
+          {noMusic.coverImage ? (
             <Image
-              src={noMusic.coverURL}
+              src={noMusic.coverImage}
               alt={noMusic.title}
               fill
               unoptimized
@@ -27,7 +34,9 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
             </div>
           )}
 
-          <div className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity ${isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}>
+          <div
+            className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity ${isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"}`}
+          >
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/80 text-primary-foreground shadow-2xl transition-all md:group-hover:bg-primary">
               <RiPlayFill className="h-6 w-6 translate-x-0.5 fill-current" />
             </div>
@@ -36,7 +45,10 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
 
         <CardContent className="space-y-2 p-3 md:space-y-3 md:p-4">
           <div className="truncate pr-2 md:pr-4">
-            <h3 className="truncate pl-1 text-[11px] font-bold text-card-foreground md:text-sm" title={noMusic.title}>
+            <h3
+              className="truncate pl-1 text-[11px] font-bold text-card-foreground md:text-sm"
+              title={noMusic.title}
+            >
               {noMusic.title}
             </h3>
 
@@ -61,6 +73,6 @@ export function NoMusicCard({ isActive, noMusic, onSelect }: NoMusicCardProps) {
 
 type NoMusicCardProps = {
   isActive: boolean;
-  noMusic: BrowsableNoMusicDTO;
-  onSelect: (id: number) => void;
+  noMusic: TNoMusic;
+  onSelect: (id: TNoMusic["id"]) => void;
 };

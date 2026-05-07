@@ -1,11 +1,11 @@
 import type { CollectionConfig } from "payload";
-import { syncStreamURLBeforeValidate } from "./hooks/noMusic";
+import { syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
 
 export const NoMusic: CollectionConfig = {
   slug: "nomusic",
 
   hooks: {
-    beforeValidate: [syncStreamURLBeforeValidate],
+    beforeValidate: [syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate],
   },
 
   admin: {
@@ -32,7 +32,7 @@ export const NoMusic: CollectionConfig = {
       required: true,
     },
     {
-      name: "streamURL",
+      name: "uploadedAudioURL",
       type: "text",
       admin: {
         readOnly: true,
@@ -69,27 +69,33 @@ export const NoMusic: CollectionConfig = {
         {
           name: "source",
           type: "select",
-          defaultValue: "url",
+          defaultValue: "external_url",
           options: [
-            { label: "URL", value: "url" },
+            { label: "External URL", value: "external_url" },
             { label: "Upload", value: "upload" },
           ],
         },
         {
-          name: "url",
+          name: "externalImageURL",
           type: "text",
         },
         {
-          name: "upload",
+          name: "imageFile",
           type: "upload",
           relationTo: "media",
+        },
+        {
+          name: "uploadedImageURL",
+          type: "text",
+          admin: {
+            readOnly: true,
+          },
         },
       ],
     },
     {
       name: "language",
       type: "select",
-      defaultValue: "english",
       options: [
         { label: "English", value: "english" },
         { label: "Hindi", value: "hindi" },

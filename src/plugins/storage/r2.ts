@@ -3,6 +3,8 @@ import { getR2Env } from "./r2.env";
 
 const r2 = getR2Env();
 
+
+
 export const r2StoragePlugin = s3Storage({
   enabled: r2.enabled,
   alwaysInsertFields: true,

@@ -1,12 +1,13 @@
-import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
-import type { NoMusicTrack } from "@/types/no-music.type";
+import type { TNoMusic } from "@/types/nomusic";
 
-export function mapBrowsableNoMusicToTrack(item: BrowsableNoMusicDTO): NoMusicTrack {
+export function mapBrowsableNoMusicToTrack(item: TNoMusic): TNoMusic {
   return {
     id: item.id,
     title: item.title,
-    streamUrl: item.streamURL,
+    audioStreamUrl: item.audioStreamUrl,
     artist: item.artist,
-    coverImage: item.coverURL,
+    coverImage: item.coverImage,
+    language: item.language,
+    uploadedAt: item.uploadedAt,
   };
 }

@@ -10,7 +10,7 @@ type AuthShellProps = {
 
 export function AuthShell({ children }: AuthShellProps) {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Header />
 
       <main className="relative flex-1 flex items-center justify-center px-6 py-16 sm:px-8">

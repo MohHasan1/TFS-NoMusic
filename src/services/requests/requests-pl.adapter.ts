@@ -1,7 +1,7 @@
 import { getPayloadClient } from "@/lib/payload-client";
-import type { CreateRequestDTO } from "./dto";
+import { TRequest } from "@/types/requests";
 
-export async function createRequest(input: CreateRequestDTO) {
+export async function createRequest(input: TRequest) {
   const payload = await getPayloadClient();
 
   return payload.create({
@@ -15,5 +15,6 @@ export async function createRequest(input: CreateRequestDTO) {
       status: "pending",
       metadata: input.metadata,
     },
+    select: { email: true },
   });
 }

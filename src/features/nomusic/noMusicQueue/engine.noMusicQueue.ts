@@ -1,4 +1,4 @@
-import type { NoMusicTrack } from "@/types/no-music.type";
+import { TNoMusic } from "@/types/nomusic";
 
 export class QueueEngine {
   constructor(private state: QueueState = createInitialQueueState()) {}
@@ -8,7 +8,7 @@ export class QueueEngine {
     this.state = state;
   }
 
-  getCurrent(): NoMusicTrack | null {
+  getCurrent(): TNoMusic | null {
     return this.state.queue[this.state.currentIndex] || null;
   }
 
@@ -74,7 +74,7 @@ export class QueueEngine {
     return next;
   }
 
-  mergeQueue(newTracks: NoMusicTrack[]) {
+  mergeQueue(newTracks: TNoMusic[]) {
     this.state = {
       ...this.state,
       queue: [...this.state.queue, ...newTracks],
@@ -85,7 +85,7 @@ export class QueueEngine {
 export type RepeatMode = "off" | "one" | "all";
 
 export type QueueState = {
-  queue: NoMusicTrack[];
+  queue: TNoMusic[];
   currentIndex: number;
   shuffle: boolean;
   repeatMode: RepeatMode;

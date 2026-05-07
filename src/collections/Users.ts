@@ -3,11 +3,21 @@ import { ROLE_OPTIONS } from "@/collections/constants/roles";
 
 export const Users: CollectionConfig = {
   slug: "users",
+
   auth: {
     verify: true,
   },
+
   admin: {
     useAsTitle: "fullName",
+  },
+
+  // TODO: improve this
+  access: {
+    read: () => true,
+    create: () => true,
+    update: ({ req }) => req.user?.role === "level_1",
+    delete: ({ req }) => req.user?.role === "level_1",
   },
 
   fields: [
@@ -24,7 +34,7 @@ export const Users: CollectionConfig = {
     {
       name: "role",
       type: "select",
-      defaultValue: "level_1",
+      defaultValue: "level_4",
       options: ROLE_OPTIONS,
     },
   ],

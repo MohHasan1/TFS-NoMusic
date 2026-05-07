@@ -93,7 +93,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {};
@@ -149,7 +149,7 @@ export interface UserAuthOperations {
  * via the `definition` "admins".
  */
 export interface Admin {
-  id: string;
+  id: number;
   fullName: string;
   role: 'level_1' | 'level_2' | 'level_3' | 'level_4';
   updatedAt: string;
@@ -176,7 +176,7 @@ export interface Admin {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   fullName: string;
   isApproved?: boolean | null;
   role?: ('level_1' | 'level_2' | 'level_3' | 'level_4') | null;
@@ -206,7 +206,7 @@ export interface User {
  * via the `definition` "whitelist".
  */
 export interface Whitelist {
-  id: string;
+  id: number;
   email: string;
   updatedAt: string;
   createdAt: string;
@@ -216,7 +216,7 @@ export interface Whitelist {
  * via the `definition` "requests".
  */
 export interface Request {
-  id: string;
+  id: number;
   type: 'access_request' | 'nomusic_request' | 'general_feedback' | 'bug_report';
   name?: string | null;
   email: string;
@@ -240,12 +240,11 @@ export interface Request {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   folder: 'vocal' | 'images/users' | 'images/vocals' | 'images/playlist';
   alt?: string | null;
   type?: ('audio' | 'image' | 'other') | null;
   size?: number | null;
-  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -261,18 +260,19 @@ export interface Media {
  * via the `definition` "nomusic".
  */
 export interface Nomusic {
-  id: string;
+  id: number;
   title: string;
-  audioFile: string | Media;
-  streamURL?: string | null;
+  audioFile: number | Media;
+  uploadedAudioURL?: string | null;
   visibility?: ('public' | 'private') | null;
   artist?: string | null;
   album?: string | null;
   duration?: number | null;
   coverImage?: {
-    source?: ('url' | 'upload') | null;
-    url?: string | null;
-    upload?: (string | null) | Media;
+    source?: ('external_url' | 'upload') | null;
+    externalImageURL?: string | null;
+    imageFile?: (number | null) | Media;
+    uploadedImageURL?: string | null;
   };
   language?: ('english' | 'hindi' | 'bangla' | 'arabic' | 'other') | null;
   genre?: ('pop' | 'hiphop' | 'rock' | 'electronic' | 'lofi' | 'classical' | 'jazz' | 'other') | null;
@@ -284,7 +284,7 @@ export interface Nomusic {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -301,41 +301,41 @@ export interface PayloadKv {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'admins';
-        value: string | Admin;
+        value: number | Admin;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'whitelist';
-        value: string | Whitelist;
+        value: number | Whitelist;
       } | null)
     | ({
         relationTo: 'requests';
-        value: string | Request;
+        value: number | Request;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'nomusic';
-        value: string | Nomusic;
+        value: number | Nomusic;
       } | null);
   globalSlug?: string | null;
   user:
     | {
         relationTo: 'admins';
-        value: string | Admin;
+        value: number | Admin;
       }
     | {
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       };
   updatedAt: string;
   createdAt: string;
@@ -345,15 +345,15 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user:
     | {
         relationTo: 'admins';
-        value: string | Admin;
+        value: number | Admin;
       }
     | {
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       };
   key?: string | null;
   value?:
@@ -373,7 +373,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -463,7 +463,6 @@ export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   type?: T;
   size?: T;
-  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -481,7 +480,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface NomusicSelect<T extends boolean = true> {
   title?: T;
   audioFile?: T;
-  streamURL?: T;
+  uploadedAudioURL?: T;
   visibility?: T;
   artist?: T;
   album?: T;
@@ -490,8 +489,9 @@ export interface NomusicSelect<T extends boolean = true> {
     | T
     | {
         source?: T;
-        url?: T;
-        upload?: T;
+        externalImageURL?: T;
+        imageFile?: T;
+        uploadedImageURL?: T;
       };
   language?: T;
   genre?: T;

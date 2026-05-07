@@ -4,7 +4,7 @@ export const privateNavItems = [
     label: "NoMusic",
   },
   {
-    href: "/request-songs",
+    href: "/request-nomusic",
     label: "Request NoMusic",
   },
 ] as const;

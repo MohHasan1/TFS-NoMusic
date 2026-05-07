@@ -1,18 +1,26 @@
 import { getPayloadClient } from "@/lib/payload-client";
-import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
-import { serializeBrowsableNoMusic } from "@/services/no-music/no-music.serializer";
-import type { Nomusic } from "../../payload-types";
+import { mapNomusic } from "./no-music.mapper";
+import { TNoMusic } from "@/types/nomusic";
+import { Nomusic } from "@/payload-types";
 
-export async function listBrowsableNoMusic(): Promise<BrowsableNoMusicDTO[]> {
+export async function listNomusicAdapter(): Promise<TNoMusic[]> {
   const payload = await getPayloadClient();
 
   const result = await payload.find({
     collection: "nomusic",
-    depth: 1,
+    depth: 0,
     limit: 100,
     sort: "-createdAt",
     pagination: false,
+    select: {
+      title: true,
+      artist: true,
+      language: true,
+      updatedAt: true,
+      coverImage: true,
+      uploadedAudioURL: true,
+    },
   });
 
-  return serializeBrowsableNoMusic(result.docs as Nomusic[]);
+  return mapNomusic(result.docs as unknown as Nomusic[]);
 }

@@ -5,10 +5,11 @@ import { useEffect, useMemo } from "react";
 
 import { NoMusicCard } from "@/components/private/no-music/sections/NoMusicCard";
 
-import type { BrowsableNoMusicDTO } from "@/services/no-music/dto";
+
 import { useNoMusicPlayer } from "@/features/nomusic/noMusicPlayer/hook.noMusicPlayer";
 import { useNoMusicQueue } from "@/features/nomusic/noMusicQueue/hook.noMusicQueue";
 import { mapBrowsableNoMusicToTrack } from "@/features/nomusic/noMusicQueue/noMusicQueue.mapper";
+import { TNoMusic } from "@/types/nomusic";
 
 export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
   const { currentTrack, playTrack } = useNoMusicPlayer();
@@ -47,5 +48,5 @@ export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
 }
 
 type NoMusicBrowserProps = {
-  noMusic: BrowsableNoMusicDTO[];
+  noMusic: TNoMusic[];
 };

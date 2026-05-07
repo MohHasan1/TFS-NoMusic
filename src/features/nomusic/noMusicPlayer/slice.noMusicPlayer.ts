@@ -1,16 +1,17 @@
+import { TNoMusic } from "@/types/nomusic";
 import { combine } from "zustand/middleware";
-import type { NoMusicTrack } from "@/types/no-music.type";
+
 
 export const createNoMusicPlayerSlice = combine(
   {
-    currentTrack: null as NoMusicTrack | null,
+    currentTrack: null as TNoMusic | null,
     isPlaying: false as boolean,
     volume: 1,
     currentTime: 0,
     duration: 0,
   },
   (set) => ({
-    setCurrentTrack: (track: NoMusicTrack) =>
+    setCurrentTrack: (track: TNoMusic) =>
       set((state) => {
         if (state.currentTrack?.id === track.id) {
           return { isPlaying: true };
