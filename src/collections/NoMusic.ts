@@ -34,9 +34,6 @@ export const NoMusic: CollectionConfig = {
     {
       name: "uploadedAudioURL",
       type: "text",
-      admin: {
-        readOnly: true,
-      },
     },
     {
       name: "visibility",
