@@ -22,7 +22,7 @@ export async function listNomusicAdapter(): Promise<TNoMusic[]> {
     },
   });
 
-  console.log(result);
+  // console.log(result);
 
   return mapNomusic(result.docs as unknown as Nomusic[]);
 }

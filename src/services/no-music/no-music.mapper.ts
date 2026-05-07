@@ -1,10 +1,6 @@
-import {
-  getAudioURL,
-  getCoverImageURL,
-  isMedia,
-} from "@/services/no-music/no-music.helpers";
-import type { TNoMusic } from "@/types/nomusic";
 import type { Nomusic } from "@/payload-types";
+import { getAudioURL, getCoverImageURL } from "@/services/no-music/no-music.helpers";
+import type { TNoMusic } from "@/types/nomusic";
 
 export function mapNomusic(nomusic: Nomusic[]): TNoMusic[] {
   return nomusic.flatMap((doc) => {
@@ -14,12 +10,7 @@ export function mapNomusic(nomusic: Nomusic[]): TNoMusic[] {
 }
 
 function mapNomusicToDto(doc: Nomusic): TNoMusic | null {
-  // -- Skip nomsusic if no audioFile is presnt:
-  if (!isMedia(doc.audioFile) || doc.audioFile.type !== "audio") {
-    return null;
-  }
-
-  // -- Extract the audio URL
+  // -- Use the persisted stream URL first. Fall back to uploaded media URL when available.
   const uploadedAudioURL = doc.uploadedAudioURL || getAudioURL(doc.audioFile);
   if (!uploadedAudioURL) {
     return null;

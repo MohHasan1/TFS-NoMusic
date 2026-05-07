@@ -14,6 +14,8 @@ export default async function NoMusicPage() {
 
   const noMusic = await listNomusic();
 
+  console.log(noMusic)
+
   return (
     <div className="grow pt-24 pb-32 max-w-7xl mx-auto w-full px-4 lg:px-8 space-y-10">
       <NoMusicHeader />
