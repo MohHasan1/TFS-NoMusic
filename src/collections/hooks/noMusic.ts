@@ -1,6 +1,6 @@
 import type { CollectionBeforeValidateHook } from "payload";
-import type { Nomusic } from "@/payload-types";
 import { isID } from "@/lib/utils";
+import type { Nomusic } from "@/payload-types";
 
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
   if (!data?.audioFile) return data;
@@ -13,7 +13,7 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
 
     return {
       ...data,
-      uploadAudioURL: mediaURL,
+      uploadedAudioURL: mediaURL,
     };
   }
 
@@ -28,7 +28,7 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
 
     return {
       ...data,
-      uploadAudioURL: media.url,
+      uploadedAudioURL: media.url,
     };
   }
 
@@ -48,7 +48,7 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
       ...data,
       coverImage: {
         ...data.coverImage,
-        uploadImageURL: mediaURL,
+        uploadedImageURL: mediaURL,
       },
     };
   }
@@ -66,7 +66,7 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
       ...data,
       coverImage: {
         ...data.coverImage,
-        uploadImageURL: media.url,
+        uploadedImageURL: media.url,
       },
     };
   }
