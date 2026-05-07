@@ -10,6 +10,11 @@ export const r2StoragePlugin = s3Storage({
     media: {
       prefix: "nomusic",
       disablePayloadAccessControl: true,
+      generateFileURL: ({ filename, prefix }) => {
+        const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
+        const key = ["nomusic", prefix, encodeURIComponent(filename)].filter(Boolean).join("/");
+        return `${baseURL}/${key}`;
+      },
     },
   },
   useCompositePrefixes: true,
