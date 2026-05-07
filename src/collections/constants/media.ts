@@ -1,5 +1,5 @@
 export const MEDIA_FOLDERS = [
-  { label: "Vocal", value: "vocal", prefix: "vocal" },
+  { label: "Vocals", value: "vocals", prefix: "vocals" },
   {
     label: "Images / Users",
     value: "images/users",

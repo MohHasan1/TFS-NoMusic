@@ -241,7 +241,7 @@ export interface Request {
  */
 export interface Media {
   id: string;
-  folder: 'vocal' | 'images/users' | 'images/vocals' | 'images/playlist';
+  folder: 'vocals' | 'images/users' | 'images/vocals' | 'images/playlist';
   alt?: string | null;
   type?: ('audio' | 'image' | 'other') | null;
   size?: number | null;
