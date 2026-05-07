@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NoMusic
 
-## Getting Started
+Private music app built with Next.js, Payload CMS, and React.
 
-First, run the development server:
+## Stack
+
+- Next.js 16
+- Payload CMS 3
+- React 19
+- Tailwind CSS 4
+- Zustand
+
+## Features
+
+- Public auth flow for signup and login
+- Private `NoMusic` collection browsing and playback
+- Payload admin for managing collections
+- Media storage through the configured storage plugin
+
+## Local Setup
+
+1. Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set required env vars in `.env`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+At minimum:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+PAYLOAD_SECRET="your-secret"
+SERVER_URL="http://localhost:3000"
+NEXT_PUBLIC_SERVER_URL="http://localhost:3000"
+```
 
-## Learn More
+Keep `SERVER_URL` aligned with the exact local origin you use in dev.
 
-To learn more about Next.js, take a look at the following resources:
+3. Start the app:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Open:
 
-## Deploy on Vercel
+```txt
+http://localhost:3000
+http://localhost:3000/admin
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm run dev
+pnpm run build
+pnpm run start
+pnpm run payload:types
+pnpm run payload:importmap
+pnpm run lint
+pnpm run format
+```
+
+## Notes
+
+- Payload admin auth uses the `admins` collection.
+- App user auth uses the `users` collection.
+- If auth behaves inconsistently in local dev, make sure your browser origin matches `SERVER_URL`.
