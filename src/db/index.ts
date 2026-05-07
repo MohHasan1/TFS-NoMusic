@@ -3,6 +3,7 @@ import { makeSqliteDb } from "./sqlite";
 import { makeMongooseDb } from "./mongoose";
 
 const env = process.env.NODE_ENV || "development";
+const vercelEnv = process.env.VERCEL_ENV;
 const provider = process.env.DB_PROVIDER?.toLowerCase();
 
 export function getDb(): DbAdapter {
@@ -24,6 +25,12 @@ export function getDb(): DbAdapter {
         return makeSqliteDb(sqliteUrl);
       }
     }
+  }
+
+  // 3. Preview always uses PREVIEW_DB_URL.
+  if (vercelEnv === "preview") {
+    const previewUrl = requireEnv("PREVIEW_DB_URL");
+    return makeMongooseDb(previewUrl);
   }
 
   if (process.env.NODE_ENV) {
