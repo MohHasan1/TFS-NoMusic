@@ -1,5 +1,5 @@
 import { PrivateNavbar } from "@/components/_layout/private/PrivateNavbar";
-import { GlowOrb } from "@/components/public/home/GlowOrb";
+import { GlowOrb } from "@/components/shared/GlowOrb";
 
 export default function PrivateLayout({
   children,

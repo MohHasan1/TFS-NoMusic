@@ -1,8 +1,8 @@
-import { Footer } from "@/components/_layout/public/Footer"
-import { Header } from "@/components/_layout/public/Header"
-import { GlowOrb } from "@/components/public/home/GlowOrb"
-import { HeroCTAs } from "@/components/public/home/HeroCTAs"
-import { HeroTitle } from "@/components/public/home/HeroTitle"
+import { Footer } from "@/components/_layout/public/Footer";
+import { Header } from "@/components/_layout/public/Header";
+import { GlowOrb } from "@/components/shared/GlowOrb";
+import { HeroCTAs } from "@/components/public/home/HeroCTAs";
+import { HeroTitle } from "@/components/public/home/HeroTitle";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       <Header />
 
       <main className="relative flex-1 flex flex-col items-center justify-center px-8 py-24 text-center">
-        <GlowOrb />
+        <GlowOrb position="top" isNeonGlow />
 
         <div className="relative z-10 flex flex-col items-center gap-8 max-w-2xl">
           <HeroTitle />
@@ -20,5 +20,5 @@ export default function Home() {
 
       <Footer />
     </div>
-  )
+  );
 }
