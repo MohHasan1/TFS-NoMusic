@@ -19,8 +19,13 @@
       }
     ],
     "paths": {
+      "#lib/*": ["./src/lib/*"],
+      "#types": ["./src/types/*"],  
+      "#loggers": ["./src/lib/utils/loggers.ts"],
+      "#responses": ["./src/lib/utils/responses.ts"],
       "@/*": ["./src/*"],
-      "@payload-config": ["./src/payload.config.ts"]
+      "@payload-config": ["./src/payload.config.ts"],
+
     }
   },
   "include": [

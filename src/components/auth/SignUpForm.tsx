@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useActionState, useState } from "react"
+import Link from "next/link";
+import { useActionState, useState } from "react";
 
-import { FormInput } from "@/components/shared/FormInput"
-import { FormMessage } from "@/components/shared/FormMessage"
-import { Button } from "@/components/ui/button"
-import { signUpAction } from "@/server-actions/auth/actions"
+import { FormInput } from "@/components/shared/FormInput";
+import { FormAlert } from "@/components/shared/form/FormAlert";
+import { Button } from "@/components/ui/button";
+import { signUpAction } from "@/server-actions/auth/actions";
 
-import { AuthSubmitButton } from "./AuthSubmitButton"
-import { validateSignUp } from "./validation"
+import { AuthSubmitButton } from "./AuthSubmitButton";
+import { validateSignUp } from "./validation";
 
 export function SignUpForm() {
-  const [state, formAction] = useActionState(signUpAction, {})
-  const [clientError, setClientError] = useState<string | undefined>()
+  const [state, formAction] = useActionState(signUpAction, {});
+  const [clientError, setClientError] = useState<string | undefined>();
 
   return (
     <form
       action={formAction}
       onSubmit={(event) => {
-        const formData = new FormData(event.currentTarget)
+        const formData = new FormData(event.currentTarget);
         const error = validateSignUp({
           fullName: String(formData.get("fullName") || "").trim(),
           email: String(formData.get("email") || "").trim(),
           password: String(formData.get("password") || "").trim(),
-        })
+        });
 
-        setClientError(error)
+        setClientError(error);
         if (error) {
-          event.preventDefault()
+          event.preventDefault();
         }
       }}
       className="space-y-5 rounded-2xl border border-white/10 bg-white/3 p-5 backdrop-blur-sm sm:p-6"
@@ -47,7 +47,14 @@ export function SignUpForm() {
           placeholder="Your full name"
           required
         />
-        <FormInput name="email" type="email" label="Email" autoComplete="email" placeholder="you@example.com" required />
+        <FormInput
+          name="email"
+          type="email"
+          label="Email"
+          autoComplete="email"
+          placeholder="you@example.com"
+          required
+        />
         <FormInput
           name="password"
           type="password"
@@ -58,7 +65,7 @@ export function SignUpForm() {
         />
       </div>
 
-      <FormMessage error={clientError ?? state.error} success={state.success} />
+      <FormAlert title="Sign Up" errorMsg={clientError ?? state.error} successMsg={state.success} />
 
       <AuthSubmitButton idleLabel="Create Account" loadingLabel="Creating..." />
 
@@ -69,5 +76,5 @@ export function SignUpForm() {
         </Button>
       </div>
     </form>
-  )
+  );
 }

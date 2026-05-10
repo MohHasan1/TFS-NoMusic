@@ -1,10 +1,10 @@
-import { SignInForm } from "@/components/auth/SignInForm"
-import { AuthShell } from "@/components/shared/AuthShell"
+import { AuthShell } from "@/components/auth/AuthShell";
+import { SignInForm } from "@/components/auth/signin/SignInForm";
 
 export default function LoginPage() {
   return (
     <AuthShell>
       <SignInForm />
     </AuthShell>
-  )
+  );
 }

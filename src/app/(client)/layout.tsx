@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
+
 import { Montserrat } from "next/font/google";
+import type { Metadata } from "next";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -8,22 +10,18 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "No Music — Private Streaming",
-  description:
-    "A private, invite-only platform for streaming pure vocals with no instruments.",
+  title: "NoMusic — Private Streaming",
+  description: "A private, invite-only platform for streaming pure vocals with no instruments.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: TProps) {
   return (
-    <html
-      lang="en"
-      className={`${montserrat.className} dark h-full antialiased bg-background`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>
+      <body>
+        {children} <Toaster />
+      </body>
     </html>
   );
 }
+
+type TProps = Readonly<{ children: React.ReactNode }>;

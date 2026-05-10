@@ -1,4 +1,4 @@
-import { getPayloadClient } from "@/lib/payload-client";
+import { getPayloadClient } from "@/lib/payload/payload-client";
 import { mapNomusic } from "./no-music.mapper";
 import { TNoMusic } from "@/types/nomusic";
 import { Nomusic } from "@/payload-types";

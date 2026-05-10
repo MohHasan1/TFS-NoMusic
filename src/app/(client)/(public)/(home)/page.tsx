@@ -6,19 +6,20 @@ import { HeroTitle } from "@/components/public/home/HeroTitle";
 
 export default function Home() {
   return (
-    <div className="min-h-screen  flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Header />
+      <GlowOrb position="top" isNeonGlow />
 
       <main className="relative flex-1 flex flex-col items-center justify-center px-8 py-24 text-center">
-        <GlowOrb position="top" isNeonGlow />
-
-        <div className="relative z-10 flex flex-col items-center gap-8 max-w-2xl">
+        <div className="relative z-10 flex flex-1 flex-col items-center gap-8 max-w-2xl">
           <HeroTitle />
           <HeroCTAs />
         </div>
       </main>
 
       <Footer />
+
+      <GlowOrb position="bottom" isNeonGlow />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 
-import { FormMessage } from "@/components/shared/FormMessage";
+import { FormMessage } from "@/components/shared/form/FormAlert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,10 +12,15 @@ export function RequestNoMusicForm() {
   const [state, formAction, pending] = useActionState(submitNoMusicRequestAction, {});
 
   return (
-    <form action={formAction} className="space-y-5 rounded-2xl border border-white/10 bg-white/3 p-5 backdrop-blur-sm sm:p-6">
+    <form
+      action={formAction}
+      className="space-y-5 rounded-2xl border border-white/10 bg-white/3 p-5 backdrop-blur-sm sm:p-6"
+    >
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold tracking-tight text-white">Request NoMusic</h1>
-        <p className="text-sm text-white/55">Share the YouTube link and we will review the request.</p>
+        <p className="text-sm text-white/55">
+          Share the YouTube link and we will review the request.
+        </p>
       </div>
 
       <div className="space-y-4">
@@ -33,7 +38,10 @@ export function RequestNoMusicForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label htmlFor="description" className="text-xs tracking-[0.16em] uppercase text-white/60">
+          <Label
+            htmlFor="description"
+            className="text-xs tracking-[0.16em] uppercase text-white/60"
+          >
             Description (optional)
           </Label>
           <textarea

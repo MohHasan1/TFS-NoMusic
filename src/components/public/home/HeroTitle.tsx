@@ -12,16 +12,15 @@ export function HeroTitle() {
       </Badge>
 
       <h1 className="text-6xl sm:text-8xl font-bold tracking-tighter leading-none">
-        <span className="text-white">No</span>
+        <span className="text-white uppercase">No</span>
         <br />
-        <span className="bg-linear-to-br from-violet-400 to-purple-600 bg-clip-text text-transparent">
+        <span className="uppercase bg-linear-to-br from-violet-400 to-purple-600 bg-clip-text text-transparent">
           Music
         </span>
       </h1>
 
       <p className="text-base sm:text-lg text-white/40 max-w-sm leading-relaxed">
-        Pure vocals. No instruments. A private space for the voices that move
-        you.
+        Pure vocals. No instruments. A private space for the voices that move you.
       </p>
     </div>
   );

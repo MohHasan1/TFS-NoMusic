@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { FormMessage } from "@/components/shared/FormMessage";
+import { FormAlert } from "@/components/shared/form/FormAlert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,7 +19,9 @@ export function RequestAccessForm() {
     >
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold tracking-tight text-white">Request app access</h1>
-        <p className="text-sm text-white/55">Share why you want access and we will review your request.</p>
+        <p className="text-sm text-white/55">
+          Share why you want access and we will review your request.
+        </p>
       </div>
 
       <div className="space-y-4">
@@ -50,7 +52,7 @@ export function RequestAccessForm() {
         </div>
       </div>
 
-      <FormMessage error={state.error} success={state.success} />
+      <FormAlert error={state.error} success={state.success} />
 
       <Button type="submit" size="lg" className="w-full rounded-xl" disabled={pending}>
         {pending ? "Submitting..." : "Submit Access Request"}
