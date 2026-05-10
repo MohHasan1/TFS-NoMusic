@@ -1,13 +1,15 @@
 import EmailField from "@/components/shared/form/EmailField";
 import PasswordField from "@/components/shared/form/PasswordField";
 import { FieldGroup } from "@/components/ui/field";
-import { TSigninSchema } from "@/validations/auth";
+import { TSigninSchema } from "@/validations/auth/schema";
 import { ReactFormExtendedApi } from "@tanstack/react-form";
+
+import { SIGNIN_CLIENT, SIGNIN_CONST } from "../../../constants/auth/signin";
 
 const SigninFormContent = ({ form }: TProps) => {
   return (
     <form
-      id="sign-in-form"
+      id={SIGNIN_CONST.FORM_ID}
       onSubmit={(e) => {
         e.preventDefault();
         void form.handleSubmit();
@@ -20,7 +22,7 @@ const SigninFormContent = ({ form }: TProps) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <EmailField
-                label="Email"
+                label={SIGNIN_CLIENT.EMAIL_LBL}
                 name={field.name}
                 ariaInvalid={isInvalid}
                 value={field.state.value}
@@ -37,7 +39,7 @@ const SigninFormContent = ({ form }: TProps) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <PasswordField
-                label="Password"
+                label={SIGNIN_CLIENT.PASS_LBL}
                 name={field.name}
                 ariaInvalid={isInvalid}
                 onBlur={field.handleBlur}
@@ -56,8 +58,7 @@ const SigninFormContent = ({ form }: TProps) => {
 
 export default SigninFormContent;
 
-type AppFormApi<T> = ReactFormExtendedApi<T, any, any, any, any, any, any, any, any, any, any, any>;
-
 type TProps = {
   form: AppFormApi<TSigninSchema>;
 };
+type AppFormApi<T> = ReactFormExtendedApi<T, any, any, any, any, any, any, any, any, any, any, any>;

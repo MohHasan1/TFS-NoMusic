@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useActionState, useState } from "react";
 
 import { FormInput } from "@/components/shared/FormInput";
-import { FormAlert } from "@/components/shared/form/FormAlert";
+
 import { Button } from "@/components/ui/button";
 import { signUpAction } from "@/server-actions/auth/actions";
 
-import { AuthSubmitButton } from "./AuthSubmitButton";
-import { validateSignUp } from "./validation";
+import { AuthSubmitButton } from "../AuthSubmitButton";
+import { validateSignUp } from "../validation";
 
 export function SignUpForm() {
   const [state, formAction] = useActionState(signUpAction, {});
@@ -64,8 +64,6 @@ export function SignUpForm() {
           required
         />
       </div>
-
-      <FormAlert title="Sign Up" errorMsg={clientError ?? state.error} successMsg={state.success} />
 
       <AuthSubmitButton idleLabel="Create Account" loadingLabel="Creating..." />
 

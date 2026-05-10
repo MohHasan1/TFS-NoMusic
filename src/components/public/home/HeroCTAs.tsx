@@ -5,7 +5,7 @@ export function HeroCTAs() {
   return (
     <div className="flex flex-col sm:flex-row gap-3">
       <Button
-        render={<Link id="login-btn" href="/login" />}
+        render={<Link id="login-btn" href="/signin" />}
         nativeButton={false}
         size="lg"
         className="rounded-full px-8"

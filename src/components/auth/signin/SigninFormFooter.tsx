@@ -1,19 +1,25 @@
-import { Field } from "@/components/ui/field";
-import { FormAlert } from "@/components/shared/form/FormAlert";
 import FormSubmitButton from "@/components/shared/form/FormSubmitButton";
+import FormAlert from "@/components/shared/form/FormAlert";
 import FormCTA from "@/components/shared/form/FormCTA";
 
-const SigninFormFooter = ({ isPending, error }: TProps) => {
+import { SIGNIN_CONST, SIGNIN_CLIENT } from "../../../constants/auth/signin";
+import { Field } from "@/components/ui/field";
+
+const SigninFormFooter = ({ isPending, errorMsg }: TProps) => {
   return (
     <Field orientation="responsive">
-      <FormAlert title="Failed to sign in" errorMsg={error} />
+      <FormAlert title={SIGNIN_CLIENT.ERROR_ALERT_TITLE} errorMsg={errorMsg} />
       <FormSubmitButton
         isPending={isPending}
-        label="Sign In"
-        pendingLabel="Signing in..."
-        formId="sign-in-form"
+        label={SIGNIN_CLIENT.SUBMIT_LBL}
+        pendingLabel={SIGNIN_CLIENT.SUBMIT_PENDING_LBL}
+        formId={SIGNIN_CONST.FORM_ID}
       />
-      <FormCTA text="New here?" linkText="Request Access" href="/request-access" />
+      <FormCTA
+        label={SIGNIN_CLIENT.CTA_LBL}
+        linkLabel={SIGNIN_CLIENT.CTA_LINK_LBL}
+        href={SIGNIN_CLIENT.CTA_HREF}
+      />
     </Field>
   );
 };
@@ -21,6 +27,6 @@ const SigninFormFooter = ({ isPending, error }: TProps) => {
 export default SigninFormFooter;
 
 type TProps = {
-  error?: string;
+  errorMsg?: string;
   isPending: boolean;
 };

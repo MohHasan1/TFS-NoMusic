@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { FormAlert } from "@/components/shared/form/FormAlert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,8 +50,6 @@ export function RequestAccessForm() {
           />
         </div>
       </div>
-
-      <FormAlert error={state.error} success={state.success} />
 
       <Button type="submit" size="lg" className="w-full rounded-xl" disabled={pending}>
         {pending ? "Submitting..." : "Submit Access Request"}

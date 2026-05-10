@@ -18,7 +18,7 @@ export default function RootLayout({ children }: TProps) {
   return (
     <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>
       <body>
-        {children} <Toaster />
+        {children} <Toaster position="top-right" />
       </body>
     </html>
   );

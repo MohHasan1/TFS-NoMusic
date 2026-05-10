@@ -1,14 +1,16 @@
 "use client";
 
-import FormCard from "@/components/shared/form/FormCard";
-import { useForm } from "@tanstack/react-form";
-
 import { useState, useTransition } from "react";
-import { signinAction } from "@/server-actions/auth/signin";
+import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import { SigninSchema } from "@/validations/auth";
-import SigninFormFooter from "./SigninFormFooter";
+
+import FormCard from "@/components/shared/form/FormCard";
 import SigninFormContent from "./SigninFormContent";
+import SigninFormFooter from "./SigninFormFooter";
+
+import { signinAction } from "@/server-actions/auth/signin";
+import { SigninSchema } from "@/validations/auth/schema";
+import { SIGNIN_CLIENT } from "../../../constants/auth/signin";
 
 export function SignInForm() {
   const [isPending, startTransition] = useTransition();
@@ -28,8 +30,8 @@ export function SignInForm() {
         const result = await signinAction(value);
         if (!result?.isSuccess) {
           // setServerError(result?.error || []);
-          setServerErrorMessage(result?.message || "An error occurred");
-          toast.error(result?.message || "An error occurred", { position: "top-right" });
+          setServerErrorMessage(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
+          toast.error(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
         }
       });
     },
@@ -37,10 +39,10 @@ export function SignInForm() {
 
   return (
     <FormCard
-      title="Sign in"
-      description="Continue your private listening session."
+      title={SIGNIN_CLIENT.FORM_TITLE}
+      description={SIGNIN_CLIENT.FORM_DESC}
       content={<SigninFormContent form={form} />}
-      footer={<SigninFormFooter isPending={isPending} error={serverErrorMessage} />}
+      footer={<SigninFormFooter isPending={isPending} errorMsg={serverErrorMessage} />}
     />
   );
 }

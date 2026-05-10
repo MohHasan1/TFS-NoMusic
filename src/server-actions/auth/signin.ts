@@ -1,11 +1,12 @@
 "use server";
 
-import { mapZodErrorToErrors } from "#lib/zod/mappers";
-
-import { logInfo } from "#loggers";
-import { errorResponse } from "#responses";
+import { SigninSchema, TSigninSchema } from "@/validations/auth/schema";
 import { signIn } from "@/services/auth/auth-pl.adapter";
-import { SigninSchema, TSigninSchema } from "@/validations/auth";
+import { SIGNIN_CLIENT } from "@/constants/auth/signin";
+
+import { mapZodErrorToErrors } from "#lib/zod/mappers";
+import { errorResponse } from "#responses";
+
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
 
@@ -15,17 +16,14 @@ export async function signinAction(data: TSigninSchema) {
 
     // TODO: Distinguish server error from Invalid credentials
     const res = await signIn({ email: validatedData.email, password: validatedData.password });
-    if (!res) return errorResponse([], "Invalid credentials. Please try again.");
+    if (!res) return errorResponse([], SIGNIN_CLIENT.FALLBACK_ERROR);
+    
   } catch (error) {
     if (error instanceof ZodError) {
       const fieldError = mapZodErrorToErrors(error);
-      return errorResponse(fieldError, "Invalid credentials. Please try again.");
+      return errorResponse(fieldError, SIGNIN_CLIENT.FALLBACK_WRONG_CREDENTIALS);
     }
-    logInfo(error);
-    return errorResponse(
-      [],
-      "Something went wrong. Please try again later - Please try again later sir okay, thank you sir.",
-    );
+    return errorResponse([], SIGNIN_CLIENT.FALLBACK_SERVER_ERROR);
   }
 
   redirect("/no-music");

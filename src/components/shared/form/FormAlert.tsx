@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
-export function FormAlert({ title, errorMsg, successMsg }: TProps) {
+const FormAlert = ({ title, errorMsg, successMsg }: TProps) => {
   if (!errorMsg && !successMsg) return null;
 
   const isError = Boolean(errorMsg);
@@ -13,7 +13,9 @@ export function FormAlert({ title, errorMsg, successMsg }: TProps) {
       <AlertDescription>{message}</AlertDescription>
     </Alert>
   );
-}
+};
+
+export default FormAlert;
 
 type TProps = {
   title: string;
