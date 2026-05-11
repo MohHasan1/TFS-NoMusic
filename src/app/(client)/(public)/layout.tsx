@@ -5,13 +5,13 @@ import { GlowOrb } from "@/components/shared/GlowOrb";
 export default function PublicLayout({ children }: TProps) {
   return (
     <div className="min-h-dvh flex flex-col">
-      <GlowOrb position="right" isNeonGlow />
+      <GlowOrb position="top" isNeonGlow />
 
       <Header />
       <main className="flex-1 flex">{children}</main>
       <Footer />
 
-      <GlowOrb position="left" isNeonGlow />
+      <GlowOrb position="bottom" isNeonGlow />
     </div>
   );
 }

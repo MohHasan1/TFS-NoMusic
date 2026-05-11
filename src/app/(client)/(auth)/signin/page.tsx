@@ -1,12 +1,7 @@
-import FormShell from "@/components/shared/form/FormShell";
-import SigninForm from "@/components/auth/signin/SignInForm";
+import SigninSection from "@/components/auth/signin/sections/SigninSection";
 
 const SigninPage = () => {
-  return (
-    <FormShell>
-      <SigninForm />
-    </FormShell>
-  );
+  return <SigninSection />;
 };
 
 export default SigninPage;

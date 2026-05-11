@@ -1,12 +1,7 @@
-import SignupForm from "@/components/auth/signup/SignupForm";
-import FormShell from "@/components/shared/form/FormShell";
+import SignupSection from "@/components/auth/signup/sections/SignupSection";
 
 const SignupPage = () => {
-  return (
-    <FormShell>
-      <SignupForm />
-    </FormShell>
-  );
+  return <SignupSection />;
 };
 
 export default SignupPage;

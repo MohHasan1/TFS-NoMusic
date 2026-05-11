@@ -2,7 +2,7 @@ import FormSubmitButton from "@/components/shared/form/FormSubmitButton";
 import FormAlert from "@/components/shared/form/FormAlert";
 import FormCTA from "@/components/shared/form/FormCTA";
 
-import { SIGNIN_CONST, SIGNIN_CLIENT } from "../../../constants/auth/signin";
+import { SIGNIN_CONST, SIGNIN_CLIENT } from "@/constants/auth/signin";
 import { Field } from "@/components/ui/field";
 
 const SigninFormFooter = ({ isPending, errorMsg }: TProps) => {
