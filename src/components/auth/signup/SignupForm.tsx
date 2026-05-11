@@ -13,7 +13,7 @@ import SignupFormFooter from "./SignupFormFooter";
 import { SIGNUP_CLIENT } from "@/constants/auth/signup";
 import SignupFormContent from "./SignupFormContent";
 
-export function SignupForm() {
+const SignupForm = () => {
   const [isPending, startTransition] = useTransition();
   const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);
@@ -48,4 +48,6 @@ export function SignupForm() {
       footer={<SignupFormFooter isPending={isPending} errorMsg={serverErrorMessage} />}
     />
   );
-}
+};
+
+export default SignupForm;

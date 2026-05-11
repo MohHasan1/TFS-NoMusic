@@ -1,10 +1,12 @@
 import { RequestAccessForm } from "@/components/public/requests/RequestAccessForm";
-import { AuthShell } from "@/components/auth/AuthShell";
+import FormShell from "@/components/shared/form/FormShell";
 
-export default function RequestAccessPage() {
+const RequestAccessPage = () => {
   return (
-    <AuthShell>
+    <FormShell>
       <RequestAccessForm />
-    </AuthShell>
+    </FormShell>
   );
-}
+};
+
+export default RequestAccessPage;

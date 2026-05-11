@@ -1,5 +1,5 @@
-import EmailField from "@/components/shared/form/inputs/EmailField";
-import PasswordField from "@/components/shared/form/inputs/PasswordField";
+import EmailField from "@/components/shared/form/fields/EmailField";
+import PasswordField from "@/components/shared/form/fields/PasswordField";
 import { FieldGroup } from "@/components/ui/field";
 
 import { SIGNIN_CLIENT, SIGNIN_CONST } from "@/constants/auth/signin";

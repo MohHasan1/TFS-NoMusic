@@ -12,7 +12,7 @@ import { SIGNIN_CLIENT } from "../../../constants/auth/signin";
 import { signinAction } from "@/server-actions/auth/signin";
 import { SigninSchema } from "@/validations/auth/signin";
 
-export function SigninForm() {
+const SigninForm = () => {
   const [isPending, startTransition] = useTransition();
   const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);
@@ -45,4 +45,6 @@ export function SigninForm() {
       footer={<SigninFormFooter isPending={isPending} errorMsg={serverErrorMessage} />}
     />
   );
-}
+};
+
+export default SigninForm;

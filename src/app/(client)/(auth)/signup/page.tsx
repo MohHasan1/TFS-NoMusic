@@ -1,10 +1,12 @@
-import { AuthShell } from "@/components/auth/AuthShell";
-import { SignupForm } from "@/components/auth/signup/SignupForms";
+import SignupForm from "@/components/auth/signup/SignupForm";
+import FormShell from "@/components/shared/form/FormShell";
 
-export default function SignUpPage() {
+const SignupPage = () => {
   return (
-    <AuthShell>
+    <FormShell>
       <SignupForm />
-    </AuthShell>
+    </FormShell>
   );
-}
+};
+
+export default SignupPage;
