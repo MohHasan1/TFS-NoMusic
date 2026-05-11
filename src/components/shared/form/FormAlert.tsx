@@ -18,7 +18,7 @@ const FormAlert = ({ title, errorMsg, successMsg }: TProps) => {
 export default FormAlert;
 
 type TProps = {
-  title: string;
+  title?: string;
   errorMsg?: string;
   successMsg?: string;
 };

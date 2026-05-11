@@ -1,12 +1,7 @@
-import { RequestAccessForm } from "@/components/public/requests/RequestAccessForm";
-import FormShell from "@/components/shared/form/FormShell";
+import RequestAccessSection from "@/components/public/request-access/sections/RequestAccessSection";
 
 const RequestAccessPage = () => {
-  return (
-    <FormShell>
-      <RequestAccessForm />
-    </FormShell>
-  );
+  return <RequestAccessSection />;
 };
 
 export default RequestAccessPage;

@@ -2,11 +2,11 @@
 
 import { useActionState } from "react";
 
-import { FormMessage } from "@/components/shared/form/FormAlert";
+import FormAlert from "@/components/shared/form/FormAlert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { submitNoMusicRequestAction } from "@/server-actions/requests/actions";
+import { submitNoMusicRequestAction } from "@/server-actions/public/request-access";
 
 export function RequestNoMusicForm() {
   const [state, formAction, pending] = useActionState(submitNoMusicRequestAction, {});
@@ -53,7 +53,7 @@ export function RequestNoMusicForm() {
         </div>
       </div>
 
-      <FormMessage error={state.error} success={state.success} />
+      <FormAlert errorMsg={state.error} successMsg={state.success} />
 
       <Button type="submit" size="lg" className="w-full rounded-xl" disabled={pending}>
         {pending ? "Submitting..." : "Submit Request"}

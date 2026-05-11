@@ -1,38 +1,35 @@
 "use server";
 
+import { errorResponse, successResponse } from "#lib/utils/responses";
+import { mapZodErrorToErrors } from "#lib/zod/mappers";
+import { REQUEST_ACCESS_CLIENT } from "@/constants/public/request-access";
 import { getCurrentUser } from "@/services/auth/auth.ports";
 import { createRequest } from "@/services/requests/requests.ports";
 
-export async function submitRequestAccessAction(
-  _prevState: RequestAccessState,
-  formData: FormData,
-): Promise<RequestAccessState> {
-  const email = getString(formData, "email").toLowerCase();
-  const message = getString(formData, "message");
+import { RequestAccessSchema, TRequestAccessSchema } from "@/validations/public/request-access";
+import { ZodError } from "zod";
 
-  if (!email) {
-    return { error: "Email is required." };
-  }
-
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return { error: "Please enter a valid email address." };
-  }
-
+export async function requestAccessAction(data: TRequestAccessSchema) {
   try {
+    const validatedData = RequestAccessSchema.parse(data);
+
+    // TODO: handle errors
     await createRequest({
       type: "access_request",
-      email,
-      message,
-      name: undefined,
+      name: validatedData.name,
+      email: validatedData.email,
+      message: undefined,
       url: undefined,
       metadata: undefined,
     });
 
-    return {
-      success: "Access request submitted. We will review it and get back to you.",
-    };
-  } catch {
-    return { error: "Unable to submit request right now. Please try again." };
+    return successResponse(REQUEST_ACCESS_CLIENT.SUCESSFULL_SUBMIT_MSG);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const fieldError = mapZodErrorToErrors(error);
+      return errorResponse(fieldError, REQUEST_ACCESS_CLIENT.FALLBACK_WRONG_CREDENTIALS);
+    }
+    return errorResponse([], REQUEST_ACCESS_CLIENT.FALLBACK_SERVER_ERROR);
   }
 }
 
@@ -70,7 +67,7 @@ export async function submitNoMusicRequestAction(
       email,
       url: youtubeURL,
       message: description,
-      metadata: undefined
+      metadata: undefined,
     });
 
     return { success: "Request submitted. We will review and add it if available." };
