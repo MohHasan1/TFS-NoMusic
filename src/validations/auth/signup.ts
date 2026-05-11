@@ -1,4 +1,3 @@
-import { SIGNIN_CLIENT } from "@/constants/auth/signin";
 import { z } from "zod";
 
 // -- Sign up validation
@@ -24,11 +23,3 @@ export const SignupSchema = z
   });
 
 export type TSignupSchema = z.infer<typeof SignupSchema>;
-
-// -- Sign in validation
-export const SigninSchema = z.object({
-  email: z.email(SIGNIN_CLIENT.VALIDATION_EMAIL_ERROR),
-  password: z.string().min(1, SIGNIN_CLIENT.VALIDATION_PASS_ERROR),
-});
-
-export type TSigninSchema = z.infer<typeof SigninSchema>;

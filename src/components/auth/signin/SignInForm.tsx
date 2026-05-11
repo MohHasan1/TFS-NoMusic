@@ -8,11 +8,11 @@ import FormCard from "@/components/shared/form/FormCard";
 import SigninFormContent from "./SigninFormContent";
 import SigninFormFooter from "./SigninFormFooter";
 
-import { signinAction } from "@/server-actions/auth/signin";
-import { SigninSchema } from "@/validations/auth/schema";
 import { SIGNIN_CLIENT } from "../../../constants/auth/signin";
+import { signinAction } from "@/server-actions/auth/signin";
+import { SigninSchema } from "@/validations/auth/signin";
 
-export function SignInForm() {
+export function SigninForm() {
   const [isPending, startTransition] = useTransition();
   const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);

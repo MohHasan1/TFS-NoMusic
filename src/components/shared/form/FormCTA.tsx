@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const FormCTA = ({ label, linkLabel, href }: TProps) => {
   return (
-    <div className="flex items-center justify-between gap-3 pt-1 text-xs text-white/50">
+    <div className="flex items-center justify-between gap-3 pt-1 px-1 text-xs">
       <span>{label}</span>
 
-      <Button render={<Link href={href} />} nativeButton={false} variant="ghost" size="xs">
+      <Button render={<Link href={href} />} nativeButton={false} variant="outline" size="xs">
         {linkLabel}
       </Button>
     </div>

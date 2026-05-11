@@ -1,6 +1,6 @@
 "use server";
 
-import { SigninSchema, TSigninSchema } from "@/validations/auth/schema";
+import { TSigninSchema, SigninSchema } from "@/validations/auth/signin";
 import { signIn } from "@/services/auth/auth-pl.adapter";
 import { SIGNIN_CLIENT } from "@/constants/auth/signin";
 

@@ -7,12 +7,11 @@ export const SIGNIN_CLIENT = {
   FORM_DESC: "Let's get you back to the voices you love.",
 
   EMAIL_LBL: "Email address",
-  PASS_LBL: "Password",
-
   EMAIL_PLACEHOLDER: "Pop in your email",
-  PASS_PLACEHOLDER: "Your quiet little secret",
-
   VALIDATION_EMAIL_ERROR: "Hmm… that email sounds a bit off-key",
+
+  PASS_LBL: "Password",
+  PASS_PLACEHOLDER: "Your quiet little secret",
   VALIDATION_PASS_ERROR: "Looks like your password missed its cue.",
 
   FALLBACK_ERROR: "Something went a little off-script, try again?",
