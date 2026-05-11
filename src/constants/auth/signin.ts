@@ -3,23 +3,29 @@ export const SIGNIN_CONST = {
 } as const;
 
 export const SIGNIN_CLIENT = {
-  FORM_TITLE: "Sign in",
-  FORM_DESC: "Continue your private listening session.",
+  FORM_TITLE: "Welcome back 🎧",
+  FORM_DESC: "Let's get you back to the voices you love.",
 
-  EMAIL_LBL: "Email",
+  EMAIL_LBL: "Email address",
   PASS_LBL: "Password",
 
-  FALLBACK_ERROR: "Something went wrong. Please try again.",
-  FALLBACK_SERVER_ERROR: "Server error. Please try again later.",
-  FALLBACK_WRONG_CREDENTIALS: "Invalid credentials. Please try again.",
+  EMAIL_PLACEHOLDER: "Pop in your email",
+  PASS_PLACEHOLDER: "Your quiet little secret",
 
-  SUCCESS_ALERT_TITLE: "Signed in successfully",
-  ERROR_ALERT_TITLE: "Failed to sign in",
+  VALIDATION_EMAIL_ERROR: "Hmm… that email sounds a bit off-key",
+  VALIDATION_PASS_ERROR: "Looks like your password missed its cue.",
 
-  SUBMIT_LBL: "Sign In",
-  SUBMIT_PENDING_LBL: "Signing in...",
+  FALLBACK_ERROR: "Something went a little off-script, try again?",
+  FALLBACK_SERVER_ERROR: "Our servers are taking a short intermission, please try again soon.",
+  FALLBACK_WRONG_CREDENTIALS: "That didn't quite hit the right note, give it another try.",
 
-  CTA_LBL: "New here?",
-  CTA_LINK_LBL: "Request Access",
+  SUCCESS_ALERT_TITLE: "You're in!",
+  ERROR_ALERT_TITLE: "Not quite in tune yet",
+
+  SUBMIT_LBL: "Sign in",
+  SUBMIT_PENDING_LBL: "Tuning things up...",
+
+  CTA_LBL: "Not in yet?",
+  CTA_LINK_LBL: "Knock to enter",
   CTA_HREF: "/request-access",
 } as const;

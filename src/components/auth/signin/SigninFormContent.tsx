@@ -23,6 +23,7 @@ const SigninFormContent = ({ form }: TProps) => {
             return (
               <EmailField
                 label={SIGNIN_CLIENT.EMAIL_LBL}
+                placeholder={SIGNIN_CLIENT.EMAIL_PLACEHOLDER}
                 name={field.name}
                 ariaInvalid={isInvalid}
                 value={field.state.value}
@@ -40,6 +41,7 @@ const SigninFormContent = ({ form }: TProps) => {
             return (
               <PasswordField
                 label={SIGNIN_CLIENT.PASS_LBL}
+                placeholder={SIGNIN_CLIENT.PASS_PLACEHOLDER}
                 name={field.name}
                 ariaInvalid={isInvalid}
                 onBlur={field.handleBlur}
