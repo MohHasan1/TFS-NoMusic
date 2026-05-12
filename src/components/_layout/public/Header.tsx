@@ -9,8 +9,10 @@ export function Header() {
         className="group text-sm font-semibold  uppercase transition-colors duration-300"
       >
         <span className="text-white/80 group-hover:text-white/60">No</span>
-        <span className="bg-linear-to-br from-violet-400 to-purple-600 bg-clip-text text-transparent 
-        group-hover:from-violet-400/80 group-hover:to-purple-600/80 transition-all duration-300">
+        <span
+          className="bg-linear-to-br from-violet-400 to-purple-600 bg-clip-text text-transparent 
+        group-hover:from-violet-400/80 group-hover:to-purple-600/80 transition-all duration-300"
+        >
           Music
         </span>
       </Link>
