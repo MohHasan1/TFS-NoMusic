@@ -1,3 +1,5 @@
+import { PUBLIC_ROUTES } from "#constants/routes";
+
 export const SIGNUP_CONST = {
   FORM_ID: "sign-up-form",
 } as const;
@@ -36,5 +38,5 @@ export const SIGNUP_CLIENT = {
 
   CTA_LBL: "Already have access?",
   CTA_LINK_LBL: "Sign in",
-  CTA_HREF: "/signin",
+  CTA_HREF: PUBLIC_ROUTES.SIGNIN,
 } as const;

@@ -20,9 +20,12 @@
     ],
     "paths": {
       "#lib/*": ["./src/lib/*"],
+      "#constants/*": ["./src/constants/*"],
+
       "#types": ["./src/types/*"],  
       "#loggers": ["./src/lib/utils/loggers.ts"],
       "#responses": ["./src/lib/utils/responses.ts"],
+      
       "@/*": ["./src/*"],
       "@payload-config": ["./src/payload.config.ts"],
 

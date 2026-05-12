@@ -1,10 +1,11 @@
+import { PUBLIC_ROUTES } from "#constants/routes";
 import Link from "next/link";
 
 export function Header() {
   return (
     <header className="flex items-center justify-between px-8 py-6">
       <Link
-        href="/"
+        href={PUBLIC_ROUTES.HOME}
         className="group text-sm font-semibold  uppercase transition-colors duration-300"
       >
         <span className="text-white/80 group-hover:text-white/60">No</span>

@@ -1,3 +1,5 @@
+import { PUBLIC_ROUTES } from "#constants/routes";
+
 export const REQUEST_ACCESS_CONST = {
   FORM_ID: "request-access-form",
 } as const;
@@ -27,7 +29,7 @@ export const REQUEST_ACCESS_CLIENT = {
   ERROR_ALERT_TITLE: "Oops! Something went wrong.",
   SUCCESS_ALERT_TITLE: "Success!",
 
-  CTA_LBL: "Already have access?",
+  CTA_LBL: "Already have an account?",
   CTA_LINK_LBL: "Sign in",
-  CTA_HREF: "/signin",
+  CTA_HREF: PUBLIC_ROUTES.SIGNIN,
 } as const;

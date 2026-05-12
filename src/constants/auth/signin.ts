@@ -1,3 +1,5 @@
+import { PUBLIC_ROUTES } from "#constants/routes";
+
 export const SIGNIN_CONST = {
   FORM_ID: "sign-in-form",
 } as const;
@@ -26,5 +28,5 @@ export const SIGNIN_CLIENT = {
 
   CTA_LBL: "Not in yet?",
   CTA_LINK_LBL: "Knock to enter",
-  CTA_HREF: "/request-access",
+  CTA_HREF: PUBLIC_ROUTES.REQUEST_ACCESS,
 } as const;
