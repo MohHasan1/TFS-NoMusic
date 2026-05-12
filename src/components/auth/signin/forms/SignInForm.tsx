@@ -10,7 +10,7 @@ import SigninFormFooter from "./SigninFormFooter";
 
 import { signinAction } from "@/server-actions/auth/signin";
 import { SigninSchema } from "@/validations/auth/signin";
-import { SIGNIN_CLIENT } from "@/constants/auth/signin";
+import { SIGNIN_CLIENT } from "#constants/auth/signin";
 
 const SigninForm = () => {
   const [isPending, startTransition] = useTransition();

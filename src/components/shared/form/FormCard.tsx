@@ -14,8 +14,8 @@ const FormCard = ({ title, description, children, content, footer }: TProps) => 
         <CardTitle className="text-2xl tracking-tight">{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent>{content ?? children}</CardContent>
-      <CardFooter className="pt-4">{footer}</CardFooter>
+      {content && <CardContent>{content ?? children}</CardContent>}
+      {footer && <CardFooter className="pt-4">{footer}</CardFooter>}
     </Card>
   );
 };

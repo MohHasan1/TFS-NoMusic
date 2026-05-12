@@ -2,10 +2,9 @@ import EmailField from "@/components/shared/form/fields/EmailField";
 import PasswordField from "@/components/shared/form/fields/PasswordField";
 import { FieldGroup } from "@/components/ui/field";
 
-import { SIGNIN_CLIENT, SIGNIN_CONST } from "@/constants/auth/signin";
-import { TSigninSchema } from "@/validations/auth/signin";
-
+import { SIGNIN_CONST, SIGNIN_CLIENT } from "#constants/auth/signin";
 import { ReactFormExtendedApi } from "@tanstack/react-form";
+import { TSigninSchema } from "@/validations/auth/signin";
 
 const SigninFormContent = ({ form }: TProps) => {
   return (

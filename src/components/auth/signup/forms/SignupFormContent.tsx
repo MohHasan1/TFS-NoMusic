@@ -1,10 +1,11 @@
-import EmailField from "@/components/shared/form/fields/EmailField";
 import PasswordField from "@/components/shared/form/fields/PasswordField";
+import EmailField from "@/components/shared/form/fields/EmailField";
 import TextField from "@/components/shared/form/fields/TextField";
 import { FieldGroup } from "@/components/ui/field";
-import { SIGNUP_CLIENT, SIGNUP_CONST } from "@/constants/auth/signup";
-import { TSignupSchema } from "@/validations/auth/signup";
+
+import { SIGNUP_CONST, SIGNUP_CLIENT } from "#constants/auth/signup";
 import { ReactFormExtendedApi } from "@tanstack/react-form";
+import { TSignupSchema } from "@/validations/auth/signup";
 
 const SignupFormContent = ({ form }: TProps) => {
   return (

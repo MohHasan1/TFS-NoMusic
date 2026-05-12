@@ -5,13 +5,12 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 
 import FormCard from "@/components/shared/form/FormCard";
-import { signupAction } from "@/server-actions/auth/signup";
-
-import { SignupSchema } from "@/validations/auth/signup";
-
-import SignupFormFooter from "./SignupFormFooter";
-import { SIGNUP_CLIENT } from "@/constants/auth/signup";
 import SignupFormContent from "./SignupFormContent";
+import SignupFormFooter from "./SignupFormFooter";
+
+import { signupAction } from "@/server-actions/auth/signup";
+import { SignupSchema } from "@/validations/auth/signup";
+import { SIGNUP_CLIENT } from "#constants/auth/signup";
 
 const SignupForm = () => {
   const [isPending, startTransition] = useTransition();

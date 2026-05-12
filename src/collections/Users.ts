@@ -6,6 +6,10 @@ export const Users: CollectionConfig = {
 
   auth: {
     verify: true,
+    cookies: {
+      sameSite: "Lax",
+      secure: process.env.NODE_ENV === "production",
+    },
   },
 
   admin: {

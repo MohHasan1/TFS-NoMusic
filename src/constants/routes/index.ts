@@ -8,6 +8,7 @@ const PUBLIC_ROUTES = {
   RESET_PASSWORD: "/reset-password",
 
   REQUEST_ACCESS: "/request-access",
+  CHECK_EMAIL: "/check-email",
 } as const;
 
 const PRIVATE_ROUTES = {
