@@ -9,6 +9,7 @@ import { VERIFY_EMAIL_CLIENT } from "#constants/auth/verify-email";
 import FormCard from "@/components/shared/form/FormCard";
 import VerifyEmailContent from "./VerifyEmailContent";
 import { VerifyEmailSchema } from "@/validations/auth/verify-email";
+import { PUBLIC_ROUTES } from "#constants/routes";
 
 const VerifyEmailForm = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const VerifyEmailForm = () => {
 
   useEffect(() => {
     verify();
-  }, [token, router]);
+  }, [token]);
 
   const verify = async () => {
     if (!token) {
@@ -39,7 +40,7 @@ const VerifyEmailForm = () => {
     } else {
       setStatus("success");
       setTimeout(() => {
-        router.push("/login");
+        router.push(PUBLIC_ROUTES.SIGNIN);
       }, 3000);
     }
   };
