@@ -1,5 +1,6 @@
 "use server";
 
+import { PUBLIC_ROUTES } from "#constants/routes";
 import { errorResponse } from "#lib/utils/responses";
 import { mapZodErrorToErrors } from "#lib/zod/mappers";
 import { SIGNUP_CLIENT } from "@/constants/auth/signup";
@@ -30,5 +31,5 @@ export async function signupAction(data: TSignupSchema) {
     return errorResponse([], SIGNUP_CLIENT.FALLBACK_SERVER_ERROR);
   }
 
-  redirect("/login");
+  redirect(PUBLIC_ROUTES.CHECK_EMAIL);
 }

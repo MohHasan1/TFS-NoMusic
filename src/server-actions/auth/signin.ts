@@ -9,6 +9,7 @@ import { errorResponse } from "#responses";
 
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
+import { PRIVATE_ROUTES } from "#constants/routes";
 
 export async function signinAction(data: TSigninSchema) {
   try {
@@ -26,5 +27,5 @@ export async function signinAction(data: TSigninSchema) {
     return errorResponse([], SIGNIN_CLIENT.FALLBACK_SERVER_ERROR);
   }
 
-  redirect("/no-music");
+  redirect(PRIVATE_ROUTES.NOMUSIC);
 }

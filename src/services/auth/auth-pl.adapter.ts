@@ -41,3 +41,11 @@ export async function getCurrentUser() {
 
   return user ?? null;
 }
+export async function verifyEmail(token: string) {
+  const payload = await getPayloadClient();
+
+  return payload.verifyEmail({
+    collection: "users",
+    token,
+  });
+}

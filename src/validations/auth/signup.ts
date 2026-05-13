@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// -- Sign up validation
 export const SignupSchema = z
   .object({
     name: z.string().min(2, "Your name is too short.").max(52, "Your name is too long."),
