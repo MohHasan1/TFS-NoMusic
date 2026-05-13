@@ -41,8 +41,8 @@ const SigninForm = () => {
     <FormCard
       title={SIGNIN_CLIENT.FORM_TITLE}
       description={SIGNIN_CLIENT.FORM_DESC}
-      content={<SigninFormContent form={form} />}
-      footer={<SigninFormFooter isPending={isPending} errorMsg={serverErrorMessage} />}
+      content={<SigninFormContent form={form} isSubmitting={isPending} />}
+      footer={<SigninFormFooter isSubmitting={isPending} errorMsg={serverErrorMessage} />}
     />
   );
 };

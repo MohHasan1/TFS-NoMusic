@@ -3,10 +3,7 @@ import { BrandLogo } from "../components/elements/BrandLogo";
 import { PrimaryButton } from "../components/elements/PrimaryButton";
 import { Layout } from "../components/layout/Layout";
 
-export const ResetPasswordEmail = ({
-  userName = "there",
-  resetUrl = "https://nomusic.thefamilysuite.org/reset-password",
-}: ResetPasswordEmailProps) => {
+export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => {
   return (
     <Layout previewText="Forgot your password? 😭">
       <BrandLogo />
@@ -52,7 +49,7 @@ export const ResetPasswordEmail = ({
 
 export default ResetPasswordEmail;
 
-type ResetPasswordEmailProps = {
+type TProps = {
   userName?: string;
-  resetUrl?: string;
+  resetUrl: string;
 };

@@ -14,11 +14,11 @@ export async function signupAction(data: TSignupSchema) {
   try {
     const validatedData = await SignupSchema.parseAsync(data);
 
-    const allowed = await isWhitelistedEmail(validatedData.email);
-    if (!allowed) return errorResponse([], SIGNUP_CLIENT.EMAIL_NOT_IN_WHITELIST);
+    // const allowed = await isWhitelistedEmail(validatedData.email);
+    // if (!allowed) return errorResponse([], SIGNUP_CLIENT.EMAIL_NOT_IN_WHITELIST);
 
     const res = await signUp({
-      fullName: validatedData.name,
+      name: validatedData.name,
       email: validatedData.email,
       password: validatedData.password,
     });

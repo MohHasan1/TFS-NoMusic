@@ -2,7 +2,7 @@ import { Column, Row, Text, Section } from "react-email";
 
 export const BrandLogo = () => {
   return (
-    <Section className="">
+    <Section>
       <Row>
         <Column align="center">
           <Text className="text-xl font-bold tracking-tight uppercase m-0">

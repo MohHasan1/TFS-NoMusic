@@ -6,6 +6,8 @@ export const tailwindConfig = {
   theme: {
     extend: {
       colors: {
+        app: theme.colors.background,
+        card: theme.colors.surface,
         brand: {
           primary: theme.colors.primary,
           secondary: theme.colors.secondary,
@@ -25,8 +27,6 @@ export const tailwindConfig = {
           secondary: theme.colors.secondary,
           secondaryText: theme.colors.text.primary,
         },
-        surface: theme.colors.surface,
-        background: theme.colors.background,
         border: theme.colors.border,
       },
       borderRadius: {

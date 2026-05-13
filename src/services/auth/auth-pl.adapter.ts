@@ -20,9 +20,9 @@ export async function signUp(input: SignUpDTO) {
   return payload.create({
     collection: "users",
     data: {
+      name: input.name,
       email: input.email.toLowerCase(),
       password: input.password,
-      fullName: input.fullName,
     },
   });
 }

@@ -6,7 +6,7 @@ import { SIGNIN_CONST, SIGNIN_CLIENT } from "#constants/auth/signin";
 import { ReactFormExtendedApi } from "@tanstack/react-form";
 import { TSigninSchema } from "@/validations/auth/signin";
 
-const SigninFormContent = ({ form }: TProps) => {
+const SigninFormContent = ({ form, isSubmitting }: TProps) => {
   return (
     <form
       id={SIGNIN_CONST.FORM_ID}
@@ -30,6 +30,7 @@ const SigninFormContent = ({ form }: TProps) => {
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
+                disabled={isSubmitting}
               />
             );
           }}
@@ -49,6 +50,7 @@ const SigninFormContent = ({ form }: TProps) => {
                 autoComplete="current-password"
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
+                disabled={isSubmitting}
               />
             );
           }}
@@ -62,5 +64,6 @@ export default SigninFormContent;
 
 type TProps = {
   form: AppFormApi<TSigninSchema>;
+  isSubmitting: boolean;  
 };
 type AppFormApi<T> = ReactFormExtendedApi<T, any, any, any, any, any, any, any, any, any, any, any>;

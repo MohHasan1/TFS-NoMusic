@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 
-const FormSubmitButton = ({ isPending, label, pendingLabel, formId }: TProps) => {
+const FormSubmitButton = ({ isSubmitting, label, pendingLabel, formId }: TProps) => {
   return (
-    <Button type="submit" form={formId} disabled={isPending}>
-      {isPending ? (
+    <Button type="submit" form={formId} disabled={isSubmitting}>
+      {isSubmitting ? (
         <>
           <Spinner data-icon="inline-start" />
           <span>{pendingLabel || "Processing..."}</span>
@@ -21,6 +21,6 @@ export default FormSubmitButton;
 type TProps = {
   label: string;
   pendingLabel?: string;
-  isPending: boolean;
+  isSubmitting: boolean;
   formId: string;
 };

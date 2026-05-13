@@ -7,7 +7,7 @@ import { SIGNUP_CONST, SIGNUP_CLIENT } from "#constants/auth/signup";
 import { ReactFormExtendedApi } from "@tanstack/react-form";
 import { TSignupSchema } from "@/validations/auth/signup";
 
-const SignupFormContent = ({ form }: TProps) => {
+const SignupFormContent = ({ form, isSubmitting }: TProps) => {
   return (
     <form
       id={SIGNUP_CONST.FORM_ID}
@@ -31,6 +31,7 @@ const SignupFormContent = ({ form }: TProps) => {
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
+                disabled={isSubmitting}
               />
             );
           }}
@@ -49,6 +50,7 @@ const SignupFormContent = ({ form }: TProps) => {
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
+                disabled={isSubmitting}
               />
             );
           }}
@@ -68,6 +70,7 @@ const SignupFormContent = ({ form }: TProps) => {
                 autoComplete="new-password"
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
+                disabled={isSubmitting}
               />
             );
           }}
@@ -87,6 +90,7 @@ const SignupFormContent = ({ form }: TProps) => {
                 autoComplete="new-password"
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
+                disabled={isSubmitting}
               />
             );
           }}
@@ -100,5 +104,6 @@ export default SignupFormContent;
 
 type TProps = {
   form: AppFormApi<TSignupSchema>;
+  isSubmitting: boolean;
 };
 type AppFormApi<T> = ReactFormExtendedApi<T, any, any, any, any, any, any, any, any, any, any, any>;

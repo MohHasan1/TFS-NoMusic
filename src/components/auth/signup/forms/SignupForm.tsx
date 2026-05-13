@@ -43,8 +43,8 @@ const SignupForm = () => {
     <FormCard
       title={SIGNUP_CLIENT.FORM_TITLE}
       description={SIGNUP_CLIENT.FORM_DESC}
-      content={<SignupFormContent form={form} />}
-      footer={<SignupFormFooter isPending={isPending} errorMsg={serverErrorMessage} />}
+      content={<SignupFormContent form={form} isSubmitting={isPending} />}
+      footer={<SignupFormFooter isSubmitting={isPending} errorMsg={serverErrorMessage} />}
     />
   );
 };

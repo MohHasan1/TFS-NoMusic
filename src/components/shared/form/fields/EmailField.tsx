@@ -1,5 +1,6 @@
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { ComponentPropsWithoutRef } from "react";
 
 const EmailField = (props: TProps) => {
   const {
@@ -13,6 +14,7 @@ const EmailField = (props: TProps) => {
     ariaInvalid,
     placeholder,
     autoComplete,
+    ...rest
   } = props;
 
   return (
@@ -29,6 +31,7 @@ const EmailField = (props: TProps) => {
         placeholder={placeholder ?? "you@example.com"}
         autoComplete={autoComplete ?? "email"}
         required={required ?? false}
+        {...rest}
       />
       {ariaInvalid && <FieldError errors={errors} />}
     </Field>
@@ -37,7 +40,7 @@ const EmailField = (props: TProps) => {
 
 export default EmailField;
 
-type TProps = {
+type TProps = ComponentPropsWithoutRef<"input"> & {
   label?: string;
   name: string;
   value: string;

@@ -5,12 +5,12 @@ import FormCTA from "@/components/shared/form/FormCTA";
 import { SIGNUP_CLIENT, SIGNUP_CONST } from "@/constants/auth/signup";
 import { Field } from "@/components/ui/field";
 
-const SignupFormFooter = ({ isPending, errorMsg }: TProps) => {
+const SignupFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
   return (
     <Field orientation="responsive">
       <FormAlert title={SIGNUP_CLIENT.ERROR_ALERT_TITLE} errorMsg={errorMsg} />
       <FormSubmitButton
-        isPending={isPending}
+        isSubmitting={isSubmitting}
         label={SIGNUP_CLIENT.SUBMIT_LBL}
         pendingLabel={SIGNUP_CLIENT.SUBMIT_PENDING_LBL}
         formId={SIGNUP_CONST.FORM_ID}
@@ -28,5 +28,5 @@ export default SignupFormFooter;
 
 type TProps = {
   errorMsg?: string;
-  isPending: boolean;
+  isSubmitting: boolean;
 };

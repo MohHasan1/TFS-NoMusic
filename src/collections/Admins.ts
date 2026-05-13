@@ -5,11 +5,11 @@ export const Admins: CollectionConfig = {
   slug: "admins",
   auth: true,
   admin: {
-    useAsTitle: "fullName",
+    useAsTitle: "name",
   },
   fields: [
     {
-      name: "fullName",
+      name: "name",
       type: "text",
       required: true,
     },

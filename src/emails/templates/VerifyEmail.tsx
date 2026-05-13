@@ -3,10 +3,7 @@ import { BrandLogo } from "../components/elements/BrandLogo";
 import { PrimaryButton } from "../components/elements/PrimaryButton";
 import { Layout } from "../components/layout/Layout";
 
-export const VerifyEmail = ({
-  userName = "there",
-  verificationUrl = "https://nomusic.thefamilysuite.org/verify-email",
-}: VerifyEmailProps) => {
+export const VerifyEmail = ({ userName = "there", verificationUrl }: VerifyEmailProps) => {
   return (
     <Layout previewText="one last step before the vocals start 🎧">
       <BrandLogo />
