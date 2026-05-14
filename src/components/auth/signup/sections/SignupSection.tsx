@@ -1,4 +1,4 @@
-import FormShell from "@/components/shared/form/FormShell";
+import FormShell from "@/components/shared/form/containers/FormShell";
 import SignupForm from "../forms/SignupForm";
 
 const SignupSection = () => {

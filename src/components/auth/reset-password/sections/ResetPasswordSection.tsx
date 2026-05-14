@@ -1,4 +1,4 @@
-import FormShell from "@/components/shared/form/FormShell";
+import FormShell from "@/components/shared/form/containers/FormShell";
 import ResetPasswordForm from "../forms/ResetPasswordForm";
 
 const ResetPasswordSection = () => {

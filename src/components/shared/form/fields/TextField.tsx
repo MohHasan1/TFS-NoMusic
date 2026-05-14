@@ -1,6 +1,6 @@
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { ComponentPropsWithoutRef } from "react";
+import { Field, FieldLabel } from "@/components/ui/field";
+import FormFieldError from "../FormFieldError";
+import FormInputField from "../FormInputField";
 
 const TextField = (props: TProps) => {
   const { name, label, value, onBlur, onChange, errors, ariaInvalid, ...rest } = props;
@@ -8,7 +8,7 @@ const TextField = (props: TProps) => {
   return (
     <Field data-invalid={ariaInvalid}>
       <FieldLabel htmlFor={name}>{label}</FieldLabel>
-      <Input
+      <FormInputField
         id={name}
         type="text"
         name={name}
@@ -18,17 +18,17 @@ const TextField = (props: TProps) => {
         aria-invalid={ariaInvalid}
         {...rest}
       />
-      {ariaInvalid && <FieldError errors={errors} />}
+      <FormFieldError errors={errors} />
     </Field>
   );
 };
 
 export default TextField;
 
-type TProps = {
+type TProps = React.ComponentPropsWithoutRef<"input"> & {
   label: string;
   name: string;
   value: string;
   errors: Array<{ message?: string } | undefined>;
   ariaInvalid: boolean;
-} & ComponentPropsWithoutRef<"input">;
+};

@@ -4,7 +4,7 @@ import ProgressBar from "@/components/shared/ProgressBar";
 
 const VerifyEmailContent = ({ status }: TProps) => {
   return (
-    <div className="py-4 text-sm text-purple-200 leading-relaxed text-left flex flex-col items-start justify-center gap-4 w-full">
+    <div className="py-4 text-sm text-primary-200 leading-relaxed text-left flex flex-col items-start justify-center gap-4 w-full">
       {status === "loading" && (
         <div className="flex items-center gap-3">
           <p>{VERIFY_EMAIL_CLIENT.LOADING_CONTENT}</p>

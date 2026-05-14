@@ -1,6 +1,6 @@
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { ComponentPropsWithoutRef } from "react";
+import { Field, FieldLabel } from "@/components/ui/field";
+import FormFieldError from "../FormFieldError";
+import FormInputField from "../FormInputField";
 
 const EmailField = (props: TProps) => {
   const {
@@ -19,8 +19,8 @@ const EmailField = (props: TProps) => {
 
   return (
     <Field data-invalid={ariaInvalid}>
-      <FieldLabel htmlFor={name} >{label}</FieldLabel>
-      <Input
+      <FieldLabel htmlFor={name}>{label}</FieldLabel>
+      <FormInputField
         id={name}
         type="email"
         name={name}
@@ -33,22 +33,22 @@ const EmailField = (props: TProps) => {
         required={required ?? false}
         {...rest}
       />
-      {ariaInvalid && <FieldError errors={errors}/>}
+      <FormFieldError errors={errors} />
     </Field>
   );
 };
 
 export default EmailField;
 
-type TProps = ComponentPropsWithoutRef<"input"> & {
+type TProps = React.ComponentPropsWithoutRef<"input"> & {
   label?: string;
   name: string;
   value: string;
-  errors: Array<{ message?: string } | undefined>;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   ariaInvalid: boolean;
   placeholder?: string;
   autoComplete?: string;
   required?: boolean;
+  errors: Array<{ message?: string } | undefined>;
+  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

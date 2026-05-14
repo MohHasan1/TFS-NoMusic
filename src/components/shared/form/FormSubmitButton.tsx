@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { Button } from "@/components/ui/button";
 
 const FormSubmitButton = ({ isSubmitting, label, pendingLabel, formId, ...rest }: TProps) => {
   return (
@@ -18,7 +18,7 @@ const FormSubmitButton = ({ isSubmitting, label, pendingLabel, formId, ...rest }
 
 export default FormSubmitButton;
 
-type TProps = Parameters<typeof Button>[0] & {
+type TProps = React.ComponentPropsWithoutRef<typeof Button> & {
   formId: string;
   label: string;
   pendingLabel?: string;

@@ -1,6 +1,6 @@
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { ComponentPropsWithoutRef } from "react";
+import { Field, FieldLabel } from "@/components/ui/field";
+import FormFieldError from "../FormFieldError";
+import FormInputField from "../FormInputField";
 
 const PasswordField = (props: TProps) => {
   const {
@@ -20,7 +20,7 @@ const PasswordField = (props: TProps) => {
   return (
     <Field data-invalid={ariaInvalid}>
       <FieldLabel htmlFor={name}>{label ?? "Password"}</FieldLabel>
-      <Input
+      <FormInputField
         id={name}
         type="password"
         name={name}
@@ -33,14 +33,14 @@ const PasswordField = (props: TProps) => {
         required={required ?? false}
         {...rest}
       />
-      {ariaInvalid && <FieldError errors={errors} />}
+      <FormFieldError errors={errors} />
     </Field>
   );
 };
 
 export default PasswordField;
 
-type TProps = ComponentPropsWithoutRef<"input"> & {
+type TProps = React.ComponentPropsWithoutRef<"input"> & {
   label?: string;
   name: string;
   value: string;

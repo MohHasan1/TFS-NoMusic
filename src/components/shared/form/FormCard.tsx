@@ -9,9 +9,9 @@ import {
 
 const FormCard = ({ title, description, children, content, footer }: TProps) => {
   return (
-    <Card className="w-full sm:max-w-md space-y-5 rounded-2xl bg-white/3 py-6">
+    <Card className="w-full sm:max-w-md space-y-5 rounded-4xl bg-white/3 py-6 px-0 sm:px-0.5">
       <CardHeader className="space-y-0.5">
-        <CardTitle className="text-xl text-purple-200 capitalize">{title}</CardTitle>
+        <CardTitle className="text-xl text-primary-200 capitalize">{title}</CardTitle>
         <CardDescription className="text-xs tracking-wide">{description}</CardDescription>
       </CardHeader>
       {content && <CardContent>{content ?? children}</CardContent>}

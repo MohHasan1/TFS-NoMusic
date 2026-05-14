@@ -3,8 +3,8 @@ import Link from "next/link";
 
 const FormCTA = ({ label, linkLabel, isSubmitting, href, onClick }: TProps) => {
   return (
-    <div className="flex items-center justify-between gap-3 pt-1 px-1 text-xs">
-      <span>{label}</span>
+    <div className="flex items-center justify-between gap-3 pt-3 text-xs">
+      <span className="text-muted-foreground ">{label}</span>
 
       <Button
         type={href ? undefined : "button"}
@@ -12,9 +12,9 @@ const FormCTA = ({ label, linkLabel, isSubmitting, href, onClick }: TProps) => {
         onClick={onClick}
         disabled={isSubmitting}
         nativeButton={href ? false : true}
-        variant="outline"
+        variant="link"
         size="xs"
-        className={"bg-white/3"}
+        className={"text-primary-400"}
       >
         {linkLabel}
       </Button>
