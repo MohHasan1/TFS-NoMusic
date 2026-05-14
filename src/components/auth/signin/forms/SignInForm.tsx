@@ -30,12 +30,13 @@ const SigninForm = () => {
       setErrorMessage("");
     },
     onSubmit: ({ value }) => {
+      // TODO:TEMP BLOCK
       // NOTE: This is a manual validation of the password field:
-      const manVal = SigninStrictSchema.safeParse(value);
-      if (!manVal.success) {
-        setErrorMessage(SIGNIN_CLIENT.WRONG_CREDENTIALS_MSG);
-        return;
-      }
+      // const manVal = SigninStrictSchema.safeParse(value);
+      // if (!manVal.success) {
+      //   setErrorMessage(SIGNIN_CLIENT.WRONG_CREDENTIALS_MSG);
+      //   return;
+      // }
       startTransition(async () => {
         const result = await signinAction(value);
         if (!result?.isSuccess) {
