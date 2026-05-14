@@ -23,9 +23,7 @@ const ProgressBar = ({ duration = 3, label }: TProps) => {
 
   return (
     <Progress value={progress}>
-      <ProgressLabel className="text-xs text-purple-300/70 font-medium italic">
-        {label}
-      </ProgressLabel>
+      <ProgressLabel className="text-xs text-primary-400 font-medium">{label}</ProgressLabel>
     </Progress>
   );
 };

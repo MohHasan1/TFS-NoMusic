@@ -10,8 +10,8 @@ export function Header() {
       >
         <span className="text-white/80 group-hover:text-white/60">No</span>
         <span
-          className="bg-linear-to-br from-violet-400 to-purple-600 bg-clip-text text-transparent 
-        group-hover:from-violet-400/80 group-hover:to-purple-600/80 transition-all duration-300"
+          className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent 
+          group-hover:from-primary-400/80 group-hover:to-primary-600/80 transition-all duration-300"
         >
           Music
         </span>

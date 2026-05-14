@@ -15,10 +15,10 @@ const VerifyEmailForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
+  const [status, setStatus] = useState<"loading" | "success" | "error">("success");
 
   useEffect(() => {
-    verify();
+    // verify();
   }, [token]);
 
   const verify = async () => {
