@@ -2,19 +2,18 @@
 
 import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
 
 import FormCard from "@/components/shared/form/FormCard";
 import SigninFormContent from "./SigninFormContent";
 import SigninFormFooter from "./SigninFormFooter";
 
 import { signinAction } from "@/server-actions/auth/signin";
-import { SigninSchema } from "@/validations/auth/signin";
+import { SigninSchema, SigninStrictSchema } from "@/validations/auth/signin";
 import { SIGNIN_CLIENT } from "#constants/auth/signin";
 
 const SigninForm = () => {
   const [isSubmitting, startTransition] = useTransition();
-  const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);
 
   const form = useForm({
@@ -25,13 +24,20 @@ const SigninForm = () => {
     validators: {
       onSubmit: SigninSchema,
     },
+    onSubmitInvalid: () => {
+      setErrorMessage("");
+    },
     onSubmit: ({ value }) => {
+      // NOTE: This is a manual validation of the password field:
+      const manVal = SigninStrictSchema.safeParse(value);
+      if (!manVal.success) {
+        setErrorMessage(SIGNIN_CLIENT.WRONG_CREDENTIALS_MSG);
+        return;
+      }
       startTransition(async () => {
         const result = await signinAction(value);
         if (!result?.isSuccess) {
-          // setServerError(result?.error || []);
-          setServerErrorMessage(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
-          toast.error(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
+          setErrorMessage(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
         }
       });
     },
@@ -41,8 +47,14 @@ const SigninForm = () => {
     <FormCard
       title={SIGNIN_CLIENT.FORM_TITLE}
       description={SIGNIN_CLIENT.FORM_DESC}
-      content={<SigninFormContent form={form} isSubmitting={isSubmitting} />}
-      footer={<SigninFormFooter isSubmitting={isSubmitting} errorMsg={serverErrorMessage} />}
+      content={
+        <SigninFormContent
+          form={form}
+          isSubmitting={isSubmitting}
+          clearErrorFn={() => setErrorMessage("")}
+        />
+      }
+      footer={<SigninFormFooter isSubmitting={isSubmitting} errorMsg={errorMessage} />}
     />
   );
 };

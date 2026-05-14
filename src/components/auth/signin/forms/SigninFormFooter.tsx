@@ -3,11 +3,11 @@ import FormAlert from "@/components/shared/form/FormAlert";
 import FormCTA from "@/components/shared/form/FormCTA";
 
 import { SIGNIN_CONST, SIGNIN_CLIENT } from "@/constants/auth/signin";
-import { Field } from "@/components/ui/field";
+import FormFooterContainer from "@/components/shared/form/containers/FormFooterContainer";
 
 const SigninFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
   return (
-    <Field orientation="responsive">
+    <FormFooterContainer>
       <FormAlert title={SIGNIN_CLIENT.ERROR_ALERT_TITLE} errorMessage={errorMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
@@ -21,7 +21,7 @@ const SigninFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         linkLabel={SIGNIN_CLIENT.CTA_LINK_LBL}
         href={SIGNIN_CLIENT.CTA_HREF}
       />
-    </Field>
+    </FormFooterContainer>
   );
 };
 

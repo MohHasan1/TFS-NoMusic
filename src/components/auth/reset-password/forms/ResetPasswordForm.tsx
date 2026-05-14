@@ -30,6 +30,7 @@ const ResetPasswordForm = () => {
       onSubmit: ResetPasswordSchema,
     },
     onSubmit: ({ value }) => {
+      // TODO: Use zod
       if (!token) {
         setErrorMessage(RESET_PASSWORD_CLIENT.TOKEN_ERROR_DESC);
         return;

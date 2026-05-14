@@ -3,11 +3,11 @@ import FormAlert from "@/components/shared/form/FormAlert";
 import FormCTA from "@/components/shared/form/FormCTA";
 
 import { SIGNUP_CLIENT, SIGNUP_CONST } from "@/constants/auth/signup";
-import { Field } from "@/components/ui/field";
+import FormFooterContainer from "@/components/shared/form/containers/FormFooterContainer";
 
 const SignupFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
   return (
-    <Field orientation="responsive">
+    <FormFooterContainer>
       <FormAlert title={SIGNUP_CLIENT.ERROR_ALERT_TITLE} errorMessage={errorMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
@@ -21,7 +21,7 @@ const SignupFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         linkLabel={SIGNUP_CLIENT.CTA_LINK_LBL}
         href={SIGNUP_CLIENT.CTA_HREF}
       />
-    </Field>
+    </FormFooterContainer>
   );
 };
 

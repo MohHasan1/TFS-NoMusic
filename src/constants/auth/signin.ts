@@ -14,19 +14,18 @@ export const SIGNIN_CLIENT = {
 
   PASS_LBL: "Password",
   PASS_PLACEHOLDER: "Your quiet little secret",
-  VALIDATION_PASS_ERROR: "Looks like your password missed its cue.",
+  VALIDATION_PASS_REQUIRED: "Looks like your password missed its cue.",
 
-  FALLBACK_ERROR: "Something went a little off-script, try again?",
-  FALLBACK_SERVER_ERROR: "Our servers are taking a short intermission, please try again soon.",
-  FALLBACK_WRONG_CREDENTIALS: "That didn't quite hit the right note, give it another try.",
+  ERROR_ALERT_TITLE: "Sign in did not work:",
+  WRONG_CREDENTIALS_MSG: "Hmm... that email or password does not look right.",
 
-  SUCCESS_ALERT_TITLE: "You're in!",
-  ERROR_ALERT_TITLE: "Not quite in tune yet",
+  FALLBACK_ERROR: "Something unexpected happened. Please try again.",
+  FALLBACK_SERVER_ERROR: "The servers are taking a quick break. Please try again soon.",
 
   SUBMIT_LBL: "Sign in",
-  SUBMIT_PENDING_LBL: "Tuning things up...",
+  SUBMIT_PENDING_LBL: "Getting you back in...",
 
   CTA_LBL: "Password gone missing?",
-  CTA_LINK_LBL: "Send help",
+  CTA_LINK_LBL: "Help me get back in",
   CTA_HREF: PUBLIC_ROUTES.FORGOT_PASSWORD,
 } as const;

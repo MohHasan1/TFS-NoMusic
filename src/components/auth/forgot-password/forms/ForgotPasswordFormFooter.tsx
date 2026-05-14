@@ -3,11 +3,11 @@ import FormAlert from "@/components/shared/form/FormAlert";
 import FormCTA from "@/components/shared/form/FormCTA";
 
 import { FORGOT_PASSWORD_CONST, FORGOT_PASSWORD_CLIENT } from "@/constants/auth/forgot-password";
-import { Field } from "@/components/ui/field";
+import FormFooterContainer from "@/components/shared/form/containers/FormFooterContainer";
 
 const ForgotPasswordFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
   return (
-    <Field orientation="responsive">
+    <FormFooterContainer>
       <FormAlert title={FORGOT_PASSWORD_CLIENT.ERROR_ALERT_TITLE} errorMessage={errorMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
@@ -21,7 +21,7 @@ const ForgotPasswordFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         linkLabel={FORGOT_PASSWORD_CLIENT.CTA_LINK_LBL}
         href={FORGOT_PASSWORD_CLIENT.CTA_HREF}
       />
-    </Field>
+    </FormFooterContainer>
   );
 };
 

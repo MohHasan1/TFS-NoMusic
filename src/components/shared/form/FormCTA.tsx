@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const FormCTA = ({ label, linkLabel, isSubmitting, href, onClick }: TProps) => {
   return (
-    <div className="flex items-center justify-between gap-3 pt-3 text-xs">
+    <div className="flex items-center justify-between gap-3 text-xs">
       <span className="text-muted-foreground ">{label}</span>
 
       <Button
