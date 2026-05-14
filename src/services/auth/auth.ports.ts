@@ -4,6 +4,7 @@ import {
   signIn as signInFromAdapter,
   signUp as signUpFromAdapter,
   verifyEmail as verifyEmailFromAdapter,
+  forgotPassword as forgotPasswordFromAdapter,
 } from "@/services/auth/auth-pl.adapter";
 import type { SignInDTO, SignUpDTO } from "@/services/auth/dto";
 
@@ -25,4 +26,8 @@ export async function getCurrentUser() {
 
 export async function verifyEmail(token: string) {
   return verifyEmailFromAdapter(token);
+}
+
+export async function forgotPassword(email: string) {
+  return forgotPasswordFromAdapter(email);
 }

@@ -16,6 +16,7 @@ const SignupFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         formId={SIGNUP_CONST.FORM_ID}
       />
       <FormCTA
+        isSubmitting={isSubmitting}
         label={SIGNUP_CLIENT.CTA_LBL}
         linkLabel={SIGNUP_CLIENT.CTA_LINK_LBL}
         href={SIGNUP_CLIENT.CTA_HREF}

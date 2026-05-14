@@ -11,11 +11,12 @@ const SigninFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
       <FormAlert title={SIGNIN_CLIENT.ERROR_ALERT_TITLE} errorMsg={errorMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
+        formId={SIGNIN_CONST.FORM_ID}
         label={SIGNIN_CLIENT.SUBMIT_LBL}
         pendingLabel={SIGNIN_CLIENT.SUBMIT_PENDING_LBL}
-        formId={SIGNIN_CONST.FORM_ID}
       />
       <FormCTA
+        isSubmitting={isSubmitting}
         label={SIGNIN_CLIENT.CTA_LBL}
         linkLabel={SIGNIN_CLIENT.CTA_LINK_LBL}
         href={SIGNIN_CLIENT.CTA_HREF}

@@ -19,8 +19,8 @@ const FormSubmitButton = ({ isSubmitting, label, pendingLabel, formId }: TProps)
 export default FormSubmitButton;
 
 type TProps = {
+  formId: string;
   label: string;
   pendingLabel?: string;
   isSubmitting: boolean;
-  formId: string;
 };

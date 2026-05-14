@@ -2,8 +2,8 @@ import EmailField from "@/components/shared/form/fields/EmailField";
 import PasswordField from "@/components/shared/form/fields/PasswordField";
 import { FieldGroup } from "@/components/ui/field";
 
+import { TForm } from "#types/form";
 import { SIGNIN_CONST, SIGNIN_CLIENT } from "#constants/auth/signin";
-import { ReactFormExtendedApi } from "@tanstack/react-form";
 import { TSigninSchema } from "@/validations/auth/signin";
 
 const SigninFormContent = ({ form, isSubmitting }: TProps) => {
@@ -38,6 +38,7 @@ const SigninFormContent = ({ form, isSubmitting }: TProps) => {
         <form.Field
           name="password"
           children={(field) => {
+            // const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
             return (
               <PasswordField
@@ -63,7 +64,6 @@ const SigninFormContent = ({ form, isSubmitting }: TProps) => {
 export default SigninFormContent;
 
 type TProps = {
-  form: AppFormApi<TSigninSchema>;
-  isSubmitting: boolean;  
+  form: TForm<TSigninSchema>;
+  isSubmitting: boolean;
 };
-type AppFormApi<T> = ReactFormExtendedApi<T, any, any, any, any, any, any, any, any, any, any, any>;

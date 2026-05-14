@@ -23,7 +23,7 @@
       "#constants/*": ["./src/constants/*"],
       "#emails-templates/*": ["./src/emails/templates/*"],
 
-      "#types": ["./src/types/*"],  
+      "#types/*": ["./src/types/*"],  
       "#loggers": ["./src/lib/utils/loggers.ts"],
       "#responses": ["./src/lib/utils/responses.ts"],
       

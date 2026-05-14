@@ -13,7 +13,7 @@ import { SigninSchema } from "@/validations/auth/signin";
 import { SIGNIN_CLIENT } from "#constants/auth/signin";
 
 const SigninForm = () => {
-  const [isPending, startTransition] = useTransition();
+  const [isSubmitting, startTransition] = useTransition();
   const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);
 
@@ -41,8 +41,8 @@ const SigninForm = () => {
     <FormCard
       title={SIGNIN_CLIENT.FORM_TITLE}
       description={SIGNIN_CLIENT.FORM_DESC}
-      content={<SigninFormContent form={form} isSubmitting={isPending} />}
-      footer={<SigninFormFooter isSubmitting={isPending} errorMsg={serverErrorMessage} />}
+      content={<SigninFormContent form={form} isSubmitting={isSubmitting} />}
+      footer={<SigninFormFooter isSubmitting={isSubmitting} errorMsg={serverErrorMessage} />}
     />
   );
 };
