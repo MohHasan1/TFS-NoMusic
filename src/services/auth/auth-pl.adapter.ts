@@ -61,3 +61,16 @@ export async function forgotPassword(email: string) {
     },
   });
 }
+
+export async function resetPassword(token: string, password: string) {
+  const payload = await getPayloadClient();
+
+  return payload.resetPassword({
+    collection: "users",
+    overrideAccess: true,
+    data: {
+      token,
+      password,
+    },
+  });
+}

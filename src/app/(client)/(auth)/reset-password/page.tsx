@@ -1,11 +1,7 @@
-"use client"
-import { logInfo } from "#lib/utils/loggers";
-import { useSearchParams } from "next/navigation";
+import ResetPasswordSection from "@/components/auth/reset-password/sections/ResetPasswordSection";
 
 const ResetPasswordPage = () => {
-  const query = useSearchParams();
-  logInfo(query.get("token"));
-  return <div>{query.get("token")}</div>;
+  return <ResetPasswordSection />;
 };
 
 export default ResetPasswordPage;
