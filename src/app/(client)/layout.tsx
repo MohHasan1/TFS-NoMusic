@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
 
+import { Toaster } from "@/components/ui/sonner";
+
+import { Montserrat } from "next/font/google";
+import type { Metadata } from "next";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -11,24 +13,23 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "No Music — Private Streaming",
+  title: "NoMusic — Private Streaming",
   description: "A private, invite-only platform for streaming pure vocals with no instruments.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: TProps) {
   return (
     <html
       lang="en"
       className={`${spaceGrotesk.variable} ${spaceGrotesk.className} dark h-full antialiased bg-background`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-        <Toaster />
+      <body>
+        {children} <Toaster position="top-right" />
       </body>
     </html>
   );
 }
+
+type TProps = Readonly<{ children: React.ReactNode }>;
+
+// <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>

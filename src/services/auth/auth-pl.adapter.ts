@@ -2,7 +2,7 @@ import config from "@/payload.config";
 import { login, logout } from "@payloadcms/next/auth";
 import { headers as getHeaders } from "next/headers";
 
-import { getPayloadClient } from "@/lib/payload-client";
+import { getPayloadClient } from "@/lib/payload/payload-client";
 import type { SignInDTO, SignUpDTO } from "@/services/auth/dto";
 
 export async function signIn(input: SignInDTO) {
@@ -20,9 +20,9 @@ export async function signUp(input: SignUpDTO) {
   return payload.create({
     collection: "users",
     data: {
+      name: input.name,
       email: input.email.toLowerCase(),
       password: input.password,
-      fullName: input.fullName,
     },
   });
 }
@@ -40,4 +40,37 @@ export async function getCurrentUser() {
   const { user } = await payload.auth({ headers });
 
   return user ?? null;
+}
+
+export async function verifyEmail(token: string) {
+  const payload = await getPayloadClient();
+
+  return payload.verifyEmail({
+    collection: "users",
+    token,
+  });
+}
+
+export async function forgotPassword(email: string) {
+  const payload = await getPayloadClient();
+
+  return payload.forgotPassword({
+    collection: "users",
+    data: {
+      email,
+    },
+  });
+}
+
+export async function resetPassword(token: string, password: string) {
+  const payload = await getPayloadClient();
+
+  return payload.resetPassword({
+    collection: "users",
+    overrideAccess: true,
+    data: {
+      token,
+      password,
+    },
+  });
 }

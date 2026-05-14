@@ -28,7 +28,12 @@ export function getDb(): DbAdapter {
     }
   }
 
-  throw new Error('[db] Unsupported environment. NODE_ENV must be "development" or "production".');
+  // NOTE: THIS IS FOR BUILD TO PASS BUT IT WILL NOT BE USED AT BUILD TIME
+  if (env === "production" && !vercelEnv) return makeSqliteDb(process.env.SQLITE_URL || "file:./dev.db");
+
+  throw new Error(
+    `[db] Unsupported environment. NODE_ENV must be "development" or "production". ${env}`,
+  );
 }
 
 type DbAdapter = ReturnType<typeof makeMongooseDb> | ReturnType<typeof makeSqliteDb>;

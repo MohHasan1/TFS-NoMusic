@@ -150,7 +150,7 @@ export interface UserAuthOperations {
  */
 export interface Admin {
   id: string;
-  fullName: string;
+  name: string;
   role: 'level_1' | 'level_2' | 'level_3' | 'level_4';
   updatedAt: string;
   createdAt: string;
@@ -177,7 +177,7 @@ export interface Admin {
  */
 export interface User {
   id: string;
-  fullName: string;
+  name: string;
   isApproved?: boolean | null;
   role?: ('level_1' | 'level_2' | 'level_3' | 'level_4') | null;
   updatedAt: string;
@@ -385,7 +385,7 @@ export interface PayloadMigration {
  * via the `definition` "admins_select".
  */
 export interface AdminsSelect<T extends boolean = true> {
-  fullName?: T;
+  name?: T;
   role?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -409,7 +409,7 @@ export interface AdminsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  fullName?: T;
+  name?: T;
   isApproved?: T;
   role?: T;
   updatedAt?: T;

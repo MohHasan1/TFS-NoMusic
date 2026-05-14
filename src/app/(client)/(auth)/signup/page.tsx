@@ -1,10 +1,7 @@
-import { SignUpForm } from "@/components/auth/SignUpForm"
-import { AuthShell } from "@/components/shared/AuthShell"
+import SignupSection from "@/components/auth/signup/sections/SignupSection";
 
-export default function SignUpPage() {
-  return (
-    <AuthShell>
-      <SignUpForm />
-    </AuthShell>
-  )
-}
+const SignupPage = () => {
+  return <SignupSection />;
+};
+
+export default SignupPage;

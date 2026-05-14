@@ -1,12 +1,14 @@
+import { PRIVATE_ROUTES } from "#constants/routes";
+
 export const privateNavItems = [
   {
-    href: "/no-music",
+    href: PRIVATE_ROUTES.NOMUSIC,
     label: "NoMusic",
   },
   {
-    href: "/request-nomusic",
+    href: PRIVATE_ROUTES.REQUEST_NOMUSIC,
     label: "Request NoMusic",
   },
 ] as const;
 
-export const privateHomeHref = "/no-music";
+export const privateHomeHref = PRIVATE_ROUTES.NOMUSIC;

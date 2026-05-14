@@ -19,8 +19,17 @@
       }
     ],
     "paths": {
+      "#lib/*": ["./src/lib/*"],
+      "#constants/*": ["./src/constants/*"],
+      "#emails-templates/*": ["./src/emails/templates/*"],
+
+      "#types/*": ["./src/types/*"],  
+      "#loggers": ["./src/lib/utils/loggers.ts"],
+      "#responses": ["./src/lib/utils/responses.ts"],
+      
       "@/*": ["./src/*"],
-      "@payload-config": ["./src/payload.config.ts"]
+      "@payload-config": ["./src/payload.config.ts"],
+
     }
   },
   "include": [

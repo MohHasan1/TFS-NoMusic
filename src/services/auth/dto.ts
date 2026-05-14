@@ -10,6 +10,6 @@ export type SignInDTO = {
 
 export type SignUpDTO = {
   email: string;
-  fullName: string;
+  name: string;
   password: string;
 };

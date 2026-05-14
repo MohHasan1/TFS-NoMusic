@@ -1,4 +1,4 @@
-import { getPayloadClient } from "@/lib/payload-client";
+import { getPayloadClient } from "@/lib/payload/payload-client";
 import { TRequest } from "@/types/requests";
 
 export async function createRequest(input: TRequest) {
