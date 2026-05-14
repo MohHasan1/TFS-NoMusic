@@ -3,17 +3,19 @@
 import { forgotPassword } from "@/services/auth/auth.ports";
 import { errorResponse, successResponse } from "#responses";
 import { logInfo } from "#lib/utils/loggers";
+import { ForgotPasswordSchema, TForgotPasswordSchema } from "@/validations/auth/forgot-password";
+import { FORGOT_PASSWORD_CLIENT } from "#constants/auth/forgot-password";
 
-export async function forgotPasswordAction(email: string) {
-  if (!email) {
-    return errorResponse([], "Email is required");
+export async function forgotPasswordAction(email: TForgotPasswordSchema) {
+  const validation = ForgotPasswordSchema.safeParse(email);
+  if (!validation.success) {
+    return errorResponse([], FORGOT_PASSWORD_CLIENT.VALIDATION_EMAIL_ERROR);
   }
 
   try {
-    const res = await forgotPassword(email);
-    logInfo(res)
+    const res = await forgotPassword(validation.data.email);
     return successResponse("Magic link sent 🎧");
-  } catch (error: any) {
-    return errorResponse(error.message || "Failed to send magic link");
+  } catch (error) {
+    return errorResponse([], "Failed to send magic link");
   }
 }

@@ -5,7 +5,7 @@ import { TForm } from "#types/form";
 import { FORGOT_PASSWORD_CONST, FORGOT_PASSWORD_CLIENT } from "#constants/auth/forgot-password";
 import { TForgotPasswordSchema } from "@/validations/auth/forgot-password";
 
-const ForgotPasswordFormContent = ({ form, isSubmitting }: TProps) => {
+const ForgotPasswordFormContent = ({ form, isSubmitting, clearErrorFn }: TProps) => {
   return (
     <form
       id={FORGOT_PASSWORD_CONST.FORM_ID}
@@ -28,7 +28,10 @@ const ForgotPasswordFormContent = ({ form, isSubmitting }: TProps) => {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(e) => {
+                  clearErrorFn?.();
+                  field.handleChange(e.target.value);
+                }}
                 disabled={isSubmitting}
               />
             );
@@ -44,4 +47,5 @@ export default ForgotPasswordFormContent;
 type TProps = {
   form: TForm<TForgotPasswordSchema>;
   isSubmitting: boolean;
+  clearErrorFn?: () => void;
 };
