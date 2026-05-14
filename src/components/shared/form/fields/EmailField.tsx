@@ -19,7 +19,7 @@ const EmailField = (props: TProps) => {
 
   return (
     <Field data-invalid={ariaInvalid}>
-      <FieldLabel htmlFor={name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={name} >{label}</FieldLabel>
       <Input
         id={name}
         type="email"
@@ -33,7 +33,7 @@ const EmailField = (props: TProps) => {
         required={required ?? false}
         {...rest}
       />
-      {ariaInvalid && <FieldError errors={errors} />}
+      {ariaInvalid && <FieldError errors={errors}/>}
     </Field>
   );
 };

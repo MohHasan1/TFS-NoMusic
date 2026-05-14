@@ -4,9 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
 
-import FormCard from "@/components/shared/form/FormCard";
 import ResetPasswordFormContent from "./ResetPasswordFormContent";
 import ResetPasswordFormFooter from "./ResetPasswordFormFooter";
+import FormCard from "@/components/shared/form/FormCard";
 
 import { resetPasswordAction } from "@/server-actions/auth/reset-password";
 import { ResetPasswordSchema } from "@/validations/auth/reset-password";
@@ -51,7 +51,13 @@ const ResetPasswordForm = () => {
       title={RESET_PASSWORD_CLIENT.FORM_TITLE}
       description={RESET_PASSWORD_CLIENT.FORM_DESC}
       content={<ResetPasswordFormContent form={form} isSubmitting={isSubmitting} />}
-      footer={<ResetPasswordFormFooter isSubmitting={isSubmitting} errorMessage={errorMessage} />}
+      footer={
+        <ResetPasswordFormFooter
+          isSubmitting={isSubmitting}
+          isDisabled={!!errorMessage}
+          errorMessage={errorMessage}
+        />
+      }
     />
   );
 };

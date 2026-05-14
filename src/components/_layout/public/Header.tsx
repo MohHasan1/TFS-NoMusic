@@ -6,7 +6,7 @@ export function Header() {
     <header className="flex items-center justify-between px-8 py-6">
       <Link
         href={PUBLIC_ROUTES.HOME}
-        className="group text-sm font-semibold  uppercase transition-colors duration-300"
+        className="group font-semibold uppercase transition-colors duration-300"
       >
         <span className="text-white/80 group-hover:text-white/60">No</span>
         <span
