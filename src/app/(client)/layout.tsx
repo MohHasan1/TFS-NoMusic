@@ -1,4 +1,4 @@
-import { Space_Grotesk } from "next/font/google";
+// import { Space_Grotesk } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
 
@@ -6,10 +6,15 @@ import { Montserrat } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+// const spaceGrotesk = Space_Grotesk({
+//   subsets: ["latin"],
+//   display: "swap",
+//   variable: "--font-sans",
+// });
+
+const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -19,10 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: TProps) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${spaceGrotesk.className} dark h-full antialiased bg-background`}
-    >
+    <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>
       <body>
         {children} <Toaster position="top-right" />
       </body>
@@ -33,3 +35,4 @@ export default function RootLayout({ children }: TProps) {
 type TProps = Readonly<{ children: React.ReactNode }>;
 
 // <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>
+// className={`${spaceGrotesk.variable} ${spaceGrotesk.className} dark h-full antialiased bg-background`}
