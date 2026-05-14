@@ -17,14 +17,15 @@ export class QueueEngine {
 
     if (queue.length === 0) return null;
 
-    if (shuffle) {
-      return this.getRandomIndex();
-    }
-
     const isLast = currentIndex >= queue.length - 1;
 
+    // Repeat-one must beat shuffle; otherwise shuffle would skip away from the looped track.
     if (repeatMode === "one") {
       return currentIndex;
+    }
+
+    if (shuffle) {
+      return this.getRandomIndex();
     }
 
     if (repeatMode === "all" && isLast) {
@@ -43,12 +44,13 @@ export class QueueEngine {
 
     if (queue.length === 0) return null;
 
-    if (shuffle) {
-      return this.getRandomIndex();
-    }
-
+    // Repeat-one must beat shuffle; otherwise shuffle would skip away from the looped track.
     if (repeatMode === "one") {
       return currentIndex;
+    }
+
+    if (shuffle) {
+      return this.getRandomIndex();
     }
 
     if (currentIndex > 0) return currentIndex - 1;

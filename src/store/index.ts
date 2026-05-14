@@ -1,12 +1,15 @@
 import { create, type ExtractState } from "zustand";
 
-import { createSelectors } from "./selector";
-import { TNoMusicPlayer, createNoMusicPlayerSlice } from "@/features/nomusic/noMusicPlayer/slice.noMusicPlayer";
-import { TNoMusicQueue, createNoMusicQueueSlice } from "@/features/nomusic/noMusicQueue/slice.noMusicQueue";
+import { createNoMusicPlayerSlice, type TNoMusicPlayer } from "@/features/nomusic/noMusicPlayer/slice.noMusicPlayer";
+import { createNoMusicQueueSlice, type TNoMusicQueue } from "@/features/nomusic/noMusicQueue/slice.noMusicQueue";
+import { createNowPlayingSlice, type TNowPlaying } from "@/features/nomusic/nowPlaying/slice.nowPlaying";
 
-export const useStore = create<TNoMusicPlayer & TNoMusicQueue>()((...a) => ({
+import { createSelectors } from "./selector";
+
+export const useStore = create<TNoMusicPlayer & TNoMusicQueue & TNowPlaying>()((...a) => ({
   ...createNoMusicPlayerSlice(...a),
   ...createNoMusicQueueSlice(...a),
+  ...createNowPlayingSlice(...a),
 }));
 
 export const store = createSelectors(useStore);

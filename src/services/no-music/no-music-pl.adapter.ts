@@ -1,7 +1,7 @@
 import { getPayloadClient } from "@/lib/payload-client";
+import type { Nomusic } from "@/payload-types";
+import type { TNoMusic } from "@/types/nomusic";
 import { mapNomusic } from "./no-music.mapper";
-import { TNoMusic } from "@/types/nomusic";
-import { Nomusic } from "@/payload-types";
 
 export async function listNomusicAdapter(): Promise<TNoMusic[]> {
   const payload = await getPayloadClient();
@@ -16,13 +16,12 @@ export async function listNomusicAdapter(): Promise<TNoMusic[]> {
       title: true,
       artist: true,
       language: true,
+      duration: true,
       updatedAt: true,
       coverImage: true,
       uploadedAudioURL: true,
     },
   });
-
-  // console.log(result);
 
   return mapNomusic(result.docs as unknown as Nomusic[]);
 }

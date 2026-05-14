@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect } from "react";
 
-import { store } from "@/store";
 import { noMusicEngine } from "./noMusicPlayer/engine.noMusicPlayer";
 import { useNoMusicPlayer } from "./noMusicPlayer/hook.noMusicPlayer";
 import { useNoMusicQueue } from "./noMusicQueue/hook.noMusicQueue";
@@ -11,30 +10,24 @@ export function useNoMusicPlaybackController() {
   const { next, prev } = useNoMusicQueue();
   const player = useNoMusicPlayer();
   const { playTrack } = player;
-  const setIsPlaying = store.use.setIsPlaying();
 
   const playNextTrack = useCallback(() => {
     const nextTrack = next();
     if (!nextTrack) {
       noMusicEngine.pause();
-      setIsPlaying(false);
       return;
     }
-
     playTrack(nextTrack, { restart: true });
-  }, [next, playTrack, setIsPlaying]);
+  }, [next, playTrack]);
 
   const playPrevTrack = useCallback(() => {
     const prevTrack = prev();
-    if (prevTrack) {
-      playTrack(prevTrack, { restart: true });
-    }
-  }, [playTrack, prev]);
+    if (!prevTrack) return;
+    playTrack(prevTrack, { restart: true });
+  }, [prev, playTrack]);
 
   useEffect(() => {
-    return noMusicEngine.subscribeEnded(() => {
-      playNextTrack();
-    });
+    return noMusicEngine.subscribeEnded(() => playNextTrack());
   }, [playNextTrack]);
 
   return {

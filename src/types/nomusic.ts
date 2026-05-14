@@ -5,7 +5,8 @@ export type TNoMusic = {
   title: Nomusic["title"];
   artist: Nomusic["artist"];
   language: Nomusic["language"];
-  uploadedAt: Nomusic["updatedAt"]
+  uploadedAt: Nomusic["updatedAt"];
+  duration: number | null | undefined;
   coverImage: string | null | undefined;
   audioStreamUrl: string;
 };

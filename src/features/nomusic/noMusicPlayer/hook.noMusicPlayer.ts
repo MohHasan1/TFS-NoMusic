@@ -1,68 +1,84 @@
 "use client";
 
 import { useCallback, useEffect, useMemo } from "react";
+import { toast } from "sonner";
+
+import type { TNoMusic } from "@/types/nomusic";
 import { store } from "@/store";
 import { noMusicEngine } from "./engine.noMusicPlayer";
-import { TNoMusic } from "@/types/nomusic";
 
 const engine = noMusicEngine;
 
 export function useNoMusicPlayer() {
   const currentTrack = store.use.currentTrack();
   const isPlaying = store.use.isPlaying();
+  const isBuffering = store.use.isBuffering();
+  const error = store.use.error();
   const volume = store.use.volume();
   const currentTime = store.use.currentTime();
   const duration = store.use.duration();
-  const setTime = store.use.setTime();
-  const setDuration = store.use.setDuration();
+
   const setCurrentTrack = store.use.setCurrentTrack();
   const setIsPlaying = store.use.setIsPlaying();
+  const setIsBuffering = store.use.setIsBuffering();
+  const setError = store.use.setError();
+  const setTime = store.use.setTime();
+  const setDuration = store.use.setDuration();
+  const setVolume = store.use.setVolume();
 
-  // Starts browser audio playback for a specific track and syncs duration.
-  const playAudioForTrack = useCallback(
-    (track: TNoMusic) => {
-      const p = engine.play({
-        id: track.id,
-        title: track.title,
-        url: track.audioStreamUrl,
-      });
-
-      if (p) {
-        p.catch(() => {
-          setIsPlaying(false);
-        });
-      }
-
-      setDuration(engine.getDuration());
-    },
-    [setDuration, setIsPlaying],
-  );
-
-  // Public action: select a track in state and start playback.
   const playTrack = useCallback(
     (track: TNoMusic, options?: { restart?: boolean }) => {
       const shouldRestart = options?.restart === true;
+      const isSameTrack = currentTrack?.id === track.id;
 
-      if (!shouldRestart && currentTrack?.id === track.id && isPlaying) return;
+      if (isSameTrack && isPlaying && !shouldRestart) return;
 
       setCurrentTrack(track);
-      playAudioForTrack(track);
+      setIsPlaying(true);
+      setError(null);
+
+      const promise = engine.play(
+        { id: track.id, title: track.title, url: track.audioStreamUrl },
+        { restart: shouldRestart },
+      );
+
+      promise?.catch(() => {
+        setIsPlaying(false);
+        setIsBuffering(false);
+      });
+
+      setDuration(engine.getDuration());
     },
-    [currentTrack?.id, isPlaying, setCurrentTrack, playAudioForTrack],
+    [currentTrack?.id, isPlaying, setCurrentTrack, setIsPlaying, setError, setIsBuffering, setDuration],
   );
 
-  // Toggles playback for the currently selected track.
   const togglePlayback = useCallback(() => {
     if (!currentTrack) return;
 
     if (isPlaying) {
       engine.pause();
-      setIsPlaying(false);
       return;
     }
 
     playTrack(currentTrack);
-  }, [currentTrack, isPlaying, playTrack, setIsPlaying]);
+  }, [currentTrack, isPlaying, playTrack]);
+
+  const seek = useCallback(
+    (time: number) => {
+      engine.seek(time);
+      setTime(time);
+    },
+    [setTime],
+  );
+
+  const updateVolume = useCallback(
+    (next: number) => {
+      const clamped = Math.min(1, Math.max(0, next));
+      setVolume(clamped);
+      engine.setVolume(clamped);
+    },
+    [setVolume],
+  );
 
   useEffect(() => {
     engine.setVolume(volume);
@@ -73,15 +89,22 @@ export function useNoMusicPlayer() {
       setTime(t);
       setDuration(engine.getDuration());
     });
-  }, [setDuration, setTime]);
+  }, [setTime, setDuration]);
 
-  // Stops audio when the player hook unmounts (for example, after logout redirect).
   useEffect(() => {
-    return () => {
-      engine.pause();
-      setIsPlaying(false);
-    };
+    return engine.subscribeBuffering(setIsBuffering);
+  }, [setIsBuffering]);
+
+  useEffect(() => {
+    return engine.subscribePlayState(setIsPlaying);
   }, [setIsPlaying]);
+
+  useEffect(() => {
+    return engine.subscribeError((message) => {
+      setError(message);
+      if (message) toast.error(message);
+    });
+  }, [setError]);
 
   const progress = useMemo(() => {
     if (duration <= 0) return 0;
@@ -91,14 +114,15 @@ export function useNoMusicPlayer() {
   return {
     currentTrack,
     isPlaying,
+    isBuffering,
+    error,
     currentTime,
     duration,
     progress,
+    volume,
     playTrack,
     togglePlayback,
-    seek: (time: number) => {
-      engine.seek(time);
-      setTime(time);
-    },
+    seek,
+    setVolume: updateVolume,
   };
 }

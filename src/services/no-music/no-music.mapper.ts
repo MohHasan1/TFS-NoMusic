@@ -10,14 +10,10 @@ export function mapNomusic(nomusic: Nomusic[]): TNoMusic[] {
 }
 
 function mapNomusicToDto(doc: Nomusic): TNoMusic | null {
-  // -- Use the persisted stream URL first. Fall back to uploaded media URL when available.
-  const uploadedAudioURL = doc.uploadedAudioURL || getAudioURL(doc.audioFile);
-  if (!uploadedAudioURL) {
-    return null;
-  }
+  const audioStreamUrl = doc.uploadedAudioURL || getAudioURL(doc.audioFile);
+  if (!audioStreamUrl) return null;
 
-  // -- Extract the Cover Image URL
-  const uploadedImageURL = getCoverImageURL(doc.coverImage) || doc.coverImage?.source;
+  const coverImage = getCoverImageURL(doc.coverImage);
 
   return {
     id: doc.id,
@@ -25,7 +21,8 @@ function mapNomusicToDto(doc: Nomusic): TNoMusic | null {
     artist: doc.artist,
     language: doc.language,
     uploadedAt: doc.updatedAt,
-    audioStreamUrl: uploadedAudioURL,
-    coverImage: uploadedImageURL,
+    duration: doc.duration,
+    audioStreamUrl,
+    coverImage,
   };
 }

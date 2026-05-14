@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
+
 import "./globals.css";
 
-const montserrat = Montserrat({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
   title: "No Music — Private Streaming",
-  description:
-    "A private, invite-only platform for streaming pure vocals with no instruments.",
+  description: "A private, invite-only platform for streaming pure vocals with no instruments.",
 };
 
 export default function RootLayout({
@@ -21,9 +23,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.className} dark h-full antialiased bg-background`}
+      className={`${spaceGrotesk.variable} ${spaceGrotesk.className} dark h-full antialiased bg-background`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
