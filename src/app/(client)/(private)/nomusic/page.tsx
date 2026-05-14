@@ -4,11 +4,12 @@ import { NoMusicBrowser } from "@/components/private/no-music/sections/NoMusicBr
 import NoMusicHeader from "@/components/private/no-music/sections/NoMusicHeader";
 import { getCurrentUser } from "@/services/auth/auth.ports";
 import { listNomusic } from "@/services/no-music/no-music.ports";
+import { PUBLIC_ROUTES } from "#constants/routes";
 
 export default async function NoMusicPage() {
   const user = await getCurrentUser();
   if (!user) {
-    redirect("/login");
+    redirect(PUBLIC_ROUTES.SIGNIN);
   }
 
   const noMusic = await listNomusic();

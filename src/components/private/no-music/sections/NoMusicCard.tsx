@@ -82,12 +82,16 @@ export function NoMusicCard({ noMusic, isActive, onSelect }: NoMusicCardProps) {
             <span className="truncate">{noMusic.artist || "Unknown Artist"}</span>
           </div>
 
-          {noMusic.language ? (
+          {/* {noMusic.language ? (
             <div className="flex items-center gap-1.5 pt-1 text-[9px] font-bold tracking-wider text-muted-foreground uppercase md:text-[10px]">
               <RiGlobalLine className="size-3 shrink-0" />
-              {noMusic.language}
+              {noMusic.language ?? "unknown"}
             </div>
-          ) : null}
+          ) : null} */}
+          <div className="flex items-center gap-1.5 pt-1 text-[9px] font-bold tracking-wider text-muted-foreground uppercase md:text-[10px]">
+            <RiGlobalLine className="size-3 shrink-0" />
+            {noMusic.language ?? "unknown"}
+          </div>
         </CardContent>
       </Card>
     </Button>
