@@ -1,9 +1,8 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import FormCard from "@/components/shared/form/FormCard";
 import ResetPasswordFormContent from "./ResetPasswordFormContent";
@@ -20,7 +19,7 @@ const ResetPasswordForm = () => {
   const token = searchParams.get("token");
 
   const [isSubmitting, startTransition] = useTransition();
-  const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm({
     defaultValues: {
@@ -32,20 +31,17 @@ const ResetPasswordForm = () => {
     },
     onSubmit: ({ value }) => {
       if (!token) {
-        toast.error("Reset token is missing or invalid.");
+        setErrorMessage(RESET_PASSWORD_CLIENT.TOKEN_ERROR_DESC);
         return;
       }
 
       startTransition(async () => {
         const result = await resetPasswordAction(token, value.password);
         if (!result?.isSuccess) {
-          setServerErrorMessage(result?.message || RESET_PASSWORD_CLIENT.FALLBACK_ERROR);
-          toast.error(result?.message || RESET_PASSWORD_CLIENT.FALLBACK_ERROR);
-        } else {
-          setServerErrorMessage("");
-          toast.success(result.message);
-          router.push(PUBLIC_ROUTES.SIGNIN);
+          setErrorMessage(result?.message || RESET_PASSWORD_CLIENT.FALLBACK_ERROR);
         }
+
+        router.push(PUBLIC_ROUTES.SIGNIN);
       });
     },
   });
@@ -55,7 +51,7 @@ const ResetPasswordForm = () => {
       title={RESET_PASSWORD_CLIENT.FORM_TITLE}
       description={RESET_PASSWORD_CLIENT.FORM_DESC}
       content={<ResetPasswordFormContent form={form} isSubmitting={isSubmitting} />}
-      footer={<ResetPasswordFormFooter isSubmitting={isSubmitting} errorMsg={serverErrorMessage} />}
+      footer={<ResetPasswordFormFooter isSubmitting={isSubmitting} errorMessage={errorMessage} />}
     />
   );
 };

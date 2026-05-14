@@ -8,7 +8,7 @@ import { Field } from "@/components/ui/field";
 const SignupFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
   return (
     <Field orientation="responsive">
-      <FormAlert title={SIGNUP_CLIENT.ERROR_ALERT_TITLE} errorMsg={errorMsg} />
+      <FormAlert title={SIGNUP_CLIENT.ERROR_ALERT_TITLE} errorMessage={errorMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
         label={SIGNUP_CLIENT.SUBMIT_LBL}

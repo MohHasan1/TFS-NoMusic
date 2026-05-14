@@ -5,10 +5,10 @@ export const ResetPasswordSchema = z
   .object({
     password: z
       .string()
-      .min(8, RESET_PASSWORD_CLIENT.VALIDATION_PASS_ERROR)
+      .min(8, RESET_PASSWORD_CLIENT.VALIDATION_PASS_SIZE_ERROR)
       .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "Your password needs at least one uppercase letter, one lowercase letter, and one number.",
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/,
+        RESET_PASSWORD_CLIENT.VALIDATION_PASS_STRENGTH_ERROR,
       ),
     confirmPassword: z.string().min(8, RESET_PASSWORD_CLIENT.VALIDATION_CONFIRM_PASS_ERROR),
   })

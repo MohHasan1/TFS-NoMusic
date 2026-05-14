@@ -1,11 +1,11 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
-const FormAlert = ({ title, errorMsg, successMsg }: TProps) => {
-  if (!errorMsg && !successMsg) return null;
+const FormAlert = ({ title, errorMessage, successMessage }: TProps) => {
+  if (!errorMessage && !successMessage) return null;
 
-  const isError = Boolean(errorMsg);
+  const isError = Boolean(errorMessage);
   const alertTitle = title ?? (isError ? "Error" : "Success");
-  const message = errorMsg || successMsg;
+  const message = errorMessage || successMessage;
 
   return (
     <Alert className="max-w-md border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950/20 dark:text-amber-50">
@@ -19,6 +19,6 @@ export default FormAlert;
 
 type TProps = {
   title?: string;
-  errorMsg?: string;
-  successMsg?: string;
+  errorMessage?: string;
+  successMessage?: string;
 };

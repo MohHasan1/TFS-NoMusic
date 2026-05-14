@@ -26,7 +26,7 @@ export const SIGNIN_CLIENT = {
   SUBMIT_LBL: "Sign in",
   SUBMIT_PENDING_LBL: "Tuning things up...",
 
-  CTA_LBL: "Forgot your password?",
-  CTA_LINK_LBL: "HALPPPP!!",
+  CTA_LBL: "Password gone missing?",
+  CTA_LINK_LBL: "Send help",
   CTA_HREF: PUBLIC_ROUTES.FORGOT_PASSWORD,
 } as const;

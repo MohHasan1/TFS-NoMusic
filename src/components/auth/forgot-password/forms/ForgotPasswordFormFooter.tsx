@@ -8,7 +8,7 @@ import { Field } from "@/components/ui/field";
 const ForgotPasswordFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
   return (
     <Field orientation="responsive">
-      <FormAlert title={FORGOT_PASSWORD_CLIENT.ERROR_ALERT_TITLE} errorMsg={errorMsg} />
+      <FormAlert title={FORGOT_PASSWORD_CLIENT.ERROR_ALERT_TITLE} errorMessage={errorMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
         formId={FORGOT_PASSWORD_CONST.FORM_ID}
