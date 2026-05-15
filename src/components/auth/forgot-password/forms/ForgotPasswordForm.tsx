@@ -4,13 +4,13 @@ import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
 import { redirect } from "next/navigation";
 
-import FormCard from "@/components/shared/form/FormCard";
 import ForgotPasswordFormContent from "./ForgotPasswordFormContent";
 import ForgotPasswordFormFooter from "./ForgotPasswordFormFooter";
+import FormCard from "@/components/shared/form/FormCard";
 
-import { forgotPasswordAction } from "@/server-actions/auth/forgot-password";
-import { ForgotPasswordSchema } from "@/validations/auth/forgot-password";
+import { forgotPasswordAction } from "#server-actions/auth/forgot-password";
 import { FORGOT_PASSWORD_CLIENT } from "#constants/auth/forgot-password";
+import { ForgotPasswordSchema } from "#validations/auth/forgot-password";
 import { PUBLIC_ROUTES } from "#constants/routes";
 
 const ForgotPasswordForm = () => {

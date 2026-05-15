@@ -7,8 +7,8 @@ import FormCard from "@/components/shared/form/FormCard";
 import SignupFormContent from "./SignupFormContent";
 import SignupFormFooter from "./SignupFormFooter";
 
-import { signupAction } from "@/server-actions/auth/signup";
-import { SignupSchema } from "@/validations/auth/signup";
+import { signupAction } from "#server-actions/auth/signup";
+import { SignupSchema } from "#validations/auth/signup";
 import { SIGNUP_CLIENT } from "#constants/auth/signup";
 
 const SignupForm = () => {

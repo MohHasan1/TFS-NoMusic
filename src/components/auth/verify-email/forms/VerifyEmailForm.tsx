@@ -1,15 +1,15 @@
 "use client";
 
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { verifyEmailAction } from "@/server-actions/auth/verify-email";
-import { VERIFY_EMAIL_CLIENT } from "#constants/auth/verify-email";
-
-import FormCard from "@/components/shared/form/FormCard";
+import FormCard from "#components/shared/form/FormCard";
 import VerifyEmailContent from "./VerifyEmailContent";
+
+import { VERIFY_EMAIL_CLIENT } from "#constants/auth/verify-email";
+import { verifyEmailAction } from "#server-actions/auth/verify-email";
+import { TokenSchema } from "#validations/auth/token";
 import { PUBLIC_ROUTES } from "#constants/routes";
-import { TokenSchema } from "@/validations/auth/token";
 
 const VerifyEmailForm = () => {
   const searchParams = useSearchParams();
@@ -32,7 +32,7 @@ const VerifyEmailForm = () => {
       setStatus("error");
       return;
     }
-    
+
     setStatus("success");
     setTimeout(() => {
       redirect(PUBLIC_ROUTES.SIGNIN, "replace");

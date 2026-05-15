@@ -1,6 +1,6 @@
-import { forgotPasswordAction } from "@/server-actions/auth/forgot-password";
-import { TSigninSchema } from "@/validations/auth/signin";
-
+// NOTE: NOT IN USED:
+import { forgotPasswordAction } from "#server-actions/auth/forgot-password";
+import { TSigninSchema } from "#validations/auth/signin";
 import FormCTA from "@/components/shared/form/FormCTA";
 import { PUBLIC_ROUTES } from "#constants/routes";
 import { TForm } from "#types/form";
@@ -29,7 +29,7 @@ const ForgetPasswordCTA = ({ form, isSubmitting }: TProps) => {
 
     toast.info(`Sending magic link to ${email}...`);
 
-    const result = await forgotPasswordAction(email);
+    const result = await forgotPasswordAction({ email });
     if (result.isSuccess) {
       toast.success(result.message);
       redirect(PUBLIC_ROUTES.CHECK_EMAIL);

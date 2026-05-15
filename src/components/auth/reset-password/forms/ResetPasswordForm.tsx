@@ -8,11 +8,11 @@ import ResetPasswordFormContent from "./ResetPasswordFormContent";
 import ResetPasswordFormFooter from "./ResetPasswordFormFooter";
 import FormCard from "@/components/shared/form/FormCard";
 
-import { resetPasswordAction } from "@/server-actions/auth/reset-password";
-import { ResetPasswordSchema } from "@/validations/auth/reset-password";
+import { resetPasswordAction } from "#server-actions/auth/reset-password";
+import { ResetPasswordSchema } from "#validations/auth/reset-password";
 import { RESET_PASSWORD_CLIENT } from "#constants/auth/reset-password";
+import { TokenSchema } from "#validations/auth/token";
 import { PUBLIC_ROUTES } from "#constants/routes";
-import { TokenSchema } from "@/validations/auth/token";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();

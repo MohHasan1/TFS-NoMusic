@@ -19,16 +19,22 @@
       }
     ],
     "paths": {
-      "#lib/*": ["./src/lib/*"],
-      "#constants/*": ["./src/constants/*"],
-      "#emails-templates/*": ["./src/emails/templates/*"],
-
-      "#types/*": ["./src/types/*"],  
       "#loggers": ["./src/lib/utils/loggers.ts"],
       "#responses": ["./src/lib/utils/responses.ts"],
+
+      "#server-actions/*": ["./src/server-actions/*"],
+      "#validations/*": ["./src/validations/*"],
+      "#services/*": ["./src/services/*"],
+      "#features/*": ["./src/features/*"],
+      "#components/*": ["./src/components/*"],
+
+      "#types/*": ["./src/types/*"],  
+      "#constants/*": ["./src/constants/*"],
+      "#payload-config": ["./src/payload.config.ts"],
+      "#emails-templates/*": ["./src/emails/templates/*"],
       
       "@/*": ["./src/*"],
-      "@payload-config": ["./src/payload.config.ts"],
+      "#lib/*": ["./src/lib/*"],
 
     }
   },

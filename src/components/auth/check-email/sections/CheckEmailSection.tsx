@@ -1,5 +1,5 @@
 import FormShell from "@/components/shared/form/containers/FormShell";
-import CheckEmailForm from "../elements/CheckEmailForm";
+import CheckEmailForm from "../forms/CheckEmailForm";
 
 const CheckEmailSection = () => {
   return (

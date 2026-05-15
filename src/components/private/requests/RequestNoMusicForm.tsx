@@ -53,7 +53,7 @@ export function RequestNoMusicForm() {
         </div>
       </div>
 
-      <FormAlert errorMsg={state.error} successMsg={state.success} />
+      <FormAlert errorMessage={state.error} successMessage={state.success} />
 
       <Button type="submit" size="lg" className="w-full rounded-xl" disabled={pending}>
         {pending ? "Submitting..." : "Submit Request"}

@@ -63,7 +63,7 @@ export async function submitNoMusicRequestAction(
   try {
     await createRequest({
       type: "nomusic_request",
-      name: user?.fullName ?? "",
+      name: user?.name ?? "",
       email,
       url: youtubeURL,
       message: description,
