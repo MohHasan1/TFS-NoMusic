@@ -22,7 +22,7 @@ const ResetPasswordFormFooter = ({ errorMessage, isDisabled, isSubmitting }: TPr
 export default ResetPasswordFormFooter;
 
 type TProps = {
-  errorMessage?: string;
   isSubmitting: boolean;
+  errorMessage?: string;
   isDisabled?: boolean;
 };

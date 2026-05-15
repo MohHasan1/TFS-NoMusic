@@ -2,7 +2,6 @@
 
 import { forgotPassword } from "@/services/auth/auth.ports";
 import { errorResponse, successResponse } from "#responses";
-import { logInfo } from "#lib/utils/loggers";
 import { ForgotPasswordSchema, TForgotPasswordSchema } from "@/validations/auth/forgot-password";
 import { FORGOT_PASSWORD_CLIENT } from "#constants/auth/forgot-password";
 

@@ -5,7 +5,7 @@ import { TForm } from "#types/form";
 import { RESET_PASSWORD_CONST, RESET_PASSWORD_CLIENT } from "#constants/auth/reset-password";
 import { TResetPasswordSchema } from "@/validations/auth/reset-password";
 
-const ResetPasswordFormContent = ({ form, isSubmitting }: TProps) => {
+const ResetPasswordFormContent = ({ form, isSubmitting, isDisabled }: TProps) => {
   return (
     <form
       id={RESET_PASSWORD_CONST.FORM_ID}
@@ -29,7 +29,7 @@ const ResetPasswordFormContent = ({ form, isSubmitting }: TProps) => {
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isDisabled}
                 autoComplete="new-password"
               />
             );
@@ -49,7 +49,7 @@ const ResetPasswordFormContent = ({ form, isSubmitting }: TProps) => {
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
                 onChange={(e) => field.handleChange(e.target.value)}
-                disabled={isSubmitting}
+                disabled={isSubmitting || isDisabled}
                 autoComplete="new-password"
               />
             );
@@ -65,4 +65,5 @@ export default ResetPasswordFormContent;
 type TProps = {
   form: TForm<TResetPasswordSchema>;
   isSubmitting: boolean;
+  isDisabled?: boolean;
 };

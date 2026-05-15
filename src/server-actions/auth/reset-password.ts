@@ -2,19 +2,26 @@
 
 import { resetPassword } from "@/services/auth/auth.ports";
 import { errorResponse, successResponse } from "#responses";
+import { TokenSchema } from "@/validations/auth/token";
+import { TResetPasswordSchema, ResetPasswordSchema } from "@/validations/auth/reset-password";
+import { RESET_PASSWORD_CLIENT } from "#constants/auth/reset-password";
 
-export async function resetPasswordAction(token: string, password: string) {
-  if (!token) {
-    return errorResponse([], "Token is required");
+export async function resetPasswordAction(data: TResetPasswordSchema, token: string) {
+  const tokenValidation = TokenSchema.safeParse({ token });
+  if (!tokenValidation.success) {
+    return errorResponse([], RESET_PASSWORD_CLIENT.TOKEN_ERROR_DESC);
   }
-  if (!password) {
-    return errorResponse([], "Password is required");
+
+  const passwordValidation = ResetPasswordSchema.safeParse(data);
+  if (!passwordValidation.success) {
+    return errorResponse([], RESET_PASSWORD_CLIENT.VALIDATION_RESET_PASS_ERROR);
   }
 
   try {
-    await resetPassword(token, password);
+    // TODO: finish it up
+    await resetPassword(tokenValidation.data.token, passwordValidation.data.password);
     return successResponse("Password reset successfully! 🎧");
   } catch (error: any) {
-    return errorResponse(error.message || "Failed to reset password");
+    return errorResponse([], RESET_PASSWORD_CLIENT.FALLBACK_SERVER_ERROR);
   }
 }

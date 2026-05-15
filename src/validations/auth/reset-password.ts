@@ -1,19 +1,17 @@
 import { RESET_PASSWORD_CLIENT } from "@/constants/auth/reset-password";
 import { z } from "zod";
+import Fields from "../shared";
 
 export const ResetPasswordSchema = z
   .object({
-    password: z
-      .string()
-      .min(8, RESET_PASSWORD_CLIENT.VALIDATION_PASS_SIZE_ERROR)
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/,
-        RESET_PASSWORD_CLIENT.VALIDATION_PASS_STRENGTH_ERROR,
-      ),
-    confirmPassword: z.string().min(8, RESET_PASSWORD_CLIENT.VALIDATION_CONFIRM_PASS_ERROR),
+    password: Fields.password({
+      min: RESET_PASSWORD_CLIENT.VALIDATION_PASS_SIZE_ERROR,
+      strength: RESET_PASSWORD_CLIENT.VALIDATION_PASS_STRENGTH_ERROR,
+    }),
+    confirmPassword: Fields.required(RESET_PASSWORD_CLIENT.VALIDATION_CONFIRM_PASS_EMPTY_ERROR),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: RESET_PASSWORD_CLIENT.VALIDATION_CONFIRM_PASS_ERROR,
+    message: RESET_PASSWORD_CLIENT.VALIDATION_CONFIRM_PASS_MISMATCH_ERROR,
     path: ["confirmPassword"],
   });
 
