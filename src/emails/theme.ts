@@ -1,23 +1,24 @@
 export const theme = {
   colors: {
-    background: "#18181b",
-    surface: "#27272a",
+    background: "oklch(0.141 0.005 285.823)",
+    surface: "oklch(0.985 0 0 / 0.05)", // matches --card in globals.css
 
-    primary: "#6d28d9",
-    secondary: "#a1a1aa",
+    primary: "oklch(0.432 0.232 292.759)",
+    secondary: "oklch(0.274 0.006 286.033)",
 
     text: {
-      primary: "#f4f4f5",
-      secondary: "#d4d4d8",
-      muted: "#a1a1aa",
+      primary: "oklch(0.985 0 0)", // --foreground
+      secondary: "oklch(0.892 0.058 281.85)", // --muted-foreground
+      muted: "oklch(0.705 0.015 286.067)", // --sidebar-ring or similar muted tone
     },
+    // oklch(0.892 0.058 281.85)
 
     logo: {
-      no: "rgba(255,255,255,0.8)",
-      nomusic: "#7c3aed",
+      no: "oklch(0.985 0 0 / 0.8)",
+      nomusic: "oklch(0.558 0.288 302.321)", // --primary
     },
 
-    border: "#3f3f46",
+    border: "oklch(1 0 0 / 10%)", // --border
   },
 
   fonts: {

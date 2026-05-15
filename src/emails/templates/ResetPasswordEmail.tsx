@@ -1,7 +1,10 @@
-import { Heading, Hr, Section, Text } from "react-email";
-import { BrandLogo } from "../components/elements/BrandLogo";
-import { PrimaryButton } from "../components/elements/PrimaryButton";
-import { Layout } from "../components/layout/Layout";
+import { Section, Text } from "react-email";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { BrandLogo } from "../_components/elements/BrandLogo";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { EmailSignature } from "../_components/elements/EmailSignature";
+import { Layout } from "../_components/layout/Layout";
 
 export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => {
   return (
@@ -9,11 +12,11 @@ export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => 
       <BrandLogo />
 
       <Section>
-        <Heading className="text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0">
+        <EmailHeading>
           {"Password reset, "}
           <span className="text-logo-nomusic uppercase">{userName}</span>
-          {" 🔑"}
-        </Heading>
+          {" 🗝️"}
+        </EmailHeading>
 
         <Text className="text-content-secondary text-body">
           {"Looks like your password disappeared into the void. It happens 😭"}
@@ -31,7 +34,7 @@ export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => 
 
         <Text className="text-logo-nomusic text-xs break-all mt-2">{resetUrl}</Text>
 
-        <Hr className="border-t border-solid border-border my-[26px] mx-0 w-full" />
+        <EmailDivider />
 
         <Text className="text-content-muted text-small text-center italic">
           "NoMusic misses you already."
@@ -39,9 +42,11 @@ export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => 
 
         <Text className="text-content-muted text-xs text-center">
           {
-            "If you did not request this password reset, you can safely ignore this email. Your account is still safe."
+            "If you didn't request this password reset, please contact me so I can check it. Your account is still safe."
           }
         </Text>
+
+        <EmailSignature />
       </Section>
     </Layout>
   );

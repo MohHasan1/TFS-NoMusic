@@ -1,7 +1,10 @@
-import { Heading, Hr, Section, Text } from "react-email";
-import { BrandLogo } from "../components/elements/BrandLogo";
-import { PrimaryButton } from "../components/elements/PrimaryButton";
-import { Layout } from "../components/layout/Layout";
+import { Section, Text } from "react-email";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { BrandLogo } from "../_components/elements/BrandLogo";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { EmailSignature } from "../_components/elements/EmailSignature";
+import { Layout } from "../_components/layout/Layout";
 
 export const WelcomeEmail = ({
   userName = "there",
@@ -12,11 +15,11 @@ export const WelcomeEmail = ({
       <BrandLogo />
 
       <Section>
-        <Heading className="text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0">
-          {"You made it in, "}
+        <EmailHeading>
+          {"Welcome to NoMusic, "}
           <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🎧"}
-        </Heading>
+        </EmailHeading>
 
         <Text className="text-content-secondary text-body">
           {
@@ -38,7 +41,7 @@ export const WelcomeEmail = ({
 
         {loginUrl && <PrimaryButton href={loginUrl}>Start Listening</PrimaryButton>}
 
-        <Hr className="border-t border-solid border-border my-[26px] mx-0 w-full" />
+        <EmailDivider />
 
         <Text className="text-content-muted text-small text-center italic">
           "Private circle. Vocals only. That's the whole point."
@@ -46,9 +49,11 @@ export const WelcomeEmail = ({
 
         <Text className="text-content-muted text-xs text-center">
           {
-            "If you did not expect this invite, congratulations! You are either accidentally family now, or someone typed the wrong email 😭 - jokes!"
+            "If you didn't expect this invite, either you're accidentally in the circle now, or someone typed the wrong email."
           }
         </Text>
+
+        <EmailSignature />
       </Section>
     </Layout>
   );

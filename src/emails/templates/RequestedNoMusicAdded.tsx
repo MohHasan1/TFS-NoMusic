@@ -1,7 +1,10 @@
-import { Heading, Hr, Section, Text } from "react-email";
-import { BrandLogo } from "../components/elements/BrandLogo";
-import { PrimaryButton } from "../components/elements/PrimaryButton";
-import { Layout } from "../components/layout/Layout";
+import { Section, Text } from "react-email";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { BrandLogo } from "../_components/elements/BrandLogo";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { EmailSignature } from "../_components/elements/EmailSignature";
+import { Layout } from "../_components/layout/Layout";
 
 export const RequestedNoMusicAdded = ({
   userName = "there",
@@ -12,18 +15,18 @@ export const RequestedNoMusicAdded = ({
       <BrandLogo />
 
       <Section>
-        <Heading className="text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0">
-          {"Your request was added, "}
+        <EmailHeading>
+          {"Your request made it in, "}
           <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🎧"}
-        </Heading>
+        </EmailHeading>
 
         <Text className="text-content-secondary text-body">
-          {"Good news — the NoMusic tracks you requested were successfully added to the circle."}
+          {"Good news! The NoMusic tracks you requested were successfully added to the circle."}
         </Text>
 
         <Text className="text-content-secondary text-body mt-4">
-          {"Your vocals-only collection just got a little better 😭"}
+          {"Your vocals-only collection just got a little better!"}
         </Text>
 
         <Text className="text-content-secondary text-body mt-4">
@@ -40,15 +43,17 @@ export const RequestedNoMusicAdded = ({
 
         <Text className="text-logo-nomusic text-xs break-all mt-2">{returnUrl}</Text>
 
-        <Hr className="border-t border-solid border-border my-[26px] mx-0 w-full" />
+        <EmailDivider />
 
         <Text className="text-content-muted text-small text-center italic">
-          "Private circle. Vocals only. That's the whole point."
+          "Just voices, shared with the right people."
         </Text>
 
         <Text className="text-content-muted text-xs text-center">
-          {"Thanks for helping grow the NoMusic collection 🎧"}
+          {"Thanks for helping keep the NoMusic collection growing."}
         </Text>
+
+        <EmailSignature />
       </Section>
     </Layout>
   );

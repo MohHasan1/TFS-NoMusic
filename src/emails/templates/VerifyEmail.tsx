@@ -1,7 +1,10 @@
-import { Heading, Hr, Section, Text } from "react-email";
-import { BrandLogo } from "../components/elements/BrandLogo";
-import { PrimaryButton } from "../components/elements/PrimaryButton";
-import { Layout } from "../components/layout/Layout";
+import { Section, Text } from "react-email";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { BrandLogo } from "../_components/elements/BrandLogo";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { EmailSignature } from "../_components/elements/EmailSignature";
+import { Layout } from "../_components/layout/Layout";
 
 export const VerifyEmail = ({ userName = "there", verificationUrl }: VerifyEmailProps) => {
   return (
@@ -9,11 +12,11 @@ export const VerifyEmail = ({ userName = "there", verificationUrl }: VerifyEmail
       <BrandLogo />
 
       <Section>
-        <Heading className="text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0">
-          {"Almost there, "}
+        <EmailHeading>
+          {"Confirm your email, "}
           <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🎧"}
-        </Heading>
+        </EmailHeading>
 
         <Text className="text-content-secondary text-body">
           {
@@ -35,17 +38,19 @@ export const VerifyEmail = ({ userName = "there", verificationUrl }: VerifyEmail
 
         <Text className="text-logo-nomusic text-xs break-all mt-2">{verificationUrl}</Text>
 
-        <Hr className="border-t border-solid border-border my-[26px] mx-0 w-full" />
+        <EmailDivider />
 
         <Text className="text-content-muted text-small text-center italic">
-          "No instruments. No random people. Just vocals."
+          "Just voices, no noise, no randoms."
         </Text>
 
         <Text className="text-content-muted text-xs text-center">
           {
-            "This link expires in 24 hours. If you did not sign up for NoMusic, somebody either mistyped their email or secretly wants you in the circle 😭"
+            "This link expires in 24 hours. If you did not sign up for NoMusic, somebody either mistyped their email or secretly wants you in the circle."
           }
         </Text>
+
+        <EmailSignature />
       </Section>
     </Layout>
   );

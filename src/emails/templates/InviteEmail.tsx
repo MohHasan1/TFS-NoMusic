@@ -1,30 +1,28 @@
-import { Heading, Hr, Section, Text } from "react-email";
-import { BrandLogo } from "../components/elements/BrandLogo";
-import { PrimaryButton } from "../components/elements/PrimaryButton";
-import { Layout } from "../components/layout/Layout";
+import { Section, Text } from "react-email";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { BrandLogo } from "../_components/elements/BrandLogo";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { EmailSignature } from "../_components/elements/EmailSignature";
+import { Layout } from "../_components/layout/Layout";
 
 export const InviteEmail = ({
-  inviteeName = "there",
-  inviterName = "Someone",
+  userName = "there",
   inviteUrl = "https://nomusic.thefamilysuite.org/invite",
 }: InviteEmailProps) => {
   return (
-    <Layout
-      previewText={`${inviterName} invited you to join the NoMusic circle 🎧`}
-    >
+    <Layout previewText="Your NoMusic invite is here 🎧">
       <BrandLogo />
 
       <Section>
-        <Heading className="text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0">
-          {"You're invited, "}
-          <span className="text-logo-nomusic uppercase">
-            {inviteeName}
-          </span>
+        <EmailHeading>
+          {"Your NoMusic invite is here, "}
+          <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🎧"}
-        </Heading>
+        </EmailHeading>
 
         <Text className="text-content-secondary text-body">
-          {`${inviterName} just invited you to join NoMusic.`}
+          {"You've been invited to join the NoMusic circle."}
         </Text>
 
         <Text className="text-content-secondary text-body mt-4">
@@ -40,38 +38,29 @@ export const InviteEmail = ({
         </Text>
 
         <Text className="text-content-secondary text-body mt-4">
-          {
-            "Basically… this app slowly tries to replace your normal music taste ✨"
-          }
+          {"Basically… this app slowly tries to replace your normal music taste ✨"}
         </Text>
 
-        {inviteUrl && (
-          <PrimaryButton href={inviteUrl}>
-            Join the circle
-          </PrimaryButton>
-        )}
+        {inviteUrl && <PrimaryButton href={inviteUrl}>Join the circle</PrimaryButton>}
 
         <Text className="text-content-secondary text-body mt-4">
-          {
-            "If the button refuses to cooperate, copy and paste this link into your browser:"
-          }
+          {"If the button refuses to cooperate, copy and paste this link into your browser:"}
         </Text>
 
-        <Text className="text-logo-nomusic text-xs break-all mt-2">
-          {inviteUrl}
-        </Text>
+        <Text className="text-logo-nomusic text-xs break-all mt-2">{inviteUrl}</Text>
 
-        <Hr className="border-t border-solid border-border my-[26px] mx-0 w-full" />
+        <EmailDivider />
 
         <Text className="text-content-muted text-small text-center italic">
-          "Private circle. Vocals only. That's the whole point."
+          "Vocals only. Shared quietly with the right people."
         </Text>
 
         <Text className="text-content-muted text-xs text-center">
           {
-            "If this invite reached the wrong person, congratulations — you accidentally discovered the vocals-only side of the internet."
+            "If this invite reached the wrong inbox, the server cat may have followed the wrong trail."
           }
         </Text>
+        <EmailSignature />
       </Section>
     </Layout>
   );
@@ -80,7 +69,6 @@ export const InviteEmail = ({
 export default InviteEmail;
 
 type InviteEmailProps = {
-  inviteeName?: string;
-  inviterName?: string;
+  userName?: string;
   inviteUrl?: string;
 };

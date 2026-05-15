@@ -1,7 +1,10 @@
-import { Heading, Hr, Section, Text } from "react-email";
-import { BrandLogo } from "../components/elements/BrandLogo";
-import { PrimaryButton } from "../components/elements/PrimaryButton";
-import { Layout } from "../components/layout/Layout";
+import { Section, Text } from "react-email";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { BrandLogo } from "../_components/elements/BrandLogo";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { EmailSignature } from "../_components/elements/EmailSignature";
+import { Layout } from "../_components/layout/Layout";
 
 export const AccessApprovedEmail = ({
   userName = "there",
@@ -12,11 +15,11 @@ export const AccessApprovedEmail = ({
       <BrandLogo />
 
       <Section>
-        <Heading className="text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0">
+        <EmailHeading>
           {"Your request has been approved, "}
           <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🎉"}
-        </Heading>
+        </EmailHeading>
 
         <Text className="text-content-secondary text-body">
           {
@@ -31,7 +34,7 @@ export const AccessApprovedEmail = ({
         </Text>
 
         <Text className="text-content-secondary text-body mt-4">
-          {"Hopefully the vocals slowly replace your regular playlists 😭"}
+          {"Hopefully the vocals slowly replace your regular playlists!"}
         </Text>
 
         {signupUrl && <PrimaryButton href={signupUrl}>Create my account</PrimaryButton>}
@@ -42,7 +45,7 @@ export const AccessApprovedEmail = ({
 
         <Text className="text-logo-nomusic text-xs break-all mt-2">{signupUrl}</Text>
 
-        <Hr className="border-t border-solid border-border my-[26px] mx-0 w-full" />
+        <EmailDivider />
 
         <Text className="text-content-muted text-small text-center italic">
           "Private circle. Vocals only. That's the whole point."
@@ -53,6 +56,8 @@ export const AccessApprovedEmail = ({
             "If you run into any trouble creating your account, just contact me and I'll help you out."
           }
         </Text>
+
+        <EmailSignature />
       </Section>
     </Layout>
   );

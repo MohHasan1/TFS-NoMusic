@@ -11,8 +11,8 @@ export const Layout = ({ children, previewText }: LayoutProps) => {
           <meta name="supported-color-schemes" content="dark" />
         </Head>
         <Preview>{previewText}</Preview>
-        <Body className="bg-app my-auto mx-auto font-sans text-content-primary">
-          <Container className="border border-solid border-border rounded-lg my-[40px] mx-auto p-card max-w-[465px] bg-card">
+        <Body className="flex justify-center items-center bg-app my-auto mx-auto font-sans text-content-primary">
+          <Container className="border border-solid border-border rounded-lg my-4 mx-4 p-card max-w-[465px] bg-card">
             {children}
           </Container>
         </Body>
