@@ -2,7 +2,6 @@
 
 import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
 
 import FormCard from "@/components/shared/form/FormCard";
 import SignupFormContent from "./SignupFormContent";
@@ -14,7 +13,7 @@ import { SIGNUP_CLIENT } from "#constants/auth/signup";
 
 const SignupForm = () => {
   const [isPending, startTransition] = useTransition();
-  const [serverErrorMessage, setServerErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);
 
   const form = useForm({
@@ -27,13 +26,14 @@ const SignupForm = () => {
     validators: {
       onSubmit: SignupSchema,
     },
+    onSubmitInvalid: () => {
+      setErrorMessage("");
+    },
     onSubmit: ({ value }) => {
       startTransition(async () => {
         const result = await signupAction(value);
         if (!result?.isSuccess) {
-          // setServerError(result?.error || []);
-          setServerErrorMessage(result?.message || SIGNUP_CLIENT.FALLBACK_ERROR);
-          toast.error(result?.message || SIGNUP_CLIENT.FALLBACK_ERROR);
+          setErrorMessage(result?.message || SIGNUP_CLIENT.FALLBACK_CLIENT_ERROR);
         }
       });
     },
@@ -44,7 +44,7 @@ const SignupForm = () => {
       title={SIGNUP_CLIENT.FORM_TITLE}
       description={SIGNUP_CLIENT.FORM_DESC}
       content={<SignupFormContent form={form} isSubmitting={isPending} />}
-      footer={<SignupFormFooter isSubmitting={isPending} errorMsg={serverErrorMessage} />}
+      footer={<SignupFormFooter isSubmitting={isPending} errorMsg={errorMessage} />}
     />
   );
 };

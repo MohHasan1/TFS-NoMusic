@@ -1,23 +1,25 @@
 import { z } from "zod";
+import { SIGNUP_CLIENT } from "#constants/auth/signup";
+import Fields from "../shared";
 
 export const SignupSchema = z
   .object({
-    name: z.string().min(2, "Your name is too short.").max(52, "Your name is too long."),
+    name: Fields.name({
+      min: SIGNUP_CLIENT.VALIDATION_NAME_MIN_ERROR,
+      max: SIGNUP_CLIENT.VALIDATION_NAME_MAX_ERROR,
+    }),
 
-    email: z.email("Please enter a valid email address."),
+    email: Fields.email(SIGNUP_CLIENT.VALIDATION_EMAIL_ERROR),
 
-    password: z
-      .string()
-      .min(8, "Your password is too short (minimum 8 characters).")
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "Your password needs at least one uppercase letter, one lowercase letter, and one number.",
-      ),
+    password: Fields.password({
+      min: SIGNUP_CLIENT.VALIDATION_PASS_MIN_ERROR,
+      strength: SIGNUP_CLIENT.VALIDATION_PASS_STRENGTH_ERROR,
+    }),
 
-    confirmPassword: z.string().min(1, "Please confirm your password."),
+    confirmPassword: Fields.required(SIGNUP_CLIENT.VALIDATION_CONFIRM_PASS_EMPTY_ERROR),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match. Please try again.",
+    message: SIGNUP_CLIENT.VALIDATION_CONFIRM_PASS_MISMATCH_ERROR,
     path: ["confirmPassword"],
   });
 
