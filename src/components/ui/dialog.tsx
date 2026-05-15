@@ -22,7 +22,7 @@ function DialogBackdrop({ className, ...props }: React.ComponentProps<typeof Dia
       data-slot="dialog-backdrop"
       className={cn(
         "fixed inset-0 z-50 bg-background/70 backdrop-blur-md transition-opacity duration-300",
-        "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
+        "data-starting-style:opacity-0 data-ending-style:opacity-0",
         className,
       )}
       {...props}
@@ -37,8 +37,8 @@ function DialogPopup({ className, children, ...props }: React.ComponentProps<typ
       className={cn(
         "fixed top-1/2 left-1/2 z-50 flex max-h-[92dvh] w-[min(92vw,520px)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl outline-none",
         "transition-all duration-300",
-        "data-[starting-style]:translate-y-[calc(-50%+12px)] data-[starting-style]:opacity-0 data-[starting-style]:scale-95",
-        "data-[ending-style]:translate-y-[calc(-50%+12px)] data-[ending-style]:opacity-0 data-[ending-style]:scale-95",
+        "data-starting-style:translate-y-[calc(-50%+12px)] data-starting-style:opacity-0 data-starting-style:scale-95",
+        "data-ending-style:translate-y-[calc(-50%+12px)] data-ending-style:opacity-0 data-ending-style:scale-95",
         className,
       )}
       {...props}
