@@ -1,17 +1,20 @@
 export const VERIFY_EMAIL_CLIENT = {
   LOADING_TITLE: "Verifying your email... ✨",
-  LOADING_DESC: "Give me a second while I make sure this link is actually yours.",
-  LOADING_CONTENT: "This usually only takes a moment.",
+  LOADING_DESC: "Server cat is making sure this link is yours.",
+  LOADING_CONTENT: "This should only take a moment.",
 
   SUCCESS_TITLE: "You made it in 🎉",
-  SUCCESS_DESC: "Your email has been verified successfully. Welcome to the NoMusic circle.",
+  SUCCESS_DESC: "Server cat verified your email. Welcome to the NoMusic circle.",
   SUCCESS_CONTENT:
-    "You can now sign in and start exploring vocals-only tracks. Redirecting you to the sign in page...",
+    "You can now sign in and start exploring vocals-only tracks. Taking you to sign in...",
 
-  ERROR_TITLE: "That link did not work 😭",
+  ERROR_TITLE: "Verification didn't work 😭",
   ERROR_DESC: "This verification link is either expired, invalid, or already used.",
   ERROR_CONTENT:
-    "Try requesting another verification email and open the latest one. If you still need help, contact me.",
+    "Try opening the link from your email again. If it still doesn't work, please contact me.",
 
-  FALLBACK_ERROR: "Something went a little off-script, try again?",
+  VALIDATION_TOKEN_ERROR:
+    "This verification link is missing, invalid, or expired. Please contact me.",
+
+  FALLBACK_SERVER_ERROR: "Server cat hit a tiny bump. Try again in a bit.",
 } as const;

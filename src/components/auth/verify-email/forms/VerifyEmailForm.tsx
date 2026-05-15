@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { verifyEmailAction } from "@/server-actions/auth/verify-email";
@@ -8,11 +8,10 @@ import { VERIFY_EMAIL_CLIENT } from "#constants/auth/verify-email";
 
 import FormCard from "@/components/shared/form/FormCard";
 import VerifyEmailContent from "./VerifyEmailContent";
-import { VerifyEmailSchema } from "@/validations/auth/verify-email";
 import { PUBLIC_ROUTES } from "#constants/routes";
+import { TokenSchema } from "@/validations/auth/token";
 
 const VerifyEmailForm = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
@@ -22,27 +21,22 @@ const VerifyEmailForm = () => {
   }, [token]);
 
   const verify = async () => {
-    if (!token) {
-      setStatus("error");
-      return;
-    }
-
-    const validatedData = VerifyEmailSchema.safeParse({ token });
+    const validatedData = TokenSchema.safeParse({ token });
     if (!validatedData.success) {
       setStatus("error");
       return;
     }
 
     const result = await verifyEmailAction(validatedData.data.token);
-
     if (!result.isSuccess) {
       setStatus("error");
-    } else {
-      setStatus("success");
-      setTimeout(() => {
-        router.push(PUBLIC_ROUTES.SIGNIN);
-      }, 3000);
+      return;
     }
+    
+    setStatus("success");
+    setTimeout(() => {
+      redirect(PUBLIC_ROUTES.SIGNIN, "replace");
+    }, 3000);
   };
 
   const getTitle = () => {

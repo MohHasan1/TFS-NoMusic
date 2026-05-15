@@ -2,7 +2,7 @@ import { CHECK_EMAIL_CLIENT } from "@/constants/auth/check-email";
 
 const CheckEmailContent = () => {
   return (
-    <div className="py-4 text-sm text-primary-200 text-center leading-relaxed">
+    <div className="py-4 text-sm text-primary-200 text-left leading-relaxed">
       {CHECK_EMAIL_CLIENT.CONTENT_DESC}
     </div>
   );
