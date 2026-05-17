@@ -1,5 +1,5 @@
-import { isWhitelistedEmail as isWhitelistedEmailFromAdapter } from "@/services/whitelist/whitelist-pl.adapter";
+import { isWhitelistedEmailAdapter } from "./whitelist-pl.adapter";
 
 export async function isWhitelistedEmail(email: string) {
-  return isWhitelistedEmailFromAdapter(email);
+  return isWhitelistedEmailAdapter(email);
 }

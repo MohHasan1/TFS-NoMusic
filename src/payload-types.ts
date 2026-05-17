@@ -207,6 +207,7 @@ export interface User {
  */
 export interface Whitelist {
   id: string;
+  name?: string | null;
   email: string;
   updatedAt: string;
   createdAt: string;
@@ -436,6 +437,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "whitelist_select".
  */
 export interface WhitelistSelect<T extends boolean = true> {
+  name?: T;
   email?: T;
   updatedAt?: T;
   createdAt?: T;

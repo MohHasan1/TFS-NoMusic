@@ -4,7 +4,7 @@ export const Whitelist: CollectionConfig = {
   slug: "whitelist",
 
   admin: {
-    useAsTitle: "email",
+    useAsTitle: "name",
   },
 
   access: {
@@ -15,6 +15,10 @@ export const Whitelist: CollectionConfig = {
   },
 
   fields: [
+    {
+      name: "name",
+      type: "text",
+    },
     {
       name: "email",
       type: "email",
