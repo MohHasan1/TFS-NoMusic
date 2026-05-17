@@ -20,7 +20,9 @@
     ],
     "paths": {
       "#loggers": ["./src/lib/loggers/base.ts"],
-      "#responses": ["./src/lib/utils/responses.ts"],
+      "#crycatch-responses": ["./src/lib/responses/crycatch-response.ts"],
+      "#payload-responses": ["./src/lib/responses/payload-response.ts"],
+      "#responses": ["./src/lib/responses/app-response.ts"],
 
       "#server-actions/*": ["./src/server-actions/*"],
       "#validations/*": ["./src/validations/*"],
@@ -28,15 +30,14 @@
       "#features/*": ["./src/features/*"],
       "#components/*": ["./src/components/*"],
 
-      "#payload-types": ["./src/payload-types.ts"], 
-      "#types/*": ["./src/types/*"], 
+      "#payload-types": ["./src/payload-types.ts"],
+      "#types/*": ["./src/types/*"],
       "#constants/*": ["./src/constants/*"],
       "#payload-config": ["./src/payload.config.ts"],
       "#emails-templates/*": ["./src/emails/templates/*"],
-      
-      "@/*": ["./src/*"],
-      "#lib/*": ["./src/lib/*"],
 
+      "@/*": ["./src/*"],
+      "#lib/*": ["./src/lib/*"]
     }
   },
   "include": [

@@ -1,7 +1,8 @@
 "use server";
 
 import { PUBLIC_ROUTES } from "#constants/routes";
-import { errorResponse } from "#lib/utils/responses";
+import { errorResponse } from "#responses";
+
 import { SIGNUP_CLIENT } from "@/constants/auth/signup";
 import { signUp } from "@/services/auth/auth-pl.adapter";
 import { isWhitelistedEmail } from "@/services/whitelist/whitelist-pl.adapter";

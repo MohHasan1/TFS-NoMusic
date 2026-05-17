@@ -1,7 +1,7 @@
 "use server";
 
-import { errorResponse, successResponse } from "#lib/utils/responses";
 import { mapZodErrorToErrors } from "#lib/zod/mappers";
+import { successResponse, errorResponse } from "#responses";
 import { REQUEST_ACCESS_CLIENT } from "@/constants/public/request-access";
 import { getCurrentUser } from "@/services/auth/auth.ports";
 import { createRequest } from "@/services/requests/requests.ports";

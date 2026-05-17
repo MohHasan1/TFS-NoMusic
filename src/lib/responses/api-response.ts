@@ -1,4 +1,6 @@
-import { errorResponse, successResponse, type TError } from "./responses";
+/* Builds JSON HTTP responses from the shared app response format. */
+
+import { errorResponse, successResponse, type TError } from "./app-response";
 
 export function successApiResponse<T>(data: T, message = "Success", status = 200): Response {
   const body = successResponse(data, message);

@@ -1,4 +1,4 @@
-import { getPayloadClient } from "@/lib/payload/payload-client";
+import { getPayloadClient } from "@/lib/payload/client";
 
 export async function isWhitelistedEmail(email: string) {
   const payload = await getPayloadClient();

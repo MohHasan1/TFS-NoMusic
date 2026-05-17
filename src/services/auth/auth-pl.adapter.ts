@@ -4,8 +4,9 @@ import { login, logout } from "@payloadcms/next/auth";
 import { headers as getHeaders } from "next/headers";
 
 import config from "#payload-config";
-import { getPayloadClient } from "#lib/payload/payload-client";
+import { getPayloadClient } from "@/lib/payload/client";
 import type { SignInDTO, SignUpDTO } from "#services/auth/dto";
+
 
 export async function signIn(input: SignInDTO) {
   return login({
