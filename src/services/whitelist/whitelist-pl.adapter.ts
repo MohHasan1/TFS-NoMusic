@@ -1,6 +1,6 @@
 import { getPayloadClient } from "#payload-client";
-import { errorResponse, successResponse } from "#responses";
 import { tryCatchResponse } from "#trycatch-response";
+import { errorResponse, successResponse } from "#responses";
 
 export async function isWhitelistedEmailAdapter(email: string) {
   const payload = await getPayloadClient();
