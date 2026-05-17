@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "#loggers": ["./src/lib/utils/loggers.ts"],
+      "#loggers": ["./src/lib/loggers/base.ts"],
       "#responses": ["./src/lib/utils/responses.ts"],
 
       "#server-actions/*": ["./src/server-actions/*"],
@@ -28,7 +28,8 @@
       "#features/*": ["./src/features/*"],
       "#components/*": ["./src/components/*"],
 
-      "#types/*": ["./src/types/*"],  
+      "#payload-types": ["./src/payload-types.ts"], 
+      "#types/*": ["./src/types/*"], 
       "#constants/*": ["./src/constants/*"],
       "#payload-config": ["./src/payload.config.ts"],
       "#emails-templates/*": ["./src/emails/templates/*"],

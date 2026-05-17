@@ -1,4 +1,4 @@
-import { Request } from "@/payload-types";
+import type { Request } from "#payload-types";
 
 export type TRequest = {
   type: Request["type"];
@@ -7,4 +7,4 @@ export type TRequest = {
   url: Request["url"];
   message: Request["message"];
   metadata: Request["metadata"];
-};
+};  

@@ -1,3 +1,7 @@
+/*
+  Basic log functions for info, warning, and error logs.
+*/
+
 export function logError(...errors: unknown[]) {
   if (process.env.NODE_ENV !== "production") {
     const callLocation = new Error().stack?.split("\n")[2];
