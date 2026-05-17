@@ -11,8 +11,11 @@ export default function PrivateLayout({
   return (
     <>
       <PrivateNavbar />
-      <GlowOrb />
-      <main>{children}</main>
+      <main className="relative bg-linear-to-br from-background to-background via-primary/10">
+        <GlowOrb mode="fixed"  position="top" />
+        {/* <GlowOrb mode="fixed"  position="bottom" /> */}
+        {children}
+      </main>
       <NoMusicPlayer />
       <NowPlayingSheet />
     </>

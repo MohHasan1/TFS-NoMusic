@@ -1,12 +1,13 @@
 "use client";
 
-import { RiLogoutBoxRLine, RiMusic2Line } from "@remixicon/react";
+import { RiLogoutBoxRLine } from "@remixicon/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutAction } from "#server-actions/auth/logout";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { privateHomeHref, privateNavItems } from "./links";
+import { privateNavItems } from "./links";
+import { PRIVATE_ROUTES } from "#constants/routes";
 
 export function PrivateNavbar() {
   const pathname = usePathname();
@@ -15,13 +16,16 @@ export function PrivateNavbar() {
     <header className="fixed top-0 right-0 left-0 z-50 border-border border-b bg-background/85 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 lg:px-8">
         <Link
-          href={privateHomeHref}
-          className="flex items-center gap-2 font-semibold text-foreground tracking-tight"
+          href={PRIVATE_ROUTES.NOMUSIC}
+          className="group font-semibold uppercase transition-colors duration-300"
         >
-          <span className="flex size-9 items-center justify-center rounded-full border border-border bg-card text-primary">
-            <RiMusic2Line className="size-4" />
+          <span className="text-white/80 group-hover:text-white/60">No</span>
+          <span
+            className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent 
+          group-hover:from-primary-400/80 group-hover:to-primary-600/80 transition-all duration-300"
+          >
+            Music
           </span>
-          <span>NoMusic</span>
         </Link>
 
         <div className="flex items-center gap-2">
