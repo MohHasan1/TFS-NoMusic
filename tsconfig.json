@@ -20,8 +20,8 @@
     ],
     "paths": {
       "#loggers": ["./src/lib/loggers/base.ts"],
-      "#crycatch-responses": ["./src/lib/responses/crycatch-response.ts"],
-      "#payload-responses": ["./src/lib/responses/payload-response.ts"],
+      "#trycatch-response": ["./src/lib/responses/trycatch-response.ts"],
+      "#payload-response": ["./src/lib/responses/payload-response.ts"],
       "#responses": ["./src/lib/responses/app-response.ts"],
 
       "#server-actions/*": ["./src/server-actions/*"],
@@ -30,6 +30,7 @@
       "#features/*": ["./src/features/*"],
       "#components/*": ["./src/components/*"],
 
+      "#payload-client": ["./src/lib/payload/client.ts"],
       "#payload-types": ["./src/payload-types.ts"],
       "#types/*": ["./src/types/*"],
       "#constants/*": ["./src/constants/*"],

@@ -2,78 +2,104 @@ import "server-only";
 
 import { login, logout } from "@payloadcms/next/auth";
 import { headers as getHeaders } from "next/headers";
+import { getPayloadClient } from "#payload-client";
 
 import config from "#payload-config";
-import { getPayloadClient } from "@/lib/payload/client";
-import type { SignInDTO, SignUpDTO } from "#services/auth/dto";
+import { tryCatchResponse } from "#trycatch-response";
+import type { TSignin, TSignup } from "./auth.types";
 
-
-export async function signIn(input: SignInDTO) {
-  return login({
-    collection: "users",
-    config,
-    email: input.email,
-    password: input.password,
-  });
+export async function signinAdapter(data: TSignin) {
+  return tryCatchResponse(() =>
+    login({
+      collection: "users",
+      config,
+      email: data.email,
+      password: data.password,
+    }),
+  );
 }
 
-export async function signUp(input: SignUpDTO) {
+export async function signupAdapter(data: TSignup) {
   const payload = await getPayloadClient();
 
-  return payload.create({
-    collection: "users",
-    data: {
-      name: input.name,
-      email: input.email.toLowerCase(),
-      password: input.password,
-    },
-  });
+  return tryCatchResponse(() =>
+    payload.create({
+      collection: "users",
+      overrideAccess: false,
+      data: {
+        name: data.name,
+        email: data.email.toLowerCase(),
+        password: data.password,
+      },
+    }),
+  );
 }
 
-export async function logoutUser() {
-  return logout({
-    allSessions: true,
-    config,
-  });
+export async function logoutAdapter() {
+  return tryCatchResponse(() =>
+    logout({
+      allSessions: true,
+      config,
+    }),
+  );
 }
 
-export async function getCurrentUser() {
+export async function verifyEmailAdapter(token: string) {
+  const payload = await getPayloadClient();
+
+  return tryCatchResponse(() =>
+    payload.verifyEmail({
+      collection: "users",
+      token,
+    }),
+  );
+}
+
+export async function forgotPasswordAdapter(email: string) {
+  const payload = await getPayloadClient();
+
+  return tryCatchResponse(() =>
+    payload.forgotPassword({
+      collection: "users",
+      data: {
+        email: email.toLowerCase(),
+      },
+    }),
+  );
+}
+
+export async function resetPasswordAdapter(token: string, password: string) {
+  const payload = await getPayloadClient();
+
+  return tryCatchResponse(() =>
+    payload.resetPassword({
+      collection: "users",
+      overrideAccess: true,
+      data: {
+        token,
+        password,
+      },
+    }),
+  );
+}
+
+export async function getCurrentUserAdapter() {
   const payload = await getPayloadClient();
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
 
   return user ?? null;
-}
 
-export async function verifyEmail(token: string) {
-  const payload = await getPayloadClient();
+//   if (!user) {
+//   return errorResponse(
+//     [{ message: "You need to be logged in.", status: 401, code: "UNAUTHORIZED" }],
+//     "You need to be logged in.",
+//   );
+// }
 
-  return payload.verifyEmail({
-    collection: "users",
-    token,
-  });
-}
-
-export async function forgotPassword(email: string) {
-  const payload = await getPayloadClient();
-
-  return payload.forgotPassword({
-    collection: "users",
-    data: {
-      email,
-    },
-  });
-}
-
-export async function resetPassword(token: string, password: string) {
-  const payload = await getPayloadClient();
-
-  return payload.resetPassword({
-    collection: "users",
-    overrideAccess: true,
-    data: {
-      token,
-      password,
-    },
-  });
+// if (user.role !== "admin") {
+//   return errorResponse(
+//     [{ message: "You do not have permission.", status: 403, code: "FORBIDDEN" }],
+//     "You do not have permission.",
+//   );
 }

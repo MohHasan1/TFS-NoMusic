@@ -8,6 +8,7 @@ export async function isWhitelistedEmail(email: string) {
     depth: 0,
     limit: 1,
     pagination: false,
+    overrideAccess: false,
     where: {
       email: {
         equals: email.toLowerCase(),

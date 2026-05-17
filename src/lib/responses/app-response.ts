@@ -3,7 +3,7 @@
 /// _____ Type ____ ///
 export type TError = { name?: string; message: string; status?: number; code?: string };
 
-export type TSuccessResonse<T> = {
+export type TSuccessResponse<T> = {
   isSuccess: true;
   data: T;
   message?: string;
@@ -16,10 +16,10 @@ export type TErrorResponse = {
 };
 
 /// _____ Discriminated union pattern ____ ///
-export type TResponse<T> = TSuccessResonse<T> | TErrorResponse;
+export type TResponse<T> = TSuccessResponse<T> | TErrorResponse;
 
 /// _____ helpers ____ ///
-export function successResponse<T>(data: T, message = "Success"): TSuccessResonse<T> {
+export function successResponse<T>(data: T, message = "Success"): TSuccessResponse<T> {
   return {
     isSuccess: true,
     data,

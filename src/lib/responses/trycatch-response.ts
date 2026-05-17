@@ -1,7 +1,7 @@
 /* Wraps async calls and normalizes success and error responses. */
 
-import { payloadErrorResponse } from "#payload-responses";
-import { successResponse, TErrorResponse, type TResponse } from "./app-response";
+import { payloadErrorResponse } from "#payload-response";
+import { successResponse, type TErrorResponse, type TResponse } from "./app-response";
 // import { defaultErrorResponse } from "./default-response";
 
 const fallbackHandler = payloadErrorResponse;

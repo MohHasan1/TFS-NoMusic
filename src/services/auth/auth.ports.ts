@@ -1,38 +1,38 @@
+import type { TSignin, TSignup } from "#services/auth/auth.types";
 import {
-  getCurrentUser as getCurrentUserFromAdapter,
-  logoutUser as logoutUserFromAdapter,
-  signIn as signInFromAdapter,
-  signUp as signUpFromAdapter,
-  verifyEmail as verifyEmailFromAdapter,
-  forgotPassword as forgotPasswordFromAdapter,
-  resetPassword as resetPasswordFromAdapter,
+  forgotPasswordAdapter,
+  getCurrentUserAdapter,
+  logoutAdapter,
+  resetPasswordAdapter,
+  signinAdapter,
+  signupAdapter,
+  verifyEmailAdapter,
 } from "@/services/auth/auth-pl.adapter";
-import type { SignInDTO, SignUpDTO } from "@/services/auth/dto";
 
-export async function signIn(input: SignInDTO) {
-  return signInFromAdapter(input);
+export async function signIn(data: TSignin) {
+  return signinAdapter(data);
 }
 
-export async function signUp(input: SignUpDTO) {
-  return signUpFromAdapter(input);
+export async function signUp(data: TSignup) {
+  return signupAdapter(data);
 }
 
 export async function logoutUser() {
-  return logoutUserFromAdapter();
-}
-
-export async function getCurrentUser() {
-  return getCurrentUserFromAdapter();
+  return logoutAdapter();
 }
 
 export async function verifyEmail(token: string) {
-  return verifyEmailFromAdapter(token);
+  return verifyEmailAdapter(token);
 }
 
 export async function forgotPassword(email: string) {
-  return forgotPasswordFromAdapter(email);
+  return forgotPasswordAdapter(email);
 }
 
 export async function resetPassword(token: string, password: string) {
-  return resetPasswordFromAdapter(token, password);
+  return resetPasswordAdapter(token, password);
+}
+
+export async function getCurrentUser() {
+  return getCurrentUserAdapter();
 }
