@@ -10,10 +10,10 @@
   --color-foreground: var(--foreground);
 
   /* --- Primary Scale --- */
+  --color-primary: var(--primary);
   --color-primary-200: var(--primary-200);
   --color-primary-400: var(--primary-400);
   --color-primary-600: var(--primary-600);
-  --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
   /* --- Secondary & Muted --- */
@@ -26,6 +26,7 @@
 
   /* --- UI Elements --- */
   --color-card: var(--card);
+  --color-card-secondary: var(--card-secondary);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
@@ -83,6 +84,7 @@
 
   /* --- UI Elements --- */
   --card: oklch(0.141 0.005 285.823 / 0.03);
+  --card-secondary: rgb(0 0 0 / 0.6);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
@@ -132,6 +134,7 @@
 
   /* --- UI Elements --- */
   --card: oklch(0.985 0 0 / 0.03);
+  --card-secondary: rgb(0 0 0 / 0.6);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.21 0.006 285.885);
   --popover-foreground: oklch(0.985 0 0);

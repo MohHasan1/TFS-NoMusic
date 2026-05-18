@@ -1,6 +1,7 @@
 import { RiMusic2Line } from "@remixicon/react";
 import Image from "next/image";
 
+import { StatusDot } from "@/components/shared/StatusDot";
 import { cn } from "@/lib/utils";
 
 type PlayerArtworkProps = {
@@ -35,14 +36,7 @@ export function PlayerArtwork({ imageURL, isPlaying = false, size = "sm", classN
     <div className={cn("relative shrink-0", SIZE_CLASSES[size], className)}>
       {imageURL ? (
         <div className={cn("relative h-full w-full overflow-hidden bg-muted shadow-lg", radius)}>
-          <Image
-            src={imageURL}
-            alt="Track artwork"
-            fill
-            unoptimized
-            sizes={SIZES_ATTR[size]}
-            className="object-cover"
-          />
+          <Image src={imageURL} alt="Track artwork" fill unoptimized sizes={SIZES_ATTR[size]} className="object-cover" />
         </div>
       ) : (
         <div className={cn("flex h-full w-full items-center justify-center bg-muted text-muted-foreground shadow-lg", radius)}>
@@ -50,12 +44,7 @@ export function PlayerArtwork({ imageURL, isPlaying = false, size = "sm", classN
         </div>
       )}
 
-      {isPlaying && size === "sm" ? (
-        <span
-          aria-hidden
-          className="-top-1 -right-1 absolute size-3 rounded-full border-2 border-card bg-primary"
-        />
-      ) : null}
+      {isPlaying && size === "sm" ? <StatusDot /> : null}
     </div>
   );
 }
