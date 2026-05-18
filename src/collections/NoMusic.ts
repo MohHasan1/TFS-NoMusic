@@ -1,4 +1,6 @@
 import type { CollectionConfig } from "payload";
+import { LANGUAGES_VALUES } from "./constants/libraries";
+import { capitalizeFirstLetter } from "./helpers/format";
 import { syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
 
 export const Nomusic: CollectionConfig = {
@@ -94,13 +96,11 @@ export const Nomusic: CollectionConfig = {
     {
       name: "language",
       type: "select",
-      options: [
-        { label: "English", value: "english" },
-        { label: "Hindi", value: "hindi" },
-        { label: "Bangla", value: "bangla" },
-        { label: "Arabic", value: "arabic" },
-        { label: "Other", value: "other" },
-      ],
+      required: true,
+      options: LANGUAGES_VALUES.map((lang) => ({
+        label: capitalizeFirstLetter(lang),
+        value: lang,
+      })),
     },
     {
       name: "genre",

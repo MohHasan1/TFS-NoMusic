@@ -280,7 +280,7 @@ export interface Nomusic {
     imageFile?: (string | null) | Media;
     uploadedImageURL?: string | null;
   };
-  language?: ('english' | 'hindi' | 'bangla' | 'arabic' | 'other') | null;
+  language: 'english' | 'bangla' | 'hindi' | 'arabic' | 'others';
   genre?: ('pop' | 'hiphop' | 'rock' | 'electronic' | 'lofi' | 'classical' | 'jazz' | 'other') | null;
   updatedAt: string;
   createdAt: string;
@@ -294,15 +294,20 @@ export interface Library {
   name: string;
   slug: string;
   description?: string | null;
+  type: 'language' | 'curated';
+  /**
+   * Used only for language libraries
+   */
+  language?: ('english' | 'bangla' | 'hindi' | 'arabic' | 'others') | null;
+  /**
+   * Used only for curated libraries - not used, its here as a reminder.
+   */
+  curated?: ('trending' | 'featured' | 'new') | null;
+  sortOrder?: number | null;
   source?: ('external_url' | 'upload') | null;
   externalImageURL?: string | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
-  /**
-   * Defines how this library is used in the system (language-based grouping or curated content).
-   */
-  type: 'language' | 'curated';
-  sortOrder?: number | null;
   songCount?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -556,12 +561,14 @@ export interface LibrariesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   description?: T;
+  type?: T;
+  language?: T;
+  curated?: T;
+  sortOrder?: T;
   source?: T;
   externalImageURL?: T;
   imageFile?: T;
   uploadedImageURL?: T;
-  type?: T;
-  sortOrder?: T;
   songCount?: T;
   updatedAt?: T;
   createdAt?: T;

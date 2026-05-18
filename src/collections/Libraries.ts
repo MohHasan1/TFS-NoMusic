@@ -1,5 +1,7 @@
 import type { CollectionConfig } from "payload";
-import { generateSlugBeforeValidate } from "./hooks/Libraries";
+import { CURATED_VALUES, LANGUAGES_VALUES, LIBRARY_TYPES } from "./constants/libraries";
+import { capitalizeFirstLetter } from "./helpers/format";
+import { generateSlugBeforeValidate, validateLibraryBeforeValidate } from "./hooks/Libraries";
 
 export const Libraries: CollectionConfig = {
   slug: "libraries",
@@ -15,7 +17,7 @@ export const Libraries: CollectionConfig = {
     delete: ({ req }) => req.user?.role === "level_1",
   },
 
-  hooks: { beforeValidate: [generateSlugBeforeValidate] },
+  hooks: { beforeValidate: [generateSlugBeforeValidate, validateLibraryBeforeValidate] },
 
   fields: [
     {
@@ -37,6 +39,52 @@ export const Libraries: CollectionConfig = {
         {
           name: "description",
           type: "textarea",
+        },
+      ],
+    },
+
+    {
+      type: "group",
+      label: "Library Settings",
+      fields: [
+        {
+          name: "type",
+          type: "select",
+          required: true,
+          defaultValue: "language",
+          options: LIBRARY_TYPES.map((t) => ({
+            label: capitalizeFirstLetter(t),
+            value: t,
+          })),
+        },
+        {
+          name: "language",
+          type: "select",
+          options: LANGUAGES_VALUES.map((l) => ({
+            label: capitalizeFirstLetter(l),
+            value: l,
+          })),
+          admin: {
+            condition: (_, data) => data.type === "language",
+            description: "Used only for language libraries",
+          },
+        },
+        {
+          name: "curated",
+          type: "select",
+          options: CURATED_VALUES.map((c) => ({
+            label: capitalizeFirstLetter(c),
+            value: c,
+          })),
+          admin: {
+            condition: (_, data) => data.type === "curated",
+            description: "Used only for curated libraries - not used, its here as a reminder.",
+          },
+        },
+        {
+          name: "sortOrder",
+          type: "number",
+          defaultValue: 0,
         },
       ],
     },
@@ -69,31 +117,6 @@ export const Libraries: CollectionConfig = {
           admin: {
             readOnly: true,
           },
-        },
-      ],
-    },
-
-    {
-      type: "group",
-      label: "Collection Settings",
-      fields: [
-        {
-          name: "type",
-          type: "select",
-          required: true,
-          defaultValue: "language",
-          admin: {
-            description: "Defines how this library is used in the system (language-based grouping or curated content).",
-          },
-          options: [
-            { label: "Language", value: "language" },
-            { label: "Curated", value: "curated" },
-          ],
-        },
-        {
-          name: "sortOrder",
-          type: "number",
-          defaultValue: 0,
         },
       ],
     },
