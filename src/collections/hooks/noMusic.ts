@@ -1,6 +1,7 @@
-import type { CollectionBeforeValidateHook } from "payload";
+import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "payload";
 import { isID } from "@/lib/utils";
-import type { Nomusic } from "@/payload-types";
+import type { Library, Nomusic } from "@/payload-types";
+import { getLibraryIdByLanguage } from "../helpers/library";
 
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
   if (!data?.audioFile) return data;
@@ -72,4 +73,28 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   }
 
   return data;
+};
+
+export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Library> = async ({ doc, req }) => {
+  console.log("assignNomusicLibraryAfterChange");
+  // TODO: temp update opertaion
+  // if (operation !== "create") return;
+
+  if (!doc.language) return;
+
+  const libraryId = await getLibraryIdByLanguage(req.payload, doc.language);
+
+  const res = await req.payload.create({
+    collection: "nomusic-libraries",
+    overrideAccess: true,
+    select: { createdAt: true },
+    data: {
+      nomusic: doc.id,
+      library: libraryId,
+    },
+  });
+
+  console.log(res);
+
+  // TODO: if smt failed push to queue
 };

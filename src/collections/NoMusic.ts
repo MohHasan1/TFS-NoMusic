@@ -1,38 +1,47 @@
 import type { CollectionConfig } from "payload";
 import { LANGUAGES_VALUES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
-import { syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
+import { assignNomusicLibraryAfterChange, syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
 
+// TODO: Add hook to automatically add nomusic to library
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
 
   hooks: {
     beforeValidate: [syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate],
+    afterChange: [assignNomusicLibraryAfterChange],
   },
 
   admin: {
-    useAsTitle: "title",
+    useAsTitle: "name",
   },
 
   access: {
     read: () => true,
     create: ({ req }) => req.user?.role === "level_1",
-    update: ({ req }) => req.user?.role === "level_1",
+    update: ({ req }) => {
+      return req.user?.role === "level_1";
+    },
     delete: ({ req }) => req.user?.role === "level_1",
   },
 
-  // TODO: add slug, chnage title to name
+  // TODO: remove title
   fields: [
     {
       name: "title",
       type: "text",
+    },
+    {
+      name: "name",
+      type: "text",
       required: true,
     },
+    // TODO: uncomment
     {
       name: "audioFile",
       type: "upload",
       relationTo: "media",
-      required: true,
+      // required: true,
     },
     {
       name: "uploadedAudioURL",
