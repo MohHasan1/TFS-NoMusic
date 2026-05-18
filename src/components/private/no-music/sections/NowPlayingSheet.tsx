@@ -28,7 +28,7 @@ export function NowPlayingSheet() {
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogPortal>
         <DialogBackdrop />
-        <DialogPopup>
+        <DialogPopup className={"bg-card-secondary"}>
           <NowPlayingHeader onClose={close} />
 
           <DialogTitle className="sr-only">{currentTrack.title}</DialogTitle>

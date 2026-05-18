@@ -116,7 +116,7 @@ function DesktopPlayerBar({
     <div className="pointer-events-none fixed right-0 bottom-0 left-0 z-50 hidden px-4 md:block">
       <Card
         onClick={onExpand}
-        className="pointer-events-auto mx-auto w-full max-w-7xl cursor-pointer rounded-t-3xl rounded-b-none border border-b-0 bg-card/95 px-4 py-3 shadow-2xl backdrop-blur-md"
+        className="bg-card-secondary pointer-events-auto mx-auto w-full max-w-7xl cursor-pointer rounded-t-3xl rounded-b-none border border-b-0 px-4 py-3 shadow-2xl backdrop-blur-md"
       >
         <div className="grid grid-cols-[minmax(0,1fr)_minmax(360px,760px)_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(460px,760px)_minmax(0,1fr)]">
           <ExpandTarget onExpand={onExpand} className="flex min-w-0 items-center gap-3">
