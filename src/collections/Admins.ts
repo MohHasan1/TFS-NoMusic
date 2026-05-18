@@ -18,7 +18,7 @@ export const Admins: CollectionConfig = {
       type: "select",
       required: true,
       defaultValue: "level_1",
-      options: ROLE_OPTIONS,
+      options: [...ROLE_OPTIONS],
     },
   ],
 };

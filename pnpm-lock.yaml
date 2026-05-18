@@ -62,6 +62,9 @@ importers:
       shadcn:
         specifier: ^4.6.0
         version: 4.7.0(@types/node@20.19.40)(babel-plugin-macros@3.1.0)(typescript@5.9.3)
+      slugify:
+        specifier: ^1.6.9
+        version: 1.6.9
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -4325,6 +4328,10 @@ packages:
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
+
+  slugify@1.6.9:
+    resolution: {integrity: sha512-vZ7rfeehZui7wQs438JXBckYLkIIdfHOXsaVEUMyS5fHo1483l1bMdo0EDSWYclY0yZKFOipDy4KHuKs6ssvdg==}
+    engines: {node: '>=8.0.0'}
 
   socket.io-adapter@2.5.6:
     resolution: {integrity: sha512-DkkO/dz7MGln0dHn5bmN3pPy+JmywNICWrJqVWiVOyvXjWQFIv9c2h24JrQLLFJ2aQVQf/Cvl1vblnd4r2apLQ==}
@@ -9206,6 +9213,8 @@ snapshots:
   simple-wcswidth@1.1.2: {}
 
   sisteransi@1.0.5: {}
+
+  slugify@1.6.9: {}
 
   socket.io-adapter@2.5.6:
     dependencies:

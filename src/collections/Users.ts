@@ -1,11 +1,10 @@
-import { ROLE_OPTIONS } from "@/collections/constants/roles";
-import { User } from "@/payload-types";
+import type { CollectionConfig } from "payload";
+import { render } from "react-email";
 
 import ResetPasswordEmail from "#emails-templates/ResetPasswordEmail";
 import VerifyEmail from "#emails-templates/VerifyEmail";
-
-import type { CollectionConfig } from "payload";
-import { render } from "react-email";
+import { ROLE_OPTIONS } from "@/collections/constants/roles";
+import type { User } from "@/payload-types";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -60,7 +59,7 @@ export const Users: CollectionConfig = {
       name: "role",
       type: "select",
       defaultValue: "level_4",
-      options: ROLE_OPTIONS,
+      options: [...ROLE_OPTIONS],
     },
   ],
 };

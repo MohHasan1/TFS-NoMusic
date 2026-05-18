@@ -1,7 +1,7 @@
 import type { CollectionConfig } from "payload";
 import { syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
 
-export const NoMusic: CollectionConfig = {
+export const Nomusic: CollectionConfig = {
   slug: "nomusic",
 
   hooks: {
@@ -19,6 +19,7 @@ export const NoMusic: CollectionConfig = {
     delete: ({ req }) => req.user?.role === "level_1",
   },
 
+  // TODO: add slug, chnage title to name
   fields: [
     {
       name: "title",

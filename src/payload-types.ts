@@ -74,6 +74,8 @@ export interface Config {
     requests: Request;
     media: Media;
     nomusic: Nomusic;
+    libraries: Library;
+    'nomusic-libraries': NomusicLibrary;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -87,6 +89,8 @@ export interface Config {
     requests: RequestsSelect<false> | RequestsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     nomusic: NomusicSelect<false> | NomusicSelect<true>;
+    libraries: LibrariesSelect<false> | LibrariesSelect<true>;
+    'nomusic-libraries': NomusicLibrariesSelect<false> | NomusicLibrariesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -283,6 +287,40 @@ export interface Nomusic {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "libraries".
+ */
+export interface Library {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+  source?: ('external_url' | 'upload') | null;
+  externalImageURL?: string | null;
+  imageFile?: (string | null) | Media;
+  uploadedImageURL?: string | null;
+  /**
+   * Defines how this library is used in the system (language-based grouping or curated content).
+   */
+  type: 'language' | 'curated';
+  sortOrder?: number | null;
+  songCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nomusic-libraries".
+ */
+export interface NomusicLibrary {
+  id: string;
+  nomusic: string | Nomusic;
+  library: string | Library;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -328,6 +366,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'nomusic';
         value: string | Nomusic;
+      } | null)
+    | ({
+        relationTo: 'libraries';
+        value: string | Library;
+      } | null)
+    | ({
+        relationTo: 'nomusic-libraries';
+        value: string | NomusicLibrary;
       } | null);
   globalSlug?: string | null;
   user:
@@ -499,6 +545,35 @@ export interface NomusicSelect<T extends boolean = true> {
       };
   language?: T;
   genre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "libraries_select".
+ */
+export interface LibrariesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  source?: T;
+  externalImageURL?: T;
+  imageFile?: T;
+  uploadedImageURL?: T;
+  type?: T;
+  sortOrder?: T;
+  songCount?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nomusic-libraries_select".
+ */
+export interface NomusicLibrariesSelect<T extends boolean = true> {
+  nomusic?: T;
+  library?: T;
+  sortOrder?: T;
   updatedAt?: T;
   createdAt?: T;
 }

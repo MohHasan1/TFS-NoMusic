@@ -1,9 +1,11 @@
-import { Admins } from './Admins'
-import { Media } from './Media'
-import { NoMusic } from './NoMusic'
-import { Requests } from './Requests'
-import { Users } from './Users'
-import { Whitelist } from './Whitelist'
+import { Admins } from "./Admins";
+import { Libraries } from "./Libraries";
+import { Media } from "./Media";
+import { Nomusic } from "./NoMusic";
+import { NomusicLibraries } from "./NomusicLibraries";
+import { Requests } from "./Requests";
+import { Users } from "./Users";
+import { Whitelist } from "./Whitelist";
 
-export { Admins, Media, NoMusic, Requests, Users, Whitelist }
-export const collections = [Admins, Users, Whitelist, Requests, Media, NoMusic]
+export { Admins, Libraries, Media, Nomusic, Requests, Users, Whitelist, NomusicLibraries };
+export const collections = [Admins, Users, Whitelist, Requests, Media, Nomusic, Libraries, NomusicLibraries];
