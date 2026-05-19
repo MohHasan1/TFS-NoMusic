@@ -1,4 +1,4 @@
-import type { RepeatMode } from "#features/nomusic/queue/engine";
+import type { RepeatMode } from "@/modules/queue/engine";
 
 export const REPEAT_LABEL: Record<RepeatMode, string> = {
   off: "Repeat off",

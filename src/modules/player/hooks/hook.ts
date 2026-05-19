@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { toast } from "sonner";
 import { store } from "@/store";
 import type { TNoMusic } from "@/types/nomusic";
-import { noMusicEngine } from "./engine";
+import { noMusicEngine } from "../engine";
 
 const engine = noMusicEngine;
 

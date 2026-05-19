@@ -1,14 +1,13 @@
 "use client";
 
-import { useNoMusicQueue } from "#features/nomusic/queue/hook";
 import { Dialog, DialogBackdrop, DialogDescription, DialogPopup, DialogPortal, DialogTitle } from "@/components/ui/dialog";
-import { useNoMusicPlaybackController } from "@/features/nomusic/hook.noMusicPlaybackController";
-import { useNowPlaying } from "@/features/nomusic/nowPlaying/hook.nowPlaying";
+import { useNoMusicPlaybackController } from "@/modules/hooks/hook.noMusicPlaybackController";
 
-
+import { useNowPlaying } from "@/modules/nowPlaying/hook.nowPlaying";
+import { useNoMusicQueue } from "@/modules/queue/hook";
+import { nextRepeatMode } from "../utils/repeatMode";
 import { NowPlayingContent } from "./NowPlayingContent";
 import { NowPlayingHeader } from "./NowPlayingHeader";
-import { nextRepeatMode } from "../utils/repeatMode";
 
 export function NowPlayingSheet() {
   const playback = useNoMusicPlaybackController();

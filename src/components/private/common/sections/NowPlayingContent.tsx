@@ -1,14 +1,13 @@
 import { RiLoader4Line, RiPauseFill, RiPlayFill, RiRepeat2Line, RiRepeatOneLine, RiShuffleLine, RiSkipBackFill, RiSkipForwardFill } from "@remixicon/react";
-import type { RepeatMode } from "#features/nomusic/queue/engine";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import type { RepeatMode } from "@/modules/queue/engine";
 import type { TNoMusic } from "@/types/nomusic";
 
 import { PlayerArtwork } from "../elements/PlayerArtwork";
 import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 import { PlayerVolume } from "../elements/PlayerVolume";
 import { NEXT_REPEAT_LABEL, REPEAT_LABEL } from "../utils/repeatMode";
-
 
 type NowPlayingContentProps = {
   track: TNoMusic;

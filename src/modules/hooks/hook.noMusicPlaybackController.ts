@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect } from "react";
 
-import { noMusicEngine } from "./player/engine";
-import { useNoMusicPlayer } from "./player/hook";
-import { useNoMusicQueue } from "./queue/hook";
+import { noMusicEngine } from "../player/engine";
+import { useNoMusicPlayer } from "../player/hooks/hook";
+import { useNoMusicQueue } from "../queue/hook";
 
 export function useNoMusicPlaybackController() {
   const { next, prev } = useNoMusicQueue();

@@ -5,9 +5,9 @@ import Image from "next/image";
 import { formatPlaybackTime } from "#components/private/common/utils/formatPlaybackTime";
 import { Button } from "#components/ui/button";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
-import { useTrackPlayback } from "#features/nomusic/player/hooks/useTrackPlayback";
 import { cn } from "#lib/utils";
 import type { TNoMusic } from "#types/nomusic";
+import { useTrackPlayback } from "@/modules/player/hooks/useTrackPlayback";
 import { PlayingBars } from "./PlayingBars";
 
 export function NoMusicCard({ noMusic, onSelectFn }: TProps) {

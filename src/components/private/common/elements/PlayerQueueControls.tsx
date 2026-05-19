@@ -1,7 +1,7 @@
 import { RiRepeat2Line, RiRepeatOneLine, RiShuffleLine } from "@remixicon/react";
-import type { RepeatMode } from "#features/nomusic/queue/engine";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import type { RepeatMode } from "@/modules/queue/engine";
 import { NEXT_REPEAT_LABEL, REPEAT_LABEL } from "../utils/repeatMode";
 
 type PlayerQueueControlsProps = {

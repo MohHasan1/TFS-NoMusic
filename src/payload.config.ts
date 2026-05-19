@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildConfig } from "payload";
 import { Admins, collections } from "./collections";
-import { db } from "./db";
+import { db } from "./plugins/db";
 import { resendEmailAdapter } from "./plugins/mail/resend";
 import { r2StoragePlugin } from "./plugins/storage/r2";
 

@@ -1,13 +1,12 @@
 "use client";
 
 import { RiArrowUpSLine } from "@remixicon/react";
-import { useNoMusicQueue } from "#features/nomusic/queue/hook";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { useNoMusicPlaybackController } from "@/features/nomusic/hook.noMusicPlaybackController";
-import { useNowPlaying } from "@/features/nomusic/nowPlaying/hook.nowPlaying";
 import { cn } from "@/lib/utils";
-
+import { useNoMusicPlaybackController } from "@/modules/hooks/hook.noMusicPlaybackController";
+import { useNowPlaying } from "@/modules/nowPlaying/hook.nowPlaying";
+import { useNoMusicQueue } from "@/modules/queue/hook";
 import { PlayerArtwork } from "../elements/PlayerArtwork";
 import { PlayerControls } from "../elements/PlayerControls";
 import { PlayerQueueControls } from "../elements/PlayerQueueControls";
@@ -15,7 +14,6 @@ import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 import { PlayerTrackInfo } from "../elements/PlayerTrackInfo";
 import { PlayerVolume } from "../elements/PlayerVolume";
 import { nextRepeatMode } from "../utils/repeatMode";
-
 
 export function NoMusicPlayer() {
   const { currentTrack, isPlaying, isBuffering, currentTime, duration, volume, togglePlayback, seek, setVolume, playNextTrack, playPrevTrack } = useNoMusicPlaybackController();

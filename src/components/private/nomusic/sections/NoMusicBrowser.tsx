@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePlayTrack } from "#features/nomusic/player/hooks/usePlayTrack";
-import { useQueueSetup } from "#features/nomusic/queue/hooks/useQueueSetup";
 import type { TNoMusic } from "#types/nomusic";
+import { usePlayTrack } from "@/modules/player/hooks/usePlayTrack";
+import { useQueueSetup } from "@/modules/queue/hooks/useQueueSetup";
 
 import { NoMusicCard } from "../elements/NoMusicCard";
 import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
