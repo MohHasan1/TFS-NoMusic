@@ -1,4 +1,4 @@
-import { TNoMusic } from "@/types/nomusic";
+import type { TNoMusic } from "@/types/nomusic";
 
 export class QueueEngine {
   constructor(private state: QueueState = createInitialQueueState()) {}
@@ -83,6 +83,8 @@ export class QueueEngine {
     };
   }
 }
+
+export const queueEngine = new QueueEngine();
 
 export type RepeatMode = "off" | "one" | "all";
 

@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogDescription,
-  DialogPopup,
-  DialogPortal,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { useNoMusicQueue } from "#features/nomusic/queue/hook";
+import { Dialog, DialogBackdrop, DialogDescription, DialogPopup, DialogPortal, DialogTitle } from "@/components/ui/dialog";
 import { useNoMusicPlaybackController } from "@/features/nomusic/hook.noMusicPlaybackController";
-import { useNoMusicQueue } from "@/features/nomusic/noMusicQueue/hook.noMusicQueue";
 import { useNowPlaying } from "@/features/nomusic/nowPlaying/hook.nowPlaying";
 
 import { nextRepeatMode } from "../utils/repeatMode";
@@ -32,9 +25,7 @@ export function NowPlayingSheet() {
           <NowPlayingHeader onClose={close} />
 
           <DialogTitle className="sr-only">{currentTrack.title}</DialogTitle>
-          <DialogDescription className="sr-only">
-            {currentTrack.artist || "Unknown Artist"}
-          </DialogDescription>
+          <DialogDescription className="sr-only">{currentTrack.artist || "Unknown Artist"}</DialogDescription>
 
           <NowPlayingContent
             track={currentTrack}

@@ -1,6 +1,6 @@
 import { combine } from "zustand/middleware";
 import type { TNoMusic } from "@/types/nomusic";
-import type { RepeatMode } from "./engine.noMusicQueue";
+import type { RepeatMode } from "./engine";
 
 export const createNoMusicQueueSlice = combine(
   {

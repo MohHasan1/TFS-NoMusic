@@ -1,5 +1,5 @@
-import type { TNoMusic } from "@/types/nomusic";
 import { cn } from "@/lib/utils";
+import type { TNoMusic } from "@/types/nomusic";
 
 type PlayerTrackInfoProps = {
   track: TNoMusic;
@@ -22,25 +22,11 @@ const ARTIST_SIZE = {
 
 export function PlayerTrackInfo({ track, size = "sm", align = "left", className }: PlayerTrackInfoProps) {
   return (
-    <div
-      className={cn(
-        "min-w-0 flex flex-col",
-        align === "center" ? "items-center text-center" : "items-start text-left",
-        className,
-      )}
-    >
-      <h4
-        className={cn(
-          "max-w-full truncate font-bold tracking-tight text-card-foreground",
-          TITLE_SIZE[size],
-        )}
-        title={track.title}
-      >
-        {track.title}
+    <div className={cn("min-w-0 flex flex-col", align === "center" ? "items-center text-center" : "items-start text-left", className)}>
+      <h4 className={cn("max-w-full truncate font-bold tracking-tight text-card-foreground", TITLE_SIZE[size])} title={track.name || track.title || undefined}>
+        {track.name || track.title}
       </h4>
-      <p className={cn("max-w-full truncate text-muted-foreground", ARTIST_SIZE[size])}>
-        {track.artist || "Unknown Artist"}
-      </p>
+      <p className={cn("max-w-full truncate text-muted-foreground", ARTIST_SIZE[size])}>{track.artist || "Unknown Artist"}</p>
     </div>
   );
 }

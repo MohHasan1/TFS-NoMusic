@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useMemo } from "react";
 import { toast } from "sonner";
-
-import type { TNoMusic } from "@/types/nomusic";
 import { store } from "@/store";
-import { noMusicEngine } from "./engine.noMusicPlayer";
+import type { TNoMusic } from "@/types/nomusic";
+import { noMusicEngine } from "./engine";
 
 const engine = noMusicEngine;
 
@@ -37,10 +36,7 @@ export function useNoMusicPlayer() {
       setIsPlaying(true);
       setError(null);
 
-      const promise = engine.play(
-        { id: track.id, title: track.title, url: track.audioStreamUrl },
-        { restart: shouldRestart },
-      );
+      const promise = engine.play({ id: track.id, url: track.audioStreamUrl }, { restart: shouldRestart });
 
       promise?.catch(() => {
         setIsPlaying(false);

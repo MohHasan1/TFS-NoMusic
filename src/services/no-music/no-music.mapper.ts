@@ -18,6 +18,7 @@ function mapNomusicToDto(doc: Nomusic): TNoMusic | null {
   return {
     id: doc.id,
     title: doc.name || doc.title || "Untitled",
+    name: doc.name,
     artist: doc.artist,
     language: doc.language,
     uploadedAt: doc.updatedAt,

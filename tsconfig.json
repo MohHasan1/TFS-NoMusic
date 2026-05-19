@@ -19,6 +19,7 @@
       }
     ],
     "paths": {
+      "#store": ["./src/store/index.ts"],
       "#loggers": ["./src/lib/loggers/base.ts"],
       "#scoped-loggers": ["./src/lib/loggers/scoped.ts"],
       "#trycatch-response": ["./src/lib/responses/trycatch-response.ts"],

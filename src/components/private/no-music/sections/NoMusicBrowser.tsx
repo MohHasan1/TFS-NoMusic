@@ -2,20 +2,18 @@
 
 import { RiMusic2Line } from "@remixicon/react";
 import { useEffect } from "react";
-
+import { usePlayTrack } from "#features/nomusic/player/hooks/usePlayTrack";
+import { useQueueSetup } from "#features/nomusic/queue/hooks/useQueueSetup";
 import { NoMusicCard } from "@/components/private/no-music/sections/NoMusicCard";
-import { useNoMusicPlayer } from "@/features/nomusic/noMusicPlayer/hook.noMusicPlayer";
-import { useNoMusicQueue } from "@/features/nomusic/noMusicQueue/hook.noMusicQueue";
 import type { TNoMusic } from "@/types/nomusic";
 
-type NoMusicBrowserProps = {
-  noMusic: TNoMusic[];
-};
+export function NoMusicBrowser({ noMusic }: TProps) {
+  // const { currentTrack, playTrack } = useNoMusicPlayer();
+  // const { setQueue, setCurrentIndex } = useNoMusicQueue();
+  const { setQueue, setCurrentIndex } = useQueueSetup();
+  const { playNoMusic } = usePlayTrack();
 
-export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
-  const { currentTrack, playTrack } = useNoMusicPlayer();
-  const { setQueue, setCurrentIndex } = useNoMusicQueue();
-
+  // TODO: refcatore
   useEffect(() => {
     setQueue(noMusic);
   }, [noMusic, setQueue]);
@@ -30,18 +28,21 @@ export function NoMusicBrowser({ noMusic }: NoMusicBrowserProps) {
   }
 
   return (
-    <section className="grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+    <section className="border grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {noMusic.map((track, index) => (
         <NoMusicCard
           key={track.id}
-          isActive={currentTrack?.id === track.id}
           noMusic={track}
           onSelect={() => {
             setCurrentIndex(index);
-            playTrack(track);
+            playNoMusic(track);
           }}
         />
       ))}
     </section>
   );
 }
+
+type TProps = {
+  noMusic: TNoMusic[];
+};

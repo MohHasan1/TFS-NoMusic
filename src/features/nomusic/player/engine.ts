@@ -1,7 +1,6 @@
 export type EngineTrack = {
   id: string | number;
   url: string;
-  title: string;
 };
 
 export type PlayOptions = { restart?: boolean };
@@ -19,7 +18,9 @@ class SubscriberSet<T> {
   }
 
   emit(value: T) {
-    this.set.forEach((cb) => cb(value));
+    this.set.forEach((cb) => {
+      cb(value);
+    });
   }
 }
 

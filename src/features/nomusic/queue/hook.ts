@@ -1,12 +1,12 @@
 import { store } from "@/store";
-import { QueueEngine } from "./engine.noMusicQueue";
+import { QueueEngine } from "./engine";
 
 const queueEngine = new QueueEngine();
 
 export function useNoMusicQueue() {
   // --- SELECTORS (your pattern)
   const queue = store.use.queue();
-  const currentIndex = store.use.currentIndex();
+  const currentIndex = store.use.currentIndex(); // NOTE: this is causing rerender in browser
   const shuffle = store.use.shuffle();
   const repeatMode = store.use.repeatMode();
 

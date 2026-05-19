@@ -2,7 +2,8 @@ import type { Nomusic } from "#payload-types";
 
 export type TNoMusic = {
   id: Nomusic["id"];
-  title: string;
+  title: Nomusic["title"];
+  name: Nomusic["name"];
   artist: Nomusic["artist"];
   language: Nomusic["language"];
   uploadedAt: Nomusic["updatedAt"];

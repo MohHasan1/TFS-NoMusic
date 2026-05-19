@@ -1,7 +1,7 @@
 import { create, type ExtractState } from "zustand";
 
-import { createNoMusicPlayerSlice, type TNoMusicPlayer } from "@/features/nomusic/noMusicPlayer/slice.noMusicPlayer";
-import { createNoMusicQueueSlice, type TNoMusicQueue } from "@/features/nomusic/noMusicQueue/slice.noMusicQueue";
+import { createNoMusicPlayerSlice, type TNoMusicPlayer } from "#features/nomusic/player/slice";
+import { createNoMusicQueueSlice, type TNoMusicQueue } from "#features/nomusic/queue/slice";
 import { createNowPlayingSlice, type TNowPlaying } from "@/features/nomusic/nowPlaying/slice.nowPlaying";
 
 import { createSelectors } from "./selector";

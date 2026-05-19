@@ -1,16 +1,6 @@
-import {
-  RiLoader4Line,
-  RiPauseFill,
-  RiPlayFill,
-  RiRepeat2Line,
-  RiRepeatOneLine,
-  RiShuffleLine,
-  RiSkipBackFill,
-  RiSkipForwardFill,
-} from "@remixicon/react";
-
+import { RiLoader4Line, RiPauseFill, RiPlayFill, RiRepeat2Line, RiRepeatOneLine, RiShuffleLine, RiSkipBackFill, RiSkipForwardFill } from "@remixicon/react";
+import type { RepeatMode } from "#features/nomusic/queue/engine";
 import { Button } from "@/components/ui/button";
-import type { RepeatMode } from "@/features/nomusic/noMusicQueue/engine.noMusicQueue";
 import { cn } from "@/lib/utils";
 import type { TNoMusic } from "@/types/nomusic";
 
@@ -37,23 +27,7 @@ type NowPlayingContentProps = {
   onCycleRepeat: () => void;
 };
 
-export function NowPlayingContent({
-  track,
-  isPlaying,
-  isBuffering,
-  currentTime,
-  duration,
-  volume,
-  shuffle,
-  repeatMode,
-  onTogglePlay,
-  onPrevious,
-  onNext,
-  onSeek,
-  onVolumeChange,
-  onToggleShuffle,
-  onCycleRepeat,
-}: NowPlayingContentProps) {
+export function NowPlayingContent({ track, isPlaying, isBuffering, currentTime, duration, volume, shuffle, repeatMode, onTogglePlay, onPrevious, onNext, onSeek, onVolumeChange, onToggleShuffle, onCycleRepeat }: NowPlayingContentProps) {
   return (
     <div className="relative flex flex-col overflow-y-auto">
       <AmbientGlow />
@@ -66,29 +40,13 @@ export function NowPlayingContent({
 
       <div className="relative flex flex-col gap-5 px-6 pb-7 md:gap-4 md:px-8 md:pb-6">
         <div className="flex flex-col items-center gap-1 text-center">
-          <h2 className="max-w-full truncate text-2xl font-bold tracking-tight text-primary">
-            {track.title}
-          </h2>
-          <p className="max-w-full truncate text-sm text-muted-foreground md:text-base">
-            {track.artist || "Unknown Artist"}
-          </p>
+          <h2 className="max-w-full truncate text-2xl font-bold tracking-tight text-primary">{track.title}</h2>
+          <p className="max-w-full truncate text-sm text-muted-foreground md:text-base">{track.artist || "Unknown Artist"}</p>
         </div>
 
         <PlayerSeekBar currentTime={currentTime} duration={duration} onSeek={onSeek} />
 
-        <ControlsRow
-          isPlaying={isPlaying}
-          isBuffering={isBuffering}
-          shuffle={shuffle}
-          repeatMode={repeatMode}
-          volume={volume}
-          onPrevious={onPrevious}
-          onTogglePlay={onTogglePlay}
-          onNext={onNext}
-          onToggleShuffle={onToggleShuffle}
-          onCycleRepeat={onCycleRepeat}
-          onVolumeChange={onVolumeChange}
-        />
+        <ControlsRow isPlaying={isPlaying} isBuffering={isBuffering} shuffle={shuffle} repeatMode={repeatMode} volume={volume} onPrevious={onPrevious} onTogglePlay={onTogglePlay} onNext={onNext} onToggleShuffle={onToggleShuffle} onCycleRepeat={onCycleRepeat} onVolumeChange={onVolumeChange} />
       </div>
     </div>
   );
@@ -108,19 +66,7 @@ type ControlsRowProps = {
   onVolumeChange: (next: number) => void;
 };
 
-function ControlsRow({
-  isPlaying,
-  isBuffering,
-  shuffle,
-  repeatMode,
-  volume,
-  onPrevious,
-  onTogglePlay,
-  onNext,
-  onToggleShuffle,
-  onCycleRepeat,
-  onVolumeChange,
-}: ControlsRowProps) {
+function ControlsRow({ isPlaying, isBuffering, shuffle, repeatMode, volume, onPrevious, onTogglePlay, onNext, onToggleShuffle, onCycleRepeat, onVolumeChange }: ControlsRowProps) {
   return (
     <div className="grid grid-cols-3 items-center gap-2">
       <div className="flex items-center gap-1 justify-self-start">
@@ -165,18 +111,7 @@ function AmbientGlow() {
 
 function ShuffleButton({ active, onClick }: { active: boolean; onClick: () => void }) {
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      onClick={onClick}
-      aria-pressed={active}
-      aria-label={active ? "Disable shuffle" : "Enable shuffle"}
-      className={cn(
-        "rounded-full text-muted-foreground hover:text-foreground",
-        active && "text-primary hover:text-primary",
-      )}
-    >
+    <Button type="button" variant="ghost" size="icon" onClick={onClick} aria-pressed={active} aria-label={active ? "Disable shuffle" : "Enable shuffle"} className={cn("rounded-full text-muted-foreground hover:text-foreground", active && "text-primary hover:text-primary")}>
       <RiShuffleLine className="size-5" />
     </Button>
   );
@@ -187,18 +122,7 @@ function RepeatButton({ mode, onClick }: { mode: RepeatMode; onClick: () => void
   const isActive = mode !== "off";
 
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      onClick={onClick}
-      aria-label={NEXT_REPEAT_LABEL[mode]}
-      title={REPEAT_LABEL[mode]}
-      className={cn(
-        "rounded-full text-muted-foreground hover:text-foreground",
-        isActive && "text-primary hover:text-primary",
-      )}
-    >
+    <Button type="button" variant="ghost" size="icon" onClick={onClick} aria-label={NEXT_REPEAT_LABEL[mode]} title={REPEAT_LABEL[mode]} className={cn("rounded-full text-muted-foreground hover:text-foreground", isActive && "text-primary hover:text-primary")}>
       <Icon className="size-5" />
     </Button>
   );
@@ -207,43 +131,16 @@ function RepeatButton({ mode, onClick }: { mode: RepeatMode; onClick: () => void
 function SkipButton({ direction, onClick }: { direction: "prev" | "next"; onClick: () => void }) {
   const Icon = direction === "prev" ? RiSkipBackFill : RiSkipForwardFill;
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      onClick={onClick}
-      aria-label={direction === "prev" ? "Previous track" : "Next track"}
-      className="rounded-full text-foreground hover:text-foreground"
-    >
+    <Button type="button" variant="ghost" size="icon" onClick={onClick} aria-label={direction === "prev" ? "Previous track" : "Next track"} className="rounded-full text-foreground hover:text-foreground">
       <Icon className="size-6" />
     </Button>
   );
 }
 
-function PlayPauseButton({
-  isPlaying,
-  isBuffering,
-  onClick,
-}: {
-  isPlaying: boolean;
-  isBuffering: boolean;
-  onClick: () => void;
-}) {
+function PlayPauseButton({ isPlaying, isBuffering, onClick }: { isPlaying: boolean; isBuffering: boolean; onClick: () => void }) {
   return (
-    <Button
-      type="button"
-      onClick={onClick}
-      aria-label={isPlaying ? "Pause" : "Play"}
-      aria-pressed={isPlaying}
-      className="size-14 rounded-full [&_svg:not([class*='size-'])]:size-7"
-    >
-      {isBuffering ? (
-        <RiLoader4Line className="size-6 animate-spin" />
-      ) : isPlaying ? (
-        <RiPauseFill className="size-6 fill-current" />
-      ) : (
-        <RiPlayFill className="size-6 translate-x-px fill-current" />
-      )}
+    <Button type="button" onClick={onClick} aria-label={isPlaying ? "Pause" : "Play"} aria-pressed={isPlaying} className="size-14 rounded-full [&_svg:not([class*='size-'])]:size-7">
+      {isBuffering ? <RiLoader4Line className="size-6 animate-spin" /> : isPlaying ? <RiPauseFill className="size-6 fill-current" /> : <RiPlayFill className="size-6 translate-x-px fill-current" />}
     </Button>
   );
 }
