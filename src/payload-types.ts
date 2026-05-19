@@ -155,7 +155,7 @@ export interface UserAuthOperations {
 export interface Admin {
   id: string;
   name: string;
-  role: 'level_1' | 'level_2' | 'level_3' | 'level_4';
+  role: 'admin' | 'editor' | 'viewer' | 'user';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -183,7 +183,7 @@ export interface User {
   id: string;
   name: string;
   isApproved?: boolean | null;
-  role?: ('level_1' | 'level_2' | 'level_3' | 'level_4') | null;
+  role?: ('admin' | 'editor' | 'viewer' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -269,7 +269,7 @@ export interface Nomusic {
   id: string;
   title?: string | null;
   name: string;
-  audioFile?: (string | null) | Media;
+  audioFile: string | Media;
   uploadedAudioURL?: string | null;
   visibility?: ('public' | 'private') | null;
   artist?: string | null;

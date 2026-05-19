@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
-
+import { PUBLIC_ROUTES } from "#constants/routes";
 import { RequestNoMusicForm } from "@/components/private/requests/RequestNoMusicForm";
 import { getCurrentUser } from "@/services/auth/auth.ports";
-import { PUBLIC_ROUTES } from "#constants/routes";
 
 export default async function RequestSongsPage() {
   const user = await getCurrentUser();
-  if (!user) {
+  if (!user.isSuccess) {
     redirect(PUBLIC_ROUTES.SIGNIN);
   }
 

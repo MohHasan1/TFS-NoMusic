@@ -3,7 +3,6 @@ import { LANGUAGES_VALUES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
 import { assignNomusicLibraryAfterChange, syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
 
-// TODO: Add hook to automatically add nomusic to library
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
 
@@ -16,13 +15,22 @@ export const Nomusic: CollectionConfig = {
     useAsTitle: "name",
   },
 
+  defaultPopulate: {
+    id: true,
+    name: true,
+    duration: true,
+    language: true,
+    uploadedAudioURL: true,
+    source: true,
+    externalImageURL: true,
+    uploadedImageURL: true,
+  },
+
   access: {
     read: () => true,
-    create: ({ req }) => req.user?.role === "level_1",
-    update: ({ req }) => {
-      return req.user?.role === "level_1";
-    },
-    delete: ({ req }) => req.user?.role === "level_1",
+    create: ({ req }) => req.user?.role === "admin",
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin",
   },
 
   // TODO: remove title
@@ -41,7 +49,7 @@ export const Nomusic: CollectionConfig = {
       name: "audioFile",
       type: "upload",
       relationTo: "media",
-      // required: true,
+      required: true,
     },
     {
       name: "uploadedAudioURL",

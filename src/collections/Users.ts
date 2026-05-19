@@ -36,12 +36,20 @@ export const Users: CollectionConfig = {
     useAsTitle: "name",
   },
 
+  defaultPopulate: {
+    id: true,
+    name: true,
+    email: true,
+    role: true,
+    isApproved: true,
+  },
+
   // TODO: improve this
   access: {
     read: () => true,
     create: () => true,
-    update: ({ req }) => req.user?.role === "level_1",
-    delete: ({ req }) => req.user?.role === "level_1",
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin",
   },
 
   fields: [
@@ -58,7 +66,7 @@ export const Users: CollectionConfig = {
     {
       name: "role",
       type: "select",
-      defaultValue: "level_4",
+      defaultValue: "user",
       options: [...ROLE_OPTIONS],
     },
   ],

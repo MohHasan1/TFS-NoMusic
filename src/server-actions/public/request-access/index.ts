@@ -1,13 +1,12 @@
 "use server";
 
+import { ZodError } from "zod";
 import { mapZodErrorToErrors } from "#lib/zod/mappers";
-import { successResponse, errorResponse } from "#responses";
+import { errorResponse, successResponse } from "#responses";
 import { REQUEST_ACCESS_CLIENT } from "@/constants/public/request-access";
 import { getCurrentUser } from "@/services/auth/auth.ports";
 import { createRequest } from "@/services/requests/requests.ports";
-
-import { RequestAccessSchema, TRequestAccessSchema } from "@/validations/public/request-access";
-import { ZodError } from "zod";
+import { RequestAccessSchema, type TRequestAccessSchema } from "@/validations/public/request-access";
 
 export async function requestAccessAction(data: TRequestAccessSchema) {
   try {
@@ -38,10 +37,7 @@ export type RequestAccessState = {
   success?: string;
 };
 
-export async function submitNoMusicRequestAction(
-  _prevState: RequestNoMusicState,
-  formData: FormData,
-): Promise<RequestNoMusicState> {
+export async function submitNoMusicRequestAction(_prevState: RequestNoMusicState, formData: FormData): Promise<RequestNoMusicState> {
   const youtubeURL = getString(formData, "youtubeURL");
   const description = getString(formData, "description");
 
@@ -53,7 +49,8 @@ export async function submitNoMusicRequestAction(
     return { error: "Please enter a valid YouTube URL." };
   }
 
-  const user = await getCurrentUser();
+  const userResponse = await getCurrentUser();
+  const user = userResponse.isSuccess ? userResponse.data : null;
   const email = user?.email?.toLowerCase() ?? "";
 
   if (!email) {

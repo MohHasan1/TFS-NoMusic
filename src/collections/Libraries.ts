@@ -12,12 +12,19 @@ export const Libraries: CollectionConfig = {
 
   access: {
     read: () => true,
-    create: ({ req }) => req.user?.role === "level_1",
-    update: ({ req }) => req.user?.role === "level_1",
-    delete: ({ req }) => req.user?.role === "level_1",
+    create: ({ req }) => req.user?.role === "admin",
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin",
   },
 
   hooks: { beforeValidate: [generateSlugBeforeValidate, validateLibraryBeforeValidate] },
+
+  defaultPopulate: {
+    id: true,
+    name: true,
+    slug: true,
+    description: true,
+  },
 
   fields: [
     {

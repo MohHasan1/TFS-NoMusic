@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload";
-import { detectMediaTypeBeforeValidate, setMediaPrefixBeforeValidate } from "./hooks/media";
 import { DEFAULT_MEDIA_FOLDER, MEDIA_FOLDER_OPTIONS } from "./helpers/media";
+import { detectMediaTypeBeforeValidate, setMediaPrefixBeforeValidate } from "./hooks/media";
 
 export const Media: CollectionConfig = {
   slug: "media",
@@ -15,9 +15,9 @@ export const Media: CollectionConfig = {
 
   access: {
     read: () => true, // public CDN URLs handle actual access control
-    create: ({ req }) => req.user?.role === "level_1",
-    update: ({ req }) => req.user?.role === "level_1",
-    delete: ({ req }) => req.user?.role === "level_1",
+    create: ({ req }) => req.user?.role === "admin",
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin",
   },
 
   upload: {

@@ -15,9 +15,9 @@ export const Requests: CollectionConfig = {
 
   access: {
     create: () => true,
-    read: ({ req }) => req.user?.role === "level_1",
-    update: ({ req }) => req.user?.role === "level_1",
-    delete: ({ req }) => req.user?.role === "level_1",
+    read: ({ req }) => req.user?.role === "admin",
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin",
   },
 
   fields: [

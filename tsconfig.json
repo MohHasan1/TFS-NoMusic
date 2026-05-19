@@ -20,6 +20,7 @@
     ],
     "paths": {
       "#loggers": ["./src/lib/loggers/base.ts"],
+      "#scoped-loggers": ["./src/lib/loggers/scoped.ts"],
       "#trycatch-response": ["./src/lib/responses/trycatch-response.ts"],
       "#payload-response": ["./src/lib/responses/payload-response.ts"],
       "#responses": ["./src/lib/responses/app-response.ts"],
@@ -41,13 +42,6 @@
       "#lib/*": ["./src/lib/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
   "exclude": ["node_modules"]
 }

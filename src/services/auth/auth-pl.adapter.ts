@@ -5,6 +5,9 @@ import { headers as getHeaders } from "next/headers";
 import { getPayloadClient } from "#payload-client";
 
 import config from "#payload-config";
+import type { User } from "#payload-types";
+import { errorResponse, successResponse } from "#responses";
+import { authLogger } from "#scoped-loggers";
 import { tryCatchResponse } from "#trycatch-response";
 import type { TSignin, TSignup } from "./auth.types";
 
@@ -26,6 +29,7 @@ export async function signupAdapter(data: TSignup) {
     payload.create({
       collection: "users",
       overrideAccess: false,
+      select: {},
       data: {
         name: data.name,
         email: data.email.toLowerCase(),
@@ -84,22 +88,19 @@ export async function resetPasswordAdapter(token: string, password: string) {
 }
 
 export async function getCurrentUserAdapter() {
-  const payload = await getPayloadClient();
   const headers = await getHeaders();
+  const payload = await getPayloadClient();
   const { user } = await payload.auth({ headers });
 
-  return user ?? null;
+  authLogger(user);
 
-//   if (!user) {
-//   return errorResponse(
-//     [{ message: "You need to be logged in.", status: 401, code: "UNAUTHORIZED" }],
-//     "You need to be logged in.",
-//   );
-// }
+  if (!user) {
+    return errorResponse([{ message: "You need to be logged in.", status: 401, code: "UNAUTHORIZED" }], "You need to be logged in.");
+  }
 
-// if (user.role !== "admin") {
-//   return errorResponse(
-//     [{ message: "You do not have permission.", status: 403, code: "FORBIDDEN" }],
-//     "You do not have permission.",
-//   );
+  if (user.role === "user") {
+    return successResponse(user as User);
+  }
+
+  return errorResponse([{ message: "You do not have permission.", status: 403, code: "FORBIDDEN" }], "You do not have permission.");
 }
