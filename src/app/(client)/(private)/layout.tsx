@@ -1,3 +1,5 @@
+import { NoMusicPlayer } from "#components/private/common/sections/NoMusicPlayer";
+import { NowPlayingSheet } from "#components/private/common/sections/NowPlayingSheet";
 import { PrivateNavbar } from "@/components/_layout/private/PrivateNavbar";
 import { GlowOrb } from "@/components/shared/GlowOrb";
 
@@ -9,12 +11,12 @@ export default function PrivateLayout({
   return (
     <>
       <PrivateNavbar />
-      <main className="relative bg-linear-to-br from-background to-background via-primary/10">
+      <main className="min-h-dvh relative bg-linear-to-br from-background to-background via-primary/10">
         <GlowOrb mode="fixed" position="top" />
         {children}
       </main>
-      {/* <NoMusicPlayer /> */}
-      {/* <NowPlayingSheet /> */}
+      <NoMusicPlayer />
+      <NowPlayingSheet />
     </>
   );
 }

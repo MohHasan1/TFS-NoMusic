@@ -9,6 +9,7 @@ import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 import { PlayerVolume } from "../elements/PlayerVolume";
 import { NEXT_REPEAT_LABEL, REPEAT_LABEL } from "../utils/repeatMode";
 
+
 type NowPlayingContentProps = {
   track: TNoMusic;
   isPlaying: boolean;

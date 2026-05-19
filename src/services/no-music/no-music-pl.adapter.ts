@@ -13,6 +13,7 @@ export async function listNomusicAdapter(): Promise<TNoMusic[]> {
     sort: "-createdAt",
     pagination: false,
     select: {
+      name: true,
       title: true,
       artist: true,
       language: true,

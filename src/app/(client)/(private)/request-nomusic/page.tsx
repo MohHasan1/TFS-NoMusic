@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { PUBLIC_ROUTES } from "#constants/routes";
-import { RequestNoMusicForm } from "@/components/private/requests/RequestNoMusicForm";
+import { RequestNoMusicForm } from "#components/private/request-nomusic/RequestNoMusicForm";
 import { getCurrentUser } from "@/services/auth/auth.ports";
 
 export default async function RequestSongsPage() {

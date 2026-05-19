@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: TProps) {
   return (
-    <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>
-      <body>
+    <html lang="en" className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}>
+      <body className="min-h-dvh h-full">
         {children} <Toaster position="top-right" />
       </body>
     </html>

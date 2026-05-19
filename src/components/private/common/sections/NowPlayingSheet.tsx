@@ -5,9 +5,10 @@ import { Dialog, DialogBackdrop, DialogDescription, DialogPopup, DialogPortal, D
 import { useNoMusicPlaybackController } from "@/features/nomusic/hook.noMusicPlaybackController";
 import { useNowPlaying } from "@/features/nomusic/nowPlaying/hook.nowPlaying";
 
-import { nextRepeatMode } from "../utils/repeatMode";
+
 import { NowPlayingContent } from "./NowPlayingContent";
 import { NowPlayingHeader } from "./NowPlayingHeader";
+import { nextRepeatMode } from "../utils/repeatMode";
 
 export function NowPlayingSheet() {
   const playback = useNoMusicPlaybackController();
