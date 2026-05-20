@@ -1,3 +1,4 @@
+import PlayerBar from "#components/private/common/player-bar/PlayerBar";
 import { NoMusicPlayer } from "#components/private/common/sections/NoMusicPlayer";
 import { NowPlayingSheet } from "#components/private/common/sections/NowPlayingSheet";
 import { PrivateNavbar } from "@/components/_layout/private/PrivateNavbar";
@@ -15,7 +16,8 @@ export default function PrivateLayout({
         <GlowOrb mode="fixed" position="top" />
         {children}
       </main>
-      <NoMusicPlayer />
+      <PlayerBar/>
+      {/* <NoMusicPlayer /> */}
       <NowPlayingSheet />
     </>
   );
