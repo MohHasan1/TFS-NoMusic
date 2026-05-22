@@ -7,8 +7,9 @@ import { PlayerControls } from "./elements/PlayerControls";
 import { PlayerQueueControls } from "./elements/PlayerQueueControls";
 import { PlayerSeekBar } from "./elements/PlayerSeekBar";
 
-import { PlayerVolume } from "./elements/PlayerVolume";
+// import { PlayerVolume } from "./elements/PlayerVolume";
 import PlayerTrackInfo from "./elements/PlayerTrackInfo";
+
 
 const DesktopPlayerBar = () => {
   // const { open: openNowPlaying } = useNowPlaying();
@@ -46,9 +47,9 @@ const DesktopPlayerBar = () => {
             </div>
             {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation only */}
             {/* biome-ignore lint/a11y/noStaticElementInteractions: stopPropagation only */}
-            <div onClick={(event) => event.stopPropagation()}>
+            {/* <div onClick={(event) => event.stopPropagation()}>
               <PlayerVolume />
-            </div>
+            </div> */}
             {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation only */}
             {/* biome-ignore lint/a11y/noStaticElementInteractions: stopPropagation only */}
             <div onClick={(event) => event.stopPropagation()}>

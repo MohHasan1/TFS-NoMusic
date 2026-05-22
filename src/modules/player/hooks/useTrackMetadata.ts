@@ -2,6 +2,7 @@
 
 import { store } from "@/store";
 
+// TODO: rename useCurrentTrackMetadata()
 export function useTrackMetadata() {
   const currentTrack = store.use.currentTrack();
 

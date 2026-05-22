@@ -7,7 +7,7 @@ import { useNowPlaying } from "@/modules/nowPlaying/hook.nowPlaying";
 import { store } from "@/store";
 import DesktopPlayerBar from "./DesktopPlayerBar";
 import PlayerArtwork from "./elements/PlayerArtwork";
-import { PlayerControls } from "./elements/PlayerControls";
+// import { PlayerControls } from "./elements/PlayerControls";
 import { PlayerSeekBar } from "./elements/PlayerSeekBar";
 import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 import { useTrackMetadata } from "@/modules/player/hooks/useTrackMetadata";
