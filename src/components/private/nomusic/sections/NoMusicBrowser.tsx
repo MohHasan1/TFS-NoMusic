@@ -4,13 +4,12 @@ import { useEffect } from "react";
 import type { TNoMusic } from "#types/nomusic";
 import { usePlayTrack } from "@/modules/player/hooks/usePlayTrack";
 import { useQueueSetup } from "@/modules/queue/hooks/useQueueSetup";
-
 import { NoMusicCard } from "../elements/NoMusicCard";
 import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
 
 export function NoMusicBrowser({ noMusic }: TProps) {
   const { setQueue, setCurrentIndex } = useQueueSetup();
-  const { playNoMusic } = usePlayTrack();
+  const { playTrack } = usePlayTrack();
 
   // TODO: refcatore
   useEffect(() => {
@@ -33,7 +32,7 @@ export function NoMusicBrowser({ noMusic }: TProps) {
           noMusic={track}
           onSelectFn={() => {
             setCurrentIndex(index);
-            playNoMusic(track);
+            playTrack(track);
           }}
         />
       ))}

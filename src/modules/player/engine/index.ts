@@ -1,43 +1,16 @@
-export type EngineTrack = {
-  id: string | number;
-  url: string;
-};
+import SubscriberSet, { type Subscriber } from "./SubscriberSet";
 
-export type PlayOptions = { restart?: boolean };
+export class PlayerEngine {
+  private track: TPlayerTrack | null = null;
 
-type Subscriber<T> = (value: T) => void;
-
-class SubscriberSet<T> {
-  private set = new Set<Subscriber<T>>();
-
-  add(cb: Subscriber<T>) {
-    this.set.add(cb);
-    return () => {
-      this.set.delete(cb);
-    };
-  }
-
-  emit(value: T) {
-    this.set.forEach((cb) => {
-      cb(value);
-    });
-  }
-}
-
-/**
- * Browser-only audio engine. Owns a single `HTMLAudioElement` and exposes a
- * narrow, intent-based API. UI state lives in the Zustand store; the engine
- * only emits events and runs DOM side-effects.
- */
-export class NoMusicEngine {
   private audio: HTMLAudioElement | null = null;
-  private currentTrack: EngineTrack | null = null;
 
-  private timeUpdate = new SubscriberSet<number>();
-  private ended = new SubscriberSet<void>();
-  private buffering = new SubscriberSet<boolean>();
-  private playState = new SubscriberSet<boolean>();
-  private error = new SubscriberSet<string | null>();
+  private endedListeners = new SubscriberSet<void>();
+  private playingListeners = new SubscriberSet<boolean>();
+  private bufferingListeners = new SubscriberSet<boolean>();
+  private timeUpdateListeners = new SubscriberSet<number>();
+  private durationListeners = new SubscriberSet<number>();
+  private errorListeners = new SubscriberSet<string | null>();
 
   constructor() {
     if (typeof window === "undefined") return;
@@ -45,63 +18,124 @@ export class NoMusicEngine {
     this.audio = new Audio();
     this.audio.preload = "metadata";
 
+    // -- Publish native audio events to engine subscribers (like pub-sub) -- //
     this.audio.addEventListener("timeupdate", () => {
-      this.timeUpdate.emit(this.audio?.currentTime ?? 0);
+      this.timeUpdateListeners.emit(this.getCurrentTime());
     });
+
+    this.audio.addEventListener("loadedmetadata", () => {
+      this.durationListeners.emit(this.getDuration());
+    });
+
+    this.audio.addEventListener("durationchange", () => {
+      this.durationListeners.emit(this.getDuration());
+    });
+
     this.audio.addEventListener("ended", () => {
-      this.ended.emit();
+      this.playingListeners.emit(false);
+      this.endedListeners.emit();
     });
+
     this.audio.addEventListener("waiting", () => {
-      this.buffering.emit(true);
+      this.bufferingListeners.emit(true);
     });
+
     this.audio.addEventListener("playing", () => {
-      this.buffering.emit(false);
-      this.playState.emit(true);
-      this.error.emit(null);
+      this.bufferingListeners.emit(false);
+      this.playingListeners.emit(true);
+      this.errorListeners.emit(null);
     });
+
     this.audio.addEventListener("canplay", () => {
-      this.buffering.emit(false);
+      this.bufferingListeners.emit(false);
     });
+
     this.audio.addEventListener("pause", () => {
-      this.playState.emit(false);
+      this.playingListeners.emit(false);
     });
+
     this.audio.addEventListener("error", () => {
-      this.buffering.emit(false);
-      this.error.emit("Couldn't play this track. The audio source may be unavailable.");
+      this.bufferingListeners.emit(false);
+      this.playingListeners.emit(false);
+      this.errorListeners.emit("Couldn't play this track. The audio source may be unavailable.");
     });
   }
 
-  play(track?: EngineTrack, options: PlayOptions = {}) {
+  private loadTrack(track: TPlayerTrack) {
     if (!this.audio) return;
 
-    if (track) {
-      this.loadTrack(track, options.restart === true);
+    const nextSource = new URL(track.src, window.location.href).href;
+    const isSameSource = this.audio.src === nextSource;
+
+    this.track = track;
+
+    if (isSameSource) return;
+
+    this.audio.src = nextSource;
+    this.audio.currentTime = 0;
+    this.durationListeners.emit(0);
+  }
+
+  // Playback controls
+  play(track: TPlayerTrack, options: TPlayOptions = {}) {
+    if (!this.audio) return;
+
+    this.loadTrack(track);
+    if (!this.audio.src) return;
+
+    if (options.restart) {
+      this.audio.currentTime = 0;
     }
 
-    if (!this.audio.src) return;
     return this.audio.play();
   }
 
   pause() {
-    this.audio?.pause();
+    if (!this.audio) return;
+
+    this.audio.pause();
+  }
+
+  resume() {
+    if (!this.audio) return;
+
+    this.audio.play();
   }
 
   toggle() {
     if (!this.audio) return;
-    return this.audio.paused ? this.audio.play() : this.audio.pause();
+
+    if (this.audio.paused) {
+      return this.audio.play();
+    }
+
+    this.audio.pause();
   }
 
-  seek(time: number) {
+  seekTo(time: number) {
     if (!this.audio) return;
+
     this.audio.currentTime = time;
   }
 
+  // Volume controls
   setVolume(volume: number) {
     if (!this.audio) return;
+
     this.audio.volume = volume;
   }
 
-  getTime() {
+  getVolume() {
+    return this.audio?.volume ?? 1;
+  }
+
+  // Track state getters
+  getCurrentTrack() {
+    return this.track;
+  }
+
+  // Playback state getters
+  getCurrentTime() {
     return this.audio?.currentTime ?? 0;
   }
 
@@ -109,52 +143,56 @@ export class NoMusicEngine {
     return this.audio?.duration ?? 0;
   }
 
-  getCurrentTrack() {
-    return this.currentTrack;
-  }
-
-  isPlaying() {
+  getIsPlaying() {
     return this.audio ? !this.audio.paused : false;
   }
 
+  // Event subscriptions
   subscribeTimeUpdate(cb: Subscriber<number>) {
-    return this.timeUpdate.add(cb);
+    return this.timeUpdateListeners.add(cb);
+  }
+
+  subscribeDuration(cb: Subscriber<number>) {
+    return this.durationListeners.add(cb);
   }
 
   subscribeEnded(cb: Subscriber<void>) {
-    return this.ended.add(cb);
+    return this.endedListeners.add(cb);
   }
 
   subscribeBuffering(cb: Subscriber<boolean>) {
-    return this.buffering.add(cb);
+    return this.bufferingListeners.add(cb);
   }
 
-  subscribePlayState(cb: Subscriber<boolean>) {
-    return this.playState.add(cb);
+  subscribePlaying(cb: Subscriber<boolean>) {
+    return this.playingListeners.add(cb);
   }
 
   subscribeError(cb: Subscriber<string | null>) {
-    return this.error.add(cb);
-  }
-
-  private loadTrack(track: EngineTrack, restart: boolean) {
-    if (!this.audio) return;
-
-    const nextSource = new URL(track.url, window.location.href).href;
-    const isSameSource = this.audio.src === nextSource;
-    this.currentTrack = track;
-
-    if (!isSameSource) {
-      this.audio.src = nextSource;
-      this.audio.currentTime = 0;
-      return;
-    }
-
-    // Same source: only rewind if the caller explicitly asks (e.g. queue advance).
-    if (restart) {
-      this.audio.currentTime = 0;
-    }
+    return this.errorListeners.add(cb);
   }
 }
 
-export const noMusicEngine = new NoMusicEngine();
+export const playerEngine = new PlayerEngine();
+
+export type TPlayerTrack = {
+  id: string;
+  src: string;
+};
+
+export type TPlayOptions = { restart?: boolean };
+
+// NOTE:
+// playback = playing, pausing, seeking, volume, current time
+// track = song data like id, src, title, artist, cover
+
+// NOTE: audio event -> engine emit -> subscribed function runs -> Zustand updates -> UI updates
+// 1. Constructor creates audio element
+// 2. Constructor connects audio events to set's emit()
+//    audio "playing"  -> playingListeners.emit(true)
+//    audio "pause"    -> playingListeners.emit(false)
+//    audio "timeupdate" -> timeUpdateListeners.emit(time)
+// 3. subscribe methods connect your functions to those listener sets
+// 4. When audio event happens, emit() runs all connected functions
+// 5. Those functions update Zustand
+// 6. React UI updates from Zustand
