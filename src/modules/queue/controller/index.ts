@@ -6,10 +6,40 @@ class QueueController {
   setQueue(tracks: TNoMusic[], startTrackId: TNoMusic["id"]) {
     const { setQueueIds, setCurrentIndex } = store.getState();
 
-    const queueIds = queueEngine.createQueueIds(tracks);
-    const currentIndex = queueEngine.findIndexByTrackId(queueIds, startTrackId);
+    const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueData(tracks);
+    const currentIndex = queueEngine.getIndexByTrackId(newQueueIdIndexMap, startTrackId);
 
-    setQueueIds(queueIds);
+    setQueueIds(newQueueIds);
+    setCurrentIndex(currentIndex);
+  }
+
+  setQueueForSource(params: {
+    sourceKey: string;
+    tracks: TNoMusic[];
+    startTrackId: TNoMusic["id"];
+  }) {
+    const { sourceKey, tracks, startTrackId } = params;
+
+    const {
+      queueSourceKey,
+      queueIdIndexMap,
+      setQueueSourceKey,
+      setQueueIds,
+      setQueueIdIndexMap,
+      setCurrentIndex,
+    } = store.getState();
+
+    if (queueSourceKey === sourceKey) {
+      setCurrentIndex(queueEngine.getIndexByTrackId(queueIdIndexMap, startTrackId));
+      return;
+    }
+
+    const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueData(tracks);
+    const currentIndex = queueEngine.getIndexByTrackId(newQueueIdIndexMap, startTrackId);
+
+    setQueueSourceKey(sourceKey);
+    setQueueIds(newQueueIds);
+    setQueueIdIndexMap(newQueueIdIndexMap);
     setCurrentIndex(currentIndex);
   }
 

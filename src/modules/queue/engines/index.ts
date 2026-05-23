@@ -5,9 +5,38 @@ export class QueueEngine {
     return tracks.map((track) => track.id);
   }
 
-  findIndexByTrackId(queueIds: TNoMusic["id"][], trackId: TNoMusic["id"]) {
-    return queueIds.findIndex((id) => id === trackId);
+  createQueueIdIndexMap(queueIds: TNoMusic["id"][]) {
+    const queueIdIndexMap: Record<string, number> = {};
+
+    queueIds.forEach((trackId, index) => {
+      queueIdIndexMap[String(trackId)] = index;
+    });
+
+    return queueIdIndexMap;
   }
+
+  createQueueData(tracks: TNoMusic[]) {
+    const newQueueIds: TNoMusic["id"][] = [];
+    const newQueueIdIndexMap: Record<string, number> = {};
+
+    tracks.forEach((track, index) => {
+      newQueueIds.push(track.id);
+      newQueueIdIndexMap[String(track.id)] = index;
+    });
+
+    return {
+      newQueueIds,
+      newQueueIdIndexMap,
+    };
+  }
+
+  getIndexByTrackId(queueIdIndexMap: Record<string, number>, trackId: TNoMusic["id"]) {
+    return queueIdIndexMap[String(trackId)] ?? -1;
+  }
+
+  // findIndexByTrackId(queueIds: TNoMusic["id"][], trackId: TNoMusic["id"]) {
+  //   return queueIds.findIndex((id) => id === trackId);
+  // }
 
   getCurrentId(queueIds: TNoMusic["id"][], currentIndex: number) {
     return queueIds[currentIndex] ?? null;

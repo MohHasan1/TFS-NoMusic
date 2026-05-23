@@ -22,7 +22,15 @@ export function useQueueSetup() {
     queueController.setQueue(tracks, startTrackId);
   }, []);
 
+  const setQueueForSource = useCallback(
+    (sourceKey: string, tracks: TNoMusic[], startTrackId: TNoMusic["id"]) => {
+      queueController.setQueueForSource({sourceKey, tracks, startTrackId});
+    },
+    [],
+  );
+
   return {
+    setQueueForSource,
     setQueue,
   };
 }

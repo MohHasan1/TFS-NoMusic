@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
 import type { TNoMusic } from "#types/nomusic";
 import { usePlayTrack } from "@/modules/player/hooks/usePlayTrack";
 import { useQueueSetup } from "@/modules/queue/hooks/useQueueSetup";
 import { NoMusicCard } from "../elements/NoMusicCard";
 import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
-import { store } from "#store";
 import { useTrackRegistry } from "@/modules/registry/hooks/useTrackRegistry";
 
 export function NoMusicBrowser({ noMusic }: TProps) {
@@ -19,7 +17,7 @@ export function NoMusicBrowser({ noMusic }: TProps) {
   // }, [noMusic, setQueue]);
 
   const { addTracks } = useTrackRegistry();
-  const { setQueue } = useQueueSetup();
+  const { setQueue, setQueueForSource } = useQueueSetup();
   const { playTrack } = usePlayTrack();
 
   if (noMusic.length === 0) {
@@ -38,7 +36,7 @@ export function NoMusicBrowser({ noMusic }: TProps) {
           noMusic={track}
           onSelectFn={() => {
             addTracks(noMusic);
-            setQueue(noMusic, track.id);
+            setQueueForSource("page:nomusic", noMusic, track.id);
             playTrack(track);
           }}
         />
