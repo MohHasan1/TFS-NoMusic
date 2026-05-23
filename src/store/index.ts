@@ -4,13 +4,19 @@ import { createNoMusicPlayerSlice, type TNoMusicPlayer } from "@/modules/player/
 import { createNoMusicQueueSlice, type TNoMusicQueue } from "@/modules/queue/slice";
 
 import { createSelectors } from "./selector";
+import { createTrackRegistrySlice, TTrackRegistry } from "@/modules/registry/slice";
+import { TTrackQueue } from "../modules/queue/slices";
+import { createTrackQueueSlice } from "../modules/queue/slices";
 
-export const useStore = create<TNoMusicPlayer & TNoMusicQueue & TNowPlaying>()((...a) => ({
+export const useStore = create<TStore>()((...a) => ({
   ...createNoMusicPlayerSlice(...a),
   ...createNoMusicQueueSlice(...a),
   ...createNowPlayingSlice(...a),
+  ...createTrackRegistrySlice(...a),
+  ...createTrackQueueSlice(...a),
 }));
 
 export const store = createSelectors(useStore);
+type TStore = TNoMusicPlayer & TNoMusicQueue & TNowPlaying & TTrackRegistry & TTrackQueue;
 
-export type StoreState = ExtractState<typeof useStore>;
+// export type StoreState = ExtractState<typeof useStore>;

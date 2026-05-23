@@ -10,7 +10,6 @@ import { PlayerSeekBar } from "./elements/PlayerSeekBar";
 // import { PlayerVolume } from "./elements/PlayerVolume";
 import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 
-
 const DesktopPlayerBar = () => {
   // const { open: openNowPlaying } = useNowPlaying();
 
@@ -42,9 +41,9 @@ const DesktopPlayerBar = () => {
           <div className="flex items-center justify-end gap-2">
             {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation only */}
             {/* biome-ignore lint/a11y/noStaticElementInteractions: stopPropagation only */}
-            <div onClick={(event) => event.stopPropagation()}>
+            {/* <div onClick={(event) => event.stopPropagation()}>
               <PlayerQueueControls />
-            </div>
+            </div> */}
             {/* biome-ignore lint/a11y/useKeyWithClickEvents: stopPropagation only */}
             {/* biome-ignore lint/a11y/noStaticElementInteractions: stopPropagation only */}
             {/* <div onClick={(event) => event.stopPropagation()}>

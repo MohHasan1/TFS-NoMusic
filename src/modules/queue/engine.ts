@@ -103,3 +103,7 @@ function createInitialQueueState(): QueueState {
     repeatMode: "off",
   };
 }
+
+// get random next
+// get sequence next
+// get next (handles modes)

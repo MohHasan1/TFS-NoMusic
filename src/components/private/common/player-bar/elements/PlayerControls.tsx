@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { useTogglePlayback } from "@/modules/player/hooks/useToggleTrack";
 import { useTrackMetadata } from "@/modules/player/hooks/useTrackMetadata";
 import { useTrackPlayback } from "@/modules/player/hooks/useTrackPlayback";
-import { useIsPlayerBuffering } from "@/modules/player/hooks/isPlayerBuffering";
+import { usePlayerQueueControls } from "@/modules/hooks/usePlayerQueueControls";
 
 type PlayerControlsProps = {
   showPrevious?: boolean;
@@ -33,18 +33,26 @@ const SKIP_ICON_SIZE = {
 export function PlayerControls({ showPrevious = true, size = "default" }: PlayerControlsProps) {
   //   const { isPlaying, isBuffering, togglePlayback, playNextTrack, playPrevTrack } = useNoMusicControls();
   const { track } = useTrackMetadata();
-//   const { toggleTrack } = useTogglePlayback();
+  //   const { toggleTrack } = useTogglePlayback();
   const { isPlaying, isBuffering, togglePlayback } = useTrackPlayback(track?.id!);
+  const { playNext, playPrevious } = usePlayerQueueControls();
 
   const playLabel = isPlaying ? "Pause" : "Play";
 
   return (
     <div className="flex items-center gap-2 md:gap-4">
-      {/* {showPrevious ? (
-        <Button type="button" variant="ghost" size="icon" onClick={playPrevTrack} aria-label="Previous track" className="rounded-full text-muted-foreground hover:text-foreground">
+      {showPrevious ? (
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={playPrevious}
+          aria-label="Previous track"
+          className="rounded-full text-muted-foreground hover:text-foreground"
+        >
           <RiSkipBackFill className={cn(SKIP_ICON_SIZE[size])} />
         </Button>
-      ) : null} */}
+      ) : null}
 
       <Button
         type="button"
@@ -66,9 +74,16 @@ export function PlayerControls({ showPrevious = true, size = "default" }: Player
         )}
       </Button>
 
-      {/* <Button type="button" variant="ghost" size="icon" onClick={playNextTrack} aria-label="Next track" className="rounded-full text-muted-foreground hover:text-foreground">
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        onClick={playNext}
+        aria-label="Next track"
+        className="rounded-full text-muted-foreground hover:text-foreground"
+      >
         <RiSkipForwardFill className={cn(SKIP_ICON_SIZE[size])} />
-      </Button> */}
+      </Button>
     </div>
   );
 }
