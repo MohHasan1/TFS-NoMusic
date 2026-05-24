@@ -33,11 +33,3 @@ export const token = (message = "Invalid verification token") =>
 
 const Fields = { email, token, name, password, passwordSilent, required };
 export default Fields;
-
-// export const confirmPasswordField = (message = "Please confirm your password.") =>
-//   z.string().min(1, message);
-
-// export const passwordMatchRefine = (message: string) => ({
-//   message,
-//   path: ["confirmPassword"] as const,
-// });
