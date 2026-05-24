@@ -1,23 +1,13 @@
-import type { RepeatMode } from "@/modules/queue/engine";
-
-export const REPEAT_LABEL: Record<RepeatMode, string> = {
+export const REPEAT_LABEL = {
   off: "Repeat off",
   all: "Repeat all",
   one: "Repeat one",
-};
+  random: "Repeat random",
+} as const;
 
-export const NEXT_REPEAT_LABEL: Record<RepeatMode, string> = {
+export const NEXT_REPEAT_LABEL = {
   off: "Enable repeat all",
   all: "Enable repeat one",
-  one: "Disable repeat",
-};
-
-/**
- * Cycles repeat modes in the common music-player order:
- * loop the queue, loop the current track, then turn repeat off.
- */
-export function nextRepeatMode(mode: RepeatMode): RepeatMode {
-  if (mode === "off") return "all";
-  if (mode === "all") return "one";
-  return "off";
-}
+  one: "Enable random repeat",
+  random: "Disable repeat",
+} as const;

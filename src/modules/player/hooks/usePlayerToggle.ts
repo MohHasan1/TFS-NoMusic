@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback } from "react";
-
 import { playerController } from "../controller";
 
-export function useTogglePlayback() {
+export function usePlayerToggle() {
   const toggleTrack = useCallback(() => {
     return playerController.togglePlayback();
   }, []);

@@ -5,18 +5,18 @@ import { useCallback } from "react";
 import { store } from "#store";
 import { playerController } from "../controller";
 
-// NOTE: This hook will casue the UI to re-render every seconds.
+// NOTE: Will cause component re-render every seconds when a track is playing:
 export function usePlayerSeek() {
-  const currentTime = store((state) => state.currentTime);
-  const duration = store((state) => state.duration);
+  const currentTime = store.use.currentTime();
+  const duration = store.use.duration();
 
-  const seekTo = useCallback((time: number) => {
-    playerController.seekTrack(time);
+  const seekToFn = useCallback((time: number) => {
+    playerController.seekTrackTo(time);
   }, []);
 
   return {
     currentTime,
     duration,
-    seekTo,
+    seekTo: seekToFn,
   };
 }

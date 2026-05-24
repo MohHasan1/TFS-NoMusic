@@ -1,22 +1,11 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { useNoMusicEngineSubscriptions } from "@/modules/hooks/useNoMusicEngineSubscriptions";
-import { useNowPlaying } from "@/modules/nowPlaying/hook.nowPlaying";
-import { store } from "@/store";
+import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 import DesktopPlayerBar from "./DesktopPlayerBar";
-import PlayerArtwork from "./elements/PlayerArtwork";
-// import { PlayerControls } from "./elements/PlayerControls";
-import { PlayerSeekBar } from "./elements/PlayerSeekBar";
-import PlayerTrackInfo from "./elements/PlayerTrackInfo";
-import { useTrackMetadata } from "@/modules/player/hooks/useTrackMetadata";
+
 
 const PlayerBar = () => {
-  // Mount the global background subscriptions for the player engine
-  // useNoMusicEngineSubscriptions();
-
-  const { track } = useTrackMetadata();
+  const { track } = usePlayerTrack();
   if (!track) return null;
 
   return (

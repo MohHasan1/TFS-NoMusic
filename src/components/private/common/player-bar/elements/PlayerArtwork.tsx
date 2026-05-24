@@ -3,14 +3,14 @@
 import { RiMusic2Line } from "@remixicon/react";
 import Image from "next/image";
 import { StatusDot } from "@/components/shared/StatusDot";
-import { useTrackMetadata } from "@/modules/player/hooks/useTrackMetadata";
-import { useTrackPlayback } from "@/modules/player/hooks/useTrackPlayback";
+import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
+import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
 
 const PlayerArtwork = () => {
   // console.count("PlayerArtwork render");
 
-  const { track } = useTrackMetadata();
-  const { isPlaying } = useTrackPlayback(track?.id ?? "");
+  const { track } = usePlayerTrack();
+  const { isPlaying } = usePlayerPlayback(track?.id ?? "");
 
   if (!track) return null;
 

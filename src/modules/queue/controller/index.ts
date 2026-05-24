@@ -1,23 +1,10 @@
 import { store } from "#store";
 import type { TNoMusic } from "#types/nomusic";
 import { queueEngine } from "../engines";
+import type { TQueueState } from "../slice";
 
 class QueueController {
-  setQueue(tracks: TNoMusic[], startTrackId: TNoMusic["id"]) {
-    const { setQueueIds, setCurrentIndex } = store.getState();
-
-    const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueData(tracks);
-    const currentIndex = queueEngine.getIndexByTrackId(newQueueIdIndexMap, startTrackId);
-
-    setQueueIds(newQueueIds);
-    setCurrentIndex(currentIndex);
-  }
-
-  setQueueForSource(params: {
-    sourceKey: string;
-    tracks: TNoMusic[];
-    startTrackId: TNoMusic["id"];
-  }) {
+  setQueue(params: { sourceKey: string; tracks: TNoMusic[]; startTrackId: TNoMusic["id"] }) {
     const { sourceKey, tracks, startTrackId } = params;
 
     const {
@@ -29,6 +16,7 @@ class QueueController {
       setCurrentIndex,
     } = store.getState();
 
+    // same source, just different track in the source is clicked
     if (queueSourceKey === sourceKey) {
       setCurrentIndex(queueEngine.getIndexByTrackId(queueIdIndexMap, startTrackId));
       return;
@@ -45,60 +33,59 @@ class QueueController {
 
   getCurrentTrackId() {
     const { queueIds, currentIndex } = store.getState();
-
     return queueEngine.getCurrentId(queueIds, currentIndex);
   }
 
   getNextTrackId() {
-    const { queueIds, currentIndex, setCurrentIndex } = store.getState();
+    const { repeatMode, queueIds, currentIndex, setCurrentIndex } = store.getState();
 
-    const nextId = queueEngine.getNextId(queueIds, currentIndex);
-
+    const { nextId, nextIndex } = queueEngine.getNextIdAndIndex(queueIds, currentIndex, repeatMode);
     if (!nextId) return null;
 
-    setCurrentIndex(currentIndex + 1);
+    setCurrentIndex(nextIndex);
 
     return nextId;
   }
 
   getPreviousTrackId() {
-    const { queueIds, currentIndex, setCurrentIndex } = store.getState();
+    const { repeatMode, queueIds, currentIndex, setCurrentIndex } = store.getState();
 
-    const previousId = queueEngine.getPreviousId(queueIds, currentIndex);
-
+    const { previousId, previousIndex } = queueEngine.getPreviousIdAndIndex(
+      queueIds,
+      currentIndex,
+      repeatMode,
+    );
     if (!previousId) return null;
 
-    setCurrentIndex(currentIndex - 1);
+    setCurrentIndex(previousIndex);
 
     return previousId;
   }
 
-  addToQueue(trackId: TNoMusic["id"]) {
-    const { queueIds, setQueueIds } = store.getState();
+  getNextRepeatMode() {
+    const { repeatMode } = store.getState();
 
-    setQueueIds(queueEngine.appendId(queueIds, trackId));
+    return queueEngine.getNextRepeatMode(repeatMode);
   }
 
-  //   TODO: what needs check
-  playNext(trackId: TNoMusic["id"]) {
-    const { queueIds, currentIndex, setQueueIds } = store.getState();
+  appendQueue(trackId: TNoMusic["id"]) {
+    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap } = store.getState();
 
-    setQueueIds(queueEngine.insertAfterCurrent(queueIds, currentIndex, trackId));
-  }
+    const res = queueEngine.appendQueueId(queueIds, queueIdIndexMap, trackId);
 
-  removeFromQueue(trackId: TNoMusic["id"]) {
-    const { queueIds, setQueueIds } = store.getState();
-
-    setQueueIds(queueEngine.removeId(queueIds, trackId));
+    setQueueIds(res.queueIds);
+    setQueueIdIndexMap(res.queueIdIndexMap);
   }
 
   extendQueue(tracks: TNoMusic[]) {
-    const { queueIds, setQueueIds } = store.getState();
+    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap } = store.getState();
 
     const newQueueIds = queueEngine.createQueueIds(tracks);
-    const fullQueueIds = queueEngine.extendQueue(queueIds, newQueueIds);
 
-    setQueueIds(fullQueueIds);
+    const res = queueEngine.extendQueueIds(queueIds, queueIdIndexMap, newQueueIds);
+
+    setQueueIds(res.queueIds);
+    setQueueIdIndexMap(res.queueIdIndexMap);
   }
 
   clearQueue() {

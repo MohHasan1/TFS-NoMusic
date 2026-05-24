@@ -7,6 +7,7 @@ export class PlayerEngine {
 
   private endedListeners = new SubscriberSet<void>();
   private playingListeners = new SubscriberSet<boolean>();
+  private volumeListeners = new SubscriberSet<number>();
   private bufferingListeners = new SubscriberSet<boolean>();
   private timeUpdateListeners = new SubscriberSet<number>();
   private durationListeners = new SubscriberSet<number>();
@@ -29,6 +30,10 @@ export class PlayerEngine {
 
     this.audio.addEventListener("durationchange", () => {
       this.durationListeners.emit(this.getDuration());
+    });
+
+    this.audio.addEventListener("volumechange", () => {
+      this.volumeListeners.emit(this.getVolume());
     });
 
     this.audio.addEventListener("ended", () => {
@@ -166,6 +171,10 @@ export class PlayerEngine {
 
   subscribePlaying(cb: Subscriber<boolean>) {
     return this.playingListeners.add(cb);
+  }
+
+  subscribeVolume(cb: Subscriber<number>) {
+    return this.volumeListeners.add(cb);
   }
 
   subscribeError(cb: Subscriber<string | null>) {

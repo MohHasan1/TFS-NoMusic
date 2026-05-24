@@ -2,8 +2,7 @@
 
 import { store } from "@/store";
 
-// TODO: rename useCurrentTrackMetadata()
-export function useTrackMetadata() {
+export function usePlayerTrack() {
   const currentTrack = store.use.currentTrack();
 
   return {

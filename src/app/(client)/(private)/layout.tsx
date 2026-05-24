@@ -1,4 +1,4 @@
-import { PlayerAutoPlay } from "#components/private/common/elements/Autoplay";
+import { TrackAutoPlay } from "#components/private/common/TrackAutoPlay";
 import PlayerBar from "#components/private/common/player-bar/PlayerBar";
 // import { NoMusicPlayer } from "#components/private/common/sections/NoMusicPlayer";
 // import { NowPlayingSheet } from "#components/private/common/sections/NowPlayingSheet";
@@ -18,7 +18,7 @@ export default function PrivateLayout({
         {children}
       </main>
       <PlayerBar />
-      <PlayerAutoPlay />
+      <TrackAutoPlay />
       {/* <NoMusicPlayer /> */}
       {/* <NowPlayingSheet /> */}
     </>

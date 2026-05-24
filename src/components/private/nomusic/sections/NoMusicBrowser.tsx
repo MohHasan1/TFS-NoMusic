@@ -1,24 +1,16 @@
 "use client";
 
 import type { TNoMusic } from "#types/nomusic";
-import { usePlayTrack } from "@/modules/player/hooks/usePlayTrack";
-import { useQueueSetup } from "@/modules/queue/hooks/useQueueSetup";
 import { NoMusicCard } from "../elements/NoMusicCard";
 import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
-import { useTrackRegistry } from "@/modules/registry/hooks/useTrackRegistry";
+import { useQueueActions } from "#modules/queue/hooks/useQueueActions";
+import { usePlayerPlay } from "@/modules/player/hooks/usePlayerPlay";
+import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
 
 export function NoMusicBrowser({ noMusic }: TProps) {
-  // const { setQueue, setCurrentIndex } = useQueueSetup();
-  // const { playTrack } = usePlayTrack();
-  // const track = store.use.queue();
-  // TODO: refcatore
-  // useEffect(() => {
-  //   setQueue(noMusic);
-  // }, [noMusic, setQueue]);
-
-  const { addTracks } = useTrackRegistry();
-  const { setQueue, setQueueForSource } = useQueueSetup();
-  const { playTrack } = usePlayTrack();
+  const { playTrack } = usePlayerPlay();
+  const { addTracks } = useRegistryActions();
+  const { setQueue } = useQueueActions();
 
   if (noMusic.length === 0) {
     return (
@@ -36,7 +28,7 @@ export function NoMusicBrowser({ noMusic }: TProps) {
           noMusic={track}
           onSelectFn={() => {
             addTracks(noMusic);
-            setQueueForSource("page:nomusic", noMusic, track.id);
+            setQueue("page:nomusic", noMusic, track.id);
             playTrack(track);
           }}
         />
@@ -48,3 +40,6 @@ export function NoMusicBrowser({ noMusic }: TProps) {
 type TProps = {
   noMusic: TNoMusic[];
 };
+
+// useTrackInitialLoad() - regitry and queue
+// useTrack

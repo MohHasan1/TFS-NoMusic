@@ -1,11 +1,11 @@
 "use client";
 
-import { useTrackMetadata } from "@/modules/player/hooks/useTrackMetadata";
+import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 
 const PlayerTrackInfo = () => {
   console.count("PlayerTrackInfo render");
 
-  const { track } = useTrackMetadata();
+  const { track } = usePlayerTrack();
 
   if (!track) return null;
 

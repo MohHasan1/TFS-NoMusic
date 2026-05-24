@@ -10,10 +10,10 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useTogglePlayback } from "@/modules/player/hooks/useToggleTrack";
-import { useTrackMetadata } from "@/modules/player/hooks/useTrackMetadata";
-import { useTrackPlayback } from "@/modules/player/hooks/useTrackPlayback";
-import { usePlayerQueueControls } from "@/modules/hooks/usePlayerQueueControls";
+import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
+import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
+import { useTrackNavigation } from "#modules/hooks/useTrackNavigation";
+
 
 type PlayerControlsProps = {
   showPrevious?: boolean;
@@ -31,11 +31,9 @@ const SKIP_ICON_SIZE = {
 } as const;
 
 export function PlayerControls({ showPrevious = true, size = "default" }: PlayerControlsProps) {
-  //   const { isPlaying, isBuffering, togglePlayback, playNextTrack, playPrevTrack } = useNoMusicControls();
-  const { track } = useTrackMetadata();
-  //   const { toggleTrack } = useTogglePlayback();
-  const { isPlaying, isBuffering, togglePlayback } = useTrackPlayback(track?.id!);
-  const { playNext, playPrevious } = usePlayerQueueControls();
+  const { track } = usePlayerTrack();
+  const { isPlaying, isBuffering, togglePlayback } = usePlayerPlayback(track?.id!);
+  const { playNext, playPrevious } = useTrackNavigation();
 
   const playLabel = isPlaying ? "Pause" : "Play";
 

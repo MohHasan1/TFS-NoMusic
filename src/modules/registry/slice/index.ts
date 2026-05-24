@@ -1,7 +1,7 @@
 import { combine } from "zustand/middleware";
 import type { TNoMusic } from "#types/nomusic";
 
-export const createTrackRegistrySlice = combine(
+export const createRegistrySlice = combine(
   {
     tracksById: {} as TRegistryState["tracksById"],
   },
@@ -18,7 +18,7 @@ export const createTrackRegistrySlice = combine(
   }),
 );
 
-export type TTrackRegistry = ReturnType<typeof createTrackRegistrySlice>;
+export type TRegistrySlice = ReturnType<typeof createRegistrySlice>;
 
 export type TRegistryState = {
   tracksById: Record<string, TNoMusic>;

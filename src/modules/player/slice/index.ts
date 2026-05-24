@@ -1,7 +1,7 @@
 import { combine } from "zustand/middleware";
 import type { TNoMusic } from "#types/nomusic";
 
-export const createNoMusicPlayerSlice = combine(
+export const createPlayerSlice = combine(
   {
     volume: 1,
     duration: 0,
@@ -16,21 +16,20 @@ export const createNoMusicPlayerSlice = combine(
       set((state) => {
         if (state.currentTrack?.id === track.id) return {};
         return {
-          currentTrack: track,
-          currentTime: 0,
-          duration: 0,
           error: null,
+          duration: 0,
+          currentTime: 0,
+          currentTrack: track,
         };
       }),
 
+    setVolume: (volume: number) => set({ volume }),
+    setError: (error: string | null) => set({ error }),
+    setDuration: (duration: number) => set({ duration }),
     setIsPlaying: (isPlaying: boolean) => set({ isPlaying }),
     setIsBuffering: (isBuffering: boolean) => set({ isBuffering }),
-    setError: (error: string | null) => set({ error }),
-    setVolume: (volume: number) => set({ volume }),
-    setTime: (currentTime: number) => set({ currentTime }), // TODO: remove
     setCurrentTime: (currentTime: number) => set({ currentTime }),
-    setDuration: (duration: number) => set({ duration }),
   }),
 );
 
-export type TNoMusicPlayer = ReturnType<typeof createNoMusicPlayerSlice>;
+export type TPlayerSlice = ReturnType<typeof createPlayerSlice>;

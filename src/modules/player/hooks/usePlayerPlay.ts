@@ -2,10 +2,10 @@
 
 import { useCallback } from "react";
 
-import type { TNoMusic } from "#types/nomusic";
+import { TNoMusic } from "#types/nomusic";
 import { playerController } from "../controller";
 
-export function usePlayTrack() {
+export function usePlayerPlay() {
   const playTrack = useCallback((track: TNoMusic) => {
     return playerController.playTrack(track);
   }, []);
