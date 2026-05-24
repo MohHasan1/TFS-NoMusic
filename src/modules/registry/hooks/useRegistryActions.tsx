@@ -14,7 +14,7 @@ export function useRegistryActions() {
     return registryController.getTrackById(trackId);
   }, []);
 
-  const clearRegistry = useCallback((trackId: TNoMusic["id"]) => {
+  const clearRegistry = useCallback(() => {
     return registryController.clearRegistry();
   }, []);
 

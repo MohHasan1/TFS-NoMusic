@@ -1,13 +1,17 @@
+import { RiMusic2Line, RiPlayListAddLine } from "@remixicon/react";
+
 import { PRIVATE_ROUTES } from "#constants/routes";
 
 export const privateNavItems = [
   {
-    href: PRIVATE_ROUTES.NOMUSIC,
     label: "NoMusic",
+    href: PRIVATE_ROUTES.NOMUSIC,
+    icon: RiMusic2Line,
   },
   {
-    href: PRIVATE_ROUTES.REQUEST_NOMUSIC,
     label: "Request NoMusic",
+    href: PRIVATE_ROUTES.REQUEST_NOMUSIC,
+    icon: RiPlayListAddLine,
   },
 ] as const;
 

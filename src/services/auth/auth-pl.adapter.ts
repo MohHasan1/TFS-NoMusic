@@ -40,12 +40,14 @@ export async function signupAdapter(data: TSignup) {
 }
 
 export async function logoutAdapter() {
-  return tryCatchResponse(() =>
+  const res = await tryCatchResponse(() =>
     logout({
       allSessions: true,
       config,
     }),
   );
+  authLogger(res);
+  return res;
 }
 
 export async function verifyEmailAdapter(token: string) {
@@ -92,15 +94,21 @@ export async function getCurrentUserAdapter() {
   const payload = await getPayloadClient();
   const { user } = await payload.auth({ headers });
 
-  authLogger(user);
+  // authLogger(user);
 
   if (!user) {
-    return errorResponse([{ message: "You need to be logged in.", status: 401, code: "UNAUTHORIZED" }], "You need to be logged in.");
+    return errorResponse(
+      [{ message: "You need to be logged in.", status: 401, code: "UNAUTHORIZED" }],
+      "You need to be logged in.",
+    );
   }
 
   if (user.role === "user") {
     return successResponse(user as User);
   }
 
-  return errorResponse([{ message: "You do not have permission.", status: 403, code: "FORBIDDEN" }], "You do not have permission.");
+  return errorResponse(
+    [{ message: "You do not have permission.", status: 403, code: "FORBIDDEN" }],
+    "You do not have permission.",
+  );
 }

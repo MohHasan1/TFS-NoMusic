@@ -10,23 +10,25 @@ import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 
 const MobilePlayerBar = () => {
   return (
-    <div className="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-100 px-3 md:hidden">
-      <Card className="mx-auto w-full max-w-xl rounded-3xl border bg-card-secondary/95 px-3 py-3 shadow-2xl backdrop-blur-md">
-        <CardContent className="space-y-3 px-0">
-          <div className="flex items-center justify-between gap-3">
+    <div className="fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+0.15rem)] z-100 px-2 md:hidden">
+      <Card className="mx-auto w-full max-w-3xl rounded-3xl border bg-card-secondary p-3 shadow-2xl backdrop-blur-xl">
+        <CardContent className="flex flex-col gap-4 px-0 items-center">
+          
+          <div className="flex items-center justify-between gap-3 w-full">
             <div className="flex min-w-0 flex-1 items-center gap-3">
               <PlayerArtwork />
               <PlayerTrackInfo />
             </div>
 
             <div className="flex shrink-0 items-center gap-1">
-              {/* <PlayerQueueControls /> */}
-              <PlayerControls />
               <PlayerQueueControls />
+              <PlayerControls />
+              {/* <PlayerQueueControls /> */}
             </div>
           </div>
 
-          <PlayerSeekBar showTime={false} />
+          <PlayerSeekBar />
+
         </CardContent>
       </Card>
     </div>

@@ -1,37 +1,30 @@
 "use client";
 
-import { RiLogoutBoxRLine } from "@remixicon/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logoutAction } from "#server-actions/auth/logout";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+
+import { cn } from "#lib/utils";
 import { privateNavItems } from "./links";
+import LogoutButton from "./LogoutButton";
 import { PRIVATE_ROUTES } from "#constants/routes";
+import { BrandLogo } from "#components/shared/BrandLogo";
+import { buttonVariants } from "#components/ui/button";
 
 export function PrivateNavbar() {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-border border-b bg-background/50 backdrop-blur-xl">
-      <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 lg:px-8">
-        <Link
-          href={PRIVATE_ROUTES.NOMUSIC}
-          className="group font-semibold uppercase transition-colors duration-300"
-        >
-          <span className="text-white/80 group-hover:text-white/60">No</span>
-          <span
-            className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent 
-          group-hover:from-primary-400/80 group-hover:to-primary-600/80 transition-all duration-300"
-          >
-            Music
-          </span>
-        </Link>
+    <header className="fixed inset-x-0 top-0 z-50 border-border border-b bg-background/50 backdrop-blur-xl">
+      <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-3 sm:px-4 lg:px-8">
+        <div className="shrink-0">
+          <BrandLogo link={PRIVATE_ROUTES.NOMUSIC} />
+        </div>
 
-        <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-1 rounded-full border border-border bg-card p-1 sm:flex">
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+          <div className="flex min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1">
             {privateNavItems.map((item) => {
               const isActive = pathname === item.href;
+              const Icon = item.icon;
 
               return (
                 <Link
@@ -40,24 +33,18 @@ export function PrivateNavbar() {
                   className={cn(
                     buttonVariants({
                       variant: isActive ? "secondary" : "ghost",
-                      size: "sm",
+                      size: "xs",
                     }),
-                    "rounded-full",
-                    isActive ? "text-foreground" : "text-muted-foreground",
                   )}
                 >
-                  {item.label}
+                  <Icon className="size-4" />
+                  <span className="hidden md:block">{item.label}</span>
                 </Link>
               );
             })}
           </div>
 
-          <form action={logoutAction}>
-            <Button type="submit" variant="destructive" size="sm" className="rounded-full">
-              <RiLogoutBoxRLine className="size-4" />
-              <span className="hidden sm:inline">Logout</span>
-            </Button>
-          </form>
+          <LogoutButton />
         </div>
       </nav>
     </header>

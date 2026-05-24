@@ -117,6 +117,23 @@ export class PlayerEngine {
     this.audio.pause();
   }
 
+  stop() {
+    if (!this.audio) return;
+
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.audio.removeAttribute("src");
+    this.audio.load();
+
+    this.track = null;
+
+    this.playingListeners.emit(false);
+    this.bufferingListeners.emit(false);
+    this.timeUpdateListeners.emit(0);
+    this.durationListeners.emit(0);
+    this.errorListeners.emit(null);
+  }
+
   seekTo(time: number) {
     if (!this.audio) return;
 

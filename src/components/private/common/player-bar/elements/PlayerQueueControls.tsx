@@ -1,42 +1,36 @@
 "use client";
 
-import { RiRepeat2Line, RiRepeatOneLine, RiShuffleLine } from "@remixicon/react";
+import { cn } from "#lib/utils";
 import { Button } from "#components/ui/button";
 import { useQueueRepeat } from "#modules/queue/hooks/useQueueRepeat";
-import { cn } from "@/lib/utils";
-import { NEXT_REPEAT_LABEL, REPEAT_LABEL } from "../../utils/repeatMode";
+import { NEXT_REPEAT_LABEL, REPEAT_ICON, REPEAT_LABEL } from "../constants";
 
-type PlayerQueueControlsProps = {
-  className?: string;
-};
-
-export function PlayerQueueControls({ className }: PlayerQueueControlsProps) {
+export function PlayerQueueControls({ className }: TProps) {
   const { repeatMode, cycleRepeatMode } = useQueueRepeat();
 
-  const RepeatIcon = repeatMode === "one" ? RiRepeatOneLine : repeatMode === "random" ? RiShuffleLine : RiRepeat2Line;
-
+  const RepeatIcon = REPEAT_ICON[repeatMode];
   const isRepeatActive = repeatMode !== "off";
 
   return (
     <div className={cn("flex items-center gap-1", className)}>
-      {/* <Button
+      <Button
         type="button"
         variant="ghost"
         size="icon"
-        onClick={handleToggleShuffle}
-        aria-pressed={shuffle}
-        aria-label={shuffle ? "Disable shuffle" : "Enable shuffle"}
+        onClick={cycleRepeatMode}
+        aria-label={NEXT_REPEAT_LABEL[repeatMode]}
+        title={REPEAT_LABEL[repeatMode]}
         className={cn(
-          "rounded-full text-muted-foreground hover:text-foreground",
-          shuffle && "text-primary hover:text-primary",
+          "rounded-full hover:text-primary-400",
+          isRepeatActive ? "text-primary-200" : "text-muted-foreground",
         )}
       >
-        <RiShuffleLine className="size-4" />
-      </Button> */}
-
-      <Button type="button" variant="ghost" size="icon" onClick={cycleRepeatMode} aria-label={NEXT_REPEAT_LABEL[repeatMode]} title={REPEAT_LABEL[repeatMode]} className={cn("rounded-full text-muted-foreground hover:text-foreground", isRepeatActive && "text-primary hover:text-primary")}>
         <RepeatIcon className="size-4" />
       </Button>
     </div>
   );
 }
+
+type TProps = {
+  className?: string;
+};

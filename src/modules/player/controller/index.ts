@@ -1,5 +1,5 @@
 import { store } from "#store";
-import { TNoMusic } from "#types/nomusic";
+import type { TNoMusic } from "#types/nomusic";
 import { playerEngine } from "../engine";
 
 class PlayerController {
@@ -147,6 +147,12 @@ class PlayerController {
   setVolume(volume: number) {
     this.init();
     playerEngine.setVolume(volume);
+  }
+
+  clearPlayer() {
+    this.init();
+    playerEngine.stop();
+    store.getState().clearPlayer();
   }
 
   subscribeTrackEnded(fn: () => void) {

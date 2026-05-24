@@ -1,7 +1,5 @@
 import { TrackAutoPlay } from "#components/private/common/TrackAutoPlay";
 import PlayerBar from "#components/private/common/player-bar/PlayerBar";
-// import { NoMusicPlayer } from "#components/private/common/sections/NoMusicPlayer";
-// import { NowPlayingSheet } from "#components/private/common/sections/NowPlayingSheet";
 import { PrivateNavbar } from "@/components/_layout/private/PrivateNavbar";
 import { GlowOrb } from "@/components/shared/GlowOrb";
 
@@ -19,7 +17,6 @@ export default function PrivateLayout({
       </main>
       <PlayerBar />
       <TrackAutoPlay />
-      {/* <NoMusicPlayer /> */}
       {/* <NowPlayingSheet /> */}
     </>
   );

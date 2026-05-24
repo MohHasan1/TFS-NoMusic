@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import { usePlayerSeek } from "@/modules/player/hooks/usePlayerSeek";
 import { formatPlaybackTime } from "../../utils/formatPlaybackTime";
 
 const SEEK_STEP_SECONDS = 1;
+const SEEK_SYNC_THRESHOLD_SECONDS = 0.25;
 
 export function PlayerSeekBar({ showTime = true, className }: TProps) {
   const { currentTime, duration, seekTo } = usePlayerSeek();
@@ -19,6 +20,13 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
   const displayTime = scrubbing ?? currentTime;
   const sliderValue = Math.min(safeDuration, Math.max(0, displayTime));
   const isDisabled = safeDuration <= 0;
+
+  useEffect(() => {
+    if (scrubbing === null) return;
+    if (Math.abs(currentTime - scrubbing) > SEEK_SYNC_THRESHOLD_SECONDS) return;
+
+    setScrubbing(null);
+  }, [currentTime, scrubbing]);
 
   return (
     <div className={cn("flex max-w-2xl w-full items-center gap-3", className)}>
@@ -39,8 +47,8 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
           if (!hasPendingSeekRef.current) return;
 
           hasPendingSeekRef.current = false;
-          setScrubbing(null);
           seekTo(next);
+          setScrubbing(next);
         }}
         className="flex-1 cursor-pointer"
         thumbClassName={cn("opacity-0", "group-hover:opacity-100 group-focus-within:opacity-100 data-[dragging]:opacity-100")}

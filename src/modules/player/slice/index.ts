@@ -29,6 +29,16 @@ export const createPlayerSlice = combine(
     setIsPlaying: (isPlaying: boolean) => set({ isPlaying }),
     setIsBuffering: (isBuffering: boolean) => set({ isBuffering }),
     setCurrentTime: (currentTime: number) => set({ currentTime }),
+    clearPlayer: () =>
+      set({
+        volume: 1,
+        duration: 0,
+        currentTime: 0,
+        isPlaying: false,
+        isBuffering: false,
+        error: null,
+        currentTrack: null,
+      }),
   }),
 );
 
