@@ -1,55 +1,30 @@
-import { RiArrowUpSLine } from "@remixicon/react";
-import { Button } from "#components/ui/button";
-import { Card } from "#components/ui/card";
+import { Card, CardContent } from "#components/ui/card";
+
 import PlayerArtwork from "./elements/PlayerArtwork";
 import { PlayerControls } from "./elements/PlayerControls";
-import { PlayerSeekBar } from "./elements/PlayerSeekBar";
-
-import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 import { PlayerQueueControls } from "./elements/PlayerQueueControls";
+import { PlayerSeekBar } from "./elements/PlayerSeekBar";
+import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 
 const DesktopPlayerBar = () => {
   return (
-    <div className="pointer-events-none fixed right-0 bottom-0 left-0 z-50 hidden px-4 md:block">
-      <Card className="bg-card-secondary pointer-events-auto mx-auto w-full max-w-7xl cursor-pointer rounded-t-3xl rounded-b-none border border-b-0 px-4 py-3 shadow-2xl backdrop-blur-md">
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(360px,760px)_minmax(0,1fr)] items-center gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(460px,760px)_minmax(0,1fr)]">
-          <div className="flex min-w-0 items-center gap-3">
-            <PlayerArtwork />
-            <PlayerTrackInfo />
-          </div>
-
-          <div className="flex w-full items-center gap-3">
-            <div className="shrink-0" >
-              <PlayerControls />
-            </div>
-
-            <div className="min-w-0 flex-1">
-              <PlayerSeekBar />
+    <div className="fixed inset-x-0 bottom-0 z-100 hidden px-2 md:block">
+      <Card className="mx-auto w-full max-w-7xl rounded-t-3xl rounded-b-none border border-b-0 bg-card-secondary px-4 py-3 backdrop-blur-md">
+        <CardContent className="flex justify-between items-center gap-10">
+          <div className="flex justify-start items-center w-48">
+            <div className="flex justify-center items-center gap-2">
+              <PlayerArtwork />
+              <PlayerTrackInfo />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2">
-            <div onClick={(event) => event.stopPropagation()}>
-              <PlayerQueueControls />
-            </div>
-
-            {/* <div onClick={(event) => event.stopPropagation()}>
-              <PlayerVolume />
-            </div> */}
-            {/* <div onClick={(event) => event.stopPropagation()}>
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                // onClick={openNowPlaying}
-                aria-label="Open now playing view"
-                className="rounded-full text-muted-foreground hover:text-foreground"
-              >
-                <RiArrowUpSLine className="size-5" />
-              </Button>
-            </div> */}
+          <div className="min-w-md w-full flex justify-between items-center gap-2 ">
+            <PlayerControls />
+            <PlayerSeekBar />
+            {/* <PlayerQueueControls /> */}
+            <PlayerQueueControls />
           </div>
-        </div>
+        </CardContent>
       </Card>
     </div>
   );

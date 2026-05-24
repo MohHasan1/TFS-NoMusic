@@ -1,20 +1,26 @@
 "use client";
 
-import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
+import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
 
 const PlayerTrackInfo = () => {
-  console.count("PlayerTrackInfo render");
-
   const { track } = usePlayerTrack();
-
   if (!track) return null;
 
   return (
-    <div className="min-w-0 flex flex-col items-start text-left">
-      <h4 className="max-w-full truncate font-bold tracking-tight text-card-foreground text-sm" title={track.name}>
+    <div className="max-w-28 lg:max-w-44 flex flex-col justify-center items-start text-left">
+      <h4
+        className="w-full truncate font-bold tracking-tight text-card-foreground text-sm capitalize"
+        title={track.name}
+      >
         {track.name}
       </h4>
-      <p className="max-w-full truncate text-muted-foreground text-xs">{track.artist || "Unknown Artist"}</p>
+
+      <p
+        className="w-full truncate text-muted-foreground text-xs capitalize"
+        title={track.artist || "Unknown Artist"}
+      >
+        {track.artist || "Unknown Artist"}
+      </p>
     </div>
   );
 };

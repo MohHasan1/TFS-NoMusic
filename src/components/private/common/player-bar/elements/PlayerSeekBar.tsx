@@ -5,30 +5,12 @@ import { useRef, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { usePlayerSeek } from "@/modules/player/hooks/usePlayerSeek";
-// import { noMusicEngine } from "@/modules/player/engine";
 import { formatPlaybackTime } from "../../utils/formatPlaybackTime";
 
-/** Granularity (in seconds) for keyboard / drag seeking. */
 const SEEK_STEP_SECONDS = 1;
 
 export function PlayerSeekBar({ showTime = true, className }: TProps) {
-  // console.count("PlayerSeekBar render");
-
-  // const currentTime = store.use.currentTime();
-  // const duration = store.use.duration();
-  // const setTime = store.use.setTime();
-
   const { currentTime, duration, seekTo } = usePlayerSeek();
-
-  // const currentTime = 0;
-
-  // const handleSeek = useCallback(
-  //   (time: number) => {
-  //     noMusicEngine.seek(time);
-  //     setTime(time);
-  //   },
-  //   [setTime],
-  // );
 
   const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
   const [scrubbing, setScrubbing] = useState<number | null>(null);
@@ -39,8 +21,8 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
   const isDisabled = safeDuration <= 0;
 
   return (
-    <div className={cn("flex w-full items-center gap-3", className)}>
-      {showTime ? <span className="w-10 text-right font-mono text-[10px] tabular-nums text-muted-foreground">{formatPlaybackTime(displayTime, "zero")}</span> : null}
+    <div className={cn("flex max-w-2xl w-full items-center gap-3", className)}>
+      {showTime ? <span className="text-right font-mono text-[10px] tabular-nums text-muted-foreground">{formatPlaybackTime(displayTime, "zero")}</span> : null}
 
       <Slider
         value={sliderValue}
@@ -60,7 +42,7 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
           setScrubbing(null);
           seekTo(next);
         }}
-        className="flex-1"
+        className="flex-1 cursor-pointer"
         thumbClassName={cn("opacity-0", "group-hover:opacity-100 group-focus-within:opacity-100 data-[dragging]:opacity-100")}
       />
 
