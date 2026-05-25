@@ -1,8 +1,15 @@
-import { RiMusic2Line } from "@remixicon/react";
 import Link from "next/link";
+import { RiMusic2Line } from "@remixicon/react";
 import { Button } from "#components/ui/button";
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "#components/ui/empty";
 import { PRIVATE_ROUTES } from "#constants/routes";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "#components/ui/empty";
 
 export function NoMusicEmptyCard() {
   return (
@@ -12,10 +19,17 @@ export function NoMusicEmptyCard() {
           <RiMusic2Line />
         </EmptyMedia>
         <EmptyTitle>No NoMusic available yet</EmptyTitle>
-        <EmptyDescription>Request a track and it will show up here once it is added.</EmptyDescription>
+        <EmptyDescription>
+          Request a track and it will show up here once it is added.
+        </EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
-        <Button nativeButton={false} render={<Link href={PRIVATE_ROUTES.REQUEST_NOMUSIC}>Request NoMusic</Link>} variant="outline" size="sm" />
+        <Button
+          nativeButton={false}
+          render={<Link href={PRIVATE_ROUTES.REQUEST_NOMUSIC}>Request NoMusic</Link>}
+          variant="outline"
+          size="sm"
+        />
       </EmptyContent>
     </Empty>
   );
