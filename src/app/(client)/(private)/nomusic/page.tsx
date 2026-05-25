@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { PUBLIC_ROUTES } from "#constants/routes";
-import NoMusicHeader from "#components/private/common/sections/NoMusicHeader";
+import NoMusicHeader from "#components/private/nomusic/elements/NoMusicHeader";
 import { NoMusicBrowser } from "#components/private/nomusic/sections/NoMusicBrowser";
 
 import { listNomusic } from "#services/no-music/no-music.ports";

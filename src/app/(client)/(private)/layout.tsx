@@ -1,4 +1,4 @@
-import { TrackAutoPlay } from "#components/private/common/TrackAutoPlay";
+import { AutoPlayBinding } from "#components/private/common/Bindings/AutoPlayBinding";
 import PlayerBar from "#components/private/common/player-bar/PlayerBar";
 import { PrivateNavbar } from "@/components/_layout/private/PrivateNavbar";
 import { GlowOrb } from "@/components/shared/GlowOrb";
@@ -16,7 +16,7 @@ export default function PrivateLayout({
         {children}
       </main>
       <PlayerBar />
-      <TrackAutoPlay />
+      <AutoPlayBinding />
       {/* <NowPlayingSheet /> */}
     </>
   );

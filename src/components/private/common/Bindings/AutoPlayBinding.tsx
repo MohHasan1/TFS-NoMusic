@@ -2,7 +2,7 @@
 
 import { useTrackAutoPlay } from "#modules/hooks/useTrackAutoPlay";
 
-export function TrackAutoPlay() {
+export function AutoPlayBinding() {
   useTrackAutoPlay();
 
   return null;
