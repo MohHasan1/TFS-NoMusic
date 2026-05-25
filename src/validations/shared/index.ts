@@ -1,35 +1,47 @@
 import { z } from "zod";
 
-const email = (message: string = "Invalid email") => z.email(message);
+const email = (message: string = "Invalid email") => {
+  return z.email(message);
+};
 
-const name = (messages: { min?: string; max?: string }) =>
-  z
+const name = (messages: { min?: string; max?: string }) => {
+  return z
     .string()
-    .min(2, messages.min ?? "Your name is too short.")
-    .max(25, messages.max ?? "Your name is too long.");
+    .min(2, messages.min ?? "The name is too short.")
+    .max(25, messages.max ?? "The name is too long.");
+};
 
-const password = (messages: { min?: string; strength?: string }) =>
-  z
+const password = (messages: { min?: string; strength?: string }) => {
+  return z
     .string()
-    .min(8, messages.min ?? "Your password is too short.")
+    .min(8, messages.min ?? "The password is too short.")
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])/,
       messages.strength ??
-        "Your password needs uppercase, lowercase, number, and special character.",
+        "The password needs uppercase, lowercase, number, and special character.",
     );
+};
 
-const passwordSilent = () =>
-  z
+const passwordSilent = () => {
+  return z
     .string()
     .min(8)
     .refine((value) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value), {
       message: "",
     });
+};
 
-const required = (message: string) => z.string().min(1, message);
+const required = (message: string) => {
+  return z.string().min(1, message);
+};
 
-export const token = (message = "Invalid verification token") =>
-  z.string().min(10, message).max(100, message);
+const url = (messages: { invalid?: string }) => {
+  return z.url(messages.invalid ?? "The URL is invalid.");
+};
 
-const Fields = { email, token, name, password, passwordSilent, required };
+export const token = (message = "Invalid verification token") => {
+  return z.string().min(10, message).max(100, message);
+};
+
+const Fields = { email, token, name, password, passwordSilent, required, url };
 export default Fields;

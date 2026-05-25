@@ -4,17 +4,13 @@ import FormAlert from "@/components/shared/form/FormAlert";
 import FormSubmitButton from "@/components/shared/form/FormSubmitButton";
 
 const RequestNoMusicFormFooter = ({ errorMsg, successMsg, isSubmitting }: TProps) => {
+  const title = errorMsg
+    ? REQUEST_NOMUSIC_CLIENT.ERROR_ALERT_TITLE
+    : REQUEST_NOMUSIC_CLIENT.SUCCESS_ALERT_TITLE;
+
   return (
     <FormFooterContainer>
-      <FormAlert
-        title={
-          errorMsg
-            ? REQUEST_NOMUSIC_CLIENT.ERROR_ALERT_TITLE
-            : REQUEST_NOMUSIC_CLIENT.SUCCESS_ALERT_TITLE
-        }
-        errorMessage={errorMsg}
-        successMessage={successMsg}
-      />
+      <FormAlert title={title} errorMessage={errorMsg} successMessage={successMsg} />
       <FormSubmitButton
         isSubmitting={isSubmitting}
         formId={REQUEST_NOMUSIC_CONST.FORM_ID}

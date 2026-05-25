@@ -1,4 +1,3 @@
-import type { TSignin, TSignup } from "#services/auth/auth.types";
 import {
   forgotPasswordAdapter,
   getCurrentUserAdapter,
@@ -8,6 +7,7 @@ import {
   signupAdapter,
   verifyEmailAdapter,
 } from "@/services/auth/auth-pl.adapter";
+import type { TSignin, TSignup } from "#services/auth/auth.types";
 
 export async function signIn(data: TSignin) {
   return signinAdapter(data);

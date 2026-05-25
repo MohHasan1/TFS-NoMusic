@@ -1,15 +1,15 @@
 import "server-only";
 
-import { login, logout } from "@payloadcms/next/auth";
 import { headers as getHeaders } from "next/headers";
-import { getPayloadClient } from "#payload-client";
+import { login, logout } from "@payloadcms/next/auth";
 
 import config from "#payload-config";
 import type { User } from "#payload-types";
-import { errorResponse, successResponse } from "#responses";
 import { authLogger } from "#scoped-loggers";
-import { tryCatchResponse } from "#trycatch-response";
+import { getPayloadClient } from "#payload-client";
 import type { TSignin, TSignup } from "./auth.types";
+import { tryCatchResponse } from "#trycatch-response";
+import { errorResponse, successResponse } from "#responses";
 
 export async function signinAdapter(data: TSignin) {
   return tryCatchResponse(() =>
@@ -92,9 +92,8 @@ export async function resetPasswordAdapter(token: string, password: string) {
 export async function getCurrentUserAdapter() {
   const headers = await getHeaders();
   const payload = await getPayloadClient();
-  const { user } = await payload.auth({ headers });
 
-  // authLogger(user);
+  const { user } = await payload.auth({ headers });
 
   if (!user) {
     return errorResponse(

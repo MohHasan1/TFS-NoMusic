@@ -1,12 +1,11 @@
+import { REQUEST_NOMUSIC_CLIENT } from "#constants/private/request-nomusic";
+import Fields from "../shared";
 import { z } from "zod";
 
-import { REQUEST_NOMUSIC_CLIENT } from "#constants/private/request-nomusic";
-
 export const RequestNoMusicSchema = z.object({
-  youtubeURL: z
-    .url(REQUEST_NOMUSIC_CLIENT.VALIDATION_URL_ERROR)
-    .min(1, REQUEST_NOMUSIC_CLIENT.VALIDATION_URL_REQUIRED)
-    .refine(isYouTubeURL, REQUEST_NOMUSIC_CLIENT.VALIDATION_URL_ERROR),
+  url: Fields.url({
+    invalid: REQUEST_NOMUSIC_CLIENT.VALIDATION_URL_ERROR,
+  }).refine(isYouTubeURL, REQUEST_NOMUSIC_CLIENT.VALIDATION_URL_ERROR),
 });
 
 export type TRequestNoMusicSchema = z.infer<typeof RequestNoMusicSchema>;

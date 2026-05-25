@@ -1,14 +1,8 @@
 import { REQUEST_NOMUSIC_CLIENT, REQUEST_NOMUSIC_CONST } from "#constants/private/request-nomusic";
-import type { TForm } from "#types/form";
 import type { TRequestNoMusicSchema } from "#validations/private/request-nomusic";
-import TextField from "@/components/shared/form/fields/TextField";
-import { FieldGroup } from "@/components/ui/field";
-
-type TProps = {
-  form: TForm<TRequestNoMusicSchema>;
-  isSubmitting: boolean;
-  clearMessagesFn?: () => void;
-};
+import TextField from "#components/shared/form/fields/TextField";
+import { FieldGroup } from "#components/ui/field";
+import type { TForm } from "#types/form";
 
 const RequestNoMusicFormContent = ({ form, isSubmitting, clearMessagesFn }: TProps) => {
   return (
@@ -20,7 +14,7 @@ const RequestNoMusicFormContent = ({ form, isSubmitting, clearMessagesFn }: TPro
       }}
     >
       <FieldGroup>
-        <form.Field name="youtubeURL">
+        <form.Field name="url">
           {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
 
@@ -48,3 +42,9 @@ const RequestNoMusicFormContent = ({ form, isSubmitting, clearMessagesFn }: TPro
 };
 
 export default RequestNoMusicFormContent;
+
+type TProps = {
+  form: TForm<TRequestNoMusicSchema>;
+  isSubmitting: boolean;
+  clearMessagesFn?: () => void;
+};

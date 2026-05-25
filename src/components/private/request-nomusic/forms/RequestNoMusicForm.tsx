@@ -18,7 +18,7 @@ export function RequestNoMusicForm() {
 
   const form = useForm({
     defaultValues: {
-      youtubeURL: "",
+      url: "",
     },
     validators: {
       onSubmit: RequestNoMusicSchema,
@@ -33,7 +33,7 @@ export function RequestNoMusicForm() {
 
         if (!result?.isSuccess) {
           setSuccessMessage("");
-          setErrorMessage(result?.message || REQUEST_NOMUSIC_CLIENT.FALLBACK_ERROR);
+          setErrorMessage(result?.message || REQUEST_NOMUSIC_CLIENT.ERROR_SUBMIT_MSG);
           return;
         }
 

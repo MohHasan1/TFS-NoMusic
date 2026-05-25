@@ -1,23 +1,23 @@
+import { TRequest } from "#types/requests";
 import { tryCatchResponse } from "#trycatch-response";
 import { getPayloadClient } from "@/lib/payload/client";
-import type { TRequest } from "@/types/requests";
 
-export async function createRequest(input: TRequest) {
+export async function createRequestAdapter(input: TRequest) {
   const payload = await getPayloadClient();
 
   return tryCatchResponse(() =>
     payload.create({
       collection: "requests",
       data: {
+        url: input.url,
         type: input.type,
         name: input.name,
-        email: (input.email ?? "pending@request.local").toLowerCase(),
-        url: input.url,
-        message: input.message,
         status: "pending",
+        message: input.message,
         metadata: input.metadata,
+        email: input.email ?? "pending@request.user",
       },
-      select: { email: true },
+      select: {},
     }),
   );
 }

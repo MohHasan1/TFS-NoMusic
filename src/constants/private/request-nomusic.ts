@@ -3,23 +3,22 @@ export const REQUEST_NOMUSIC_CONST = {
 } as const;
 
 export const REQUEST_NOMUSIC_CLIENT = {
-  FORM_TITLE: "Request NoMusic",
-  FORM_DESC: "Share a YouTube link and we will review it for the library.",
+  FORM_TITLE: "Request NoMusic 🎵",
+  FORM_DESC: "Send a YouTube link and I'll check if I can add it.",
 
-  URL_LBL: "YouTube URL",
+  URL_LBL: "YouTube link",
   URL_PLACEHOLDER: "https://youtube.com/watch?v=...",
-  VALIDATION_URL_REQUIRED: "A YouTube URL is required.",
-  VALIDATION_URL_ERROR: "Please enter a valid YouTube URL.",
+  VALIDATION_URL_ERROR: "Please enter a valid YouTube link so the server cat can find it.",
 
-  SUCCESS_SUBMIT_MSG: "Request submitted. We will review and add it if available.",
+  SUCCESS_ALERT_TITLE: "Request sent! 🐾",
+  SUCCESS_SUBMIT_MSG: "I'll take a look and let the server cat add it if available 🐾",
 
-  FALLBACK_ERROR: "Something went wrong. Please try again.",
+  ERROR_ALERT_TITLE: "Could not send request:",
+  ERROR_SUBMIT_MSG: "The server cat tripped over a cable. Please try again.",
+
   FALLBACK_WRONG_CREDENTIALS: "Something went wrong. Please try again.",
-  FALLBACK_SERVER_ERROR: "Unable to submit song request right now. Please try again.",
+  FALLBACK_SERVER_ERROR: "Could not send your request right now. Please try again.",
 
-  SUBMIT_LBL: "Submit Request",
-  SUBMIT_PENDING_LBL: "Submitting Request...",
-
-  ERROR_ALERT_TITLE: "Request could not be submitted:",
-  SUCCESS_ALERT_TITLE: "Request submitted!",
+  SUBMIT_LBL: "Send NoMusic Request",
+  SUBMIT_PENDING_LBL: "Sending NoMusic Request...",
 } as const;
