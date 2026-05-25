@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
+import Link from "next/link";
 
-export function BrandLogo({ className }: TProps) {
+export function BrandLogoLink({ link }: TProps) {
   return (
-    <div className={cn("group font-semibold uppercase transition-colors duration-300", className)}>
+    <Link href={link} className="group font-semibold uppercase transition-colors duration-300">
       <span className="text-white/80 group-hover:text-white/60">No</span>
       <span
         className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent 
@@ -10,8 +10,10 @@ export function BrandLogo({ className }: TProps) {
       >
         Music
       </span>
-    </div>
+    </Link>
   );
 }
 
-type TProps = React.ComponentPropsWithoutRef<"div">;
+type TProps = {
+  link: string;
+};
