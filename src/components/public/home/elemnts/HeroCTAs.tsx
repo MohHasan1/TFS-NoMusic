@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { PUBLIC_ROUTES } from "#constants/routes";
+import { Button } from "#components/ui/button";
 import Link from "next/link";
 
 export function HeroCTAs() {
   return (
     <div className="flex flex-col sm:flex-row gap-3">
       <Button
-        render={<Link id="login-btn" href="/signin" />}
+        render={<Link id="login-btn" href={PUBLIC_ROUTES.SIGNIN} />}
         nativeButton={false}
         size="lg"
         className="rounded-full px-8"
@@ -14,11 +15,11 @@ export function HeroCTAs() {
       </Button>
 
       <Button
-        render={<Link id="request-access-btn" href="/request-access" />}
+        render={<Link id="request-access-btn" href={PUBLIC_ROUTES.REQUEST_ACCESS} />}
         nativeButton={false}
         variant="outline"
         size="lg"
-        className="rounded-full px-8 border-white/10 bg-transparent text-white/60 hover:border-white/25 hover:bg-transparent hover:text-white/80"
+        className="rounded-full px-8"
       >
         Request Access
       </Button>

@@ -2,14 +2,11 @@ import { cn } from "@/lib/utils";
 
 export function BrandLogo({ className }: TProps) {
   return (
-    <div className={cn("group font-semibold uppercase transition-colors duration-300", className)}>
-      <span className="text-white/80 group-hover:text-white/60">No</span>
-      <span
-        className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent 
-        group-hover:from-primary-400/80 group-hover:to-primary-600/80 transition-all duration-300"
-      >
+    <div className={cn("font-semibold uppercase", className)}>
+      <h1 className="text-white/80 group-hover:text-white/60">No</h1>
+      <h1 className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent ">
         Music
-      </span>
+      </h1>
     </div>
   );
 }

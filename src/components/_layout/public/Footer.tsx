@@ -1,26 +1,26 @@
+const bars = Array.from({ length: 50 }, (_, i) => 8 + ((i * 13) % 44));
+
 export function Footer() {
   return (
-    <footer className="flex flex-col items-center gap-4 px-8 pb-8 bg-transparent">
-      {/* Waveform decoration */}
+    <footer className="flex flex-col items-center gap-4 bg-transparent px-8 pb-8">
       <div
-        className="w-full flex items-end justify-center gap-0.75 pb-8 opacity-20"
+        className="flex w-full items-end justify-center gap-0.75 overflow-hidden pb-8 opacity-20"
         aria-hidden="true"
       >
-        {[
-          12, 28, 18, 40, 22, 35, 14, 48, 20, 30, 16, 44, 26, 38, 18, 52, 24, 36, 14, 46, 20, 32,
-          16, 42, 28, 50, 22, 38, 18, 44, 26, 36, 14, 48, 20, 30, 16, 44, 26, 38, 18, 52, 24, 36,
-          14, 46, 20, 32, 16, 42, 28, 50, 22, 38, 18, 44, 26, 36, 14, 48,
-        ].map((h, i) => (
+        {bars.map((height, i) => (
           <div
-            // biome-ignore lint/suspicious/noArrayIndexKey: static decorative barsx
             key={i}
-            className="w-1 rounded-full bg-primary"
-            style={{ height: `${h}px` }}
+            className="w-1 rounded-full bg-primary animate-pulse duration-300"
+            style={{
+              height: `${height}px`,
+              animationDelay: `${height * 35}ms`,
+            }}
           />
         ))}
       </div>
-      <p className="text-xs text-white/20 tracking-widest uppercase">
-        Invite only · Private streaming
+
+      <p className="text-xs tracking-widest text-muted-foreground/50 uppercase">
+        Private circle · Vocals only
       </p>
     </footer>
   );
