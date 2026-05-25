@@ -30,5 +30,5 @@ export async function submitNoMusicRequestAction(data: TRequestNoMusicSchema) {
     return errorResponse([], res.message ?? REQUEST_NOMUSIC_CLIENT.FALLBACK_SERVER_ERROR);
   }
 
-  return successResponse(true, REQUEST_NOMUSIC_CLIENT.SUCCESS_SUBMIT_MSG);
+  return successResponse(null, REQUEST_NOMUSIC_CLIENT.SUCCESS_SUBMIT_MSG);
 }

@@ -1,12 +1,11 @@
+import type { TForm } from "#types/form";
 import EmailField from "@/components/shared/form/fields/EmailField";
 import TextField from "@/components/shared/form/fields/TextField";
 import { FieldGroup } from "@/components/ui/field";
-
 import { REQUEST_ACCESS_CLIENT, REQUEST_ACCESS_CONST } from "@/constants/public/request-access";
-import { TRequestAccessSchema } from "@/validations/public/request-access";
-import { ReactFormExtendedApi } from "@tanstack/react-form";
+import type { TRequestAccessSchema } from "@/validations/public/request-access";
 
-const RequestAccessFormContent = ({ form }: TProps) => {
+const RequestAccessFormContent = ({ form, isSubmitting, clearMessagesFn }: TProps) => {
   return (
     <form
       id={REQUEST_ACCESS_CONST.FORM_ID}
@@ -16,10 +15,10 @@ const RequestAccessFormContent = ({ form }: TProps) => {
       }}
     >
       <FieldGroup>
-        <form.Field
-          name="name"
-          children={(field) => {
+        <form.Field name="name">
+          {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
             return (
               <TextField
                 label={REQUEST_ACCESS_CLIENT.NAME_LBL}
@@ -29,15 +28,19 @@ const RequestAccessFormContent = ({ form }: TProps) => {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(e) => {
+                  clearMessagesFn?.();
+                  field.handleChange(e.target.value);
+                }}
+                disabled={isSubmitting}
               />
             );
           }}
-        />
-        <form.Field
-          name="email"
-          children={(field) => {
+        </form.Field>
+        <form.Field name="email">
+          {(field) => {
             const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+
             return (
               <EmailField
                 label={REQUEST_ACCESS_CLIENT.EMAIL_LBL}
@@ -47,11 +50,15 @@ const RequestAccessFormContent = ({ form }: TProps) => {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(e) => {
+                  clearMessagesFn?.();
+                  field.handleChange(e.target.value);
+                }}
+                disabled={isSubmitting}
               />
             );
           }}
-        />
+        </form.Field>
       </FieldGroup>
     </form>
   );
@@ -60,6 +67,7 @@ const RequestAccessFormContent = ({ form }: TProps) => {
 export default RequestAccessFormContent;
 
 type TProps = {
-  form: AppFormApi<TRequestAccessSchema>;
+  form: TForm<TRequestAccessSchema>;
+  isSubmitting: boolean;
+  clearMessagesFn?: () => void;
 };
-type AppFormApi<T> = ReactFormExtendedApi<T, any, any, any, any, any, any, any, any, any, any, any>;

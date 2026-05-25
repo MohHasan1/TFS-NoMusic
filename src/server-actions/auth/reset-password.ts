@@ -13,12 +13,14 @@ export async function resetPasswordAction(data: TResetPasswordSchema, token: str
 
   // 2. Validate password:
   const passwordValidation = ResetPasswordSchema.safeParse(data);
-  if (!passwordValidation.success) return errorResponse([], RESET_PASSWORD_CLIENT.VALIDATION_RESET_PASS_ERROR);
+  if (!passwordValidation.success)
+    return errorResponse([], RESET_PASSWORD_CLIENT.VALIDATION_RESET_PASS_ERROR);
 
   // 3. Reset password:
   const res = await resetPassword(tokenValidation.data.token, passwordValidation.data.password);
-  if (!res.isSuccess) return errorResponse([], res.message ?? RESET_PASSWORD_CLIENT.FALLBACK_SERVER_ERROR);
+  if (!res.isSuccess)
+    return errorResponse([], res.message ?? RESET_PASSWORD_CLIENT.FALLBACK_SERVER_ERROR);
 
   // Successfull!
-  return successResponse("Password reset successfully! 🎧");
+  return successResponse(null);
 }
