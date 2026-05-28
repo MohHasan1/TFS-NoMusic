@@ -1,5 +1,13 @@
-import { listNomusicAdapter } from "@/services/no-music/no-music-pl.adapter";
+import {
+  listNomusicAdapter,
+  listNomusicPaginatedAdapter,
+  TListNomusicArg,
+} from "./no-music-pl.adapter";
 
-export async function listNomusic() {
-  return listNomusicAdapter();
+export async function listNomusic(limit: number = 70) {
+  return listNomusicAdapter(limit);
+}
+
+export async function listNomusicPaginatedA(arg: TListNomusicArg) {
+  return listNomusicPaginatedAdapter(arg);
 }

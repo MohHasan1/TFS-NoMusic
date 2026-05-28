@@ -1,24 +1,24 @@
-import type { Media, Nomusic } from "@/payload-types";
+import type { Media, Nomusic } from "#payload-types";
 
 export function getCoverImageURL(coverImage: Nomusic["coverImage"]): string | null | undefined {
   if (!coverImage) return undefined;
 
   const src = coverImage?.source;
 
-  // -- External Image URL (eg. unplash)
+  // -- External Image URL (eg. unplash or other cdn)
   let externalImageURL: string | null | undefined;
   if (coverImage.externalImageURL) {
     externalImageURL = coverImage.externalImageURL;
   }
 
-  // -- Uploaded Image URL (Extracted from Uploded Media)
+  // -- Uploaded Image URL (Extracted from Uploded Media - R2, or S3)
   let uploadedImageURL: string | null | undefined;
   if (coverImage.uploadedImageURL) {
     uploadedImageURL = coverImage.uploadedImageURL;
   }
 
   // -- External Image URL from image file (Uploded Media)
-  if (!uploadedImageURL && isMedia(coverImage.imageFile) && coverImage.imageFile.type === "image") {
+  if (!uploadedImageURL && isMediaImage(coverImage.imageFile)) {
     uploadedImageURL = coverImage.imageFile.url ?? undefined;
   }
 
@@ -31,13 +31,22 @@ export function getAudioURL(audioFile: Nomusic["audioFile"]) {
   if (!audioFile) return undefined;
 
   // -- External audio URL from audio file (upload)
-  if (isMedia(audioFile) && audioFile.type === "audio") {
+  if (isMediaAudio(audioFile)) {
     return audioFile.url ?? undefined;
   }
 
   return undefined;
 }
 
-export function isMedia(value: unknown): value is Media {
-  return typeof value === "object" && value !== null && "id" in value;
+// --- Media Helper --- //
+export function isMedia(obj: unknown): obj is Media {
+  return obj !== null && typeof obj === "object" && "id" in obj && "url" in obj;
+}
+
+export function isMediaImage(obj: unknown): obj is Media {
+  return isMedia(obj) && obj.type === "image";
+}
+
+export function isMediaAudio(obj: unknown): obj is Media {
+  return isMedia(obj) && obj.type === "audio";
 }

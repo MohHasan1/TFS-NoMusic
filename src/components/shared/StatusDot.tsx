@@ -5,7 +5,7 @@ export function StatusDot({ className, ...props }: TProps) {
     <span
       aria-hidden={true}
       className={cn(
-        "-top-1 -right-1 animate-pulse absolute size-3 rounded-full border-2 border-card bg-primary",
+        "-top-0.5 -right-0.5 animate-pulse absolute size-2 rounded-full border-2 bg-primary-400",
         className,
       )}
       {...props}

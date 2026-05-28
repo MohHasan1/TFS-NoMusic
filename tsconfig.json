@@ -27,6 +27,8 @@
       "#payload-response": ["./src/lib/responses/payload-response.ts"],
       "#responses": ["./src/lib/responses/app-response.ts"],
 
+      "#media-helpers": ["./src/lib/helpers/media-helpers.ts"],
+
       "#server-actions/*": ["./src/server-actions/*"],
       "#validations/*": ["./src/validations/*"],
       "#services/*": ["./src/services/*"],

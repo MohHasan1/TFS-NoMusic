@@ -7,12 +7,12 @@ import { useQueueActions } from "#modules/queue/hooks/useQueueActions";
 import { usePlayerPlay } from "@/modules/player/hooks/usePlayerPlay";
 import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
 
-export function NoMusicBrowser({ noMusic }: TProps) {
+export function NoMusicBrowser({ nomusic }: TProps) {
   const { playTrack } = usePlayerPlay();
   const { addTracks } = useRegistryActions();
   const { setQueue } = useQueueActions();
 
-  if (noMusic.length === 0) {
+  if (nomusic.length === 0) {
     return (
       <section className="min-h-80">
         <NoMusicEmptyCard />
@@ -22,13 +22,13 @@ export function NoMusicBrowser({ noMusic }: TProps) {
 
   return (
     <section className="grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-      {noMusic.map((track) => (
+      {nomusic.map((track) => (
         <NoMusicCard
           key={track.id}
           noMusic={track}
           onSelectFn={() => {
-            addTracks(noMusic);
-            setQueue("page:nomusic", noMusic, track.id);
+            addTracks(nomusic);
+            setQueue("page:nomusic", nomusic, track.id);
             playTrack(track);
           }}
         />
@@ -38,7 +38,7 @@ export function NoMusicBrowser({ noMusic }: TProps) {
 }
 
 type TProps = {
-  noMusic: TNoMusic[];
+  nomusic: TNoMusic[];
 };
 
 // useTrackInitialLoad() - regitry and queue

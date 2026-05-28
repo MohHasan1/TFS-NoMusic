@@ -7,8 +7,6 @@ import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
 
 const PlayerArtwork = () => {
-  // console.count("PlayerArtwork render");
-
   const { track } = usePlayerTrack();
   const { isPlaying } = usePlayerPlayback(track?.id ?? "");
 
@@ -28,8 +26,8 @@ const PlayerArtwork = () => {
           />
         </div>
       ) : (
-        <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground shadow-lg rounded-xl">
-          <RiMusic2Line className="size-5" />
+        <div className="size-full flex items-center justify-center text-muted-foreground rounded-xl bg-linear-to-bl from-primary-600/50 via-primary/50 to-secondary/50 ">
+          <RiMusic2Line className="size-4" />
         </div>
       )}
 

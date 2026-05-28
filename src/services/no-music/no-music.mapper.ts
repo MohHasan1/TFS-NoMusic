@@ -1,6 +1,6 @@
-import type { Nomusic } from "@/payload-types";
-import { getAudioURL, getCoverImageURL } from "@/services/no-music/no-music.helpers";
-import type { TNoMusic } from "@/types/nomusic";
+import { getAudioURL, getCoverImageURL } from "#media-helpers";
+import { Nomusic } from "#payload-types";
+import { TNoMusic } from "#types/nomusic";
 
 export function mapNomusic(nomusic: Nomusic[]): TNoMusic[] {
   return nomusic.flatMap((doc) => {
