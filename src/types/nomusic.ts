@@ -1,4 +1,5 @@
 import type { Nomusic } from "#payload-types";
+import type { PaginatedDocs } from "payload";
 
 export type TNoMusic = {
   id: Nomusic["id"];
@@ -11,3 +12,5 @@ export type TNoMusic = {
   coverImage: string | null | undefined; // Type media - just intrested in the url
   audioStreamUrl: string; // Type media - just intrested in the url
 };
+
+export type TNoMusicPaginated = PaginatedDocs<TNoMusic>;

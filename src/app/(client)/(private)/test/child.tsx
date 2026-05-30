@@ -9,7 +9,6 @@ import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
 import { NoMusicCard } from "#components/private/nomusic/elements/NoMusicCard";
 import { NoMusicEmptyCard } from "#components/private/nomusic/elements/NomusicEmptyCard";
 import { loadMoreNomusicAction } from "./server";
-import { logInfo } from "#loggers";
 
 type TInitialData = {
   docs: TNoMusic[];
@@ -34,7 +33,7 @@ export function NoMusicBrowser({ initialData }: { initialData: TInitialData }) {
     if (!nextPage || isPending) return;
 
     startTransition(async () => {
-      const res = await loadMoreNomusicAction(nextPage, 1);
+      const res = await loadMoreNomusicAction(nextPage);
 
       if (!res.isSuccess) {
         console.error(res);

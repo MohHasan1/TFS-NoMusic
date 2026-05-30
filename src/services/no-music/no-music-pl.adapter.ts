@@ -3,7 +3,7 @@ import { tryCatchResponse } from "#trycatch-response";
 import { getPayloadClient } from "#payload-client";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
-import { logInfo } from "#loggers";
+import { TNoMusicPaginated } from "#types/nomusic";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
@@ -27,13 +27,8 @@ export async function listNomusicAdapter(limit: number) {
       },
     }),
   );
-  
 
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
-  // if (res.data.docs.length === 0) return successResponse([], "No Nomuisic available");
-
-  logInfo(res.data)
-
 
   const mapped = mapNomusic(res.data.docs as Nomusic[]);
   return successResponse(mapped);
@@ -56,7 +51,7 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
         artist: true,
         language: true,
         duration: true,
-        updatedAt: true,
+        createdAt: true,
         coverImage: true,
         uploadedAudioURL: true,
       },
@@ -64,13 +59,12 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
   );
 
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
-  // if (res.data.docs.length === 0) return successResponse([], "No Nomuisic available");
 
   const mapped = mapNomusic(res.data.docs as Nomusic[]);
   return successResponse({
     ...res.data,
     docs: mapped,
-  });
+  } as TNoMusicPaginated);
 }
 
 export type TListNomusicArg = {
