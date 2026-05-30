@@ -44,6 +44,8 @@ export function NoMusicBrowser({ initialData }: { initialData: TInitialData }) {
       setTracks((prev) => [...prev, ...res.data.docs]);
       setNextPage(res.data.nextPage ?? null);
       setHasNextPage(res.data.hasNextPage === true);
+
+      // adds message
     });
   }, [nextPage, isPending]);
 
@@ -64,9 +66,10 @@ export function NoMusicBrowser({ initialData }: { initialData: TInitialData }) {
       const selectedTrack = tracks[index];
       if (!selectedTrack) return;
 
-      addTracks(tracks);
       // we will use que arc - client queue
+      addTracks(tracks);
       setQueue(`${SOURCE_KEY}:${tracks.length}`, tracks, selectedTrack.id);
+
       playTrack(selectedTrack);
     },
     [addTracks, playTrack, setQueue, tracks],
@@ -101,6 +104,7 @@ export function NoMusicBrowser({ initialData }: { initialData: TInitialData }) {
 }
 
 // places where queu will be chekced. after user click a song, after user press nect or prev, after a song finish playing
+
 // audio error fix
 // try {
 //   await audio.play();

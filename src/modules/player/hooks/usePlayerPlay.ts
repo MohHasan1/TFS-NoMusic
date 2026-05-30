@@ -10,7 +10,12 @@ export function usePlayerPlay() {
     return playerController.playTrack(track);
   }, []);
 
+  const playTrackById = useCallback((trackId: TNoMusic["id"]) => {
+    return playerController.playTrackById(trackId);
+  }, []);
+
   return {
     playTrack,
+    playTrackById,
   };
 }

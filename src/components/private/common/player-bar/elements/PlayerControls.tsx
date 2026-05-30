@@ -9,26 +9,16 @@ import { cn } from "@/lib/utils";
 import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
 import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 
-type PlayerControlsProps = {
-  showPrevious?: boolean;
-  size?: "default" | "lg";
-};
 
-const PLAY_BUTTON_SIZE = {
-  default: "icon-lg",
-  lg: "icon-lg",
-} as const;
-
-const SKIP_ICON_SIZE = {
-  default: "size-5",
-  lg: "size-6",
-} as const;
-
-export function PlayerControls({ size = "default" }: PlayerControlsProps) {
+export function PlayerControls({ size = "default" }: TProps) {
   const { track } = usePlayerTrack();
   const trackId = track?.id ?? "";
+
   const { isPlaying, togglePlayback } = usePlayerPlayback(trackId);
   const { isBuffering } = usePlayerTrackBuffering(trackId);
+
+
+
   const { playNext, playPrevious } = useTrackNavigation();
 
   const playLabel = isPlaying ? "Pause" : "Play";
@@ -49,3 +39,19 @@ export function PlayerControls({ size = "default" }: PlayerControlsProps) {
     </div>
   );
 }
+
+
+type TProps = {
+  showPrevious?: boolean;
+  size?: "default" | "lg";
+};
+
+const PLAY_BUTTON_SIZE = {
+  default: "icon-lg",
+  lg: "icon-lg",
+} as const;
+
+const SKIP_ICON_SIZE = {
+  default: "size-5",
+  lg: "size-6",
+} as const;

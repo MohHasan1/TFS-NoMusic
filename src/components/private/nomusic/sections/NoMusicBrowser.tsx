@@ -32,35 +32,30 @@ export function NoMusicBrowser({ nomusic }: TProps) {
 
       const SOURCE_KEY = "page:nomusic";
 
-      addTracks(nomusic);
       // we will use que arc - client queue
+      addTracks(nomusic);
       setQueue(`${SOURCE_KEY}:${nomusic.length}`, nomusic, selectedTrack.id);
       playTrack(selectedTrack);
     },
     [addTracks, playTrack, setQueue, nomusic],
   );
 
-
-  return (
-    nomusic.length === 0 ?
-      (
-        <section className="min-h-80">
-          <NoMusicEmptyCard />
-        </section>
-      ) :
-      (
-        <section onClick={handleCardClick} className="grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-          {nomusic.map((track, index) => (
-            <NoMusicCard
-              index={index}
-              key={track.id}
-              noMusic={track}
-            />
-          ))}
-        </section>
-      )
-
-  );
+  return nomusic.length === 0 ?
+    (
+      <section className="min-h-80">
+        <NoMusicEmptyCard />
+      </section>
+    ) :
+    (
+      <section
+        onClick={handleCardClick}
+        className="grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+      >
+        {nomusic.map((track, index) => (
+          <NoMusicCard index={index} key={track.id} noMusic={track} />
+        ))}
+      </section>
+    );
 }
 
 type TProps = {

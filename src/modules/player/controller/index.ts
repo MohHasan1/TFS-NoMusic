@@ -95,6 +95,15 @@ class PlayerController {
     });
   }
 
+  playTrackById(trackId: TNoMusic["id"]) {
+    const { tracksById } = store.getState();
+    const track = tracksById[trackId];
+    if (!track) return;
+    
+    this.playTrack(track);
+  }
+
+
   /**
    * Pauses the currently playing track.
    *
