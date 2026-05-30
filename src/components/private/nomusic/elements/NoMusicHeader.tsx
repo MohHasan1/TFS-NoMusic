@@ -1,7 +1,6 @@
 import { BrandLogo } from "#components/shared/BrandLogo";
 import { RiMusic2Line } from "@remixicon/react";
 
-// TODO: centralzied header and para for responsiveness
 const NoMusicHeader = () => {
   return (
     <header className="space-y-1">
@@ -20,3 +19,5 @@ const NoMusicHeader = () => {
 };
 
 export default NoMusicHeader;
+
+// TODO: centralzied header and para for responsiveness - typo

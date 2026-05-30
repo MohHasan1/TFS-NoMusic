@@ -11,25 +11,23 @@ import { Button } from "#components/ui/button";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
 import { formatPlaybackTime } from "#components/private/common/utils/formatPlaybackTime";
+import { memo } from "react";
 
-export function NoMusicCard({ noMusic, onSelectFn }: TProps) {
+const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic.id);
-
-  function handleClick() {
-    onSelectFn(noMusic.id);
-  }
 
   return (
     <Button
       type="button"
+      data-nomusic-index={index}
+      data-nomusic-id={noMusic.id}
       variant="ghost"
-      onClick={handleClick}
       aria-label={`Play ${noMusic.title}`}
       className="group h-auto cursor-pointer p-0 text-left"
     >
       <Card
         className={cn(
-          "relative w-full overflow-hidden border bg-card transition-all duration-300",
+          "relative w-full overflow-hidden bg-card transition-all duration-300",
           isActive
             ? "border-primary ring-1 ring-primary-400/40"
             : "border group-hover:border-primary-400/50",
@@ -86,9 +84,11 @@ export function NoMusicCard({ noMusic, onSelectFn }: TProps) {
       </Card>
     </Button>
   );
-}
+};
+
+export const NoMusicCard = memo(NoMusicCardComponent);
 
 type TProps = {
+  index: number;
   noMusic: TNoMusic;
-  onSelectFn: (id: TNoMusic["id"]) => void;
 };

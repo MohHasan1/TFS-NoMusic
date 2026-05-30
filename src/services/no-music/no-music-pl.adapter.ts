@@ -30,7 +30,7 @@ export async function listNomusicAdapter(limit: number) {
   
 
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
-  if (res.data.docs.length === 0) return successResponse([], "No Nomuisic available");
+  // if (res.data.docs.length === 0) return successResponse([], "No Nomuisic available");
 
   logInfo(res.data)
 
@@ -57,14 +57,14 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
         language: true,
         duration: true,
         updatedAt: true,
-        uploadedImageURL: true,
+        coverImage: true,
         uploadedAudioURL: true,
       },
     }),
   );
 
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
-  if (res.data.docs.length === 0) return successResponse([], "No Nomuisic available");
+  // if (res.data.docs.length === 0) return successResponse([], "No Nomuisic available");
 
   const mapped = mapNomusic(res.data.docs as Nomusic[]);
   return successResponse({

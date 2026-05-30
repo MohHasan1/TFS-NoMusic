@@ -69,6 +69,7 @@ class PlayerController {
    * @returns A promise from `playerEngine.play()` when starting a new track,
    * otherwise `undefined` when toggling pause/resume.
    */
+  //TODO: play behavious same input song - restart or pause/play
   playTrack(track: TNoMusic) {
     this.init();
 
