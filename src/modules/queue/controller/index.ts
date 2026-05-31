@@ -77,12 +77,12 @@ class QueueController {
   }
 
   getNextRepeatMode() {
-    const repeatMode = store.use.repeatMode();
+    const { repeatMode } = store.getState();
     return queueEngine.getNextRepeatMode(repeatMode);
   }
 
   clearQueue() {
-    return store.use.clearQueue()();
+    store.getState().clearQueue();
   }
 }
 
