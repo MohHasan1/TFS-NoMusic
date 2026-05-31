@@ -25,10 +25,6 @@ export function useQueueActions() {
     return queueController.getPreviousTrackId();
   }, []);
 
-  const appendQueue = useCallback((sourceKey: string, trackId: TNoMusic["id"]) => {
-    queueController.appendQueue(sourceKey, trackId);
-  }, []);
-
   const extendQueue = useCallback((sourceKey: string, tracks: TNoMusic[]) => {
     queueController.extendQueue(sourceKey, tracks);
   }, []);
@@ -42,7 +38,6 @@ export function useQueueActions() {
     getCurrentTrackId,
     getNextTrackId,
     getPreviousTrackId,
-    appendQueue,
     extendQueue,
     clearQueue,
   };

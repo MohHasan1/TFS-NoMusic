@@ -12,6 +12,8 @@ export function useNomusicPageInfiniteQuery(initialData: TNoMusicPaginated) {
     queryKey: QUERY_KEYS.nomusic.infinite(),
     queryFn: fetchNomusicInfiniteFn,
     initialPageParam: NOMUSIC_PAGINATION.PAGE as number,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60, // 1 hour
     initialData: {
       pages: [initialData],
       pageParams: [NOMUSIC_PAGINATION.PAGE],
