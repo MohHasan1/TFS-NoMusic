@@ -1,4 +1,4 @@
-import { AutoPlayBinding } from "#components/private/common/Bindings/AutoPlayBinding";
+import PlaybackInitializer from "#components/private/common/Initializer/PlaybackInitializer";
 import { PrivateNavbar } from "#components/_layout/private/PrivateNavbar";
 import QueryProvider from "#components/private/_providers/QueryProvider";
 import PlayerBar from "#components/private/common/player-bar/PlayerBar";
@@ -14,7 +14,7 @@ export default function PrivateLayout({ children }: TProps) {
           {children}
         </main>
         <PlayerBar />
-        <AutoPlayBinding />
+        <PlaybackInitializer />
         {/* <NowPlayingSheet /> */}
       </QueryProvider>
     </>
