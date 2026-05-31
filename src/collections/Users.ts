@@ -26,6 +26,7 @@ export const Users: CollectionConfig = {
         return await render(ResetPasswordEmail({ userName, resetUrl }));
       },
     },
+    tokenExpiration: 60 * 60 * 24 * 30,
     cookies: {
       sameSite: "Lax",
       secure: process.env.NODE_ENV === "production",
