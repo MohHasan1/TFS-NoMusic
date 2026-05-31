@@ -1,35 +1,30 @@
 "use client";
 
-import { useCallback, useMemo, useState, useTransition } from "react";
+import { useCallback, useMemo } from "react";
 
-import { TNoMusic, TNoMusicPaginated } from "#types/nomusic";
+import { TNoMusicPaginated } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { NoMusicCard } from "../elements/NoMusicCard";
 import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
-import { usePlayerPlay } from "#modules/player/hooks/usePlayerPlay";
-import { useQueueActions } from "#modules/queue/hooks/useQueueActions";
-import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
-
-import { loadMoreNomusicAction } from "@/app/(client)/(private)/test/server";
-import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
+import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
+import { useNomusicPageInfiniteQuery } from "#client-actions/queries/hooks/useNomusicInfiniteQuery";
 import { SOURCE_KEYS } from "#constants/private/source";
-import { useNomusicInfiniteQuery } from "@/client-actions/queries/hooks/useNomusicInfiniteQuery";
+import { useInView } from "react-intersection-observer";
 
 export function NoMusicBrowser({ initialData }: TProps) {
-  const { playTrack } = usePlayerPlay();
-  const { setQueue, extendQueue } = useQueueActions();
-  const { addTracks } = useRegistryActions();
+  const { start, extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE);
+  const query = useNomusicPageInfiniteQuery(initialData);
 
-  // const [tracks, setTracks] = useState(nomusic);
-  // const [nextPage, setNextPage] = useState(props.nextPage ?? null);
-  // const [hasNextPage, setHasNextPage] = useState(Boolean(props.hasNextPage));
-  // const [isPending, startTransition] = useTransition();
+  const { ref } = useInView({
+    rootMargin: "300px",
+    onChange: (inView) => {
+      if (inView) loadMore();
+    },
+  });
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useNomusicInfiniteQuery(initialData);
   const tracks = useMemo(() => {
-    return data.pages.flatMap((page) => page.docs);
-  }, [data.pages]);
+    return query.data.pages.flatMap((page) => page.docs);
+  }, [query.data.pages]);
 
   const handleCardClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -47,25 +42,21 @@ export function NoMusicBrowser({ initialData }: TProps) {
       const selectedTrack = tracks[index];
       if (!selectedTrack) return;
 
-      // we will use que arc - client queue
-      addTracks(tracks);
-      setQueue(`${SOURCE_KEYS.NOMUSIC_BROWSER}:${tracks.length}`, tracks, selectedTrack.id);
-      playTrack(selectedTrack);
+      start(tracks, selectedTrack);
     },
-    [addTracks, playTrack, setQueue, tracks],
+    [start, tracks],
   );
 
   const loadMore = useCallback(() => {
-    if (!hasNextPage || isFetchingNextPage) return;
+    if (!query.hasNextPage || query.isFetchingNextPage) return;
 
-    fetchNextPage().then((res) => {
+    query.fetchNextPage().then((res) => {
       const newPage = res.data?.pages.at(-1);
       const newTracks = newPage?.docs ?? [];
 
-      addTracks(newTracks);
-      extendQueue(newTracks);
+      extend(newTracks);
     });
-  }, [addTracks, extendQueue]);
+  }, [extend]);
 
   return tracks.length === 0 ? (
     <section className="min-h-80">
@@ -81,18 +72,19 @@ export function NoMusicBrowser({ initialData }: TProps) {
           <NoMusicCard key={track.id} index={index} noMusic={track} />
         ))}
       </div>
-      <div className="flex justify-center items-center">
-        {hasNextPage ? (
-          <Button
-            size={"lg"}
-            type="button"
-            variant={"outline"}
-            onClick={loadMore}
-            disabled={isFetchingNextPage}
-          >
-            {isFetchingNextPage  ? "Loading..." : "Load more"}
+
+      {/* <div className="min-h-dvh"></div> */}
+
+      <div ref={ref} className="flex items-center justify-center pb-40">
+        {query.hasNextPage ? (
+          <Button size="lg" onClick={loadMore} type="button" variant="outline" disabled={true}>
+            {query.isFetchingNextPage ? "Loading..." : "Scroll for more"}
           </Button>
-        ) : null}
+        ) : (
+          <Button size="lg" type="button" variant="outline" disabled={true}>
+            That all
+          </Button>
+        )}
       </div>
     </section>
   );

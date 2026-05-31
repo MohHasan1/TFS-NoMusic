@@ -160,17 +160,17 @@ export class QueueEngine {
     };
   }
 
-  extendQueueIds(
-    queueIds: TNoMusic["id"][],
-    queueIdIndexMap: Record<string, number>,
-    trackIds: TNoMusic["id"][],
+  extendQueue(
+    currentTrackIds: TNoMusic["id"][],
+    currentTrackIdIndexMap: Record<string, number>,
+    tracks: TNoMusic[],
   ) {
-    const nextQueueIds = [...queueIds];
-    const nextQueueIdIndexMap = { ...queueIdIndexMap };
+    const nextQueueIds = [...currentTrackIds];
+    const nextQueueIdIndexMap = { ...currentTrackIdIndexMap };
 
-    trackIds.forEach((trackId) => {
-      nextQueueIdIndexMap[String(trackId)] = nextQueueIds.length;
-      nextQueueIds.push(trackId);
+    tracks.forEach((track) => {
+      nextQueueIdIndexMap[String(track.id)] = nextQueueIds.length;
+      nextQueueIds.push(track.id);
     });
 
     return {

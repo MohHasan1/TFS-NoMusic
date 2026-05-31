@@ -21,6 +21,15 @@ export class MessageQueueEngine {
     return [...messageQueue, message];
   }
 
+  consumeById(messageQueue: TMessageQueueItem[], messageId: TMessageQueueItem["id"]) {
+    const message = this.getById(messageQueue, messageId);
+
+    return {
+      message,
+      nextMessageQueue: message ? this.removeById(messageQueue, messageId) : messageQueue,
+    };
+  }
+
   getById(messageQueue: TMessageQueueItem[], messageId: TMessageQueueItem["id"]) {
     return messageQueue.find((message) => message.id === messageId);
   }

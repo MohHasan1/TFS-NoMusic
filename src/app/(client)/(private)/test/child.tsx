@@ -11,12 +11,11 @@ import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
 import { SOURCE_KEYS } from "#constants/private/source";
 import { NoMusicCard } from "#components/private/nomusic/elements/NoMusicCard";
 import { NoMusicEmptyCard } from "#components/private/nomusic/elements/NomusicEmptyCard";
-import { useNomusicInfiniteQuery } from "@/client-actions/queries/hooks/useNomusicInfiniteQuery";
+import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
+import { useNomusicPageInfiniteQuery } from "@/client-actions/queries/hooks/useNomusicInfiniteQuery";
 
 export function NoMusicBrowser({ initialData }: { initialData: TNoMusicPaginated }) {
-  const { playTrack } = usePlayerPlay();
-  const { addTracks } = useRegistryActions();
-  const { setQueue, extendQueue } = useQueueActions();
+  const { start, extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_TEST_PAGE);
 
   const { ref } = useInView({
     rootMargin: "300px",
@@ -26,7 +25,7 @@ export function NoMusicBrowser({ initialData }: { initialData: TNoMusicPaginated
   });
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useNomusicInfiniteQuery(initialData);
+    useNomusicPageInfiniteQuery(initialData);
   const tracks = useMemo(() => {
     return data.pages.flatMap((page) => page.docs);
   }, [data.pages]);
@@ -38,10 +37,9 @@ export function NoMusicBrowser({ initialData }: { initialData: TNoMusicPaginated
       const newPage = res.data?.pages.at(-1);
       const newTracks = newPage?.docs ?? [];
 
-      addTracks(newTracks);
-      extendQueue(newTracks);
+      extend(newTracks);
     });
-  }, [addTracks, extendQueue]);
+  }, [extend]);
 
   const handleCardClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -59,11 +57,9 @@ export function NoMusicBrowser({ initialData }: { initialData: TNoMusicPaginated
       const selectedTrack = tracks[index];
       if (!selectedTrack) return;
 
-      addTracks(tracks);
-      setQueue(SOURCE_KEYS.NOMUSIC_BROWSER, tracks, selectedTrack.id);
-      playTrack(selectedTrack);
+      start(tracks, selectedTrack);
     },
-    [addTracks, playTrack, setQueue, tracks],
+    [start, tracks],
   );
 
   if (tracks.length === 0) {

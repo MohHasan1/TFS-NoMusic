@@ -3,13 +3,18 @@ import { messageQueueEngine } from "../engine";
 import { TMessageQueueItem } from "../type";
 
 export class MessageQueueController {
-  getMessages() {
-    return store.getState().messageQueue;
-  }
-
   getMessageById(messageId: TMessageQueueItem["id"]) {
     const messageQueue = store.getState().messageQueue;
     return messageQueueEngine.getById(messageQueue, messageId);
+  }
+
+  consumeMessageById(messageId: TMessageQueueItem["id"]) {
+    const { messageQueue, setMessageQueue } = store.getState();
+
+    const result = messageQueueEngine.consumeById(messageQueue, messageId);
+    setMessageQueue(result.nextMessageQueue);
+
+    return result.message;
   }
 
   addMessage(messageItem: TMessageQueueItem) {

@@ -1,6 +1,6 @@
 export type TMessageQueueItem = {
   id: string;
-  type: string;
+  source?: string;
   mode?: "append" | "replace";
   createdAt?: number;
 };

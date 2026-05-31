@@ -10,6 +10,10 @@ export function useMessageQueue() {
     messageQueueController.addMessage(messageItem);
   }, []);
   
+  const consumeMessageById = useCallback((messageId: TMessageQueueItem["id"]) => {
+    return messageQueueController.consumeMessageById(messageId);
+  }, []);
+
   const getMessageById = useCallback((messageId: TMessageQueueItem["id"]) => {
     return messageQueueController.getMessageById(messageId);
   }, []);
@@ -24,6 +28,7 @@ export function useMessageQueue() {
 
   return {
     getMessageById,
+    consumeMessageById,
     addMessage,
     removeMessage,
     clearMessages,

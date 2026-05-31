@@ -5,7 +5,7 @@ import { fetchNomusicInfiniteFn } from "../functions";
 import { TNoMusicPaginated } from "#types/nomusic";
 import { QUERY_KEYS } from "../keys";
 
-export function useNomusicInfiniteQuery(initialData: TNoMusicPaginated) {
+export function useNomusicPageInfiniteQuery(initialData: TNoMusicPaginated) {
   return useInfiniteQuery({
     queryKey: QUERY_KEYS.nomusic.infinite(),
     queryFn: fetchNomusicInfiniteFn,

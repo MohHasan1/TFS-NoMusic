@@ -30,6 +30,7 @@
       "#media-helpers": ["./src/lib/helpers/media-helpers.ts"],
 
       "#server-actions/*": ["./src/server-actions/*"],
+      "#client-actions/*": ["./src/client-actions/*"],
       "#validations/*": ["./src/validations/*"],
       "#services/*": ["./src/services/*"],
       "#features/*": ["./src/features/*"],

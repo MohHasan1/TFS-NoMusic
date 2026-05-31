@@ -1,7 +1,6 @@
 import { store } from "#store";
-import type { TNoMusic } from "#types/nomusic";
 import { queueEngine } from "../engines";
-import type { TQueueState } from "../slice";
+import type { TNoMusic } from "#types/nomusic";
 
 class QueueController {
   setQueue(params: { sourceKey: string; tracks: TNoMusic[]; startTrackId: TNoMusic["id"] }) {
@@ -43,7 +42,6 @@ class QueueController {
     if (!nextId) return null;
 
     setCurrentIndex(nextIndex);
-
     return nextId;
   }
 
@@ -58,7 +56,6 @@ class QueueController {
     if (!previousId) return null;
 
     setCurrentIndex(previousIndex);
-
     return previousId;
   }
 
@@ -68,8 +65,13 @@ class QueueController {
     return queueEngine.getNextRepeatMode(repeatMode);
   }
 
-  appendQueue(trackId: TNoMusic["id"]) {
-    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap } = store.getState();
+  appendQueue(sourceKey: string, trackId: TNoMusic["id"]) {
+    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap, queueSourceKey } =
+      store.getState();
+
+    if (queueSourceKey !== sourceKey) {
+      return;
+    }
 
     const res = queueEngine.appendQueueId(queueIds, queueIdIndexMap, trackId);
 
@@ -77,19 +79,21 @@ class QueueController {
     setQueueIdIndexMap(res.queueIdIndexMap);
   }
 
-  extendQueue(tracks: TNoMusic[]) {
-    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap } = store.getState();
+  extendQueue(sourceKey: string, tracks: TNoMusic[]) {
+    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap, queueSourceKey } =
+      store.getState();
 
-    const newQueueIds = queueEngine.createQueueIds(tracks);
+    if (queueSourceKey !== sourceKey) {
+      return;
+    }
 
-    const res = queueEngine.extendQueueIds(queueIds, queueIdIndexMap, newQueueIds);
-
+    const res = queueEngine.extendQueue(queueIds, queueIdIndexMap, tracks);
     setQueueIds(res.queueIds);
     setQueueIdIndexMap(res.queueIdIndexMap);
   }
 
   clearQueue() {
-    store.getState().clearQueue();
+    return store.use.clearQueue()();
   }
 }
 
