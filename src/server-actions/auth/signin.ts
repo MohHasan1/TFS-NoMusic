@@ -15,7 +15,7 @@ export async function signinAction(data: TSigninStrictSchema) {
 
   // 2. Signin user:
   const res = await signIn(validatedData.data);
-  if (!res.isSuccess) return errorResponse([], res.message ?? SIGNIN_CLIENT.FALLBACK_ERROR);
+  if (!res.isSuccess) return errorResponse([], SIGNIN_CLIENT.FALLBACK_ERROR);
 
   // Successfull!
   redirect(PRIVATE_ROUTES.NOMUSIC);
