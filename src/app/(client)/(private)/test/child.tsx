@@ -1,74 +1,66 @@
 "use client";
 
-import { useCallback, useState, useTransition } from "react";
+import { useCallback, useMemo } from "react";
+import { useInView } from "react-intersection-observer";
 
-import type { TNoMusic } from "#types/nomusic";
-import { usePlayerPlay } from "@/modules/player/hooks/usePlayerPlay";
+import type { TNoMusicPaginated } from "#types/nomusic";
+import { Button } from "#components/ui/button";
+import { usePlayerPlay } from "#modules/player/hooks/usePlayerPlay";
 import { useQueueActions } from "#modules/queue/hooks/useQueueActions";
 import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
+import { SOURCE_KEYS } from "#constants/private/source";
 import { NoMusicCard } from "#components/private/nomusic/elements/NoMusicCard";
 import { NoMusicEmptyCard } from "#components/private/nomusic/elements/NomusicEmptyCard";
-import { loadMoreNomusicAction } from "./server";
+import { useNomusicInfiniteQuery } from "@/client-actions/queries/hooks/useNomusicInfiniteQuery";
 
-type TInitialData = {
-  docs: TNoMusic[];
-  page?: number | null;
-  nextPage?: number | null;
-  hasNextPage?: boolean | null;
-};
-
-const SOURCE_KEY = "page:nomusic:pg";
-
-export function NoMusicBrowser({ initialData }: { initialData: TInitialData }) {
-  const [tracks, setTracks] = useState(initialData.docs);
-  const [nextPage, setNextPage] = useState(initialData.nextPage ?? null);
-  const [hasNextPage, setHasNextPage] = useState(Boolean(initialData.hasNextPage));
-  const [isPending, startTransition] = useTransition();
-
+export function NoMusicBrowser({ initialData }: { initialData: TNoMusicPaginated }) {
   const { playTrack } = usePlayerPlay();
   const { addTracks } = useRegistryActions();
-  const { setQueue } = useQueueActions();
+  const { setQueue, extendQueue } = useQueueActions();
+
+  const { ref } = useInView({
+    rootMargin: "300px",
+    onChange: (inView) => {
+      if (inView) loadMore();
+    },
+  });
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useNomusicInfiniteQuery(initialData);
+  const tracks = useMemo(() => {
+    return data.pages.flatMap((page) => page.docs);
+  }, [data.pages]);
 
   const loadMore = useCallback(() => {
-    if (!nextPage || isPending) return;
+    if (!hasNextPage || isFetchingNextPage) return;
 
-    startTransition(async () => {
-      const res = await loadMoreNomusicAction(nextPage);
+    fetchNextPage().then((res) => {
+      const newPage = res.data?.pages.at(-1);
+      const newTracks = newPage?.docs ?? [];
 
-      if (!res.isSuccess) {
-        console.error(res);
-        return;
-      }
-
-      setTracks((prev) => [...prev, ...res.data.docs]);
-      setNextPage(res.data.nextPage ?? null);
-      setHasNextPage(res.data.hasNextPage === true);
-
-      // adds message
+      addTracks(newTracks);
+      extendQueue(newTracks);
     });
-  }, [nextPage, isPending]);
+  }, [addTracks, extendQueue]);
 
-  const handleGridClick = useCallback(
+  const handleCardClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       const target = event.target as HTMLElement;
-
       const cardButton = target.closest("[data-nomusic-index]") as HTMLElement | null;
+
       if (!cardButton) return;
 
-      const indexValue = cardButton.dataset.nomusicIndex;
+      const indexValue = cardButton.getAttribute("data-nomusic-index");
       if (!indexValue) return;
 
       const index = Number(indexValue);
-
       if (!Number.isInteger(index)) return;
 
       const selectedTrack = tracks[index];
       if (!selectedTrack) return;
 
-      // we will use que arc - client queue
       addTracks(tracks);
-      setQueue(`${SOURCE_KEY}:${tracks.length}`, tracks, selectedTrack.id);
-
+      setQueue(SOURCE_KEYS.NOMUSIC_BROWSER, tracks, selectedTrack.id);
       playTrack(selectedTrack);
     },
     [addTracks, playTrack, setQueue, tracks],
@@ -76,31 +68,42 @@ export function NoMusicBrowser({ initialData }: { initialData: TInitialData }) {
 
   if (tracks.length === 0) {
     return (
-      <section className="border min-h-80">
+      <section className="min-h-80">
         <NoMusicEmptyCard />
       </section>
     );
   }
 
   return (
-    <>
-      <section
-        onClick={handleGridClick}
-        className="border grid grid-cols-2 gap-4 pb-10 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"
+    <section className="flex w-full flex-col items-center">
+      <div
+        onClick={handleCardClick}
+        className="grid w-full max-w-xl min-h-dvh grid-cols-1 gap-4 pb-20"
       >
-        {tracks.map((track, i) => (
-          <NoMusicCard key={track.id} noMusic={track} index={i} />
+        {tracks.map((track, index) => (
+          <NoMusicCard key={track.id} index={index} noMusic={track} />
         ))}
-      </section>
+      </div>
 
-      {hasNextPage ? (
-        <button type="button" onClick={loadMore} disabled={isPending}>
-          {isPending ? "Loading..." : "Load more"}
-        </button>
-      ) : null}
-    </>
+      <div ref={ref} className="flex items-center justify-center pb-40">
+        {hasNextPage ? (
+          <Button
+            size="lg"
+            onClick={loadMore}
+            type="button"
+            variant="outline"
+            disabled={isFetchingNextPage}
+          >
+            {isFetchingNextPage ? "Loading..." : "Scroll for more"}
+          </Button>
+        ) : null}
+      </div>
+    </section>
   );
 }
+
+// useTrackInitialLoad() - regitry and queue
+// useTrack
 
 // places where queu will be chekced. after user click a song, after user press nect or prev, after a song finish playing
 

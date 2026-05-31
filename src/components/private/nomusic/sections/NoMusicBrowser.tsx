@@ -35,7 +35,6 @@ export function NoMusicBrowser({ nomusic, ...props }: TProps) {
       if (!indexValue) return;
 
       const index = Number(indexValue);
-
       if (!Number.isInteger(index)) return;
 
       const selectedTrack = tracks[index];

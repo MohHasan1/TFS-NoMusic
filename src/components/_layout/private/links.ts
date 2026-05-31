@@ -4,6 +4,11 @@ import { PRIVATE_ROUTES } from "#constants/routes";
 
 export const privateNavItems = [
   {
+    label: "Test",
+    href: "/test",
+    icon: RiMusic2Line,
+  },
+  {
     label: "NoMusic",
     href: PRIVATE_ROUTES.NOMUSIC,
     icon: RiMusic2Line,
