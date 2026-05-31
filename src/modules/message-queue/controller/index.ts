@@ -1,38 +1,34 @@
 import { store } from "#store";
 import { messageQueueEngine } from "../engine";
-import { TCreateMessageInput, TMessageQueueItem } from "../type";
+import { TMessageQueueItem } from "../type";
 
 export class MessageQueueController {
   getMessages() {
     return store.getState().messageQueue;
   }
 
-  getMessagesByType(type: TMessageQueueItem["type"]) {
-    const state = store.getState();
-
-    return messageQueueEngine.getMessagesByType(state.messageQueue, type);
+  getMessageById(messageId: TMessageQueueItem["id"]) {
+    const messageQueue = store.getState().messageQueue;
+    return messageQueueEngine.getById(messageQueue, messageId);
   }
 
-  addMessage(messageInput: TCreateMessageInput) {
-    const state = store.getState();
+  addMessage(messageItem: TMessageQueueItem) {
+    const { messageQueue, setMessageQueue } = store.getState();
 
-    const nextMessageQueue = messageQueueEngine.addMessage(state.messageQueue, messageInput);
-
-    state.setMessageQueue(nextMessageQueue);
+    const nextMessageQueue = messageQueueEngine.addOne(messageQueue, messageItem);
+    setMessageQueue(nextMessageQueue);
   }
 
   removeMessage(messageId: string) {
-    const state = store.getState();
+    const { messageQueue, setMessageQueue } = store.getState();
 
-    const nextMessageQueue = messageQueueEngine.removeMessage(state.messageQueue, messageId);
-
-    state.setMessageQueue(nextMessageQueue);
+    const nextMessageQueue = messageQueueEngine.removeById(messageQueue, messageId);
+    setMessageQueue(nextMessageQueue);
   }
 
   clearMessages() {
-    const state = store.getState();
-
-    state.setMessageQueue(messageQueueEngine.clearMessages());
+    const { setMessageQueue } = store.getState();
+    setMessageQueue(messageQueueEngine.clearMessages());
   }
 }
 

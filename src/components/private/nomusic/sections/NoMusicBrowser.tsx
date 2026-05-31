@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useState, useTransition } from "react";
+import { useCallback, useMemo, useState, useTransition } from "react";
 
-import { TNoMusic } from "#types/nomusic";
+import { TNoMusic, TNoMusicPaginated } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { NoMusicCard } from "../elements/NoMusicCard";
 import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
@@ -13,16 +13,23 @@ import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
 import { loadMoreNomusicAction } from "@/app/(client)/(private)/test/server";
 import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
 import { SOURCE_KEYS } from "#constants/private/source";
+import { useNomusicInfiniteQuery } from "@/client-actions/queries/hooks/useNomusicInfiniteQuery";
 
-export function NoMusicBrowser({ nomusic, ...props }: TProps) {
+export function NoMusicBrowser({ initialData }: TProps) {
   const { playTrack } = usePlayerPlay();
-  const { setQueue } = useQueueActions();
+  const { setQueue, extendQueue } = useQueueActions();
   const { addTracks } = useRegistryActions();
 
-  const [tracks, setTracks] = useState(nomusic);
-  const [nextPage, setNextPage] = useState(props.nextPage ?? null);
-  const [hasNextPage, setHasNextPage] = useState(Boolean(props.hasNextPage));
-  const [isPending, startTransition] = useTransition();
+  // const [tracks, setTracks] = useState(nomusic);
+  // const [nextPage, setNextPage] = useState(props.nextPage ?? null);
+  // const [hasNextPage, setHasNextPage] = useState(Boolean(props.hasNextPage));
+  // const [isPending, startTransition] = useTransition();
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useNomusicInfiniteQuery(initialData);
+  const tracks = useMemo(() => {
+    return data.pages.flatMap((page) => page.docs);
+  }, [data.pages]);
 
   const handleCardClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -49,22 +56,16 @@ export function NoMusicBrowser({ nomusic, ...props }: TProps) {
   );
 
   const loadMore = useCallback(() => {
-    if (!nextPage || isPending) return;
+    if (!hasNextPage || isFetchingNextPage) return;
 
-    startTransition(async () => {
-      const res = await loadMoreNomusicAction(nextPage, NOMUSIC_PAGINATION.LIMIT);
-      if (!res.isSuccess) {
-        console.error(res);
-        return;
-      }
+    fetchNextPage().then((res) => {
+      const newPage = res.data?.pages.at(-1);
+      const newTracks = newPage?.docs ?? [];
 
-      setTracks((prev) => [...prev, ...res.data.docs]);
-      setNextPage(res.data.nextPage ?? null);
-      setHasNextPage(res.data.hasNextPage === true);
-
-      // adds message to queue
+      addTracks(newTracks);
+      extendQueue(newTracks);
     });
-  }, [nextPage, isPending]);
+  }, [addTracks, extendQueue]);
 
   return tracks.length === 0 ? (
     <section className="min-h-80">
@@ -87,9 +88,9 @@ export function NoMusicBrowser({ nomusic, ...props }: TProps) {
             type="button"
             variant={"outline"}
             onClick={loadMore}
-            disabled={isPending}
+            disabled={isFetchingNextPage}
           >
-            {isPending ? "Loading..." : "Load more"}
+            {isFetchingNextPage  ? "Loading..." : "Load more"}
           </Button>
         ) : null}
       </div>
@@ -98,10 +99,7 @@ export function NoMusicBrowser({ nomusic, ...props }: TProps) {
 }
 
 type TProps = {
-  nomusic: TNoMusic[];
-  page?: number | null;
-  nextPage?: number | null;
-  hasNextPage?: boolean | null;
+  initialData: TNoMusicPaginated;
 };
 
 // useTrackInitialLoad() - regitry and queue

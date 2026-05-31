@@ -22,12 +22,7 @@ export default async function NoMusicPage() {
   return (
     <div className="flex-1 pt-24 pb-32 max-w-7xl mx-auto w-full px-4 lg:px-8 space-y-10">
       <NoMusicHeader />
-      <NoMusicBrowser
-        nomusic={res.data.docs}
-        page={res.data.page}
-        nextPage={res.data.nextPage}
-        hasNextPage={res.data.hasNextPage}
-      />
+      <NoMusicBrowser initialData={res.data} />
     </div>
   );
 }

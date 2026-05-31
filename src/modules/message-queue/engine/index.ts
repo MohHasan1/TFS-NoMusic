@@ -1,22 +1,19 @@
-import { TCreateMessageInput, TMessageQueueItem } from "../type";
+import { TMessageQueueItem } from "../type";
 
 export class MessageQueueEngine {
-  private createMessage(message: TCreateMessageInput): TMessageQueueItem {
+  private createMessage(message: TMessageQueueItem) {
     return {
       ...message,
-      id: crypto.randomUUID(),
       createdAt: Date.now(),
     };
   }
 
-  addMessage(messageQueue: TMessageQueueItem[], messageInput: TCreateMessageInput) {
-    const message = this.createMessage(messageInput);
+  addOne(messageQueue: TMessageQueueItem[], messageItem: TMessageQueueItem) {
+    const message = this.createMessage(messageItem);
 
-    if (message.payload.mode === "replace") {
+    if (message.mode === "replace") {
       return [
-        ...messageQueue.filter(
-          (currentMessage) => currentMessage.payload.sourceKey !== message.payload.sourceKey,
-        ),
+        ...messageQueue.filter((currentMessage) => currentMessage.id !== message.id),
         message,
       ];
     }
@@ -24,11 +21,11 @@ export class MessageQueueEngine {
     return [...messageQueue, message];
   }
 
-  getMessagesByType(messageQueue: TMessageQueueItem[], type: TMessageQueueItem["type"]) {
-    return messageQueue.filter((message) => message.type === type);
+  getById(messageQueue: TMessageQueueItem[], messageId: TMessageQueueItem["id"]) {
+    return messageQueue.find((message) => message.id === messageId);
   }
 
-  removeMessage(messageQueue: TMessageQueueItem[], messageId: string): TMessageQueueItem[] {
+  removeById(messageQueue: TMessageQueueItem[], messageId: TMessageQueueItem["id"]) {
     return messageQueue.filter((message) => message.id !== messageId);
   }
 

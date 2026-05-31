@@ -16,4 +16,3 @@ export type TMessageQueueState = {
 };
 
 export type TMessageQueueSlice = ReturnType<typeof createMessageQueueSlice>;
-
