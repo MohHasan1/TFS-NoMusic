@@ -4,7 +4,7 @@ import { PUBLIC_ROUTES } from "#constants/routes";
 import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
 import NoMusicHeader from "#components/private/nomusic/elements/NoMusicHeader";
 import { NoMusicBrowser } from "#components/private/nomusic/sections/NoMusicBrowser";
-import { listNomusicPaginated } from "#services/no-music/no-music.ports";
+import { listNomusicPaginated } from "#services/nomusic/no-music.ports";
 import { getCurrentUser } from "#services/auth/auth.ports";
 
 export default async function NoMusicPage() {

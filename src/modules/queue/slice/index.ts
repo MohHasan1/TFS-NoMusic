@@ -14,16 +14,16 @@ export const createQueueSlice = combine(
       set({ queueIds });
     },
 
+    setQueueIdIndexMap: (queueIdIndexMap: TQueueState["queueIdIndexMap"]) => {
+      set({ queueIdIndexMap });
+    },
+
     setCurrentIndex: (currentIndex: TQueueState["currentIndex"]) => {
       set({ currentIndex });
     },
 
     setQueueSourceKey: (queueSourceKey: TQueueState["queueSourceKey"]) => {
       set({ queueSourceKey });
-    },
-
-    setQueueIdIndexMap: (queueIdIndexMap: TQueueState["queueIdIndexMap"]) => {
-      set({ queueIdIndexMap });
     },
 
     setRepeatMode: (repeatMode: TQueueState["repeatMode"]) => {

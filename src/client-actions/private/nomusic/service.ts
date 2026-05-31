@@ -1,12 +1,12 @@
+import type { QueryFunctionContext } from "@tanstack/react-query";
+import type { PaginatedDocs } from "payload";
+import { stringify } from "qs-esm";
+
 import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
-import { mapNomusic } from "#services/no-music/no-music.mapper";
+import { mapNomusic } from "#services/nomusic/no-music.mapper";
 import type { TNoMusicPaginated } from "#types/nomusic";
 import type { Nomusic } from "#payload-types";
-import type { PaginatedDocs } from "payload";
-import { QUERY_KEYS } from "../keys";
-
-import { stringify } from "qs-esm";
-import type { QueryFunctionContext } from "@tanstack/react-query";
+import { QUERY_KEYS } from "./keys";
 
 type TNomusicInfiniteQueryKey = ReturnType<typeof QUERY_KEYS.nomusic.infinite>;
 

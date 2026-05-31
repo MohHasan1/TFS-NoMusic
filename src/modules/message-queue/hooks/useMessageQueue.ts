@@ -9,7 +9,7 @@ export function useMessageQueue() {
   const addMessage = useCallback((messageItem: TMessageQueueItem) => {
     messageQueueController.addMessage(messageItem);
   }, []);
-  
+
   const consumeMessageById = useCallback((messageId: TMessageQueueItem["id"]) => {
     return messageQueueController.consumeMessageById(messageId);
   }, []);

@@ -1,19 +1,20 @@
 "use client";
 
+import { useInView } from "react-intersection-observer";
 import { useCallback, useMemo } from "react";
 
-import { TNoMusicPaginated } from "#types/nomusic";
-import { Button } from "#components/ui/button";
-import { NoMusicCard } from "../elements/NoMusicCard";
-import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
+import { useNomusicPageInfiniteQuery } from "#client-actions/private/nomusic/query";
 import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
-import { useNomusicPageInfiniteQuery } from "#client-actions/queries/hooks/useNomusicInfiniteQuery";
 import { SOURCE_KEYS } from "#constants/private/source";
-import { useInView } from "react-intersection-observer";
+import { TNoMusicPaginated } from "#types/nomusic";
+
+import { NoMusicEmptyCard } from "../elements/NomusicEmptyCard";
+import { NoMusicCard } from "../elements/NoMusicCard";
 
 export function NoMusicBrowser({ initialData }: TProps) {
-  const { start, extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE);
   const query = useNomusicPageInfiniteQuery(initialData);
+
+  const { start, extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE);
 
   const { ref } = useInView({
     rootMargin: "300px",
@@ -47,16 +48,16 @@ export function NoMusicBrowser({ initialData }: TProps) {
     [start, tracks],
   );
 
-  const loadMore = useCallback(() => {
+  const loadMore = useCallback(async () => {
     if (!query.hasNextPage || query.isFetchingNextPage) return;
 
-    query.fetchNextPage().then((res) => {
-      const newPage = res.data?.pages.at(-1);
-      const newTracks = newPage?.docs ?? [];
+    const res = await query.fetchNextPage();
 
-      extend(newTracks);
-    });
-  }, [extend]);
+    const newPage = res.data?.pages.at(-1);
+    const newTracks = newPage?.docs ?? [];
+
+    extend(newTracks);
+  }, [extend, query.fetchNextPage, query.hasNextPage, query.isFetchingNextPage]);
 
   return tracks.length === 0 ? (
     <section className="min-h-80">
@@ -73,17 +74,13 @@ export function NoMusicBrowser({ initialData }: TProps) {
         ))}
       </div>
 
-      {/* <div className="min-h-dvh"></div> */}
-
       <div ref={ref} className="flex items-center justify-center pb-40">
         {query.hasNextPage ? (
-          <Button size="lg" onClick={loadMore} type="button" variant="outline" disabled={true}>
-            {query.isFetchingNextPage ? "Loading..." : "Scroll for more"}
-          </Button>
+          <div ref={ref} className="h-10 pb-40" />
         ) : (
-          <Button size="lg" type="button" variant="outline" disabled={true}>
-            That all
-          </Button>
+          <p className="text-sm text-muted-foreground">
+            That's all - server cat is out of songs 🐾
+          </p>
         )}
       </div>
     </section>
@@ -93,6 +90,3 @@ export function NoMusicBrowser({ initialData }: TProps) {
 type TProps = {
   initialData: TNoMusicPaginated;
 };
-
-// useTrackInitialLoad() - regitry and queue
-// useTrack

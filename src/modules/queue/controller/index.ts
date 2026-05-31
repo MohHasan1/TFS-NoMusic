@@ -9,25 +9,42 @@ class QueueController {
     const {
       queueSourceKey,
       queueIdIndexMap,
-      setQueueSourceKey,
+
       setQueueIds,
-      setQueueIdIndexMap,
       setCurrentIndex,
+      setQueueSourceKey,
+      setQueueIdIndexMap,
     } = store.getState();
 
-    // same source, just different track in the source is clicked
+    // Same source: just different track is clicked in the same source - current-index is just upated:
     if (queueSourceKey === sourceKey) {
       setCurrentIndex(queueEngine.getIndexByTrackId(queueIdIndexMap, startTrackId));
       return;
     }
 
-    const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueData(tracks);
+    // New source:
+    const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueIdData(tracks);
     const currentIndex = queueEngine.getIndexByTrackId(newQueueIdIndexMap, startTrackId);
 
     setQueueSourceKey(sourceKey);
     setQueueIds(newQueueIds);
     setQueueIdIndexMap(newQueueIdIndexMap);
     setCurrentIndex(currentIndex);
+  }
+
+  extendQueue(sourceKey: string, tracks: TNoMusic[]) {
+    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap, queueSourceKey } =
+      store.getState();
+
+    // If source is not equal, queue should not be extended - very important:
+    if (queueSourceKey !== sourceKey) {
+      return;
+    }
+
+    const res = queueEngine.extendQueue(queueIds, queueIdIndexMap, tracks);
+
+    setQueueIds(res.queueIds);
+    setQueueIdIndexMap(res.queueIdIndexMap);
   }
 
   getCurrentTrackId() {
@@ -60,36 +77,8 @@ class QueueController {
   }
 
   getNextRepeatMode() {
-    const { repeatMode } = store.getState();
-
+    const repeatMode = store.use.repeatMode();
     return queueEngine.getNextRepeatMode(repeatMode);
-  }
-
-  appendQueue(sourceKey: string, trackId: TNoMusic["id"]) {
-    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap, queueSourceKey } =
-      store.getState();
-
-    if (queueSourceKey !== sourceKey) {
-      return;
-    }
-
-    const res = queueEngine.appendQueueId(queueIds, queueIdIndexMap, trackId);
-
-    setQueueIds(res.queueIds);
-    setQueueIdIndexMap(res.queueIdIndexMap);
-  }
-
-  extendQueue(sourceKey: string, tracks: TNoMusic[]) {
-    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap, queueSourceKey } =
-      store.getState();
-
-    if (queueSourceKey !== sourceKey) {
-      return;
-    }
-
-    const res = queueEngine.extendQueue(queueIds, queueIdIndexMap, tracks);
-    setQueueIds(res.queueIds);
-    setQueueIdIndexMap(res.queueIdIndexMap);
   }
 
   clearQueue() {

@@ -1,24 +1,13 @@
 import type { TNoMusic } from "#types/nomusic";
+import { DEFAULT_REPEAT } from "../constants";
 import { TQueueState } from "../slice";
-
-const DEFAULT_REPEAT = "all";
 
 export class QueueEngine {
   createQueueIds(tracks: TNoMusic[]) {
     return tracks.map((track) => track.id);
   }
 
-  createQueueIdIndexMap(queueIds: TNoMusic["id"][]) {
-    const queueIdIndexMap: Record<string, number> = {};
-
-    queueIds.forEach((trackId, index) => {
-      queueIdIndexMap[String(trackId)] = index;
-    });
-
-    return queueIdIndexMap;
-  }
-
-  createQueueData(tracks: TNoMusic[]) {
+  createQueueIdData(tracks: TNoMusic[]) {
     const newQueueIds: TNoMusic["id"][] = [];
     const newQueueIdIndexMap: Record<string, number> = {};
 
@@ -33,16 +22,26 @@ export class QueueEngine {
     };
   }
 
-  getIndexByTrackId(queueIdIndexMap: Record<string, number>, trackId: TNoMusic["id"]) {
+  createQueueIdIndexMap(queueIds: TQueueState["queueIds"]) {
+    const queueIdIndexMap: Record<string, number> = {};
+
+    queueIds.forEach((trackId, index) => {
+      queueIdIndexMap[String(trackId)] = index;
+    });
+
+    return queueIdIndexMap;
+  }
+
+  getIndexByTrackId(queueIdIndexMap: TQueueState["queueIdIndexMap"], trackId: TNoMusic["id"]) {
     return queueIdIndexMap[String(trackId)] ?? -1;
   }
 
-  getCurrentId(queueIds: TNoMusic["id"][], currentIndex: number) {
+  getCurrentId(queueIds: TQueueState["queueIds"], currentIndex: number) {
     return queueIds[currentIndex] ?? null;
   }
 
   getNextIdAndIndex(
-    queueIds: TNoMusic["id"][],
+    queueIds: TQueueState["queueIds"],
     currentIndex: number,
     repeatMode?: TQueueState["repeatMode"],
   ) {
@@ -52,7 +51,7 @@ export class QueueEngine {
   }
 
   getNextIndex(
-    queueIds: TNoMusic["id"][],
+    queueIds: TQueueState["queueIds"],
     currentIndex: number,
     repeatMode: TQueueState["repeatMode"] = DEFAULT_REPEAT,
   ) {
@@ -76,7 +75,7 @@ export class QueueEngine {
   }
 
   getPreviousIdAndIndex(
-    queueIds: TNoMusic["id"][],
+    queueIds: TQueueState["queueIds"],
     currentIndex: number,
     repeatMode?: TQueueState["repeatMode"],
   ) {
@@ -86,7 +85,7 @@ export class QueueEngine {
   }
 
   getPreviousIndex(
-    queueIds: TNoMusic["id"][],
+    queueIds: TQueueState["queueIds"],
     currentIndex: number,
     repeatMode: TQueueState["repeatMode"] = DEFAULT_REPEAT,
   ) {
@@ -110,7 +109,7 @@ export class QueueEngine {
     return -1;
   }
 
-  getRandomIndex(queueIds: TNoMusic["id"][], currentIndex: number) {
+  getRandomIndex(queueIds: TQueueState["queueIds"], currentIndex: number) {
     if (queueIds.length === 0) return -1;
     if (queueIds.length === 1) return 0;
 
@@ -123,7 +122,7 @@ export class QueueEngine {
     return randomIndex;
   }
 
-  getRandomIdAndIndex(queueIds: TNoMusic["id"][], currentIndex: number) {
+  getRandomIdAndIndex(queueIds: TQueueState["queueIds"], currentIndex: number) {
     const randomIndex = this.getRandomIndex(queueIds, currentIndex);
 
     if (randomIndex === -1) {
@@ -136,37 +135,21 @@ export class QueueEngine {
     };
   }
 
-  getNextRepeatMode(repeatMode: TQueueState["repeatMode"]) {
-    if (repeatMode === "off") return "all";
-    if (repeatMode === "all") return "one";
-    if (repeatMode === "one") return "random";
+  getNextRepeatMode(currentRepeatMode: TQueueState["repeatMode"]) {
+    if (currentRepeatMode === "off") return "all";
+    if (currentRepeatMode === "all") return "one";
+    if (currentRepeatMode === "one") return "random";
 
     return "off";
   }
 
-  appendQueueId(
-    queueIds: TNoMusic["id"][],
-    queueIdIndexMap: Record<string, number>,
-    trackId: TNoMusic["id"],
-  ) {
-    const nextQueueIds = [...queueIds, trackId];
-
-    return {
-      queueIds: nextQueueIds,
-      queueIdIndexMap: {
-        ...queueIdIndexMap,
-        [String(trackId)]: nextQueueIds.length - 1,
-      },
-    };
-  }
-
   extendQueue(
-    currentTrackIds: TNoMusic["id"][],
-    currentTrackIdIndexMap: Record<string, number>,
+    queueIds: TQueueState["queueIds"],
+    queueIdIndexMap: TQueueState["queueIdIndexMap"],
     tracks: TNoMusic[],
   ) {
-    const nextQueueIds = [...currentTrackIds];
-    const nextQueueIdIndexMap = { ...currentTrackIdIndexMap };
+    const nextQueueIds = [...queueIds];
+    const nextQueueIdIndexMap = { ...queueIdIndexMap };
 
     tracks.forEach((track) => {
       nextQueueIdIndexMap[String(track.id)] = nextQueueIds.length;

@@ -1,9 +1,11 @@
+"use client";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
-import { fetchNomusicInfiniteFn } from "../functions";
 import { TNoMusicPaginated } from "#types/nomusic";
-import { QUERY_KEYS } from "../keys";
+import { fetchNomusicInfiniteFn } from "./service";
+import { QUERY_KEYS } from "./keys";
 
 export function useNomusicPageInfiniteQuery(initialData: TNoMusicPaginated) {
   return useInfiniteQuery({
