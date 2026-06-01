@@ -1,25 +1,38 @@
+import { logInfo } from "#loggers";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function proxy(request: NextRequest) {
   const token = request.cookies.get("payload-token")?.value;
 
-  // not logged in -> allow signin page
+  // No cookie means user is not logged in, so show signin page
   if (!token) {
     return NextResponse.next();
   }
 
-  // logged in -> verify token through Payload API
-  const response = await fetch(`${request.nextUrl.origin}/api/users/me`, {
-    headers: {
-      cookie: request.headers.get("cookie") ?? "",
-    },
-  });
+  try {
+    const response = await fetch(new URL("/api/users/me", request.url), {
+      headers: {
+        cookie: request.headers.get("cookie") ?? "",
+      },
+      cache: "no-store",
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return NextResponse.next();
+    }
+
+    const data = await response.json().catch(() => null);
+
+    // Important: response can be OK but user can still be null
+    if (!data?.user) {
+      return NextResponse.next();
+    }
+
+    return NextResponse.redirect(new URL("/nomusic", request.url));
+  } catch {
+    // If Payload API fails during restart/dev reload, don't force redirect
     return NextResponse.next();
   }
-
-  return NextResponse.redirect(new URL("/nomusic", request.url));
 }
 
 export const config = {
