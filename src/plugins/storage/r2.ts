@@ -9,7 +9,7 @@ export const r2StoragePlugin = s3Storage({
   alwaysInsertFields: true,
   collections: {
     media: {
-      prefix: "nomusic",
+      prefix: "nomusic/vocals",
       disablePayloadAccessControl: true,
       generateFileURL: ({ filename, prefix }) => {
         const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
