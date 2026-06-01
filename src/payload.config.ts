@@ -12,7 +12,8 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
-  serverURL: process.env.SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+  serverURL:
+    process.env.SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   db,
   email: resendEmailAdapter,
   collections,
@@ -31,4 +32,11 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   plugins: [r2StoragePlugin],
+  upload: {
+    limits: {
+      fileSize: 6 * 1024 * 1024, // 6 MB
+    },
+    abortOnLimit: true,
+    responseOnLimit: "File is too large. Max size is 6 MB.",
+  },
 });

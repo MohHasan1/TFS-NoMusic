@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { usePlayerSeek } from "@/modules/player/hooks/usePlayerSeek";
-import { formatPlaybackTime } from "../../utils/formatPlaybackTime";
+import { formatPlaybackTime } from "../../utils";
 
 const SEEK_STEP_SECONDS = 1;
 const SEEK_SYNC_THRESHOLD_SECONDS = 0.25;

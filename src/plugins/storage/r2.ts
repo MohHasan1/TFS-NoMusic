@@ -5,6 +5,7 @@ const r2 = getR2Env();
 
 export const r2StoragePlugin = s3Storage({
   enabled: r2.enabled,
+  clientUploads: true,
   alwaysInsertFields: true,
   collections: {
     media: {
@@ -28,4 +29,5 @@ export const r2StoragePlugin = s3Storage({
     endpoint: r2.enabled ? r2.endpoint : "",
     forcePathStyle: true,
   },
+  
 });

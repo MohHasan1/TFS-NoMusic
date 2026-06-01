@@ -1,7 +1,8 @@
 "use client";
 
+import { memo } from "react";
 import Image from "next/image";
-import { RiGlobalLine, RiPlayFill, RiUser3Line } from "@remixicon/react";
+import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixicon/react";
 
 import { cn } from "#lib/utils";
 import { PlayingBars } from "./PlayingBars";
@@ -10,11 +11,14 @@ import type { TNoMusic } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
-import { formatPlaybackTime } from "#components/private/common/utils/formatPlaybackTime";
-import { memo } from "react";
+import {
+  formatPlaybackTime,
+  isNewByUpdatedDate,
+} from "#components/private/common/utils";
 
 const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic.id);
+  const isNew = isNewByUpdatedDate(noMusic.uploadedAt);
 
   return (
     <Button
@@ -57,6 +61,15 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
               {isPlaying ? <PlayingBars /> : <RiPlayFill className="size-4 fill-current" />}
             </div>
           </div>
+
+          {true && (
+            <div className="absolute right-2 top-2 z-20">
+              <span className="flex items-center gap-1 rounded-md bg-primary/60 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-primary-foreground">
+                <RiSparkling2Fill className="size-2 text-yellow-400" />
+                New
+              </span>
+            </div>
+          )}
 
           <span className="absolute bg-card-secondary/60 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">
             {formatPlaybackTime(noMusic.duration ?? 0)}
