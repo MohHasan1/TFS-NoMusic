@@ -13,24 +13,30 @@ export function payloadErrorResponse(error: unknown): TErrorResponse {
           status: error.status,
         },
       ],
-      error.isPublic ? error.message : undefined,
+      error.isPublic ? error.message : "Something went wrong.",
     );
   }
 
   if (error instanceof Error) {
-    return errorResponse([
+    return errorResponse(
+      [
+        {
+          name: error.name,
+          message: "Something went wrong.",
+          status: 500,
+        },
+      ],
+      "Something went wrong.",
+    );
+  }
+
+  return errorResponse(
+    [
       {
-        name: error.name,
         message: "Something went wrong.",
         status: 500,
       },
-    ]);
-  }
-
-  return errorResponse([
-    {
-      message: "Something went wrong.",
-      status: 500,
-    },
-  ]);
+    ],
+    "Something went wrong.",
+  );
 }

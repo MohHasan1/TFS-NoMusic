@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
-import { redirect } from "next/navigation";
+import { useCallback, useTransition } from "react";
 import { RiLogoutBoxRLine } from "@remixicon/react";
 
 import {
@@ -19,15 +18,18 @@ import {
 import { Button } from "#components/ui/button";
 import { useLogoutCleanup } from "#modules/hooks/useLogoutCleanup";
 import { logoutAction } from "#server-actions/auth/logout";
-import { PUBLIC_ROUTES } from "#constants/routes";
+import { Spinner } from "#components/ui/spinner";
 
-const LogoutButton = () => {
+const LogoutDialog = () => {
   const { cleanupBeforeLogout } = useLogoutCleanup();
+  const [isPending, startTransition] = useTransition();
 
-  const handleLogout = useCallback(async () => {
+  const handleLogout = useCallback(() => {
     cleanupBeforeLogout();
-    await logoutAction();
-    redirect(PUBLIC_ROUTES.SIGNIN);
+
+    startTransition(async () => {
+      await logoutAction();
+    });
   }, [cleanupBeforeLogout]);
 
   return (
@@ -45,15 +47,21 @@ const LogoutButton = () => {
           </AlertDialogMedia>
           <AlertDialogTitle>Log out?</AlertDialogTitle>
           <AlertDialogDescription>
-            Your current session will end and you will be redirected to the sign-in page.
+            The server cat will close your session and take you back to sign-in.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
 
-          <AlertDialogAction type="button" variant="destructive" onClick={handleLogout}>
-            Log out
+          <AlertDialogAction
+            type="button"
+            disabled={isPending}
+            variant="destructive"
+            onClick={handleLogout}
+          >
+            {isPending && <Spinner data-icon="inline-start" />}
+            {isPending ? "See ya..." : "Log out"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -61,4 +69,4 @@ const LogoutButton = () => {
   );
 };
 
-export default LogoutButton;
+export default LogoutDialog;

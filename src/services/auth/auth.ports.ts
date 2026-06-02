@@ -17,7 +17,7 @@ export async function signUp(data: TSignup) {
   return signupAdapter(data);
 }
 
-export async function logoutUser() {
+export async function logout() {
   return logoutAdapter();
 }
 

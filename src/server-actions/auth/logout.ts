@@ -1,14 +1,19 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
 import { PUBLIC_ROUTES } from "#constants/routes";
-import { logoutUser } from "#services/auth/auth.ports";
+import { logout } from "#services/auth/auth.ports";
+import { authLogger } from "#scoped-loggers";
 
 export async function logoutAction() {
   // 1. Logout user:
-  await logoutUser();
+  const res = await logout();
+  if (!res.isSuccess) {
+    authLogger(res);
+    redirect(PUBLIC_ROUTES.HOME, RedirectType.replace);
+  }
 
   // Successfull!
-  redirect(PUBLIC_ROUTES.SIGNIN);
+  redirect(PUBLIC_ROUTES.SIGNIN, RedirectType.replace);
 }

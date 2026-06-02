@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "#lib/utils";
 import { privateNavItems } from "./links";
-import LogoutButton from "./LogoutButton";
+import LogoutDialog from "./LogoutDialog";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { BrandLogoLink } from "#components/shared/BrandLogoLink";
 import { buttonVariants } from "#components/ui/button";
@@ -44,7 +44,7 @@ export function PrivateNavbar() {
             })}
           </div>
 
-          <LogoutButton />
+          <LogoutDialog />
         </div>
       </nav>
     </header>

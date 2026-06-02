@@ -1,16 +1,7 @@
-// import { Space_Grotesk } from "next/font/google";
-
-import { Toaster } from "@/components/ui/sonner";
-
 import { Montserrat } from "next/font/google";
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 import "./globals.css";
-
-// const spaceGrotesk = Space_Grotesk({
-//   subsets: ["latin"],
-//   display: "swap",
-//   variable: "--font-sans",
-// });
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -18,13 +9,17 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "NoMusic — Private Streaming",
-  description: "A private, invite-only platform for streaming pure vocals with no instruments.",
+  title: "NoMusic — Pure Vocals, Private Listening",
+  description:
+    "A private, invite-only space for listening to clean vocal tracks without instruments, made for a small trusted circle.",
 };
 
 export default function RootLayout({ children }: TProps) {
   return (
-    <html lang="en" className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}>
+    <html
+      lang="en"
+      className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}
+    >
       <body className="min-h-dvh h-full">
         {children} <Toaster position="top-right" />
       </body>
@@ -33,6 +28,3 @@ export default function RootLayout({ children }: TProps) {
 }
 
 type TProps = Readonly<{ children: React.ReactNode }>;
-
-// <html lang="en" className={`${montserrat.className} dark h-full antialiased bg-background`}>
-// className={`${spaceGrotesk.variable} ${spaceGrotesk.className} dark h-full antialiased bg-background`}
