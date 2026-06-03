@@ -26,7 +26,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
       data-nomusic-index={index}
       data-nomusic-id={noMusic.id}
       variant="ghost"
-      aria-label={`Play ${noMusic.title}`}
+      aria-label={`Play ${noMusic.name}`}
       className="group h-auto cursor-pointer p-0 text-left"
     >
       <Card
@@ -62,7 +62,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
             </div>
           </div>
 
-          {true && (
+          {isNew && (
             <div className="absolute right-2 top-2 z-20">
               <span className="flex items-center gap-1 rounded-md bg-primary/60 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-primary-foreground">
                 <RiSparkling2Fill className="size-2 text-yellow-400" />

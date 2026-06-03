@@ -22,7 +22,6 @@ export async function fetchNomusicInfiniteFn({
       pagination: true,
       select: {
         name: true,
-        title: true,
         artist: true,
         language: true,
         duration: true,

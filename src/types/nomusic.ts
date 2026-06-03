@@ -3,7 +3,6 @@ import type { PaginatedDocs } from "payload";
 
 export type TNoMusic = {
   id: Nomusic["id"];
-  title: Nomusic["title"];
   name: Nomusic["name"];
   artist: Nomusic["artist"];
   language: Nomusic["language"];
