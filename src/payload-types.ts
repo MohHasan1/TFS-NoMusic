@@ -211,8 +211,11 @@ export interface User {
  */
 export interface Whitelist {
   id: string;
-  name?: string | null;
+  name: string;
   email: string;
+  emailType: 'invite' | 'access_approved';
+  emailAction?: ('none' | 'send' | 'resend') | null;
+  emailStatus?: ('not_sent' | 'sent' | 'failed') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -224,7 +227,7 @@ export interface Request {
   id: string;
   type: 'access_request' | 'nomusic_request' | 'general_feedback' | 'bug_report';
   name?: string | null;
-  email: string;
+  email?: string | null;
   message?: string | null;
   url?: string | null;
   status?: ('pending' | 'approved' | 'rejected') | null;
@@ -491,6 +494,9 @@ export interface UsersSelect<T extends boolean = true> {
 export interface WhitelistSelect<T extends boolean = true> {
   name?: T;
   email?: T;
+  emailType?: T;
+  emailAction?: T;
+  emailStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }

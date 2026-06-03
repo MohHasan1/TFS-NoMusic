@@ -22,7 +22,7 @@ export function payloadErrorResponse(error: unknown): TErrorResponse {
       [
         {
           name: error.name,
-          message: "Something went wrong.",
+          message: error.message,
           status: 500,
         },
       ],

@@ -1,23 +1,20 @@
-import { Section, Text } from "react-email";
-import { EmailHeading } from "../_components/elements/EmailHeading";
-import { BrandLogo } from "../_components/elements/BrandLogo";
-import { PrimaryButton } from "../_components/elements/PrimaryButton";
-import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { BrandLogo } from "../_components/elements/BrandLogo";
 import { Layout } from "../_components/layout/Layout";
+import { Section, Text } from "react-email";
 
-export const InviteEmail = ({
-  userName = "there",
-  inviteUrl = "https://nomusic.thefamilysuite.org/invite",
-}: InviteEmailProps) => {
+export const InviteEmail = ({ name = "there", inviteUrl }: InviteEmailProps) => {
   return (
-    <Layout previewText="Your NoMusic invite is here 🎧">
+    <Layout previewText="NoMusic is a small private space for family, siblings, and close friends to listen to vocals-only tracks without the instruments.">
       <BrandLogo />
 
       <Section>
         <EmailHeading>
           {"Your NoMusic invite is here, "}
-          <span className="text-logo-nomusic uppercase">{userName}</span>
+          <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎧"}
         </EmailHeading>
 
@@ -69,6 +66,6 @@ export const InviteEmail = ({
 export default InviteEmail;
 
 type InviteEmailProps = {
-  userName?: string;
-  inviteUrl?: string;
+  name?: string;
+  inviteUrl: string;
 };

@@ -7,17 +7,17 @@ import { EmailSignature } from "../_components/elements/EmailSignature";
 import { Layout } from "../_components/layout/Layout";
 
 export const AccessApprovedEmail = ({
-  userName = "there",
-  signupUrl = "https://nomusic.thefamilysuite.org/signup",
+  name = "there",
+  signupUrl,
 }: AccessApprovedEmailProps) => {
   return (
-    <Layout previewText="Hurray! Your request has been approved 🎉">
+    <Layout previewText="You can now join NoMusic — the private vocals-only circle for family, siblings, and close friends.">
       <BrandLogo />
 
       <Section>
         <EmailHeading>
           {"Your request has been approved, "}
-          <span className="text-logo-nomusic uppercase">{userName}</span>
+          <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎉"}
         </EmailHeading>
 
@@ -66,6 +66,6 @@ export const AccessApprovedEmail = ({
 export default AccessApprovedEmail;
 
 type AccessApprovedEmailProps = {
-  userName?: string;
-  signupUrl?: string;
+  name?: string;
+  signupUrl: string;
 };

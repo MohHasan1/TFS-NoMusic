@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { REQUEST_TYPE_OPTIONS } from "./constants/requests";
-import { enrichRequestIdentityBeforeValidate } from "./hooks/requests";
+import { fillUserInfoBeforeValidate } from "./hooks/requests";
 
 export const Requests: CollectionConfig = {
   slug: "requests",
@@ -10,7 +10,7 @@ export const Requests: CollectionConfig = {
   },
 
   hooks: {
-    beforeValidate: [enrichRequestIdentityBeforeValidate],
+    beforeValidate: [fillUserInfoBeforeValidate],
   },
 
   access: {
@@ -36,7 +36,6 @@ export const Requests: CollectionConfig = {
     {
       name: "email",
       type: "email",
-      required: true,
     },
 
     {

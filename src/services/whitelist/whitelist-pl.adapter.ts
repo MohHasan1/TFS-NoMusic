@@ -11,15 +11,13 @@ export async function isWhitelistedEmailAdapter(email: string) {
       depth: 0,
       limit: 1,
       pagination: false,
-      overrideAccess: false,
+      overrideAccess: true, // bypassing access check as read is set to admins only.
       where: {
         email: {
           equals: email.toLowerCase(),
         },
       },
-      select: {
-        name: true,
-      },
+      select: {},
     }),
   );
   if (!res.isSuccess) return res;
@@ -27,5 +25,5 @@ export async function isWhitelistedEmailAdapter(email: string) {
   const isWhitelisted = res.data.docs.length > 0;
   if (isWhitelisted) return successResponse(isWhitelisted);
 
-  return errorResponse();
+  return errorResponse([], "User is not whitelisted");
 }
