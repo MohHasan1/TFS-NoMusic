@@ -265,7 +265,6 @@ export interface Media {
  */
 export interface Nomusic {
   id: string;
-  title?: string | null;
   name: string;
   audioFile: string | Media;
   uploadedAudioURL?: string | null;
@@ -538,7 +537,6 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "nomusic_select".
  */
 export interface NomusicSelect<T extends boolean = true> {
-  title?: T;
   name?: T;
   audioFile?: T;
   uploadedAudioURL?: T;

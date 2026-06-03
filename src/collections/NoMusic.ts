@@ -1,7 +1,11 @@
 import type { CollectionConfig } from "payload";
 import { LANGUAGES_VALUES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
-import { assignNomusicLibraryAfterChange, syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
+import {
+  assignNomusicLibraryAfterChange,
+  syncUploadAudioURLBeforeValidate,
+  syncUploadImageURLBeforeValidate,
+} from "./hooks/noMusic";
 
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
@@ -33,12 +37,7 @@ export const Nomusic: CollectionConfig = {
     delete: ({ req }) => req.user?.role === "admin",
   },
 
-  // TODO: remove title
   fields: [
-    {
-      name: "title",
-      type: "text",
-    },
     {
       name: "name",
       type: "text",

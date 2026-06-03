@@ -1,15 +1,12 @@
-import { Section, Text } from "react-email";
-import { EmailHeading } from "../_components/elements/EmailHeading";
-import { BrandLogo } from "../_components/elements/BrandLogo";
-import { PrimaryButton } from "../_components/elements/PrimaryButton";
-import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
+import { PrimaryButton } from "../_components/elements/PrimaryButton";
+import { EmailHeading } from "../_components/elements/EmailHeading";
+import { EmailDivider } from "../_components/elements/EmailDivider";
+import { BrandLogo } from "../_components/elements/BrandLogo";
 import { Layout } from "../_components/layout/Layout";
+import { Section, Text } from "react-email";
 
-export const WelcomeEmail = ({
-  name = "there",
-  url,
-}: WelcomeEmailProps) => {
+export const WelcomeEmail = ({ name = "there", url, isPrev }: TProps) => {
   return (
     <Layout previewText="You officially made it into NoMusic. This is a private space for family, siblings, and close friends only, a small closed circle for vocals-only tracks without the instruments.">
       <BrandLogo />
@@ -20,6 +17,14 @@ export const WelcomeEmail = ({
           <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎧"}
         </EmailHeading>
+
+        {isPrev && (
+          <Text className="text-content-muted text-small mt-2">
+            {
+              "Lucky you — the server cat has blessed you with early access to test NoMusic while it is still in development."
+            }
+          </Text>
+        )}
 
         <Text className="text-content-secondary text-body">
           {
@@ -61,7 +66,8 @@ export const WelcomeEmail = ({
 
 export default WelcomeEmail;
 
-type WelcomeEmailProps = {
+type TProps = {
   name?: string;
   url: string;
+  isPrev?: boolean;
 };

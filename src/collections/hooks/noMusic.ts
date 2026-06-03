@@ -1,9 +1,13 @@
 import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "payload";
 import { isID } from "@/lib/utils";
-import type { Library, Nomusic } from "@/payload-types";
+import type { Nomusic } from "@/payload-types";
 import { getLibraryIdByLanguage } from "../helpers/library";
+import { logInfo } from "#loggers";
 
-export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
+export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
+  data,
+  req,
+}) => {
   if (!data?.audioFile) return data;
   const audioFile = data.audioFile;
 
@@ -36,7 +40,10 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   return data;
 };
 
-export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
+export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
+  data,
+  req,
+}) => {
   if (!data?.coverImage?.imageFile) return data;
   const imageFile = data.coverImage.imageFile;
 
@@ -75,10 +82,14 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   return data;
 };
 
-export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Library> = async ({ doc, req }) => {
-  console.log("assignNomusicLibraryAfterChange");
+// TODO: optimize itor updates
+export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic> = async ({
+  doc,
+  operation,
+  req,
+}) => {
   // TODO: temp update opertaion
-  // if (operation !== "create") return;
+  if (operation !== "create") return;
 
   if (!doc.language) return;
 
@@ -87,14 +98,14 @@ export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Library>
   const res = await req.payload.create({
     collection: "nomusic-libraries",
     overrideAccess: true,
-    select: { createdAt: true },
+    select: {},
     data: {
       nomusic: doc.id,
       library: libraryId,
     },
   });
 
-  console.log(res);
+  logInfo(res);
 
   // TODO: if smt failed push to queue
 };
