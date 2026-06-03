@@ -6,5 +6,4 @@ export type TRequest = {
   name: Request["name"];
   email: Request["email"];
   message?: Request["message"];
-  metadata?: Request["metadata"];
 };
