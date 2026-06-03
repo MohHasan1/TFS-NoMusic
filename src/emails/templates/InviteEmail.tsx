@@ -6,7 +6,7 @@ import { BrandLogo } from "../_components/elements/BrandLogo";
 import { Layout } from "../_components/layout/Layout";
 import { Section, Text } from "react-email";
 
-export const InviteEmail = ({ name = "there", inviteUrl }: InviteEmailProps) => {
+export const InviteEmail = ({ name = "there", inviteUrl }: TProps) => {
   return (
     <Layout previewText="NoMusic is a small private space for family, siblings, and close friends to listen to vocals-only tracks without the instruments.">
       <BrandLogo />
@@ -65,7 +65,7 @@ export const InviteEmail = ({ name = "there", inviteUrl }: InviteEmailProps) => 
 
 export default InviteEmail;
 
-type InviteEmailProps = {
+type TProps = {
   name?: string;
   inviteUrl: string;
 };

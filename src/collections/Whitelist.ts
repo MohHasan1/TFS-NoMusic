@@ -6,12 +6,13 @@ import {
 } from "./constants/emails";
 import { access } from "./access";
 import type { CollectionConfig } from "payload";
-import { sendEmailBeforeChange } from "./hooks/whitelist";
+import { sendWhitelistEmailBeforeChange } from "./hooks/whitelist";
 
 export const Whitelist: CollectionConfig = {
   slug: "whitelist",
 
   admin: {
+    group: "Requests",
     useAsTitle: "name",
     defaultColumns: ["name", "email", "emailStatus"],
   },
@@ -23,7 +24,7 @@ export const Whitelist: CollectionConfig = {
     delete: access.isAdmin,
   },
 
-  hooks: { beforeChange: [sendEmailBeforeChange] },
+  hooks: { beforeChange: [sendWhitelistEmailBeforeChange] },
 
   fields: [
     {

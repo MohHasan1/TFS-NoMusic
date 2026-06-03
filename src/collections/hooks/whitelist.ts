@@ -8,8 +8,10 @@ import InviteEmail from "#emails-templates/InviteEmail";
 import { EMAIL_ACTION, EMAIL_STATUS } from "../constants/emails";
 import { tryCatchResponse } from "#trycatch-response";
 import { PUBLIC_ROUTES } from "#constants/routes";
+import { shouldSendEmail } from "../helpers/email";
+import { logInfo } from "#loggers";
 
-export const sendEmailBeforeChange: CollectionBeforeChangeHook<Whitelist> = async ({
+export const sendWhitelistEmailBeforeChange: CollectionBeforeChangeHook<Whitelist> = async ({
   data,
   originalDoc,
   req,
@@ -17,16 +19,11 @@ export const sendEmailBeforeChange: CollectionBeforeChangeHook<Whitelist> = asyn
   if (!data) return data;
 
   const emailAction = data.emailAction;
-  const emailType = data.emailType || originalDoc?.emailType;
+  const emailType = data.emailType;
   const emailStatus = data.emailStatus || originalDoc?.emailStatus;
-
-  if (!emailAction || emailAction === EMAIL_ACTION.NONE) return data;
-
-  // Decide if email can be sent
-  const canSend = emailAction === EMAIL_ACTION.SEND && emailStatus !== EMAIL_STATUS.SENT;
-  const canResend = emailAction === EMAIL_ACTION.RESEND;
-
-  if (!canSend && !canResend) {
+  const shouldSend = shouldSendEmail(emailAction, emailStatus);
+  logInfo("shouldSend", shouldSend);
+  if (!shouldSend) {
     return {
       ...data,
       emailAction: EMAIL_ACTION.NONE,
@@ -38,7 +35,6 @@ export const sendEmailBeforeChange: CollectionBeforeChangeHook<Whitelist> = asyn
   const name = data.name || originalDoc?.name;
   const email = data.email || originalDoc?.email;
   const signupUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${PUBLIC_ROUTES.SIGNUP}`;
-
   if (!email) return data;
 
   const subject = isInviteEmail

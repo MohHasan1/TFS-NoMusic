@@ -6,10 +6,7 @@ import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
 import { Layout } from "../_components/layout/Layout";
 
-export const AccessApprovedEmail = ({
-  name = "there",
-  signupUrl,
-}: AccessApprovedEmailProps) => {
+export const AccessApprovedEmail = ({ name = "there", signupUrl }: TProps) => {
   return (
     <Layout previewText="You can now join NoMusic — the private vocals-only circle for family, siblings, and close friends.">
       <BrandLogo />
@@ -65,7 +62,7 @@ export const AccessApprovedEmail = ({
 
 export default AccessApprovedEmail;
 
-type AccessApprovedEmailProps = {
+type TProps = {
   name?: string;
   signupUrl: string;
 };

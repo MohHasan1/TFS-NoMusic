@@ -1,23 +1,20 @@
-import { Section, Text } from "react-email";
 import { EmailHeading } from "../_components/elements/EmailHeading";
 import { BrandLogo } from "../_components/elements/BrandLogo";
 import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
 import { Layout } from "../_components/layout/Layout";
+import { Section, Text } from "react-email";
 
-export const RequestedNoMusicAdded = ({
-  userName = "there",
-  returnUrl = "https://nomusic.thefamilysuite.org",
-}: RequestedNoMusicAddedProps) => {
+export const RequestedNoMusicAddedEmail = ({ name = "there", returnUrl }: TProps) => {
   return (
-    <Layout previewText="Your requested NoMusic tracks were added 🎧">
+    <Layout previewText="Good news! The NoMusic tracks you requested were successfully added to the circle.˝">
       <BrandLogo />
 
       <Section>
         <EmailHeading>
           {"Your request made it in, "}
-          <span className="text-logo-nomusic uppercase">{userName}</span>
+          <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎧"}
         </EmailHeading>
 
@@ -59,9 +56,9 @@ export const RequestedNoMusicAdded = ({
   );
 };
 
-export default RequestedNoMusicAdded;
+export default RequestedNoMusicAddedEmail;
 
-type RequestedNoMusicAddedProps = {
-  userName?: string;
-  returnUrl?: string;
+type TProps = {
+  name?: string | null;
+  returnUrl: string;
 };

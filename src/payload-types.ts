@@ -226,20 +226,13 @@ export interface Whitelist {
 export interface Request {
   id: string;
   type: 'access_request' | 'nomusic_request' | 'general_feedback' | 'bug_report';
-  name?: string | null;
-  email?: string | null;
+  status?: ('pending' | 'approved' | 'rejected') | null;
   message?: string | null;
   url?: string | null;
-  status?: ('pending' | 'approved' | 'rejected') | null;
-  metadata?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  name?: string | null;
+  email?: string | null;
+  emailAction?: ('none' | 'send' | 'resend') | null;
+  emailStatus?: ('not_sent' | 'sent' | 'failed') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -506,12 +499,13 @@ export interface WhitelistSelect<T extends boolean = true> {
  */
 export interface RequestsSelect<T extends boolean = true> {
   type?: T;
-  name?: T;
-  email?: T;
+  status?: T;
   message?: T;
   url?: T;
-  status?: T;
-  metadata?: T;
+  name?: T;
+  email?: T;
+  emailAction?: T;
+  emailStatus?: T;
   updatedAt?: T;
   createdAt?: T;
 }
