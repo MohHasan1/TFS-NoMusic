@@ -1,9 +1,7 @@
-import { logInfo } from "#loggers";
 import { NextRequest, NextResponse } from "next/server";
 
 export default async function proxy(request: NextRequest) {
   const token = request.cookies.get("payload-token")?.value;
-
   // No cookie means user is not logged in, so show signin page
   if (!token) {
     return NextResponse.next();
@@ -11,9 +9,11 @@ export default async function proxy(request: NextRequest) {
 
   try {
     const response = await fetch(new URL("/api/users/me", request.url), {
+      method: "GET",
       headers: {
-        cookie: request.headers.get("cookie") ?? "",
+        Authorization: `JWT ${token}`,
       },
+      credentials: "include",
       cache: "no-store",
     });
 
