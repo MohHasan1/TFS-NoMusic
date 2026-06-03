@@ -7,17 +7,17 @@ import { EmailSignature } from "../_components/elements/EmailSignature";
 import { Layout } from "../_components/layout/Layout";
 
 export const WelcomeEmail = ({
-  userName = "there",
-  loginUrl = "https://nomusic.thefamilysuite.org",
+  name = "there",
+  url,
 }: WelcomeEmailProps) => {
   return (
-    <Layout previewText="Welcome to NoMusic! 🎧">
+    <Layout previewText="You officially made it into NoMusic. This is a private space for family, siblings, and close friends only, a small closed circle for vocals-only tracks without the instruments.">
       <BrandLogo />
 
       <Section>
         <EmailHeading>
           {"Welcome to NoMusic, "}
-          <span className="text-logo-nomusic uppercase">{userName}</span>
+          <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎧"}
         </EmailHeading>
 
@@ -39,7 +39,7 @@ export const WelcomeEmail = ({
           }
         </Text>
 
-        {loginUrl && <PrimaryButton href={loginUrl}>Start Listening</PrimaryButton>}
+        {url && <PrimaryButton href={url}>Start Listening</PrimaryButton>}
 
         <EmailDivider />
 
@@ -62,6 +62,6 @@ export const WelcomeEmail = ({
 export default WelcomeEmail;
 
 type WelcomeEmailProps = {
-  userName?: string;
-  loginUrl?: string;
+  name?: string;
+  url: string;
 };

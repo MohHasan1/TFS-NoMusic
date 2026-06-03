@@ -28,7 +28,7 @@ export async function signupAdapter(data: TSignup) {
   return tryCatchResponse(() =>
     payload.create({
       collection: "users",
-      overrideAccess: false,
+      overrideAccess: true, // To bypass access-control
       select: {},
       data: {
         name: data.name,
@@ -67,6 +67,7 @@ export async function forgotPasswordAdapter(email: string) {
   return tryCatchResponse(() =>
     payload.forgotPassword({
       collection: "users",
+      overrideAccess: true,
       data: {
         email: email.toLowerCase(),
       },

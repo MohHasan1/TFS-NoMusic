@@ -9,7 +9,7 @@ export const EmailHeading = ({
 }) => {
   return (
     <Heading
-      className={`capitalize text-content-primary text-h1 font-semibold text-center p-0 my-[30px] mx-0 ${
+      className={`capitalize text-content-primary text-h1 font-semibold text-center p-0 my-7.5 mx-0 ${
         className || ""
       }`.trim()}
     >

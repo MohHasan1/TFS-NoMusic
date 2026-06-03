@@ -5,6 +5,14 @@ import ResetPasswordEmail from "#emails-templates/ResetPasswordEmail";
 import VerifyEmail from "#emails-templates/VerifyEmail";
 import { ROLE_OPTIONS } from "@/collections/constants/roles";
 import type { User } from "@/payload-types";
+import { access } from "./access";
+import {
+  EMAIL_ACTION,
+  EMAIL_ACTION_OPTIONS,
+  EMAIL_STATUS,
+  EMAIL_STATUS_OPTIONS,
+} from "./constants/emails";
+import { sendWelcomeEmailBeforeChange } from "./hooks/user";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -13,7 +21,7 @@ export const Users: CollectionConfig = {
     verify: {
       generateEmailHTML: async ({ token, user }) => {
         const userName = (user as User)?.name;
-        const verificationUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}`;
+        const verificationUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}&userId=${user.id}`;
         return await render(VerifyEmail({ userName, verificationUrl }));
       },
     },
@@ -35,7 +43,10 @@ export const Users: CollectionConfig = {
 
   admin: {
     useAsTitle: "name",
+    defaultColumns: ["name", "email", "emailStatus"]
   },
+
+  hooks: { beforeChange: [sendWelcomeEmailBeforeChange] },
 
   defaultPopulate: {
     id: true,
@@ -45,30 +56,57 @@ export const Users: CollectionConfig = {
     isApproved: true,
   },
 
-  // TODO: improve this
   access: {
-    read: () => true,
-    create: () => true,
-    update: ({ req }) => req.user?.role === "admin",
-    delete: ({ req }) => req.user?.role === "admin",
+    create: access.isAdmin,
+    read: access.isAdminOrSelf,
+    update: access.isAdmin,
+    delete: access.isAdmin,
   },
 
   fields: [
     {
-      name: "name",
-      type: "text",
-      required: true,
+      type: "collapsible",
+      label: "User Details",
+      fields: [
+        {
+          name: "name",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "role",
+          type: "select",
+          defaultValue: "user",
+          options: [...ROLE_OPTIONS],
+        },
+        {
+          name: "isApproved",
+          type: "checkbox",
+          defaultValue: true,
+        },
+      ],
     },
+
     {
-      name: "isApproved",
-      type: "checkbox",
-      defaultValue: true,
-    },
-    {
-      name: "role",
-      type: "select",
-      defaultValue: "user",
-      options: [...ROLE_OPTIONS],
+      type: "collapsible",
+      label: "Email Settings",
+      fields: [
+        {
+          name: "emailAction",
+          type: "select",
+          defaultValue: EMAIL_ACTION.NONE,
+          options: EMAIL_ACTION_OPTIONS,
+        },
+        {
+          name: "emailStatus",
+          type: "select",
+          defaultValue: EMAIL_STATUS.NOT_SENT,
+          options: EMAIL_STATUS_OPTIONS,
+          admin: {
+            readOnly: true,
+          },
+        },
+      ],
     },
   ],
 };

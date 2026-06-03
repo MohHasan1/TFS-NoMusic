@@ -182,8 +182,10 @@ export interface Admin {
 export interface User {
   id: string;
   name: string;
-  isApproved?: boolean | null;
   role?: ('admin' | 'editor' | 'viewer' | 'user') | null;
+  isApproved?: boolean | null;
+  emailAction?: ('none' | 'send' | 'resend') | null;
+  emailStatus?: ('not_sent' | 'sent' | 'failed') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -459,8 +461,10 @@ export interface AdminsSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
-  isApproved?: T;
   role?: T;
+  isApproved?: T;
+  emailAction?: T;
+  emailStatus?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

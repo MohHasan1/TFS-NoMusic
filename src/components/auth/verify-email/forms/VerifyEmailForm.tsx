@@ -14,6 +14,7 @@ import { PUBLIC_ROUTES } from "#constants/routes";
 const VerifyEmailForm = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+  const userId = searchParams.get("userId");
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const VerifyEmailForm = () => {
       return;
     }
 
-    const result = await verifyEmailAction(validatedData.data.token);
+    const result = await verifyEmailAction(validatedData.data.token, userId);
     if (!result.isSuccess) {
       setStatus("error");
       return;
