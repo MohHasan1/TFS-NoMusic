@@ -3,6 +3,7 @@ import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailHeading } from "../_components/elements/EmailHeading";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { BrandLogo } from "../_components/elements/BrandLogo";
+import { EarlyAccessNote } from "../_components/elements/EarlyAccessNote";
 import { Layout } from "../_components/layout/Layout";
 import { Section, Text } from "react-email";
 
@@ -18,13 +19,7 @@ export const WelcomeEmail = ({ name = "there", url, isPrev }: TProps) => {
           {" 🎧"}
         </EmailHeading>
 
-        {isPrev && (
-          <Text className="text-content-muted text-small mt-2">
-            {
-              "Lucky you — the server cat has blessed you with early access to test NoMusic while it is still in development."
-            }
-          </Text>
-        )}
+        <EarlyAccessNote isPrev={isPrev} />
 
         <Text className="text-content-secondary text-body">
           {

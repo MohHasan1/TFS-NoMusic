@@ -5,3 +5,11 @@ export function requireEnv(name: string) {
   }
   return value;
 }
+
+export function isPreviewEnv() {
+  return process.env.VERCEL_ENV === "preview";
+}
+
+export function isPreviewOrDevEnv() {
+  return process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development";
+}

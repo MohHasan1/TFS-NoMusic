@@ -4,9 +4,10 @@ import { BrandLogo } from "../_components/elements/BrandLogo";
 import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
+import { EarlyAccessNote } from "../_components/elements/EarlyAccessNote";
 import { Layout } from "../_components/layout/Layout";
 
-export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => {
+export const ResetPasswordEmail = ({ userName = "there", resetUrl, isPrev }: TProps) => {
   return (
     <Layout previewText="Forgot your password? 😭">
       <BrandLogo />
@@ -17,6 +18,8 @@ export const ResetPasswordEmail = ({ userName = "there", resetUrl }: TProps) => 
           <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🗝️"}
         </EmailHeading>
+
+        <EarlyAccessNote isPrev={isPrev} />
 
         <Text className="text-content-secondary text-body">
           {"Looks like your password disappeared into the void. It happens 😭"}
@@ -57,4 +60,5 @@ export default ResetPasswordEmail;
 type TProps = {
   userName?: string;
   resetUrl: string;
+  isPrev?: boolean;
 };

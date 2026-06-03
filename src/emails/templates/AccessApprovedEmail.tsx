@@ -4,9 +4,10 @@ import { BrandLogo } from "../_components/elements/BrandLogo";
 import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
+import { EarlyAccessNote } from "../_components/elements/EarlyAccessNote";
 import { Layout } from "../_components/layout/Layout";
 
-export const AccessApprovedEmail = ({ name = "there", signupUrl }: TProps) => {
+export const AccessApprovedEmail = ({ name = "there", signupUrl, isPrev = true }: TProps) => {
   return (
     <Layout previewText="You can now join NoMusic — the private vocals-only circle for family, siblings, and close friends.">
       <BrandLogo />
@@ -17,6 +18,8 @@ export const AccessApprovedEmail = ({ name = "there", signupUrl }: TProps) => {
           <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎉"}
         </EmailHeading>
+
+        <EarlyAccessNote isPrev={isPrev} />
 
         <Text className="text-content-secondary text-body">
           {
@@ -65,4 +68,5 @@ export default AccessApprovedEmail;
 type TProps = {
   name?: string;
   signupUrl: string;
+  isPrev?: boolean;
 };

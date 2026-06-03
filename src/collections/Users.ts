@@ -3,6 +3,7 @@ import { render } from "react-email";
 
 import ResetPasswordEmail from "#emails-templates/ResetPasswordEmail";
 import VerifyEmail from "#emails-templates/VerifyEmail";
+import { isPreviewOrDevEnv } from "@/lib/env";
 import { ROLE_OPTIONS } from "@/collections/constants/roles";
 import type { User } from "@/payload-types";
 import { access } from "./access";
@@ -22,7 +23,7 @@ export const Users: CollectionConfig = {
       generateEmailHTML: async ({ token, user }) => {
         const userName = (user as User)?.name;
         const verificationUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}&userId=${user.id}`;
-        return await render(VerifyEmail({ userName, verificationUrl }));
+        return await render(VerifyEmail({ userName, verificationUrl, isPrev: isPreviewOrDevEnv() }));
       },
     },
     forgotPassword: {
@@ -31,7 +32,7 @@ export const Users: CollectionConfig = {
         const token = args?.token;
         const userName = user.name;
         const resetUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password?token=${token}`;
-        return await render(ResetPasswordEmail({ userName, resetUrl }));
+        return await render(ResetPasswordEmail({ userName, resetUrl, isPrev: isPreviewOrDevEnv() }));
       },
     },
     tokenExpiration: 60 * 60 * 24 * 30,

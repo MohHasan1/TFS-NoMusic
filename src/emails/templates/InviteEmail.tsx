@@ -3,10 +3,11 @@ import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailHeading } from "../_components/elements/EmailHeading";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { BrandLogo } from "../_components/elements/BrandLogo";
+import { EarlyAccessNote } from "../_components/elements/EarlyAccessNote";
 import { Layout } from "../_components/layout/Layout";
 import { Section, Text } from "react-email";
 
-export const InviteEmail = ({ name = "there", inviteUrl }: TProps) => {
+export const InviteEmail = ({ name = "there", inviteUrl, isPrev }: TProps) => {
   return (
     <Layout previewText="NoMusic is a small private space for family, siblings, and close friends to listen to vocals-only tracks without the instruments.">
       <BrandLogo />
@@ -17,6 +18,8 @@ export const InviteEmail = ({ name = "there", inviteUrl }: TProps) => {
           <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎧"}
         </EmailHeading>
+
+        <EarlyAccessNote isPrev={isPrev} />
 
         <Text className="text-content-secondary text-body">
           {"You've been invited to join the NoMusic circle."}
@@ -68,4 +71,5 @@ export default InviteEmail;
 type TProps = {
   name?: string;
   inviteUrl: string;
+  isPrev?: boolean;
 };

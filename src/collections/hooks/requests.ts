@@ -6,6 +6,7 @@ import { shouldSendEmail } from "../helpers/email";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { Request } from "#payload-types";
 import { render } from "react-email";
+import { isPreviewOrDevEnv } from "@/lib/env";
 
 export const fillUserInfoBeforeValidate: CollectionBeforeValidateHook<Request> = async ({
   data,
@@ -65,7 +66,9 @@ export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> =
     };
   }
 
-  const html = await render(RequestedNoMusicAddedEmail({ name, returnUrl }));
+  const html = await render(
+    RequestedNoMusicAddedEmail({ name, returnUrl, isPrev: isPreviewOrDevEnv() }),
+  );
   const sendEmailResponse = await tryCatchResponse(() =>
     req.payload.sendEmail({
       to: email,

@@ -10,6 +10,7 @@ import { tryCatchResponse } from "#trycatch-response";
 import { PUBLIC_ROUTES } from "#constants/routes";
 import { shouldSendEmail } from "../helpers/email";
 import { logInfo } from "#loggers";
+import { isPreviewOrDevEnv } from "@/lib/env";
 
 export const sendWhitelistEmailBeforeChange: CollectionBeforeChangeHook<Whitelist> = async ({
   data,
@@ -41,10 +42,12 @@ export const sendWhitelistEmailBeforeChange: CollectionBeforeChangeHook<Whitelis
     ? "You're invited to join NoMusic 🎧"
     : "Hurray! Your request has been approved 🎉";
 
+  logInfo(isPreviewOrDevEnv());
+
   const html = await render(
     isInviteEmail
-      ? InviteEmail({ name, inviteUrl: signupUrl })
-      : AccessApprovedEmail({ name, signupUrl }),
+      ? InviteEmail({ name, inviteUrl: signupUrl, isPrev: isPreviewOrDevEnv() })
+      : AccessApprovedEmail({ name, signupUrl, isPrev: isPreviewOrDevEnv() }),
   );
 
   // Send email

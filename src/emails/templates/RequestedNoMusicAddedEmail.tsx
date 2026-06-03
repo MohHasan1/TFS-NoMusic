@@ -3,10 +3,11 @@ import { BrandLogo } from "../_components/elements/BrandLogo";
 import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
+import { EarlyAccessNote } from "../_components/elements/EarlyAccessNote";
 import { Layout } from "../_components/layout/Layout";
 import { Section, Text } from "react-email";
 
-export const RequestedNoMusicAddedEmail = ({ name = "there", returnUrl }: TProps) => {
+export const RequestedNoMusicAddedEmail = ({ name = "there", returnUrl, isPrev }: TProps) => {
   return (
     <Layout previewText="Good news! The NoMusic tracks you requested were successfully added to the circle.˝">
       <BrandLogo />
@@ -17,6 +18,8 @@ export const RequestedNoMusicAddedEmail = ({ name = "there", returnUrl }: TProps
           <span className="text-logo-nomusic uppercase">{name}</span>
           {" 🎧"}
         </EmailHeading>
+
+        <EarlyAccessNote isPrev={isPrev} />
 
         <Text className="text-content-secondary text-body">
           {"Good news! The NoMusic tracks you requested were successfully added to the circle."}
@@ -61,4 +64,5 @@ export default RequestedNoMusicAddedEmail;
 type TProps = {
   name?: string | null;
   returnUrl: string;
+  isPrev?: boolean;
 };

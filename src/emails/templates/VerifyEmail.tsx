@@ -4,9 +4,10 @@ import { BrandLogo } from "../_components/elements/BrandLogo";
 import { PrimaryButton } from "../_components/elements/PrimaryButton";
 import { EmailDivider } from "../_components/elements/EmailDivider";
 import { EmailSignature } from "../_components/elements/EmailSignature";
+import { EarlyAccessNote } from "../_components/elements/EarlyAccessNote";
 import { Layout } from "../_components/layout/Layout";
 
-export const VerifyEmail = ({ userName = "there", verificationUrl }: VerifyEmailProps) => {
+export const VerifyEmail = ({ userName = "there", verificationUrl, isPrev }: VerifyEmailProps) => {
   return (
     <Layout previewText="one last step before the vocals start 🎧">
       <BrandLogo />
@@ -17,6 +18,8 @@ export const VerifyEmail = ({ userName = "there", verificationUrl }: VerifyEmail
           <span className="text-logo-nomusic uppercase">{userName}</span>
           {" 🎧"}
         </EmailHeading>
+
+        <EarlyAccessNote isPrev={isPrev} />
 
         <Text className="text-content-secondary text-body">
           {
@@ -61,4 +64,5 @@ export default VerifyEmail;
 type VerifyEmailProps = {
   userName?: string;
   verificationUrl?: string;
+  isPrev?: boolean;
 };

@@ -7,6 +7,7 @@ import WelcomeEmail from "#emails-templates/WelcomeEmail";
 import { tryCatchResponse } from "#trycatch-response";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { shouldSendEmail } from "../helpers/email";
+import { isPreviewOrDevEnv } from "@/lib/env";
 
 export const sendWelcomeEmailBeforeChange: CollectionBeforeChangeHook<User> = async ({
   data,
@@ -49,7 +50,7 @@ export const sendWelcomeEmailBeforeChange: CollectionBeforeChangeHook<User> = as
   }
 
   // Render welcome email
-  const html = await render(WelcomeEmail({ name, url }));
+  const html = await render(WelcomeEmail({ name, url, isPrev: isPreviewOrDevEnv() }));
 
   // Send email
   const sendEmailResponse = await tryCatchResponse(() =>
