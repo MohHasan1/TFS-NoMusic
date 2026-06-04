@@ -1,27 +1,51 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 import { PUBLIC_ROUTES } from "#constants/routes";
 import { Button } from "#components/ui/button";
-import Link from "next/link";
+import { Spinner } from "#components/ui/spinner";
+
+type LoadingCTA = "signin" | "request-access" | null;
 
 export function HeroCTAs() {
+  const router = useRouter();
+  const [loadingCTA, setLoadingCTA] = useState<LoadingCTA>(null);
+
+  function handleRedirect(route: string, cta: Exclude<LoadingCTA, null>) {
+    setLoadingCTA(cta);
+    router.push(route);
+  }
+
+  const isSigninLoading = loadingCTA === "signin";
+  const isRequestAccessLoading = loadingCTA === "request-access";
+
   return (
-    <div className="flex flex-col sm:flex-row gap-3">
+    <div className="flex flex-col gap-3 sm:flex-row">
       <Button
-        render={<Link id="login-btn" href={PUBLIC_ROUTES.SIGNIN} />}
-        nativeButton={false}
+        type="button"
+        onClick={() => handleRedirect(PUBLIC_ROUTES.SIGNIN, "signin")}
+        disabled={loadingCTA !== null}
+        aria-busy={isSigninLoading}
         size="lg"
         className="rounded-full px-8"
       >
-        Sign In
+        {isSigninLoading && <Spinner />}
+        {isSigninLoading ? "Waking cat..." : "Sign In"}
       </Button>
 
       <Button
-        render={<Link id="request-access-btn" href={PUBLIC_ROUTES.REQUEST_ACCESS} />}
-        nativeButton={false}
+        type="button"
+        onClick={() => handleRedirect(PUBLIC_ROUTES.REQUEST_ACCESS, "request-access")}
+        disabled={loadingCTA !== null}
+        aria-busy={isRequestAccessLoading}
         variant="outline"
         size="lg"
         className="rounded-full px-8"
       >
-        Request Access
+        {isRequestAccessLoading && <Spinner />}
+        {isRequestAccessLoading ? "Calling cat..." : "Request Access"}
       </Button>
     </div>
   );

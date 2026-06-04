@@ -43,7 +43,6 @@ export const Nomusic: CollectionConfig = {
       type: "text",
       required: true,
     },
-    // TODO: uncomment
     {
       name: "audioFile",
       type: "upload",
@@ -112,6 +111,7 @@ export const Nomusic: CollectionConfig = {
     {
       name: "language",
       type: "select",
+      index: true,
       required: true,
       options: LANGUAGES_VALUES.map((lang) => ({
         label: capitalizeFirstLetter(lang),

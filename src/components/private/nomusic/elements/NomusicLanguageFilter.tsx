@@ -60,7 +60,7 @@ export function NomusicLanguageFilter() {
         <SelectValue placeholder="Language" />
       </SelectTrigger>
 
-      <SelectContent className="bg-card-secondary">
+      <SelectContent className="bg-card-secondary backdrop-blur-xl">
         {LANGUAGE_OPTIONS.map((option) => (
           <SelectItem key={option.value || "all"} value={option.value}>
             {option.label}
