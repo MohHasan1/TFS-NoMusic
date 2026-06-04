@@ -11,7 +11,7 @@ import {
   EmptyTitle,
 } from "#components/ui/empty";
 
-export function NoMusicEmptyCard() {
+export function NoMusicEmptyBox() {
   return (
     <Empty className="border border-dashed bg-card rounded-2xl">
       <EmptyHeader>

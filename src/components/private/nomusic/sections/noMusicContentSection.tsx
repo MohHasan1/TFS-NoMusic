@@ -1,15 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
-
-import { NOMUSIC_FILTER_FIELDS, type TNomusicFilters } from "#client-actions/private/nomusic/keys";
+import { TNomusicFilters, NOMUSIC_FILTER_FIELDS } from "#client-actions/private/nomusic/keys";
 import { useNomusicPageInfiniteQuery } from "#client-actions/private/nomusic/query";
+import NoMusicInfinityObserver from "../elements/NoMusicInfinityObserver";
+import NoMusicBrowser from "../elements/NoMusicBrowser";
 import { TNoMusicPaginated } from "#types/nomusic";
-import NoMusicBrowser from "./NoMusicBrowser";
-import NoMusicInfinityObserver from "./NoMusicInfinityObserver";
+import { useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 
-export function NoMusicContent({ initialData }: TProps) {
+export function NoMusicContentSection({ initialData }: TProps) {
   const searchParams = useSearchParams();
 
   const filters = useMemo<TNomusicFilters>(() => {

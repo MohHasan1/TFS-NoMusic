@@ -30,7 +30,7 @@ export async function fetchNomusicInfiniteFn({
         artist: true,
         language: true,
         duration: true,
-        createdAt: true,
+        updatedAt: true,
         coverImage: true,
         uploadedAudioURL: true,
       },
