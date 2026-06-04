@@ -6,13 +6,17 @@ import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
 import { mapNomusic } from "#services/nomusic/no-music.mapper";
 import type { TNoMusicPaginated } from "#types/nomusic";
 import type { Nomusic } from "#payload-types";
-import { QUERY_KEYS } from "./keys";
+import { buildNomusicWhere, QUERY_KEYS } from "./keys";
 
 type TNomusicInfiniteQueryKey = ReturnType<typeof QUERY_KEYS.nomusic.infinite>;
 
 export async function fetchNomusicInfiniteFn({
   pageParam,
+  queryKey,
 }: QueryFunctionContext<TNomusicInfiniteQueryKey, number>) {
+  const [, , filters] = queryKey;
+  const where = buildNomusicWhere(filters);
+
   const query = stringify(
     {
       depth: 0,
@@ -20,6 +24,7 @@ export async function fetchNomusicInfiniteFn({
       limit: NOMUSIC_PAGINATION.LIMIT,
       sort: "-createdAt",
       pagination: true,
+      ...(where ? { where } : {}),
       select: {
         name: true,
         artist: true,

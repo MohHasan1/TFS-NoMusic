@@ -74,7 +74,7 @@ export function NoMusicBrowser({ initialData }: TProps) {
         ))}
       </div>
 
-      <div ref={ref} className="flex items-center justify-center pb-40">
+      <div className="flex items-center justify-center pb-40">
         {query.hasNextPage ? (
           <div ref={ref} className="h-10 pb-40" />
         ) : (
