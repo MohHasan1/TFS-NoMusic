@@ -31,7 +31,7 @@ const SigninFormContent = ({ form, isSubmitting, clearErrorFn }: TProps) => {
                 errors={field.state.meta.errors}
                 onChange={(e) => {
                   clearErrorFn?.();
-                  field.handleChange(e.target.value);
+                  field.handleChange(e.target.value.toLowerCase());
                 }}
                 disabled={isSubmitting}
               />

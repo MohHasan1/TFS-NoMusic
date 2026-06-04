@@ -9,7 +9,6 @@ import { EMAIL_ACTION, EMAIL_STATUS } from "../constants/emails";
 import { tryCatchResponse } from "#trycatch-response";
 import { PUBLIC_ROUTES } from "#constants/routes";
 import { shouldSendEmail } from "../helpers/email";
-import { logInfo } from "#loggers";
 import { isPreviewOrDevEnv } from "@/lib/env";
 
 export const sendWhitelistEmailBeforeChange: CollectionBeforeChangeHook<Whitelist> = async ({
@@ -23,7 +22,6 @@ export const sendWhitelistEmailBeforeChange: CollectionBeforeChangeHook<Whitelis
   const emailType = data.emailType;
   const emailStatus = data.emailStatus || originalDoc?.emailStatus;
   const shouldSend = shouldSendEmail(emailAction, emailStatus);
-  logInfo("shouldSend", shouldSend);
   if (!shouldSend) {
     return {
       ...data,
@@ -42,7 +40,6 @@ export const sendWhitelistEmailBeforeChange: CollectionBeforeChangeHook<Whitelis
     ? "You're invited to join NoMusic 🎧"
     : "Hurray! Your request has been approved 🎉";
 
-  logInfo(isPreviewOrDevEnv());
 
   const html = await render(
     isInviteEmail

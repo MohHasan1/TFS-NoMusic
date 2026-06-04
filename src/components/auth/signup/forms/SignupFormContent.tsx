@@ -49,7 +49,9 @@ const SignupFormContent = ({ form, isSubmitting }: TProps) => {
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 errors={field.state.meta.errors}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={(e) => {
+                  field.handleChange(e.target.value.toLowerCase());
+                }}
                 disabled={isSubmitting}
               />
             );

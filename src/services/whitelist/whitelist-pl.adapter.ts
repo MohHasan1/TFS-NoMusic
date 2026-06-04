@@ -14,7 +14,7 @@ export async function isWhitelistedEmailAdapter(email: string) {
       overrideAccess: true, // bypassing access check as read is set to admins only.
       where: {
         email: {
-          equals: email.toLowerCase(),
+          equals: email.trim().toLowerCase(),
         },
       },
       select: {},

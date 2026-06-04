@@ -1,8 +1,7 @@
 import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "payload";
-import { isID } from "@/lib/utils";
-import type { Nomusic } from "@/payload-types";
 import { getLibraryIdByLanguage } from "../helpers/library";
-import { logInfo } from "#loggers";
+import type { Nomusic } from "@/payload-types";
+import { isID } from "@/lib/utils";
 
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
   data,
@@ -104,8 +103,6 @@ export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic>
       library: libraryId,
     },
   });
-
-  logInfo(res);
 
   // TODO: if smt failed push to queue
 };

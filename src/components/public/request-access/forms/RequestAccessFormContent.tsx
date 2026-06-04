@@ -52,7 +52,7 @@ const RequestAccessFormContent = ({ form, isSubmitting, clearMessagesFn }: TProp
                 errors={field.state.meta.errors}
                 onChange={(e) => {
                   clearMessagesFn?.();
-                  field.handleChange(e.target.value);
+                  field.handleChange(e.target.value.toLowerCase());
                 }}
                 disabled={isSubmitting}
               />

@@ -1,5 +1,3 @@
-import { logInfo } from "#loggers";
-
 export function formatPlaybackTime(seconds: number, fallback: TTimeFallback = "dash"): string {
   if (!Number.isFinite(seconds) || seconds <= 0) {
     return fallback === "dash" ? "--:--" : "0:00";
@@ -14,13 +12,8 @@ export function formatPlaybackTime(seconds: number, fallback: TTimeFallback = "d
 
 type TTimeFallback = "zero" | "dash";
 
-
 export const isNewByUpdatedDate = (updatedAt: Date | string): boolean => {
-    logInfo(updatedAt)
-
   const updatedDate = new Date(updatedAt);
-
-  logInfo(updatedDate)
 
   if (Number.isNaN(updatedDate.getTime())) return false;
 

@@ -16,7 +16,7 @@ export async function signinAdapter(data: TSignin) {
     login({
       collection: "users",
       config,
-      email: data.email,
+      email: data.email.trim().toLowerCase(),
       password: data.password,
     }),
   );
@@ -31,8 +31,8 @@ export async function signupAdapter(data: TSignup) {
       overrideAccess: true, // To bypass access-control
       select: {},
       data: {
-        name: data.name,
-        email: data.email.toLowerCase(),
+        name: data.name.trim(),
+        email: data.email.trim().toLowerCase(),
         password: data.password,
       },
     }),
@@ -69,7 +69,7 @@ export async function forgotPasswordAdapter(email: string) {
       collection: "users",
       overrideAccess: true,
       data: {
-        email: email.toLowerCase(),
+        email: email.trim().toLowerCase(),
       },
     }),
   );

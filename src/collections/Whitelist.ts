@@ -35,6 +35,13 @@ export const Whitelist: CollectionConfig = {
     {
       name: "email",
       type: "email",
+      hooks: {
+        beforeValidate: [
+          ({ value }) => {
+            return typeof value === "string" ? value.trim().toLowerCase() : value;
+          },
+        ],
+      },
       required: true,
       unique: true,
     },
