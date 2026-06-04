@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useMemo } from "react";
 
 import { NoMusicEmptyBox } from "#components/private/nomusic/elements/NomusicEmptyBox";
@@ -7,8 +9,8 @@ import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
 import { SOURCE_KEYS } from "#constants/private/source";
 import { TNoMusicPaginated } from "#types/nomusic";
 
-const NoMusicBrowser = ({ pages, isFetching }: TProps) => {
-  const { start } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE);
+const NoMusicBrowser = ({ pages, isFetching, queryParam }: TProps) => {
+  const { start } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE(queryParam));
 
   const tracks = useMemo(() => {
     return pages?.flatMap((page) => page.docs) ?? [];
@@ -62,6 +64,7 @@ const NoMusicBrowser = ({ pages, isFetching }: TProps) => {
 export default NoMusicBrowser;
 
 type TProps = {
+  queryParam?: string;
   isFetching: boolean;
   pages: TNoMusicPaginated[];
 };

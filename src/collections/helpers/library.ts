@@ -1,6 +1,7 @@
 import type { Payload } from "payload";
 
-import { LIBRARY_IDS, type TLANGUAGES_VALUES } from "../constants/libraries";
+import { LIBRARY_IDS } from "../constants/libraries";
+import { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
 
 const libraryCache = new Map<string, string>();
 

@@ -1,4 +1,4 @@
-import { NomusicQueryParamFilters } from "../elements/NomusicQueryParamFilters";
+import { NomusicLanguageFilter } from "../elements/NomusicLanguageFilter";
 import { BrandLogo } from "#components/shared/BrandLogo";
 
 const NoMusicHeaderSection = () => {
@@ -18,7 +18,7 @@ const NoMusicHeaderSection = () => {
         </p>
       </div>
 
-      <NomusicQueryParamFilters />
+      <NomusicLanguageFilter />
     </header>
   );
 };

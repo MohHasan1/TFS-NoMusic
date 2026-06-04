@@ -18,12 +18,11 @@ export default async function NoMusicPage() {
     page: NOMUSIC_PAGINATION.PAGE,
     limit: NOMUSIC_PAGINATION.LIMIT,
   });
-  if (!res.isSuccess) return <></>;
 
   return (
     <div className="flex-1 pt-24 pb-32 max-w-7xl mx-auto w-full px-4 lg:px-8 space-y-10">
       <NoMusicHeaderSection />
-      <NoMusicContentSection initialData={res.data} />
+      <NoMusicContentSection res={res} />
     </div>
   );
 }

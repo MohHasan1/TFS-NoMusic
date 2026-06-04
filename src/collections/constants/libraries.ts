@@ -1,9 +1,10 @@
+import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
+
 export const LIBRARY_TYPES = ["language", "curated"] as const;
 
-export const LANGUAGES_VALUES = ["english", "bangla", "hindi", "arabic", "others"] as const;
-export type TLANGUAGES_VALUES = (typeof LANGUAGES_VALUES)[number];
-
+// TODO: move to const
 export const CURATED_VALUES = ["trending", "featured", "new"] as const;
+export type TCURATED_VALUES = (typeof CURATED_VALUES)[number];
 
 // NOTE: Value validator const.
 export const VALIDATORS = {

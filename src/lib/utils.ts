@@ -13,3 +13,7 @@ export function returnPayloadIdType(id: string | number) {
 export function isID(value: unknown): value is string | number {
   return typeof value === "string" || typeof value === "number";
 }
+
+export function capitalizeFirstLetter(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}

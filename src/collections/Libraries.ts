@@ -1,7 +1,8 @@
 import type { CollectionConfig } from "payload";
-import { CURATED_VALUES, LANGUAGES_VALUES, LIBRARY_TYPES } from "./constants/libraries";
+import { CURATED_VALUES, LIBRARY_TYPES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
 import { generateSlugBeforeValidate, validateLibraryBeforeValidate } from "./hooks/Libraries";
+import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
 
 export const Libraries: CollectionConfig = {
   slug: "libraries",

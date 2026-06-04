@@ -1,5 +1,4 @@
 const NOMUSIC_KEY = "nomusic";
-export const NOMUSIC_FILTER_FIELDS = ["language", "artist"] as const;
 
 export const QUERY_KEYS = {
   nomusic: {
@@ -9,27 +8,7 @@ export const QUERY_KEYS = {
   },
 } as const;
 
+// NOTE: to add filter-by add here:["language", "artist"]: Must match the field:
+export const NOMUSIC_FILTER_FIELDS = ["language"] as const;
 export type TNomusicFilterField = (typeof NOMUSIC_FILTER_FIELDS)[number];
-
 export type TNomusicFilters = Partial<Record<TNomusicFilterField, string | null>>;
-
-import type { Where } from "payload";
-export function buildNomusicWhere(filters: TNomusicFilters): Where | undefined {
-  const and = NOMUSIC_FILTER_FIELDS.flatMap((field) => {
-    const value = filters[field];
-
-    if (!value) {
-      return [];
-    }
-
-    return [
-      {
-        [field]: {
-          equals: value,
-        },
-      },
-    ];
-  });
-
-  return and.length > 0 ? { and } : undefined;
-}

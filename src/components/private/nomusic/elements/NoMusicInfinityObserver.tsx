@@ -6,8 +6,8 @@ import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
 import { SOURCE_KEYS } from "#constants/private/source";
 import { TNoMusicPaginated } from "#types/nomusic";
 
-const NoMusicInfinityObserver = ({ query }: TProps) => {
-  const { extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE);
+const NoMusicInfinityObserver = ({ query, queryParam }: TProps) => {
+  const { extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE(queryParam));
 
   const { ref } = useInView({
     rootMargin: "300px",
@@ -20,7 +20,6 @@ const NoMusicInfinityObserver = ({ query }: TProps) => {
     if (!query.hasNextPage || query.isFetchingNextPage) return;
 
     const res = await query.fetchNextPage();
-
     const newPage = res.data?.pages.at(-1);
     const newTracks = newPage?.docs ?? [];
 
@@ -41,5 +40,6 @@ const NoMusicInfinityObserver = ({ query }: TProps) => {
 export default NoMusicInfinityObserver;
 
 type TProps = {
+  queryParam?: string;
   query: DefinedUseInfiniteQueryResult<InfiniteData<TNoMusicPaginated, unknown>, Error>;
 };

@@ -1,11 +1,11 @@
 import type { CollectionConfig } from "payload";
-import { LANGUAGES_VALUES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
 import {
   assignNomusicLibraryAfterChange,
   syncUploadAudioURLBeforeValidate,
   syncUploadImageURLBeforeValidate,
 } from "./hooks/noMusic";
+import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
 
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
