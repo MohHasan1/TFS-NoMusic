@@ -51,7 +51,7 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
         artist: true,
         language: true,
         duration: true,
-        createdAt: true,
+        updatedAt: true,
         coverImage: true,
         uploadedAudioURL: true,
       },
