@@ -2,9 +2,9 @@
 
 import { useMemo } from "react";
 
-import { TNomusicFilters, NOMUSIC_FILTER_FIELDS } from "#client-actions/private/nomusic/keys";
 import { useNomusicPageInfiniteQuery } from "#client-actions/private/nomusic/query";
 import NoMusicInfinityObserver from "../elements/NoMusicInfinityObserver";
+import { TNomusicFilters } from "#client-actions/private/nomusic/keys";
 import { isLanguage } from "#constants/private/nomusic-language";
 import { NoMusicEmptyBox } from "../elements/NomusicEmptyBox";
 import NoMusicBrowser from "../elements/NoMusicBrowser";
@@ -22,15 +22,15 @@ export function NoMusicContentSection({ res }: TProps) {
   const filters = useMemo<TNomusicFilters>(() => {
     if (!langValue) return {};
 
-    return Object.fromEntries(
-      NOMUSIC_FILTER_FIELDS.map((field) => [field, langValue]),
-    ) as TNomusicFilters;
+    return {
+      language: langValue,
+    };
   }, [langValue]);
 
   const initialData = res.isSuccess ? res.data : ([] as unknown as TNoMusicPaginated);
   const query = useNomusicPageInfiniteQuery(initialData, filters);
 
-  if (!res.isSuccess)
+  if (!res.isSuccess || query.isError)
     return (
       <section>
         <NoMusicEmptyBox />
@@ -39,7 +39,11 @@ export function NoMusicContentSection({ res }: TProps) {
 
   return (
     <section className="flex-col w-full">
-      <NoMusicBrowser isFetching={!query.data} pages={query.data?.pages} queryParam={langValue} />
+      <NoMusicBrowser
+        isFetching={query.isFetching && !query.isFetchingNextPage}
+        pages={query.data?.pages}
+        queryParam={langValue}
+      />
       <NoMusicInfinityObserver query={query} queryParam={langValue} />
     </section>
   );

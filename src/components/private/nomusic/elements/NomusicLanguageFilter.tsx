@@ -1,7 +1,15 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+
+import { QUERY } from "#constants/private/query";
+import {
+  ALL_LANGUAGE_VALUE,
+  isLanguage,
+  LANGUAGE_OPTIONS,
+} from "#constants/private/nomusic-language";
+
 import {
   Select,
   SelectContent,
@@ -9,17 +17,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "#components/ui/select";
-import { isLanguage, LANGUAGE_OPTIONS } from "#constants/private/nomusic-language";
-import { QUERY } from "#constants/private/query";
 
 export function NomusicLanguageFilter() {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const rawLanguage = searchParams.get(QUERY.LANGUAGE);
-  const language = rawLanguage && isLanguage(rawLanguage) ? rawLanguage : "all";
   const searchParamsString = searchParams.toString();
+  const rawLanguage = searchParams.get(QUERY.LANGUAGE);
+
+  const language = rawLanguage && isLanguage(rawLanguage) ? rawLanguage : ALL_LANGUAGE_VALUE;
+
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(language);
+
+  useEffect(() => {
+    setSelectedLanguage(language);
+  }, [language]);
 
   useEffect(() => {
     if (!rawLanguage) return;
@@ -31,38 +43,41 @@ export function NomusicLanguageFilter() {
     const query = params.toString();
     const href = query ? `${pathname}?${query}` : pathname;
 
-    router.replace(href, { scroll: false });
-  }, [rawLanguage, pathname, router, searchParamsString]);
+    window.history.replaceState(null, "", href);
+  }, [rawLanguage, pathname, searchParamsString]);
 
   const handleLanguageChange = useCallback(
     (value: string) => {
       const params = new URLSearchParams(searchParamsString);
 
-      if (value === "all") {
+      if (value === ALL_LANGUAGE_VALUE) {
         params.delete(QUERY.LANGUAGE);
+        setSelectedLanguage(ALL_LANGUAGE_VALUE);
       } else if (isLanguage(value)) {
         params.set(QUERY.LANGUAGE, value);
+        setSelectedLanguage(value);
       } else {
         params.delete(QUERY.LANGUAGE);
+        setSelectedLanguage(ALL_LANGUAGE_VALUE);
       }
 
       const query = params.toString();
       const href = query ? `${pathname}?${query}` : pathname;
 
-      router.replace(href, { scroll: false });
+      window.history.replaceState(null, "", href);
     },
-    [pathname, router, searchParamsString],
+    [pathname, searchParamsString],
   );
 
   return (
-    <Select value={language} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="w-full md:w-52 bg-card-secondary">
+    <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+      <SelectTrigger className="w-full bg-card-secondary md:w-52">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
 
       <SelectContent className="bg-card-secondary backdrop-blur-xl">
         {LANGUAGE_OPTIONS.map((option) => (
-          <SelectItem key={option.value || "all"} value={option.value}>
+          <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>
         ))}
