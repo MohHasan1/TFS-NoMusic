@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import { usePlayerSeek } from "@/modules/player/hooks/usePlayerSeek";
-import { formatPlaybackTime } from "../../utils";
+import { formatPlaybackTime } from "#components/private/_utils/helpers";
+
 
 const SEEK_STEP_SECONDS = 1;
 const SEEK_SYNC_THRESHOLD_SECONDS = 0.25;
@@ -50,6 +51,7 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
           seekTo(next);
           setScrubbing(next);
         }}
+        trackClassName="bg-primary-400/10"
         className="flex-1 cursor-pointer"
         thumbClassName={cn("opacity-0", "group-hover:opacity-100 group-focus-within:opacity-100 data-[dragging]:opacity-100")}
       />

@@ -1,13 +1,12 @@
 "use client";
 
 import { RiLoader4Line, RiPauseFill, RiPlayFill, RiSkipBackFill, RiSkipForwardFill } from "@remixicon/react";
-
-import { useTrackNavigation } from "#modules/hooks/useTrackNavigation";
 import { usePlayerTrackBuffering } from "#modules/player/hooks/usePlayerTrackBuffering";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useTrackNavigation } from "#modules/hooks/useTrackNavigation";
 import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
 import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 
 export function PlayerControls({ size = "default" }: TProps) {
@@ -52,6 +51,6 @@ const PLAY_BUTTON_SIZE = {
 } as const;
 
 const SKIP_ICON_SIZE = {
-  default: "size-5",
+  default: "size-6",
   lg: "size-6",
 } as const;

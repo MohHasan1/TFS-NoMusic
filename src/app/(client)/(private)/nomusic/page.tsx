@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
 
-import { PUBLIC_ROUTES } from "#constants/routes";
-import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
-
-import { getCurrentUser } from "#services/auth/auth.ports";
-import { listNomusicPaginated } from "#services/nomusic/no-music.ports";
-import NoMusicHeaderSection from "#components/private/nomusic/sections/NoMusicHeaderSection";
 import { NoMusicContentSection } from "#components/private/nomusic/sections/noMusicContentSection";
+import NoMusicHeaderSection from "#components/private/nomusic/sections/NoMusicHeaderSection";
+import { listNomusicPaginated } from "#services/nomusic/no-music.ports";
+import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
+import { getCurrentUser } from "#services/auth/auth.ports";
+import { PUBLIC_ROUTES } from "#constants/routes";
 
 export default async function NoMusicPage() {
   const user = await getCurrentUser();

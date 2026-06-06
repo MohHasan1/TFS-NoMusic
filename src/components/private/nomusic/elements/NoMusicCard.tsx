@@ -11,10 +11,7 @@ import type { TNoMusic } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
-import {
-  formatPlaybackTime,
-  isNewByUpdatedDate,
-} from "#components/private/common/utils";
+import { isNewByUpdatedDate, formatPlaybackTime } from "#components/private/_utils/helpers";
 
 const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic.id);

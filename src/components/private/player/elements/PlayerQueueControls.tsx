@@ -3,7 +3,7 @@
 import { cn } from "#lib/utils";
 import { Button } from "#components/ui/button";
 import { useQueueRepeat } from "#modules/queue/hooks/useQueueRepeat";
-import { NEXT_REPEAT_LABEL, REPEAT_ICON, REPEAT_LABEL } from "../constants";
+import { NEXT_REPEAT_LABEL, REPEAT_ICON, REPEAT_LABEL } from "./constants";
 
 export function PlayerQueueControls({ className }: TProps) {
   const { repeatMode, cycleRepeatMode } = useQueueRepeat();

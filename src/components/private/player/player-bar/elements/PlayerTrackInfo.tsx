@@ -9,7 +9,7 @@ const PlayerTrackInfo = () => {
   return (
     <div className="max-w-28 lg:max-w-40 flex flex-col justify-center items-start text-left">
       <h4
-        className="w-full truncate font-bold tracking-tight text-card-foreground text-sm capitalize"
+        className="w-full truncate font-bold tracking-tight text-primary-200 text-sm capitalize"
         title={track.name}
       >
         {track.name}

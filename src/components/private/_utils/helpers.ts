@@ -1,3 +1,5 @@
+import { gradients } from "./constants";
+
 export function formatPlaybackTime(seconds: number, fallback: TTimeFallback = "dash"): string {
   if (!Number.isFinite(seconds) || seconds <= 0) {
     return fallback === "dash" ? "--:--" : "0:00";
@@ -24,3 +26,13 @@ export const isNewByUpdatedDate = (updatedAt: Date | string): boolean => {
 
   return diffInDays < 20;
 };
+
+export function getGradientFromText(value: string) {
+  let hash = 0;
+
+  for (let i = 0; i < 5; i++) {
+    hash = value.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  return gradients[Math.abs(hash) % gradients.length];
+}

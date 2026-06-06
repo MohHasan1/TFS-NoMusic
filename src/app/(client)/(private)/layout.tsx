@@ -1,8 +1,9 @@
-import PlaybackInitializer from "#components/private/common/Initializer/PlaybackInitializer";
+import PlaybackInitializer from "#components/private/Initializer/PlaybackInitializer";
 import { PrivateNavbar } from "#components/_layout/private/PrivateNavbar";
 import QueryProvider from "#components/private/_providers/QueryProvider";
-import PlayerBar from "#components/private/common/player-bar/PlayerBar";
+import PlayerBar from "#components/private/player/player-bar/PlayerBar";
 import { GlowOrb } from "#components/shared/GlowOrb";
+import { PlayerDialog } from "#components/private/player/player-dialog/PlayerDialog";
 
 export default function PrivateLayout({ children }: TProps) {
   return (
@@ -14,8 +15,8 @@ export default function PrivateLayout({ children }: TProps) {
           {children}
         </main>
         <PlayerBar />
+        <PlayerDialog/>
         <PlaybackInitializer />
-        {/* <NowPlayingSheet /> */}
       </QueryProvider>
     </>
   );
