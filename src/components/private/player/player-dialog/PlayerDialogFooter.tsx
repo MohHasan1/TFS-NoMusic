@@ -1,6 +1,6 @@
 "use client";
 
-import { DialogFooter } from "#components/ui/dialog";
+// import { DialogFooter } from "#components/ui/dialog";
 import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
 import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
 import { PlayerControls } from "../elements/PlayerControls";
@@ -30,7 +30,7 @@ export function PlayerDialogFooter() {
         </div>
       </div>
 
-      <DialogFooter className="grid grid-cols-3 items-center gap-2 px-6 pt-4 pb-8">
+      <div className="grid grid-cols-3 items-center gap-2 px-6 pt-4 pb-8">
         <div className="flex items-center gap-1 justify-self-start">
           {/* <PlayerQueueControls /> */}
         </div>
@@ -42,7 +42,7 @@ export function PlayerDialogFooter() {
         <div className="flex items-center gap-1 justify-self-end">
           <PlayerQueueControls />
         </div>
-      </DialogFooter>
+      </div>
     </>
   );
 }

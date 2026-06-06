@@ -10,12 +10,9 @@ import { Card, CardContent } from "#components/ui/card";
 import PlayerArtwork from "./elements/PlayerArtwork";
 import { RiArrowUpSLine } from "@remixicon/react";
 import { cn } from "#lib/utils";
-import { logInfo } from "#loggers";
 
 const DesktopPlayerBar = () => {
   const { isOpen } = usePlayerDialog();
-
-  logInfo("DesktopPlayerBar")
 
   return (
     <div

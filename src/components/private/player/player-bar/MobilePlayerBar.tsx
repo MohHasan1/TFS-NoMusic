@@ -2,21 +2,18 @@
 
 import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
 import { PlayerQueueControls } from "../elements/PlayerQueueControls";
+import PlayerDialogButton from "./elements/PlayerDialogButton";
 import { PlayerControls } from "../elements/PlayerControls";
 import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 import { Card, CardContent } from "#components/ui/card";
 import PlayerArtwork from "./elements/PlayerArtwork";
 import { RiArrowUpSLine } from "@remixicon/react";
-import PlayerDialogButton from "./elements/PlayerDialogButton";
 import { cn } from "@/lib/utils";
-import { logInfo } from "#loggers";
 
 const MobilePlayerBar = () => {
   const { isOpen } = usePlayerDialog();
 
-    logInfo("MobilePlayerBar")
-  
   return (
     <div
       className={cn(
