@@ -18,7 +18,7 @@ const MobilePlayerBar = () => {
     <div
       className={cn(
         "fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+0.15rem)] z-100 px-2 md:hidden transition-all duration-700 ease-in-out",
-        isOpen ? "translate-y-full" : "translate-y-0",
+        isOpen ? "translate-y-full" : "-translate-y-8",
       )}
     >
       <Card className="mx-auto w-full max-w-3xl rounded-3xl border bg-card-secondary p-3 shadow-2xl backdrop-blur-2xl">

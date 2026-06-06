@@ -30,7 +30,7 @@ export function PlayerDialogFooter() {
 
       <DialogFooter className="grid grid-cols-3 items-center gap-2 px-6 pt-4 pb-8">
         <div className="flex items-center gap-1 justify-self-start">
-          <PlayerQueueControls />
+          {/* <PlayerQueueControls /> */}
         </div>
 
         <div className="justify-self-center">
@@ -38,7 +38,7 @@ export function PlayerDialogFooter() {
         </div>
 
         <div className="flex items-center gap-1 justify-self-end">
-          {/* <PlayerQueueControls /> */}
+          <PlayerQueueControls />
         </div>
       </DialogFooter>
     </>
