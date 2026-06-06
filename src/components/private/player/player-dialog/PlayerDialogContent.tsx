@@ -1,6 +1,5 @@
 "use client";
 
-import { RiMusic2Line } from "@remixicon/react";
 import Image from "next/image";
 import { GlowOrb } from "#components/shared/GlowOrb";
 import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
@@ -13,8 +12,7 @@ export function PlayerDialogContent() {
 
   return (
     <div>
-      <GlowOrb position="bottom" />
-      <GlowOrb position="top" />
+      <GlowOrb position="center" />
 
       <div className="relative flex justify-center p-6">
         <div className="relative aspect-square w-full max-w-65">

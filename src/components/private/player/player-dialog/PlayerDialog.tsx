@@ -15,7 +15,7 @@ export function PlayerDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent showCloseButton={true} className="border border-primary-400/25 bg-card-secondary backdrop-blur-2xl p-0 sm:max-w-130 gap-0 md:gap-6">
+      <DialogContent showCloseButton={true} className="border border-primary-400/25 bg-card-secondary backdrop-blur-xl p-0 sm:max-w-130 gap-0 md:gap-6">
         <PlayerDialogHeader />
         <PlayerDialogContent />
         <PlayerDialogFooter />

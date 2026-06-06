@@ -1,19 +1,17 @@
 "use client";
 
 import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
+import { useMediaQuery } from "#modules/hooks/useMediaQuery";
 import DesktopPlayerBar from "./DesktopPlayerBar";
 import MobilePlayerBar from "./MobilePlayerBar";
 
 const PlayerBar = () => {
   const { track } = usePlayerTrack();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   if (!track) return null;
 
-  return (
-    <>
-      <DesktopPlayerBar />
-      <MobilePlayerBar />
-    </>
-  );
+  return isDesktop ? <DesktopPlayerBar /> : <MobilePlayerBar />;
 };
 
 export default PlayerBar;

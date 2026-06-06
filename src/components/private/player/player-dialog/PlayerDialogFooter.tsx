@@ -1,12 +1,14 @@
 "use client";
 
 import { DialogFooter } from "#components/ui/dialog";
+import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
 import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
 import { PlayerControls } from "../elements/PlayerControls";
 import { PlayerQueueControls } from "../elements/PlayerQueueControls";
 import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 
 export function PlayerDialogFooter() {
+  const { isOpen } = usePlayerDialog();
   const { track } = usePlayerTrack();
 
   if (!track) return null;
@@ -24,7 +26,7 @@ export function PlayerDialogFooter() {
         </div>
 
         <div className="w-full px-6 pt-5 md:px-8 md:pt-4">
-          <PlayerSeekBar />
+          {isOpen && <PlayerSeekBar />}
         </div>
       </div>
 
