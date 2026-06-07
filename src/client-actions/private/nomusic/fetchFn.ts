@@ -33,7 +33,7 @@ export async function fetchNomusicInfiniteFn({
         language: true,
         duration: true,
         updatedAt: true,
-        coverImage: true,
+        uploadedImageURL: true,
         uploadedAudioURL: true,
       },
     },

@@ -20,8 +20,7 @@ const PlayerArtwork = () => {
               src={track.coverImage}
               alt="Track artwork"
               fill
-              unoptimized
-              sizes="48px"
+              sizes="(max-width: 768px) 44px, 48px"
               className="object-cover"
             />
           </div>

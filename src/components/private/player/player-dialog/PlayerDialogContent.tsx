@@ -14,16 +14,15 @@ export function PlayerDialogContent() {
     <div>
       <GlowOrb position="center" />
 
-      <div className="relative flex justify-center p-6">
-        <div className="relative aspect-square w-full max-w-65">
+      <div className="relative flex justify-center px-2 py-6">
+        <div className="relative aspect-square w-full ">
           {track.coverImage ? (
             <div className="relative size-full overflow-hidden rounded-4xl">
               <Image
                 src={track.coverImage}
                 alt={`${track.name} artwork`}
                 fill
-                unoptimized
-                sizes="(max-width: 768px) 80vw, 420px"
+                sizes="(max-width: 640px) calc(100vw - 1rem), 448px"
                 className="object-cover"
               />
             </div>

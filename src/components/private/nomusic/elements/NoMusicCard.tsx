@@ -40,8 +40,8 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
               src={noMusic.coverImage}
               alt={noMusic.name || "NoMusic cover Image"}
               fill
-              unoptimized
-              sizes="(max-width: 640px) 300px, (max-width: 1024px) 50vw, (max-width: 1536px) 501px, 555px"
+              priority={index < 8}
+              sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
               className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
