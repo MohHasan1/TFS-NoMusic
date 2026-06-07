@@ -24,7 +24,7 @@ export async function fetchNomusicInfiniteFn({
       depth: 0,
       page: pageParam,
       limit: NOMUSIC_PAGINATION.LIMIT,
-      sort: "-createdAt",
+      sort: "-updatedAt",
       pagination: true,
       ...(where ? { where } : {}),
       select: {
