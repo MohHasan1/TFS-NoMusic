@@ -2,11 +2,13 @@ import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "pa
 import { getLibraryIdByLanguage } from "../helpers/library";
 import type { Nomusic } from "@/payload-types";
 import { isID } from "@/lib/utils";
+import { logInfo } from "#loggers";
 
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
   data,
   req,
 }) => {
+  logInfo(data?.audioFile)
   if (!data?.audioFile) return data;
   const audioFile = data.audioFile;
 
@@ -28,6 +30,8 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
       id: audioFile,
     });
 
+    logInfo(media)
+
     if (typeof media?.url !== "string") return data;
 
     return {
@@ -43,8 +47,10 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   data,
   req,
 }) => {
-  if (!data?.coverImage?.imageFile) return data;
-  const imageFile = data.coverImage.imageFile;
+  logInfo(data?.imageFile)
+
+  if (!data?.imageFile) return data;
+  const imageFile = data.imageFile;
 
   // -- If the relation is populated, read the media URL directly.
   if (typeof imageFile === "object" && imageFile !== null && "url" in imageFile) {
@@ -53,10 +59,7 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
 
     return {
       ...data,
-      coverImage: {
-        ...data.coverImage,
-        uploadedImageURL: mediaURL,
-      },
+      uploadedImageURL: mediaURL,
     };
   }
 
@@ -67,14 +70,13 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
       id: imageFile,
     });
 
+    logInfo(media)
+
     if (typeof media?.url !== "string") return data;
 
     return {
       ...data,
-      coverImage: {
-        ...data.coverImage,
-        uploadedImageURL: media.url,
-      },
+      uploadedImageURL: media.url,
     };
   }
 

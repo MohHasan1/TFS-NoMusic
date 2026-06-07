@@ -273,12 +273,10 @@ export interface Nomusic {
   artist?: string | null;
   album?: string | null;
   duration?: number | null;
-  coverImage?: {
-    source?: ('external_url' | 'upload') | null;
-    externalImageURL?: string | null;
-    imageFile?: (string | null) | Media;
-    uploadedImageURL?: string | null;
-  };
+  source?: ('upload' | 'external_url') | null;
+  externalImageURL?: string | null;
+  imageFile?: (string | null) | Media;
+  uploadedImageURL?: string | null;
   language: 'english' | 'bangla' | 'hindi' | 'arabic' | 'others';
   genre?: ('pop' | 'hiphop' | 'rock' | 'electronic' | 'lofi' | 'classical' | 'jazz' | 'other') | null;
   updatedAt: string;
@@ -543,14 +541,10 @@ export interface NomusicSelect<T extends boolean = true> {
   artist?: T;
   album?: T;
   duration?: T;
-  coverImage?:
-    | T
-    | {
-        source?: T;
-        externalImageURL?: T;
-        imageFile?: T;
-        uploadedImageURL?: T;
-      };
+  source?: T;
+  externalImageURL?: T;
+  imageFile?: T;
+  uploadedImageURL?: T;
   language?: T;
   genre?: T;
   updatedAt?: T;

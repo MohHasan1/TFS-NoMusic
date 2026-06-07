@@ -13,7 +13,8 @@ function mapNomusicToDto(doc: Nomusic): TNoMusic | null {
   const audioStreamUrl = doc.uploadedAudioURL || getAudioURL(doc.audioFile);
   if (!audioStreamUrl) return null;
 
-  const coverImage = getCoverImageURL(doc.coverImage);
+  const coverImage = doc.uploadedImageURL || getCoverImageURL(doc.imageFile);
+
 
   return {
     id: doc.id,

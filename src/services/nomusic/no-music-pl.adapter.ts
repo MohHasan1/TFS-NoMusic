@@ -4,6 +4,7 @@ import { getPayloadClient } from "#payload-client";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
 import { TNoMusicPaginated } from "#types/nomusic";
+import { logInfo } from "#loggers";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
@@ -22,7 +23,7 @@ export async function listNomusicAdapter(limit: number) {
         language: true,
         duration: true,
         updatedAt: true,
-        coverImage: true,
+        uploadedImageURL: true,
         uploadedAudioURL: true,
       },
     }),
@@ -52,7 +53,7 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
         language: true,
         duration: true,
         updatedAt: true,
-        coverImage: true,
+        uploadedImageURL: true,
         uploadedAudioURL: true,
       },
     }),

@@ -1,30 +1,14 @@
 import type { Media, Nomusic } from "#payload-types";
 
-export function getCoverImageURL(coverImage: Nomusic["coverImage"]): string | null | undefined {
-  if (!coverImage) return undefined;
+export function getCoverImageURL(imageFile: Nomusic["imageFile"]): string | null | undefined {
+  if (!imageFile) return undefined;
 
-  const src = coverImage?.source;
-
-  // -- External Image URL (eg. unplash or other cdn)
-  let externalImageURL: string | null | undefined;
-  if (coverImage.externalImageURL) {
-    externalImageURL = coverImage.externalImageURL;
+  // -- External audio URL from audio file (upload)
+  if (isMediaImage(imageFile)) {
+    return imageFile.url ?? undefined;
   }
 
-  // -- Uploaded Image URL (Extracted from Uploded Media - R2, or S3)
-  let uploadedImageURL: string | null | undefined;
-  if (coverImage.uploadedImageURL) {
-    uploadedImageURL = coverImage.uploadedImageURL;
-  }
-
-  // -- External Image URL from image file (Uploded Media)
-  if (!uploadedImageURL && isMediaImage(coverImage.imageFile)) {
-    uploadedImageURL = coverImage.imageFile.url ?? undefined;
-  }
-
-  const imageUrl = src === "external_url" ? externalImageURL : uploadedImageURL;
-
-  return imageUrl;
+  return undefined;
 }
 
 export function getAudioURL(audioFile: Nomusic["audioFile"]) {

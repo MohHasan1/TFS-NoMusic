@@ -78,16 +78,16 @@ export const Nomusic: CollectionConfig = {
       type: "number",
     },
     {
-      name: "coverImage",
-      type: "group",
+      label: "coverImage",
+      type: "collapsible",
       fields: [
         {
           name: "source",
           type: "select",
-          defaultValue: "external_url",
+          defaultValue: "upload",
           options: [
-            { label: "External URL", value: "external_url" },
             { label: "Upload", value: "upload" },
+            { label: "External URL", value: "external_url" },
           ],
         },
         {
@@ -102,9 +102,6 @@ export const Nomusic: CollectionConfig = {
         {
           name: "uploadedImageURL",
           type: "text",
-          admin: {
-            readOnly: true,
-          },
         },
       ],
     },

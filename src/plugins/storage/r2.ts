@@ -12,21 +12,13 @@ export const r2StoragePlugin = s3Storage({
     media: {
       prefix: "nomusic",
       disablePayloadAccessControl: true,
-      // generateFileURL: ({ filename }) => {
-      //   const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
+      generateFileURL: ({ filename, prefix }) => {
+        const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
 
-      //   return `${baseURL}/nomusic/${encodeURIComponent(filename)}`;
-      // },
-      // generateFileURL: ({ collection, filename, prefix }) => {
-      //   return `http://localhost:3000/${prefix}/${collection.slug}/${filename}`;
-      // },
-      // generateFileURL: ({ filename, prefix }) => {
-      //   logInfo("r2StoragePlugin-prefix", prefix)
-      //   const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
-      //   const key = ["nomusic", prefix, encodeURIComponent(filename)].filter(Boolean).join("/");
-      //   logInfo("final url", `${baseURL}/${key}`)
-      //   return `${baseURL}/${key}`;
-      // },
+        const key = ["nomusic", prefix, encodeURIComponent(filename)].filter(Boolean).join("/");
+
+        return `${baseURL}/${key}`;
+      },
     },
   },
   useCompositePrefixes: true,
