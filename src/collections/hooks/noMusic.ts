@@ -2,13 +2,11 @@ import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "pa
 import { getLibraryIdByLanguage } from "../helpers/library";
 import type { Nomusic } from "@/payload-types";
 import { isID } from "@/lib/utils";
-import { logInfo } from "#loggers";
 
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
   data,
   req,
 }) => {
-  logInfo(data?.audioFile)
   if (!data?.audioFile) return data;
   const audioFile = data.audioFile;
 
@@ -30,8 +28,6 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
       id: audioFile,
     });
 
-    logInfo(media)
-
     if (typeof media?.url !== "string") return data;
 
     return {
@@ -47,8 +43,6 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   data,
   req,
 }) => {
-  logInfo(data?.imageFile)
-
   if (!data?.imageFile) return data;
   const imageFile = data.imageFile;
 
@@ -69,8 +63,6 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
       collection: "media",
       id: imageFile,
     });
-
-    logInfo(media)
 
     if (typeof media?.url !== "string") return data;
 

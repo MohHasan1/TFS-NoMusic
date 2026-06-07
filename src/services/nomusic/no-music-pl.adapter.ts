@@ -4,7 +4,6 @@ import { getPayloadClient } from "#payload-client";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
 import { TNoMusicPaginated } from "#types/nomusic";
-import { logInfo } from "#loggers";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();

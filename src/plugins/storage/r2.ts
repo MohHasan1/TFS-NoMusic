@@ -1,6 +1,5 @@
 import { s3Storage } from "@payloadcms/storage-s3";
 import { getR2Env } from "./r2.env";
-import { logInfo } from "#loggers";
 
 const r2 = getR2Env();
 
