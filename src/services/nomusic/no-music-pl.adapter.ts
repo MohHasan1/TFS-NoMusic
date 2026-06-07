@@ -43,7 +43,7 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
       depth: 0,
       page,
       limit,
-      sort: "-createdAt",
+      sort: "-updatedAt",
       pagination: true,
       select: {
         name: true,

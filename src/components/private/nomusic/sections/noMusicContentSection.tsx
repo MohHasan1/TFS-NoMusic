@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { TResponse } from "#responses";
 import { QUERY } from "#constants/private/query";
 
+// TODO: when route is ?language="", double fetch happens - have to fix that
 export function NoMusicContentSection({ res }: TProps) {
   const searchParams = useSearchParams();
   const rawLangValue = searchParams.get(QUERY.LANGUAGE)?.trim();
