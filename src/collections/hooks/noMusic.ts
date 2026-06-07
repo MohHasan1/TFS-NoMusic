@@ -87,14 +87,13 @@ export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic>
   operation,
   req,
 }) => {
-  // TODO: temp update opertaion
   if (operation !== "create") return;
 
   if (!doc.language) return;
 
   const libraryId = await getLibraryIdByLanguage(req.payload, doc.language);
 
-  const res = await req.payload.create({
+  await req.payload.create({
     collection: "nomusic-libraries",
     overrideAccess: true,
     select: {},

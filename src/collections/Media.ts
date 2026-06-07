@@ -1,12 +1,14 @@
 import type { CollectionConfig } from "payload";
 import { DEFAULT_MEDIA_FOLDER, MEDIA_FOLDER_OPTIONS } from "./helpers/media";
-import { detectMediaTypeBeforeValidate, setMediaPrefixBeforeValidate } from "./hooks/media";
+
+import { access } from "./access";
+import { addMediaTypeBeforeValidate } from "./hooks/media";
 
 export const Media: CollectionConfig = {
   slug: "media",
 
   hooks: {
-    beforeValidate: [setMediaPrefixBeforeValidate, detectMediaTypeBeforeValidate],
+    beforeValidate: [addMediaTypeBeforeValidate],
   },
 
   admin: {
@@ -14,25 +16,31 @@ export const Media: CollectionConfig = {
   },
 
   access: {
-    read: () => true, // public CDN URLs handle actual access control
-    create: ({ req }) => req.user?.role === "admin",
-    update: ({ req }) => req.user?.role === "admin",
-    delete: ({ req }) => req.user?.role === "admin",
+    read: access.isLoggedIn, // public CDN URLs handle actual access control
+    create: access.isAdmin,
+    update: access.isAdmin,
+    delete: access.isAdmin,
   },
 
   upload: {
-    staticDir: "media",
     mimeTypes: ["image/*", "audio/*"],
     focalPoint: false,
   },
 
   fields: [
     {
-      name: "folder",
+      name: "prefix",
       type: "select",
+      label: "Folder",
       required: true,
       defaultValue: DEFAULT_MEDIA_FOLDER,
       options: MEDIA_FOLDER_OPTIONS,
+      admin: {
+        position: "sidebar",
+        hidden: false,
+        readOnly: false,
+        description: "Choose this before selecting the file.",
+      },
     },
     {
       name: "alt",
@@ -48,16 +56,6 @@ export const Media: CollectionConfig = {
         { label: "Image", value: "image" },
         { label: "Other", value: "other" },
       ],
-    },
-
-    {
-      name: "mimeType",
-      type: "text",
-    },
-
-    {
-      name: "size",
-      type: "number",
     },
   ],
 };

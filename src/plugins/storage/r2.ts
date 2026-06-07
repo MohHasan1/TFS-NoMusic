@@ -1,5 +1,6 @@
 import { s3Storage } from "@payloadcms/storage-s3";
 import { getR2Env } from "./r2.env";
+import { logInfo } from "#loggers";
 
 const r2 = getR2Env();
 
@@ -9,13 +10,23 @@ export const r2StoragePlugin = s3Storage({
   alwaysInsertFields: true,
   collections: {
     media: {
-      prefix: "nomusic/vocals",
+      prefix: "nomusic",
       disablePayloadAccessControl: true,
-      generateFileURL: ({ filename, prefix }) => {
-        const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
-        const key = ["nomusic", prefix, encodeURIComponent(filename)].filter(Boolean).join("/");
-        return `${baseURL}/${key}`;
-      },
+      // generateFileURL: ({ filename }) => {
+      //   const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
+
+      //   return `${baseURL}/nomusic/${encodeURIComponent(filename)}`;
+      // },
+      // generateFileURL: ({ collection, filename, prefix }) => {
+      //   return `http://localhost:3000/${prefix}/${collection.slug}/${filename}`;
+      // },
+      // generateFileURL: ({ filename, prefix }) => {
+      //   logInfo("r2StoragePlugin-prefix", prefix)
+      //   const baseURL = r2.enabled ? r2.publicUrl.replace(/\/+$/, "") : "";
+      //   const key = ["nomusic", prefix, encodeURIComponent(filename)].filter(Boolean).join("/");
+      //   logInfo("final url", `${baseURL}/${key}`)
+      //   return `${baseURL}/${key}`;
+      // },
     },
   },
   useCompositePrefixes: true,
@@ -29,5 +40,4 @@ export const r2StoragePlugin = s3Storage({
     endpoint: r2.enabled ? r2.endpoint : "",
     forcePathStyle: true,
   },
-  
 });

@@ -244,11 +244,12 @@ export interface Request {
  */
 export interface Media {
   id: string;
-  folder: 'vocals' | 'images/users' | 'images/vocals' | 'images/playlist';
   alt?: string | null;
   type?: ('audio' | 'image' | 'other') | null;
-  size?: number | null;
-  prefix?: string | null;
+  /**
+   * Choose this before selecting the file.
+   */
+  prefix: 'vocals' | 'images/vocals' | 'images/users' | 'images/playlist';
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -517,10 +518,8 @@ export interface RequestsSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  folder?: T;
   alt?: T;
   type?: T;
-  size?: T;
   prefix?: T;
   updatedAt?: T;
   createdAt?: T;
