@@ -13,7 +13,7 @@ export async function listNomusicAdapter(limit: number) {
       collection: "nomusic",
       depth: 0,
       limit: limit,
-      sort: "-createdAt",
+      sort: "-updatedAt",
       pagination: false,
       select: {
         name: true,
