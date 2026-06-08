@@ -1,7 +1,9 @@
 import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "payload";
 import { getLibraryIdByLanguage } from "../helpers/library";
 import type { Nomusic } from "@/payload-types";
-import { isID } from "@/lib/utils";
+import { parseBuffer } from "music-metadata";
+import { isID } from "#lib/utils";
+import { logInfo } from "#loggers";
 
 // TODO: make it better
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
@@ -47,6 +49,34 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   return data;
 };
 
+// NOTE: must run after syncUploadAudioURLBeforeValidate
+export const syncAudioDurationBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
+  data,
+}) => {
+  // -- If duration exists, do not calculate again.
+  if (data?.duration) return data;
+
+  // -- Only works when uploadedAudioURL is populated and has a URL.
+  if (!data?.uploadedAudioURL) return data;
+  const uploadedAudioURL = data.uploadedAudioURL;
+
+  const response = await fetch(uploadedAudioURL);
+  if (!response.ok) return data;
+
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  const metadata = await parseBuffer(buffer);
+
+  const durationInSeconds = metadata.format.duration;
+  if (!durationInSeconds) return data;
+
+  return {
+    ...data,
+    duration: Math.round(durationInSeconds),
+  };
+};
+
 export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
   data,
   req,
@@ -54,7 +84,7 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   if (!data?.imageFile) return data;
   // If uploadedImageURL exist then already synced - To update clear uploadedImageURL and then update.
   if (data?.uploadedImageURL) return data;
-  
+
   const imageFile = data.imageFile;
 
   // -- If the relation is populated, read the media URL directly.

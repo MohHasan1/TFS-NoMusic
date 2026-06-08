@@ -2,6 +2,7 @@ import type { CollectionConfig } from "payload";
 import { capitalizeFirstLetter } from "./helpers/format";
 import {
   assignNomusicLibraryAfterChange,
+  syncAudioDurationBeforeValidate,
   syncUploadAudioURLBeforeValidate,
   syncUploadImageURLBeforeValidate,
 } from "./hooks/noMusic";
@@ -12,7 +13,11 @@ export const Nomusic: CollectionConfig = {
   slug: "nomusic",
 
   hooks: {
-    beforeValidate: [syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate],
+    beforeValidate: [
+      syncUploadAudioURLBeforeValidate,
+      syncUploadImageURLBeforeValidate,
+      syncAudioDurationBeforeValidate,
+    ],
     afterChange: [assignNomusicLibraryAfterChange],
   },
 

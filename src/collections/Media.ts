@@ -43,6 +43,16 @@ export const Media: CollectionConfig = {
       },
     },
     {
+      name: "renameFileButton",
+      type: "ui",
+      admin: {
+        components: {
+          Field: "@/collections/components/renameMediaFilename#renameMediaFilename",
+        },
+      },
+    },
+
+    {
       name: "alt",
       type: "text",
     },
