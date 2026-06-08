@@ -6,6 +6,7 @@ import {
   syncUploadImageURLBeforeValidate,
 } from "./hooks/noMusic";
 import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { access } from "./access";
 
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
@@ -19,22 +20,23 @@ export const Nomusic: CollectionConfig = {
     useAsTitle: "name",
   },
 
+  // TODO: make this the deafult place to populate - test it
   defaultPopulate: {
     id: true,
     name: true,
+    artist: true,
     duration: true,
     language: true,
+    updatedAt: true,
     uploadedAudioURL: true,
-    source: true,
-    externalImageURL: true,
     uploadedImageURL: true,
   },
 
   access: {
-    read: () => true,
-    create: ({ req }) => req.user?.role === "admin",
-    update: ({ req }) => req.user?.role === "admin",
-    delete: ({ req }) => req.user?.role === "admin",
+    read: access.isLoggedIn,
+    create: access.isAdmin,
+    update: access.isAdmin,
+    delete: access.isAdmin,
   },
 
   fields: [

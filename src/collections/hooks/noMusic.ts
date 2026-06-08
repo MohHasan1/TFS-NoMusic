@@ -3,11 +3,15 @@ import { getLibraryIdByLanguage } from "../helpers/library";
 import type { Nomusic } from "@/payload-types";
 import { isID } from "@/lib/utils";
 
+// TODO: make it better
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
   data,
   req,
 }) => {
   if (!data?.audioFile) return data;
+  // If uploadedAudioURL exist then already synced - To update clear uploadedAudioURL and then update.
+  if (data?.uploadedAudioURL) return data;
+
   const audioFile = data.audioFile;
 
   // -- If the relation is populated, read the media URL directly.
@@ -48,6 +52,9 @@ export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomu
   req,
 }) => {
   if (!data?.imageFile) return data;
+  // If uploadedImageURL exist then already synced - To update clear uploadedImageURL and then update.
+  if (data?.uploadedImageURL) return data;
+  
   const imageFile = data.imageFile;
 
   // -- If the relation is populated, read the media URL directly.
@@ -85,7 +92,7 @@ export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic>
   operation,
   req,
 }) => {
-  if (operation !== "create") return;
+  if (operation === "update") return;
 
   if (!doc.language) return;
 
