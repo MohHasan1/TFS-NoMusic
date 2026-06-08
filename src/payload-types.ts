@@ -277,7 +277,7 @@ export interface Nomusic {
   externalImageURL?: string | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
-  language: 'english' | 'bangla' | 'hindi' | 'arabic' | 'others';
+  language: 'bangla' | 'hindi' | 'english' | 'arabic' | 'others';
   genre?: ('pop' | 'hiphop' | 'rock' | 'electronic' | 'lofi' | 'classical' | 'jazz' | 'other') | null;
   updatedAt: string;
   createdAt: string;
@@ -295,7 +295,7 @@ export interface Library {
   /**
    * Used only for language libraries
    */
-  language?: ('english' | 'bangla' | 'hindi' | 'arabic' | 'others') | null;
+  language?: ('bangla' | 'hindi' | 'english' | 'arabic' | 'others') | null;
   /**
    * Used only for curated libraries - not used, its here as a reminder.
    */

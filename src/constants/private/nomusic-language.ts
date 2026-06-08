@@ -1,8 +1,8 @@
 import { capitalizeFirstLetter } from "@/lib/utils";
 
-export const LANGUAGES_VALUES = ["english", "bangla", "hindi", "arabic", "others"] as const;
+export const LANGUAGES_VALUES = ["bangla", "hindi", "english", "arabic", "others"] as const;
 export type TLANGUAGES_VALUES = (typeof LANGUAGES_VALUES)[number];
-export const ALL_LANGUAGE_VALUE = "all" as const
+export const ALL_LANGUAGE_VALUE = "all" as const;
 
 export const LANGUAGE_OPTIONS = [
   { label: "All languages", value: ALL_LANGUAGE_VALUE },

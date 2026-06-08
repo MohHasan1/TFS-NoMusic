@@ -33,6 +33,7 @@ export function NomusicLanguageFilter() {
     setSelectedLanguage(language);
   }, [language]);
 
+  // To remove
   useEffect(() => {
     if (!rawLanguage) return;
     if (isLanguage(rawLanguage)) return;
@@ -71,11 +72,11 @@ export function NomusicLanguageFilter() {
 
   return (
     <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="w-full bg-card-secondary md:w-52">
-        <SelectValue placeholder="Language" />
+      <SelectTrigger className="bg-card-secondary w-60 justify-center md:w-52">
+        <SelectValue className="w-full text-center" placeholder="Language" />
       </SelectTrigger>
 
-      <SelectContent className="bg-card-secondary backdrop-blur-xl">
+      <SelectContent className="bg-card-secondary backdrop-blur-md">
         {LANGUAGE_OPTIONS.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}
