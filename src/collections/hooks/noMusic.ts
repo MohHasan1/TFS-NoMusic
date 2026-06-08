@@ -15,6 +15,8 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
     const mediaURL = typeof audioFile.url === "string" ? audioFile.url : undefined;
     if (!mediaURL) return data;
 
+    // context.uploadedAudioURL = mediaURL;
+
     return {
       ...data,
       uploadedAudioURL: mediaURL,
@@ -29,6 +31,8 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
     });
 
     if (typeof media?.url !== "string") return data;
+
+    // context.uploadedAudioURL = media.url;
 
     return {
       ...data,
