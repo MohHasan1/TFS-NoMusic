@@ -18,28 +18,39 @@ export const renameMediaFilename = () => {
 
 const renamePayloadFileInput = () => {
   const filenameInput = document.querySelector<HTMLInputElement>("input.file-field__filename");
+
   if (!filenameInput?.value) return;
 
-  const fileInput = document.querySelector<HTMLInputElement>("input[type='file']");
+  const currentFilename = filenameInput.value.trim();
 
-  const selectedFile = fileInput?.files?.[0];
-
-  const isAudio =
-    selectedFile?.type.startsWith("audio/") ||
-    filenameInput.value.match(/\.(mp3|m4a|wav|aac|ogg)$/i);
-
-  const cleanName = toSnakeCaseFileName(filenameInput.value);
+  const cleanName = toSnakeCaseFileName(currentFilename);
+  const extension = getFileExtension(currentFilename);
   const uniqueId = createUniqueId();
-  const transformedName = `${cleanName}_${uniqueId}`;
 
-  const newName = isAudio
-    ? `${transformedName}${getAudioExtension(filenameInput.value)}`
-    : transformedName;
+  const newName = `${cleanName}_${uniqueId}${extension}`;
 
-  filenameInput.value = newName;
+  updateFilenameInput(filenameInput, newName);
+};
 
-  filenameInput.dispatchEvent(new Event("input", { bubbles: true }));
-  filenameInput.dispatchEvent(new Event("change", { bubbles: true }));
+const updateFilenameInput = (input: HTMLInputElement, newName: string) => {
+  const nativeSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+
+  input.focus();
+
+  nativeSetter?.call(input, newName);
+
+  input.title = newName;
+  input.setAttribute("title", newName);
+
+  input.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText" }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+  input.blur();
+};
+
+const getFileExtension = (fileName: string) => {
+  const match = fileName.match(/\.[^/.]+$/);
+
+  return match?.[0]?.toLowerCase() ?? "";
 };
 
 const createUniqueId = () => crypto.randomUUID().slice(0, 8);

@@ -73,7 +73,7 @@ export const syncAudioDurationBeforeValidate: CollectionBeforeValidateHook<Nomus
 
   return {
     ...data,
-    duration: Math.round(durationInSeconds),
+    duration: Math.floor(durationInSeconds),
   };
 };
 
