@@ -26,6 +26,6 @@ export function useNomusicPageInfiniteQuery(
           pages: [initialData],
           pageParams: [NOMUSIC_PAGINATION.PAGE],
         },
-    getNextPageParam: (prevRes) => (prevRes.hasNextPage ? prevRes.nextPage : undefined),
+    getNextPageParam: (prevRes) => (prevRes?.hasNextPage ? prevRes.nextPage : undefined),
   });
 }

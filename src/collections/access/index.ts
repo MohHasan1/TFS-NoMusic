@@ -1,4 +1,5 @@
 // src/access/index.ts
+import { logInfo } from "#loggers";
 import type { Access } from "payload";
 
 /**
@@ -16,6 +17,9 @@ export const noOne: Access = () => {
  * Auth access
  */
 export const isLoggedIn: Access = ({ req: { user } }) => {
+  // const c = req.
+  logInfo(" (user);", user);
+  logInfo(" Boolean(user);", Boolean(user));
   return Boolean(user);
 };
 

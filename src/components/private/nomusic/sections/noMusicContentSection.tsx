@@ -29,9 +29,10 @@ export function NoMusicContentSection({ res }: TProps) {
   }, [langValue]);
 
   const initialData = res.isSuccess ? res.data : ([] as unknown as TNoMusicPaginated);
+  // const initialData = res.isSuccess ? res.data : undefined;
   const query = useNomusicPageInfiniteQuery(initialData, filters);
 
-  if (!res.isSuccess || query.isError)
+  if ( query.isError)
     return (
       <section>
         <NoMusicEmptyBox />

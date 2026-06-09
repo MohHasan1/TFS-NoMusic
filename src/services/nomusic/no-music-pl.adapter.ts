@@ -4,6 +4,8 @@ import { getPayloadClient } from "#payload-client";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
 import { TNoMusicPaginated } from "#types/nomusic";
+import { logInfo } from "#loggers";
+import { headers as nextHeaders } from "next/headers";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
@@ -14,6 +16,7 @@ export async function listNomusicAdapter(limit: number) {
       depth: 0,
       limit: limit,
       sort: "-updatedAt",
+      overrideAccess: false,
       pagination: false,
       select: {
         name: true,
@@ -37,6 +40,14 @@ export async function listNomusicAdapter(limit: number) {
 export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TListNomusicArg = {}) {
   const payload = await getPayloadClient();
 
+  const userRes = await tryCatchResponse(async () =>
+    payload.auth({
+      headers: await nextHeaders(),
+    }),
+  );
+
+  if (!userRes.isSuccess) return errorResponse([]);
+
   const res = await tryCatchResponse(() =>
     payload.find({
       collection: "nomusic",
@@ -45,6 +56,8 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
       limit,
       sort: "-updatedAt",
       pagination: true,
+      // user: userRes.data.user,
+      overrideAccess: false,
       select: {
         name: true,
         title: true,
@@ -57,6 +70,8 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
       },
     }),
   );
+
+  logInfo(res);
 
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
 

@@ -8,7 +8,7 @@ import type { TNoMusicPaginated } from "#types/nomusic";
 import type { Nomusic } from "#payload-types";
 import { buildNomusicWhere } from "./utils";
 import { QUERY_KEYS } from "./keys";
-import { isLanguage } from "#constants/private/nomusic-language";
+import { logInfo } from "#loggers";
 
 type TNomusicInfiniteQueryKey = ReturnType<typeof QUERY_KEYS.nomusic.infinite>;
 
@@ -16,6 +16,7 @@ export async function fetchNomusicInfiniteFn({
   pageParam,
   queryKey,
 }: QueryFunctionContext<TNomusicInfiniteQueryKey, number>) {
+  logInfo("fetchNomusicInfiniteFn")
   const [, , filters] = queryKey;
   const where = buildNomusicWhere(filters);
 
@@ -42,11 +43,16 @@ export async function fetchNomusicInfiniteFn({
 
   const response = await fetch(`/api/nomusic${query}`);
 
+  logInfo("response", response)
+
   if (!response.ok) {
     throw new Error("Failed to load NoMusic.");
   }
 
   const result = (await response.json()) as PaginatedDocs<Nomusic>;
+
+  logInfo("result", result)
+
 
   return {
     ...result,

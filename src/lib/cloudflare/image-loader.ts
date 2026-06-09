@@ -14,5 +14,4 @@ export default function cloudflareImageLoader({ src, width, quality }: ImageLoad
   const host = process.env.NEXT_PUBLIC_CLOUDFLARE_IMAGE_HOST || "https://thefamilysuite.org";
 
   return `${host}/cdn-cgi/image/${params.join(",")}/${normalizeSrc(src)}`;
-  // return `/cdn-cgi/image/${params.join(",")}/${normalizeSrc(src)}`;
 }

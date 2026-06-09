@@ -55,7 +55,7 @@ const NoMusicBrowser = ({ pages, isFetching, queryParam }: TProps) => {
       className="w-full grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"
     >
       {tracks.map((track, index) => (
-        <NoMusicCard key={track.id} index={index} noMusic={track} />
+        <NoMusicCard key={track?.id || index} index={index} noMusic={track} />
       ))}
     </div>
   );

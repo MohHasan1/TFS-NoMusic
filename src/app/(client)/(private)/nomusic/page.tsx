@@ -8,10 +8,10 @@ import { getCurrentUser } from "#services/auth/auth.ports";
 import { PUBLIC_ROUTES } from "#constants/routes";
 
 export default async function NoMusicPage() {
-  const user = await getCurrentUser();
-  if (!user.isSuccess) {
-    redirect(PUBLIC_ROUTES.SIGNIN);
-  }
+  // const user = await getCurrentUser();
+  // if (!user.isSuccess) {
+  //   redirect(PUBLIC_ROUTES.SIGNIN);
+  // }
 
   const res = await listNomusicPaginated({
     page: NOMUSIC_PAGINATION.PAGE,

@@ -14,16 +14,16 @@ import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
 import { isNewByUpdatedDate, formatPlaybackTime } from "#components/private/_utils/helpers";
 
 const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
-  const { isActive, isPlaying } = usePlayerPlayback(noMusic.id);
-  const isNew = isNewByUpdatedDate(noMusic.uploadedAt);
+  const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
+  const isNew = isNewByUpdatedDate(noMusic?.uploadedAt);
 
   return (
     <Button
       type="button"
       data-nomusic-index={index}
-      data-nomusic-id={noMusic.id}
+      data-nomusic-id={noMusic?.id}
       variant="ghost"
-      aria-label={`Play ${noMusic.name}`}
+      aria-label={`Play ${noMusic?.name}`}
       className="group h-auto cursor-pointer p-0 text-left"
     >
       <Card
@@ -35,17 +35,17 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
         )}
       >
         <CardHeader className="relative aspect-square overflow-hidden bg-muted p-0">
-          {noMusic.coverImage ? (
+          {noMusic?.coverImage ? (
             <Image
-              src={noMusic.coverImage}
-              alt={noMusic.name || "NoMusic cover Image"}
+              src={noMusic?.coverImage}
+              alt={noMusic?.name || "NoMusic cover Image"}
               fill
               priority={index < 8}
               sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
               className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <NoMusicCover name={noMusic.name} artist={noMusic.artist} />
+            <NoMusicCover name={noMusic?.name} artist={noMusic?.artist} />
           )}
 
           <div
@@ -69,26 +69,26 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
           )}
 
           <span className="absolute bg-card-secondary/60 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">
-            {formatPlaybackTime(noMusic.duration ?? 0)}
+            {formatPlaybackTime(noMusic?.duration ?? 0)}
           </span>
         </CardHeader>
 
         <CardContent className="space-y-2 p-3 md:space-y-2.5 md:p-4">
           <h3
             className="truncate text-xs md:text-sm font-semibold text-primary-200"
-            title={noMusic.name}
+            title={noMusic?.name}
           >
-            {noMusic.name ?? "Untitled"}
+            {noMusic?.name ?? "Untitled"}
           </h3>
 
           <div className="flex items-center justify-start gap-2 text-[10px] md:text-xs text-muted-foreground">
             <RiUser3Line className="size-3 shrink-0 text-primary-400" />
-            <span className="truncate">{noMusic.artist || "Unknown Artist"}</span>
+            <span className="truncate">{noMusic?.artist || "Unknown Artist"}</span>
           </div>
 
           <div className="flex items-center justify-start gap-2 text-[10px] md:text-xs text-muted-foreground capitalize">
             <RiGlobalLine className="size-3 shrink-0 text-primary-400" />
-            {noMusic.language ?? "unknown"}
+            {noMusic?.language ?? "unknown"}
           </div>
         </CardContent>
       </Card>
