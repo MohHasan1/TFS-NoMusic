@@ -19,6 +19,8 @@
       }
     ],
     "paths": {
+      "#collection-default-select/*": ["./src/collections/defaults/*"],
+
       "#modules/*": ["./src/modules/*"],
       "#store": ["./src/store/index.ts"],
       "#loggers": ["./src/lib/loggers/base.ts"],

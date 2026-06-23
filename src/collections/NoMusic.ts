@@ -1,3 +1,4 @@
+import { access } from "./access";
 import type { CollectionConfig } from "payload";
 import { capitalizeFirstLetter } from "./helpers/format";
 import {
@@ -7,7 +8,7 @@ import {
   syncUploadImageURLBeforeValidate,
 } from "./hooks/noMusic";
 import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
-import { access } from "./access";
+import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
 
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
@@ -25,17 +26,7 @@ export const Nomusic: CollectionConfig = {
     useAsTitle: "name",
   },
 
-  // TODO: make this the deafult place to populate - test it
-  defaultPopulate: {
-    id: true,
-    name: true,
-    artist: true,
-    duration: true,
-    language: true,
-    updatedAt: true,
-    uploadedAudioURL: true,
-    uploadedImageURL: true,
-  },
+  defaultPopulate: NOMUSIC_DEFAULT_SELECT,
 
   access: {
     read: access.isLoggedIn,

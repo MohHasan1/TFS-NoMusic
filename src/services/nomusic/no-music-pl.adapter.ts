@@ -1,15 +1,26 @@
+import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
 import { errorResponse, successResponse } from "#responses";
+import { headers as nextHeaders } from "next/headers";
 import { tryCatchResponse } from "#trycatch-response";
+import { TNoMusicPaginated } from "#types/nomusic";
 import { getPayloadClient } from "#payload-client";
+import { PUBLIC_ROUTES } from "#constants/routes";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
-import { TNoMusicPaginated } from "#types/nomusic";
+import { redirect } from "next/navigation";
 import { logInfo } from "#loggers";
-import { headers as nextHeaders } from "next/headers";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
+  // -- Authentication
+  const userRes = await tryCatchResponse(async () =>
+    payload.auth({
+      headers: await nextHeaders(),
+    }),
+  );
+  if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
 
+  // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>
     payload.find({
       collection: "nomusic",
@@ -17,17 +28,9 @@ export async function listNomusicAdapter(limit: number) {
       limit: limit,
       sort: "-updatedAt",
       overrideAccess: false,
+      user: userRes.data.user,
       pagination: false,
-      select: {
-        name: true,
-        title: true,
-        artist: true,
-        language: true,
-        duration: true,
-        updatedAt: true,
-        uploadedImageURL: true,
-        uploadedAudioURL: true,
-      },
+      select: NOMUSIC_DEFAULT_SELECT,
     }),
   );
 
@@ -40,14 +43,15 @@ export async function listNomusicAdapter(limit: number) {
 export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TListNomusicArg = {}) {
   const payload = await getPayloadClient();
 
+  // -- Authentication
   const userRes = await tryCatchResponse(async () =>
     payload.auth({
       headers: await nextHeaders(),
     }),
   );
+  if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
 
-  if (!userRes.isSuccess) return errorResponse([]);
-
+  // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>
     payload.find({
       collection: "nomusic",
@@ -56,22 +60,11 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
       limit,
       sort: "-updatedAt",
       pagination: true,
-      // user: userRes.data.user,
+      user: userRes.data.user,
       overrideAccess: false,
-      select: {
-        name: true,
-        title: true,
-        artist: true,
-        language: true,
-        duration: true,
-        updatedAt: true,
-        uploadedImageURL: true,
-        uploadedAudioURL: true,
-      },
+      select: NOMUSIC_DEFAULT_SELECT,
     }),
   );
-
-  logInfo(res);
 
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
 

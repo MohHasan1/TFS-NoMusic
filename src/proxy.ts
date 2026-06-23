@@ -1,9 +1,25 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+
+const SIGN_IN_PATH = "/signin";
+const DEFAULT_AUTHENTICATED_PATH = "/nomusic";
+
+const PROTECTED_ROUTES = ["/nomusic", "/request-nomusic"];
+export const config = {
+  matcher: ["/signin", "/nomusic/:path*", "/request-nomusic/:path*"],
+};
 
 export default async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  const isSignInPage = pathname === SIGN_IN_PATH;
+  const isPrivatePage = isProtectedRoute(pathname);
+
   const token = request.cookies.get("payload-token")?.value;
-  // No cookie means user is not logged in, so show signin page
   if (!token) {
+    if (isPrivatePage) {
+      return redirectToSignIn(request);
+    }
+
     return NextResponse.next();
   }
 
@@ -13,28 +29,64 @@ export default async function proxy(request: NextRequest) {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      credentials: "include",
       cache: "no-store",
     });
 
-    if (!response.ok) {
+    const data = response.ok ? await response.json().catch(() => null) : null;
+
+    const isAuthenticated = Boolean(data?.user);
+    if (!isAuthenticated) {
+      if (isSignInPage) {
+        return allowSignInAndClearToken();
+      }
+
+      if (isPrivatePage) {
+        return redirectToSignIn(request, {
+          clearToken: true,
+        });
+      }
+
       return NextResponse.next();
     }
 
-    const data = await response.json().catch(() => null);
-
-    // Important: response can be OK but user can still be null
-    if (!data?.user) {
-      return NextResponse.next();
+    // Logged-in users should not access signin
+    if (isSignInPage) {
+      return NextResponse.redirect(new URL(DEFAULT_AUTHENTICATED_PATH, request.url));
     }
 
-    return NextResponse.redirect(new URL("/nomusic", request.url));
+    return NextResponse.next();
   } catch {
-    // If Payload API fails during restart/dev reload, don't force redirect
+    // Authentication could not be verified
+    if (isPrivatePage) {
+      return redirectToSignIn(request);
+    }
+
     return NextResponse.next();
   }
 }
 
-export const config = {
-  matcher: ["/signin"],
-};
+function isProtectedRoute(pathname: string) {
+  return PROTECTED_ROUTES.some((route) => pathname === route || pathname.startsWith(`${route}/`));
+}
+
+function redirectToSignIn(request: NextRequest, options: { clearToken?: boolean } = {}) {
+  const { pathname, search } = request.nextUrl;
+
+  const signInURL = new URL(SIGN_IN_PATH, request.url);
+  signInURL.searchParams.set("redirect", `${pathname}${search}`);
+
+  const response = NextResponse.redirect(signInURL);
+
+  if (options.clearToken) {
+    response.cookies.delete("payload-token");
+  }
+
+  return response;
+}
+
+function allowSignInAndClearToken() {
+  const response = NextResponse.next();
+  response.cookies.delete("payload-token");
+
+  return response;
+}

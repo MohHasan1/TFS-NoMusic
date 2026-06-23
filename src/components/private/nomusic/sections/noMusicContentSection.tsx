@@ -10,8 +10,8 @@ import { NoMusicEmptyBox } from "../elements/NomusicEmptyBox";
 import NoMusicBrowser from "../elements/NoMusicBrowser";
 import { TNoMusicPaginated } from "#types/nomusic";
 import { useSearchParams } from "next/navigation";
-import { TResponse } from "#responses";
 import { QUERY } from "#constants/private/query";
+import { TResponse } from "#responses";
 
 // TODO: when route is ?language="", double fetch happens - have to fix that
 export function NoMusicContentSection({ res }: TProps) {
@@ -29,10 +29,9 @@ export function NoMusicContentSection({ res }: TProps) {
   }, [langValue]);
 
   const initialData = res.isSuccess ? res.data : ([] as unknown as TNoMusicPaginated);
-  // const initialData = res.isSuccess ? res.data : undefined;
   const query = useNomusicPageInfiniteQuery(initialData, filters);
 
-  if ( query.isError)
+  if (query.isError)
     return (
       <section>
         <NoMusicEmptyBox />
