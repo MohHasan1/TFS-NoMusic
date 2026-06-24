@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'nextjs-toploader/app';
 import { useState } from "react";
 
 import { PUBLIC_ROUTES } from "#constants/routes";
