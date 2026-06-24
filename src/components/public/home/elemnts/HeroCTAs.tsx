@@ -1,22 +1,31 @@
 "use client";
 
-import { useRouter } from 'nextjs-toploader/app';
-import { useState } from "react";
+import { useRouter } from "nextjs-toploader/app";
+import { useEffect, useState } from "react";
 
 import { PUBLIC_ROUTES } from "#constants/routes";
 import { Button } from "#components/ui/button";
 import { Spinner } from "#components/ui/spinner";
+import { usePathname } from "next/navigation";
 
 type LoadingCTA = "signin" | "request-access" | null;
 
 export function HeroCTAs() {
   const router = useRouter();
+  const pathname = usePathname();
   const [loadingCTA, setLoadingCTA] = useState<LoadingCTA>(null);
 
   function handleRedirect(route: string, cta: Exclude<LoadingCTA, null>) {
     setLoadingCTA(cta);
     router.push(route);
   }
+
+  // To reset loading if navigated back to home
+  useEffect(() => {
+    if (pathname === PUBLIC_ROUTES.HOME) {
+      setLoadingCTA(null);
+    }
+  }, [pathname]);
 
   const isSigninLoading = loadingCTA === "signin";
   const isRequestAccessLoading = loadingCTA === "request-access";
