@@ -11,13 +11,13 @@ import { redirect } from "next/navigation";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
-  // -- Authentication
-  const userRes = await tryCatchResponse(async () =>
-    payload.auth({
-      headers: await nextHeaders(),
-    }),
-  );
-  if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
+  // -- Authentication - for now I am not adding it, proxy is teh only place auth check is done, once ur in there is no need to check for now.
+  // const userRes = await tryCatchResponse(async () =>
+  //   payload.auth({
+  //     headers: await nextHeaders(),
+  //   }),
+  // );
+  // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
 
   // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>
@@ -26,8 +26,8 @@ export async function listNomusicAdapter(limit: number) {
       depth: 0,
       limit: limit,
       sort: "-updatedAt",
-      overrideAccess: false,
-      user: userRes.data.user,
+      // overrideAccess: false,
+      // user: userRes.data.user,
       pagination: false,
       select: NOMUSIC_DEFAULT_SELECT,
     }),
@@ -43,12 +43,12 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
   const payload = await getPayloadClient();
 
   // -- Authentication
-  const userRes = await tryCatchResponse(async () =>
-    payload.auth({
-      headers: await nextHeaders(),
-    }),
-  );
-  if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
+  // const userRes = await tryCatchResponse(async () =>
+  //   payload.auth({
+  //     headers: await nextHeaders(),
+  //   }),
+  // );
+  // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
 
   // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>
@@ -59,8 +59,8 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
       limit,
       sort: "-updatedAt",
       pagination: true,
-      user: userRes.data.user,
-      overrideAccess: false,
+      // user: userRes.data.user,
+      // overrideAccess: false,
       select: NOMUSIC_DEFAULT_SELECT,
     }),
   );

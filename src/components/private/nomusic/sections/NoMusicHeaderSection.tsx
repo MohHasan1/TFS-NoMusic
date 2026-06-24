@@ -1,5 +1,3 @@
-"use cache";
-
 import { BrandLogo } from "#components/shared/BrandLogo";
 
 const NoMusicHeaderSection = async () => {
