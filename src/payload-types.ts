@@ -305,7 +305,7 @@ export interface Library {
   externalImageURL?: string | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
-  songCount?: number | null;
+  trackCount?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -566,7 +566,7 @@ export interface LibrariesSelect<T extends boolean = true> {
   externalImageURL?: T;
   imageFile?: T;
   uploadedImageURL?: T;
-  songCount?: T;
+  trackCount?: T;
   updatedAt?: T;
   createdAt?: T;
 }

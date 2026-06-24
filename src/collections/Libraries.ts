@@ -134,7 +134,7 @@ export const Libraries: CollectionConfig = {
       label: "Metadata",
       fields: [
         {
-          name: "songCount",
+          name: "trackCount",
           type: "number",
           defaultValue: 0,
           admin: {
