@@ -1,5 +1,5 @@
-import VerifyEmailSection from "@/components/auth/verify-email/sections/VerifyEmailSection";
 import { Suspense } from "react";
+import VerifyEmailSection from "@/components/auth/verify-email/sections/VerifyEmailSection";
 
 // TODO: ADD SKELETON
 const VerifyEmailPage = () => {
