@@ -14,6 +14,7 @@ export function LibSectionFrame({ title, description, cards }: TProps) {
         {cards.map((card) => (
           <LibCard
             key={card.name}
+            href={`/libraries/${card.id}`}
             name={card.name}
             description={card.description}
             trackCount={card.trackCount}
@@ -31,6 +32,7 @@ type TProps = {
 };
 
 type TLibCardData = {
+  id: string;
   name: string;
   description: string;
   trackCount: number;

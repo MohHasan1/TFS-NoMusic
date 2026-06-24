@@ -1,5 +1,15 @@
+import { LIBRARY_DETAILS } from "#components/private/library/constants/libraryDetails";
+
 import { LibSectionFrame } from "../elements/LibSectionFrame";
 import { LIBRARY_SECTIONS } from "../constants/librarySections";
+
+const exploreByLanguageCards = LIBRARY_DETAILS.filter(
+  (library) => library.section === "exploreByLanguage",
+);
+
+const noMusicAlbumCards = LIBRARY_DETAILS.filter((library) => library.section === "noMusicAlbums");
+
+const userLibraryCards = LIBRARY_DETAILS.filter((library) => library.section === "userLibraries");
 
 export default function LibContentSection() {
   return (
@@ -22,57 +32,3 @@ export default function LibContentSection() {
     </div>
   );
 }
-
-const exploreByLanguageCards = [
-  {
-    name: "Arabic Collection",
-    description: "Language-driven library card for regional browsing.",
-    trackCount: 12,
-  },
-  {
-    name: "English Collection",
-    description: "Use this style for language shelves and quick entry points.",
-    trackCount: 8,
-  },
-  {
-    name: "Urdu Collection",
-    description: "Black, minimal, and separate from the NoMusic card style.",
-    trackCount: 6,
-  },
-] as const;
-
-const noMusicAlbumCards = [
-  {
-    name: "Late Night Vocals",
-    description: "Album-style grouping with a stronger editorial feel.",
-    trackCount: 14,
-  },
-  {
-    name: "Warmup Session",
-    description: "Reusable card placeholder for curated album drops.",
-    trackCount: 9,
-  },
-  {
-    name: "Studio Cuts",
-    description: "Same card system, different data source later.",
-    trackCount: 11,
-  },
-] as const;
-
-const userLibraryCards = [
-  {
-    name: "Mohammed's Picks",
-    description: "Custom user-made library placeholder.",
-    trackCount: 7,
-  },
-  {
-    name: "Choir References",
-    description: "Use these cards for personal collections later.",
-    trackCount: 5,
-  },
-  {
-    name: "Mix Notes",
-    description: "User-generated library area with the same visual system.",
-    trackCount: 10,
-  },
-] as const;
