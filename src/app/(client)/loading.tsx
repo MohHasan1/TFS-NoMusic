@@ -1,5 +1,6 @@
 import { BrandLogo } from "#components/shared/BrandLogo";
 import { GlowOrb } from "#components/shared/GlowOrb";
+import { LoadingCatTablet } from "#components/shared/LoadingCatTablet";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "#components/ui/card";
 
 export default function Loading() {
@@ -30,30 +31,14 @@ export default function Loading() {
           </CardHeader>
 
           <CardContent className="mx-auto w-full max-w-sm p-0 md:mx-0 md:w-96 md:max-w-none md:shrink-0">
-            <LoadingCatTablet />
+            <LoadingCatTablet contentClassName="flex min-h-44 flex-col items-center justify-center gap-4 p-5">
+              <div className="size-14 rounded-full border-4 border-primary/15 border-t-primary motion-safe:animate-spin" />
+            </LoadingCatTablet>
           </CardContent>
         </div>
 
         <span className="sr-only">Loading NoMusic page...</span>
       </Card>
-    </div>
-  );
-}
-
-function LoadingCatTablet() {
-  return (
-    <div className="relative w-full overflow-visible pt-4">
-      <div className="pointer-events-none absolute left-8 top-3 size-7 rotate-45 rounded-md bg-primary/30" />
-      <div className="pointer-events-none absolute right-8 top-3 size-7 rotate-45 rounded-md bg-primary/30" />
-
-      <div className="relative mt-3 rounded-[2rem] border border-primary/20 bg-background/85 p-5 shadow-inner">
-        <div className="pointer-events-none absolute left-6 top-6 size-2.5 rounded-full bg-primary/60" />
-        <div className="pointer-events-none absolute right-6 top-6 size-2.5 rounded-full bg-primary/60" />
-
-        <div className="flex min-h-44 flex-col items-center justify-center gap-4 rounded-[1.5rem] bg-linear-to-br from-primary/8 via-transparent to-primary-600/8">
-          <div className="size-14 rounded-full border-4 border-primary/15 border-t-primary motion-safe:animate-spin" />
-        </div>
-      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { Skeleton } from "#components/ui/skeleton";
 
 const SKELETON_CARD_COUNT = 8;
 
-export function NoMusicLoadingGrid() {
+export function NoMusicGridSkeleton() {
   return (
     <div className="grid w-full grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: SKELETON_CARD_COUNT }).map((_, index) => (

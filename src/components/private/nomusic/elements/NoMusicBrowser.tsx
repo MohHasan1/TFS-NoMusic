@@ -3,7 +3,7 @@
 import React, { useCallback, useMemo } from "react";
 
 import { NoMusicEmptyBox } from "#components/private/nomusic/elements/NomusicEmptyBox";
-import { NoMusicLoadingGrid } from "#components/private/nomusic/elements/NomusicLoadingGrid";
+import { NoMusicGridSkeleton } from "#components/private/nomusic/elements/NoMusicGridSkeleton";
 import { NoMusicCard } from "#components/private/nomusic/elements/NoMusicCard";
 import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
 import { SOURCE_KEYS } from "#constants/private/source";
@@ -38,7 +38,7 @@ const NoMusicBrowser = ({ pages, isFetching, queryParam }: TProps) => {
   );
 
   if (isFetching) {
-    return <NoMusicLoadingGrid />;
+    return <NoMusicGridSkeleton />;
   }
 
   if (tracks.length === 0) {

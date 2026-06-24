@@ -1,9 +1,10 @@
-import { NomusicLanguageFilter } from "../elements/NomusicLanguageFilter";
+"use cache";
+
 import { BrandLogo } from "#components/shared/BrandLogo";
 
-const NoMusicHeaderSection = () => {
+const NoMusicHeaderSection = async () => {
   return (
-    <header className="flex flex-col justify-center items-center gap-4">
+    <header className="flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-center">
           <span className="font-semibold uppercase text-xl sm:text-2xl md:text-3xl flex justify-center items-center gap-2">
@@ -16,8 +17,6 @@ const NoMusicHeaderSection = () => {
           Browse your private collection of vocals-only tracks.
         </p>
       </div>
-
-      <NomusicLanguageFilter />
     </header>
   );
 };

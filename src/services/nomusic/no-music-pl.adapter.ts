@@ -8,7 +8,6 @@ import { PUBLIC_ROUTES } from "#constants/routes";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
 import { redirect } from "next/navigation";
-import { logInfo } from "#loggers";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
