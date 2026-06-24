@@ -4,6 +4,9 @@ import Image from "next/image";
 import { GlowOrb } from "#components/shared/GlowOrb";
 import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 import PlayerFallbackImage from "../elements/PlayerFallbackImage";
+
+const isDev = process.env.NODE_ENV === "development";
+
 export function PlayerDialogContent() {
   const { track } = usePlayerTrack();
 
@@ -21,6 +24,7 @@ return (
             src={track.coverImage}
             alt={`${track.name} artwork`}
             fill
+            unoptimized={isDev}
             sizes="(max-width: 640px) 100vw, 520px"
             className="object-cover"
           />

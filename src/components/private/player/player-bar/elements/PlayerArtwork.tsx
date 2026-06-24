@@ -7,6 +7,8 @@ import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
 import PlayerDialogButton from "./PlayerDialogButton";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const PlayerArtwork = () => {
   const { track } = usePlayerTrack();
   const { isPlaying } = usePlayerPlayback(track?.id ?? "");
@@ -20,6 +22,7 @@ const PlayerArtwork = () => {
               src={track.coverImage}
               alt="Track artwork"
               fill
+              unoptimized={isDev}
               sizes="(max-width: 768px) 44px, 48px"
               className="object-cover"
             />

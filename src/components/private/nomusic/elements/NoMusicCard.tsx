@@ -13,6 +13,8 @@ import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
 import { isNewByUpdatedDate, formatPlaybackTime } from "#components/private/_utils/helpers";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
   const isNew = isNewByUpdatedDate(noMusic?.uploadedAt);
@@ -41,6 +43,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
               alt={noMusic?.name || "NoMusic cover Image"}
               fill
               priority={index < 8}
+              unoptimized={isDev}
               sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
               className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
