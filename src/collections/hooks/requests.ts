@@ -57,7 +57,7 @@ export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> =
   // Prepare email data
   const name = data.name || originalDoc?.name;
   const email = data.email || originalDoc?.email;
-  const returnUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${PRIVATE_ROUTES.NOMUSIC}`;
+  const returnUrl = data.url ?? `${process.env.NEXT_PUBLIC_SERVER_URL}${PRIVATE_ROUTES.NOMUSIC}`;
   if (!email) {
     return {
       ...data,
@@ -69,6 +69,7 @@ export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> =
   const html = await render(
     RequestedNoMusicAddedEmail({ name, returnUrl, isPrev: isPreviewOrDevEnv() }),
   );
+  
   const sendEmailResponse = await tryCatchResponse(() =>
     req.payload.sendEmail({
       to: email,

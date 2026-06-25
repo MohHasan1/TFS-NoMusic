@@ -227,7 +227,7 @@ export interface Whitelist {
  */
 export interface Request {
   id: string;
-  type: 'access_request' | 'nomusic_request' | 'general_feedback' | 'bug_report';
+  type: 'access_request' | 'nomusic_request' | 'library_request' | 'general_feedback' | 'bug_report';
   status?: ('pending' | 'approved' | 'rejected') | null;
   message?: string | null;
   url?: string | null;
