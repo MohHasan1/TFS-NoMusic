@@ -1,15 +1,30 @@
+import { notFound } from "next/navigation";
 import { RiMusic2Line } from "@remixicon/react";
 
-import type { TLibraryDetail } from "../constants/libraryDetails";
+import type { Library } from "#payload-types";
+import { getLibrary } from "#services/libraries/libraries.ports";
 import { LibraryCover } from "../elements/LibraryCover";
+import { connection } from "next/server";
 
-export function LibraryHeroSection({ library }: TProps) {
-  const noMusicLabel = `${library.trackCount} NoMusic`;
+export async function LibraryHeroSection({ libId }: TProps) {
+  await connection();
+  const response = await getLibrary(libId);
+
+  if (!response.isSuccess) {
+    notFound();
+  }
+
+  const library = response.data;
+  const noMusicLabel = `${library.trackCount ?? 0} NoMusic`;
 
   return (
     <section className="relative">
       <div className="grid gap-6 lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:items-center lg:gap-8">
-        <LibraryCover src={library.coverImage} alt={`${library.name} cover`} />
+        <LibraryCover
+          src={library.uploadedImageURL}
+          alt={`${library.name} cover`}
+          name={library.name}
+        />
 
         <div className="space-y-4 lg:space-y-5">
           <div className="space-y-3">
@@ -18,7 +33,7 @@ export function LibraryHeroSection({ library }: TProps) {
             </h1>
 
             <p className="max-w-2xl text-sm leading-7 text-white/62 sm:text-base">
-              {library.description}
+              {library.description || "Private library collection."}
             </p>
           </div>
 
@@ -33,5 +48,5 @@ export function LibraryHeroSection({ library }: TProps) {
 }
 
 type TProps = {
-  library: TLibraryDetail;
+  libId: Library["id"];
 };
