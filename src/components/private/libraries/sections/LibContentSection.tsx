@@ -1,32 +1,24 @@
-import { LIBRARY_DETAILS } from "#components/private/library/constants/libraryDetails";
+import { Suspense } from "react";
 
-import { LibSectionFrame } from "../elements/LibSectionFrame";
+import { LibSectionSkeleton } from "../elements/LibSectionSkeleton";
 import { LIBRARY_SECTIONS } from "../constants/librarySections";
-
-const exploreByLanguageCards = LIBRARY_DETAILS.filter(
-  (library) => library.section === "exploreByLanguage",
-);
-const noMusicAlbumCards = LIBRARY_DETAILS.filter((library) => library.section === "noMusicAlbums");
-const userLibraryCards = LIBRARY_DETAILS.filter((library) => library.section === "userLibraries");
+import { LibSectionFrame } from "../elements/LibSectionFrame";
 
 export default function LibContentSection() {
   return (
     <div className="space-y-10">
-      <LibSectionFrame
-        title={LIBRARY_SECTIONS.exploreByLanguage.title}
-        description={LIBRARY_SECTIONS.exploreByLanguage.description}
-        cards={exploreByLanguageCards}
-      />
-      <LibSectionFrame
-        title={LIBRARY_SECTIONS.noMusicAlbums.title}
-        description={LIBRARY_SECTIONS.noMusicAlbums.description}
-        cards={noMusicAlbumCards}
-      />
-      <LibSectionFrame
-        title={LIBRARY_SECTIONS.userLibraries.title}
-        description={LIBRARY_SECTIONS.userLibraries.description}
-        cards={userLibraryCards}
-      />
+      {LIBRARY_SECTIONS.map((section) => (
+        <Suspense
+          key={section.type}
+          fallback={<LibSectionSkeleton title={section.title} description={section.description} />}
+        >
+          <LibSectionFrame
+            type={section.type}
+            title={section.title}
+            description={section.description}
+          />
+        </Suspense>
+      ))}
     </div>
   );
 }

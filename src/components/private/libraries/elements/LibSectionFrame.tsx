@@ -1,8 +1,16 @@
+import { connection } from "next/server";
+
+import { listLibraries } from "#services/libraries/libraries.ports";
+import { PRIVATE_ROUTES } from "#constants/routes";
+import { LibEmptyBox } from "./LibEmptyBox";
+import { TLibrary } from "#types/library";
 import { LibCard } from "./LibCard";
 
-const cardGridClassName = "grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4";
+export async function LibSectionFrame({ title, description, type }: TProps) {
+  await connection()
+  const res = await listLibraries(type);
+  const libs = res.isSuccess ? res.data.docs : [];
 
-export function LibSectionFrame({ title, description, cards }: TProps) {
   return (
     <section className="space-y-6">
       <div className="space-y-1">
@@ -10,30 +18,27 @@ export function LibSectionFrame({ title, description, cards }: TProps) {
         {description ? <p className="text-sm text-white/55">{description}</p> : null}
       </div>
 
-      <div className={cardGridClassName}>
-        {cards.map((card) => (
-          <LibCard
-            key={card.name}
-            href={`/libraries/${card.id}`}
-            name={card.name}
-            description={card.description}
-            trackCount={card.trackCount}
-          />
-        ))}
-      </div>
+      {libs.length === 0 ? (
+        <LibEmptyBox />
+      ) : (
+        <div className={"grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"}>
+          {libs.map((lib) => (
+            <LibCard
+              key={lib.id}
+              href={PRIVATE_ROUTES.LIBRARY(lib.id)}
+              name={lib.name}
+              description={lib.description}
+              trackCount={lib.trackCount}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
 type TProps = {
+  type: TLibrary["type"];
   title: string;
   description?: string;
-  cards: ReadonlyArray<TLibCardData>;
-};
-
-type TLibCardData = {
-  id: string;
-  name: string;
-  description: string;
-  trackCount: number;
 };
