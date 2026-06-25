@@ -14,6 +14,7 @@ export const NomusicLibraries: CollectionConfig = {
   },
 
   admin: {
+    group: "Libraries",
     defaultColumns: ["nomusic", "library", "updatedAt"],
   },
 

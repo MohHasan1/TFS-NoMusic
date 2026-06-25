@@ -1,14 +1,16 @@
 import type { CollectionConfig } from "payload";
 import { LIBRARY_TYPES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
-import { generateSlugBeforeValidate } from "./hooks/Libraries";
+import { generateSlugBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
 import { access } from "./access";
 
 export const Libraries: CollectionConfig = {
   slug: "libraries",
 
   admin: {
+    group: "Libraries",
     useAsTitle: "name",
+    defaultColumns: ["name", "type", "trackCount"],
   },
 
   access: {
@@ -18,8 +20,8 @@ export const Libraries: CollectionConfig = {
     delete: access.isAdmin,
   },
 
-  // add an auto count hook 
-  hooks: { beforeValidate: [generateSlugBeforeValidate] },
+  // add an auto count hook
+  hooks: { beforeValidate: [generateSlugBeforeValidate, syncUploadImageURLBeforeValidate] },
 
   defaultPopulate: {
     id: true,
