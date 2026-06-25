@@ -1,6 +1,6 @@
 import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
 
-export const LIBRARY_TYPES = ["language", "curated"] as const;
+export const LIBRARY_TYPES = ["language", "album", "user"] as const;
 
 // TODO: move to const
 export const CURATED_VALUES = ["trending", "featured", "new"] as const;
@@ -11,10 +11,6 @@ export const VALIDATORS = {
   language: {
     type: "language",
     values: LANGUAGES_VALUES,
-  },
-  curated: {
-    type: "curated",
-    values: CURATED_VALUES,
   },
 } as const;
 

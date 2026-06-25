@@ -1,8 +1,8 @@
 import type { CollectionConfig } from "payload";
-import { CURATED_VALUES, LIBRARY_TYPES } from "./constants/libraries";
+import { LIBRARY_TYPES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
-import { generateSlugBeforeValidate, validateLibraryBeforeValidate } from "./hooks/Libraries";
-import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { generateSlugBeforeValidate } from "./hooks/Libraries";
+import { access } from "./access";
 
 export const Libraries: CollectionConfig = {
   slug: "libraries",
@@ -12,13 +12,14 @@ export const Libraries: CollectionConfig = {
   },
 
   access: {
-    read: () => true,
-    create: ({ req }) => req.user?.role === "admin",
-    update: ({ req }) => req.user?.role === "admin",
-    delete: ({ req }) => req.user?.role === "admin",
+    read: access.isLoggedIn,
+    create: access.isAdmin,
+    update: access.isAdmin,
+    delete: access.isAdmin,
   },
 
-  hooks: { beforeValidate: [generateSlugBeforeValidate, validateLibraryBeforeValidate] },
+  // add an auto count hook 
+  hooks: { beforeValidate: [generateSlugBeforeValidate] },
 
   defaultPopulate: {
     id: true,
@@ -59,35 +60,10 @@ export const Libraries: CollectionConfig = {
           name: "type",
           type: "select",
           required: true,
-          defaultValue: "language",
           options: LIBRARY_TYPES.map((t) => ({
             label: capitalizeFirstLetter(t),
             value: t,
           })),
-        },
-        {
-          name: "language",
-          type: "select",
-          options: LANGUAGES_VALUES.map((l) => ({
-            label: capitalizeFirstLetter(l),
-            value: l,
-          })),
-          admin: {
-            condition: (_, data) => data.type === "language",
-            description: "Used only for language libraries",
-          },
-        },
-        {
-          name: "curated",
-          type: "select",
-          options: CURATED_VALUES.map((c) => ({
-            label: capitalizeFirstLetter(c),
-            value: c,
-          })),
-          admin: {
-            condition: (_, data) => data.type === "curated",
-            description: "Used only for curated libraries - not used, its here as a reminder.",
-          },
         },
         {
           name: "sortOrder",

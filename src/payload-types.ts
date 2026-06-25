@@ -291,15 +291,7 @@ export interface Library {
   name: string;
   slug: string;
   description?: string | null;
-  type: 'language' | 'curated';
-  /**
-   * Used only for language libraries
-   */
-  language?: ('bangla' | 'hindi' | 'english' | 'arabic' | 'others') | null;
-  /**
-   * Used only for curated libraries - not used, its here as a reminder.
-   */
-  curated?: ('trending' | 'featured' | 'new') | null;
+  type: 'language' | 'album' | 'user';
   sortOrder?: number | null;
   source?: ('external_url' | 'upload') | null;
   externalImageURL?: string | null;
@@ -559,8 +551,6 @@ export interface LibrariesSelect<T extends boolean = true> {
   slug?: T;
   description?: T;
   type?: T;
-  language?: T;
-  curated?: T;
   sortOrder?: T;
   source?: T;
   externalImageURL?: T;

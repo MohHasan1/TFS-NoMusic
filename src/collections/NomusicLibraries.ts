@@ -1,4 +1,9 @@
 import type { CollectionConfig } from "payload";
+import { access } from "./access";
+import {
+  syncLibraryTrackCountAfterChange,
+  syncLibraryTrackCountAfterDelete,
+} from "./hooks/NomusicLibraries";
 
 export const NomusicLibraries: CollectionConfig = {
   slug: "nomusic-libraries",
@@ -13,10 +18,15 @@ export const NomusicLibraries: CollectionConfig = {
   },
 
   access: {
-    read: () => true,
-    create: ({ req }) => req.user?.role === "admin",
-    update: ({ req }) => req.user?.role === "admin",
-    delete: ({ req }) => req.user?.role === "admin",
+    read: access.isLoggedIn,
+    create: access.isAdmin,
+    update: access.isAdmin,
+    delete: access.isAdmin,
+  },
+
+  hooks: {
+    afterChange: [syncLibraryTrackCountAfterChange],
+    afterDelete: [syncLibraryTrackCountAfterDelete],
   },
 
   indexes: [
