@@ -1,21 +1,20 @@
 import type { Library } from "#payload-types";
 
-export const LIBRARY_SECTIONS: readonly TLibrarySection[] = [
+export const LIBRARY_SECTIONS = [
   {
     type: "album",
     title: "NoMusic Albums",
-    description: "Curated album-style collections for featured NoMusic releases and themed drops.",
+    description: "Discover curated collections featuring NoMusic releases and themed drops.",
   },
   {
     type: "user",
-    title: "User Shared Libraries",
-    description:
-      "Personal collections built by your users, ready for saved mixes, references, and custom vocal groupings.",
+    title: "Shared by You",
+    description: "Made by you, shared from the heart, and waiting to be discovered by others.",
   },
   {
     type: "language",
     title: "Explore by Language",
-    description: "Browse collections by language and jump straight into the vocal styles you want.",
+    description: "Browse collections by language and discover the vocal styles you enjoy.",
   },
 ] as const;
 
