@@ -249,7 +249,7 @@ export interface Media {
   /**
    * Choose this before selecting the file.
    */
-  prefix: 'vocals' | 'images/vocals' | 'images/users' | 'images/playlist';
+  prefix: 'vocals' | 'images/vocals' | 'images/users' | 'images/libraries' | 'images/playlist';
   updatedAt: string;
   createdAt: string;
   url?: string | null;

@@ -11,6 +11,11 @@ export const MEDIA_FOLDERS = [
     prefix: "images/users",
   },
   {
+    label: "Images / libraries",
+    value: "images/libraries",
+    prefix: "images/libraries",
+  },
+  {
     label: "Images / Playlist",
     value: "images/playlist",
     prefix: "images/playlist",
