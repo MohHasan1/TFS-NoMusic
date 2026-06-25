@@ -6,9 +6,7 @@ import { LIBRARY_SECTIONS } from "../constants/librarySections";
 const exploreByLanguageCards = LIBRARY_DETAILS.filter(
   (library) => library.section === "exploreByLanguage",
 );
-
 const noMusicAlbumCards = LIBRARY_DETAILS.filter((library) => library.section === "noMusicAlbums");
-
 const userLibraryCards = LIBRARY_DETAILS.filter((library) => library.section === "userLibraries");
 
 export default function LibContentSection() {
