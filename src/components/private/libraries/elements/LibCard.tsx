@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { RiArrowRightUpLine, RiFileList3Line, RiMusic2Line } from "@remixicon/react";
 
+import { getGradientFromText } from "#components/private/_utils/helpers";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 
 const isDev = process.env.NODE_ENV === "development";
 
-export function LibCard({ href, name, description, trackCount }: TProps) {
+export function LibCard({ href, name, description, trackCount, imageURL }: TProps) {
   const trackLabel = `${trackCount ?? 0} NoMusic`;
   const cardDescription = description || "Private library collection.";
+  const gradient = getGradientFromText(name);
 
   return (
     <article>
@@ -18,14 +20,20 @@ export function LibCard({ href, name, description, trackCount }: TProps) {
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/55 via-transparent to-transparent" />
 
             <div className="relative size-full overflow-hidden">
-              <Image
-                src="/test_lib.jpg"
-                alt={`${name} cover`}
-                fill
-                unoptimized={isDev}
-                sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+              {imageURL ? (
+                <Image
+                  src={imageURL}
+                  alt={`${name} cover`}
+                  fill
+                  unoptimized={isDev}
+                  sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              ) : (
+                <div
+                  className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`}
+                />
+              )}
             </div>
 
             <div className="absolute inset-x-0 bottom-0 z-20 px-3 pb-3">
@@ -62,4 +70,5 @@ type TProps = {
   name: string;
   description?: string | null;
   trackCount?: number | null;
+  imageURL?: string | null;
 };

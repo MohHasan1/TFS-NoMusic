@@ -29,6 +29,7 @@ export async function LibSectionFrame({ title, description, type }: TProps) {
               name={lib.name}
               description={lib.description}
               trackCount={lib.trackCount}
+              imageURL={lib.uploadedImageURL}
             />
           ))}
         </div>

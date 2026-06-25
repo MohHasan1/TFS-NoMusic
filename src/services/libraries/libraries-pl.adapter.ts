@@ -7,7 +7,6 @@ import { tryCatchResponse } from "#trycatch-response";
 import { getPayloadClient } from "#payload-client";
 import type { Library, Nomusic, NomusicLibrary } from "#payload-types";
 
-
 export async function listLibrariesAdapter(type?: Library["type"]) {
   const payload = await getPayloadClient();
 
@@ -55,9 +54,13 @@ export async function getLibraryAudioAdapter(id: Library["id"]) {
   return tryCatchResponse(async () => {
     const relations = await payload.find({
       collection: "nomusic-libraries",
+      limit: 50,
       depth: 1,
+      select: {
+        nomusic: true,
+      },
       pagination: false,
-      sort: "sortOrder",
+      sort: "-updatedAt",
       where: {
         library: {
           equals: id,
@@ -73,3 +76,5 @@ export async function getLibraryAudioAdapter(id: Library["id"]) {
     return mapNomusic(noMusicDocs);
   });
 }
+
+// TODO: fix player - he play() request was interrupted by a new load request. https://goo.gl/LdLk22
