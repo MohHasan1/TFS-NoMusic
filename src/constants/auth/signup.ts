@@ -19,7 +19,7 @@ export const SIGNUP_CLIENT = {
   PASS_PLACEHOLDER: "Make it something only you'll remember",
   VALIDATION_PASS_MIN_ERROR: "Please add a password before the cat starts guessing.",
   VALIDATION_PASS_STRENGTH_ERROR:
-    "Use uppercase, lowercase, and a number so the cat can't guess it.",
+    "Use a mix of uppercase and lowercase letters, numbers, and symbols so your cat can't guess it.",
 
   CONFIRM_PASS_LBL: "Confirm Password",
   CONFIRM_PASS_PLACEHOLDER: "One more time",
