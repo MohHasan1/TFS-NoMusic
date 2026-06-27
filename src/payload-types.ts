@@ -290,9 +290,9 @@ export interface Library {
   id: string;
   name: string;
   slug: string;
+  author: string;
   description?: string | null;
   type: 'language' | 'album' | 'user';
-  sortOrder?: number | null;
   source?: ('external_url' | 'upload') | null;
   externalImageURL?: string | null;
   imageFile?: (string | null) | Media;
@@ -549,9 +549,9 @@ export interface NomusicSelect<T extends boolean = true> {
 export interface LibrariesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  author?: T;
   description?: T;
   type?: T;
-  sortOrder?: T;
   source?: T;
   externalImageURL?: T;
   imageFile?: T;

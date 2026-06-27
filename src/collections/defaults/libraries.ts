@@ -4,6 +4,7 @@ export const LIBRARIES_DEFAULT_SELECT = {
   name: true,
   slug: true,
   type: true,
+  author: true,
   updatedAt: true,
   trackCount: true,
   description: true,

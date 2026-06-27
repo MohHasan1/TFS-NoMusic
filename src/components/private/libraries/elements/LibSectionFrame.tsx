@@ -27,7 +27,7 @@ export async function LibSectionFrame({ title, description, type }: TProps) {
               key={lib.id}
               href={PRIVATE_ROUTES.LIBRARY(lib.id)}
               name={lib.name}
-              description={lib.description}
+              author={lib.author}
               trackCount={lib.trackCount}
               imageURL={lib.uploadedImageURL}
             />

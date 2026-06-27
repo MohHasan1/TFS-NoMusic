@@ -8,6 +8,7 @@ export function mapLibrary(doc: Library): TLibrary {
     name: doc.name,
     slug: doc.slug,
     type: doc.type,
+    author: doc.author,
     updatedAt: doc.updatedAt,
     trackCount: doc.trackCount,
     description: doc.description,

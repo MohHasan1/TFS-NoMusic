@@ -4,6 +4,7 @@ export type TLibrary = {
   id: Library["id"];
   name: Library["name"];
   slug: Library["slug"];
+  author: Library["author"];
   type: Library["type"];
   updatedAt: Library["updatedAt"];
   trackCount: Library["trackCount"];

@@ -48,6 +48,13 @@ export const Libraries: CollectionConfig = {
           unique: true,
         },
         {
+          name: "author",
+          type: "text",
+          required: true,
+          unique: true,
+          defaultValue: "NoMusic",
+        },
+        {
           name: "description",
           type: "textarea",
         },
@@ -66,11 +73,6 @@ export const Libraries: CollectionConfig = {
             label: capitalizeFirstLetter(t),
             value: t,
           })),
-        },
-        {
-          name: "sortOrder",
-          type: "number",
-          defaultValue: 0,
         },
       ],
     },
@@ -100,9 +102,6 @@ export const Libraries: CollectionConfig = {
         {
           name: "uploadedImageURL",
           type: "text",
-          admin: {
-            readOnly: true,
-          },
         },
       ],
     },
@@ -115,9 +114,6 @@ export const Libraries: CollectionConfig = {
           name: "trackCount",
           type: "number",
           defaultValue: 0,
-          admin: {
-            readOnly: true,
-          },
         },
       ],
     },

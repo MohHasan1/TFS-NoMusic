@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { RiArrowRightUpLine, RiFileList3Line, RiMusic2Line } from "@remixicon/react";
+import { RiArrowRightUpLine, RiMusic2Line, RiUser3Line } from "@remixicon/react";
 
 import { getGradientFromText } from "#components/private/_utils/helpers";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 
 const isDev = process.env.NODE_ENV === "development";
 
-export function LibCard({ href, name, description, trackCount, imageURL }: TProps) {
+export function LibCard({ href, name, author, trackCount, imageURL }: TProps) {
   const trackLabel = `${trackCount ?? 0} NoMusic`;
-  const cardDescription = description || "Private library collection.";
+  const libAuthor = author || "-";
   const gradient = getGradientFromText(name);
 
   return (
@@ -50,8 +50,8 @@ export function LibCard({ href, name, description, trackCount, imageURL }: TProp
             </h3>
 
             <div className="flex items-center justify-start gap-2 text-[10px] text-muted-foreground md:text-xs">
-              <RiFileList3Line className="size-3 shrink-0 text-primary-400" />
-              <span className="truncate">{cardDescription}</span>
+              <RiUser3Line className="size-3 shrink-0 text-primary-400" />
+              <span className="truncate">{libAuthor}</span>
             </div>
 
             <div className="flex items-center justify-start gap-2 text-[10px] text-muted-foreground md:text-xs">
@@ -68,7 +68,7 @@ export function LibCard({ href, name, description, trackCount, imageURL }: TProp
 type TProps = {
   href: string;
   name: string;
-  description?: string | null;
+  author: string;
   trackCount?: number | null;
   imageURL?: string | null;
 };
