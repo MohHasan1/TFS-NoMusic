@@ -40,7 +40,7 @@ const LogoutDialog = () => {
         <RiLogoutBoxRLine className="size-4" />
       </AlertDialogTrigger>
 
-      <AlertDialogContent size="sm">
+      <AlertDialogContent size="sm" className={"border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]"}>
         <AlertDialogHeader>
           <AlertDialogMedia className="bg-destructive/10 text-destructive">
             <RiLogoutBoxRLine className="size-7" />
