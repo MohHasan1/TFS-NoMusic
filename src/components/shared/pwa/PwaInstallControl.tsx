@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 import { InstallHintDialog } from "./InstallHintDialog";
-import { PwaInstallButton } from "./PwaInstallButton";
 import type { BeforeInstallPromptEvent } from "./types";
+import { PwaInstallButton } from "./PwaInstallButton";
 import { getPwaInstallContext } from "./utils";
 import { logInfo } from "#loggers";
 
@@ -35,7 +35,6 @@ export function PwaInstallControl() {
     const handleInstalled = () => {
       setInstallPrompt(null);
       setIsStandalone(true);
-      console.info("[PWA install] appinstalled");
     };
 
     syncEnvironment();
@@ -65,17 +64,20 @@ export function PwaInstallControl() {
   };
 
   const canPromptInstall = installPrompt !== null;
-  const shouldShowInstallHint = !isStandalone && !canPromptInstall;
 
   // Hide install UI when the app is already running as an installed app.
   if (isStandalone) return null;
+  if (!isSafari && !canPromptInstall) return null;
 
   if (canPromptInstall) {
     return <PwaInstallButton onInstall={handleInstall} />;
   }
 
-  // Fall back to guidance when the browser never exposed an install prompt.
-  if (!shouldShowInstallHint) return null;
-
   return <InstallHintDialog isIos={isIos} isSafari={isSafari} />;
 }
+
+// Behavior:
+// standalone app -> hide
+// non-Safari without prompt -> hide
+// prompt available -> install button
+// Safari without prompt -> install dialog
