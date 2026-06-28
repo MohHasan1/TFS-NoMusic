@@ -6,8 +6,8 @@
   "start_url": "/nomusic",
   "scope": "/",
   "description": "Private listening for clean vocal tracks.",
-  "theme_color": "#5d0ec0",
-  "background_color": "#09090b",
+  "theme_color": "#160a26",
+  "background_color": "#110a1d",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
