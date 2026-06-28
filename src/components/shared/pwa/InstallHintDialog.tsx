@@ -68,7 +68,7 @@ const copyByMode = {
   ],
 
   "ios-google-manual": [
-    "Tap Share - the square with the upward arrow—at the top - right, beside the address bar.",
+    "Tap Share - the square with the upward arrow — at the top right, beside the address bar.",
     "Then tap Add to Home Screen and confirm by tapping Add.",
   ],
 
