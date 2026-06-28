@@ -15,5 +15,8 @@ export type TPwaInstallContext = {
   maxTouchPoints: number;
   isIos: boolean;
   isSafari: boolean;
+  isGoogleIos: boolean;
   isStandalone: boolean;
 };
+
+export type TPwaInstallMode = "hidden" | "prompt" | "ios-safari-manual" | "ios-google-manual" | "ios-other-manual" | "safari-desktop-manual";

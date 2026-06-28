@@ -5,11 +5,12 @@ import { logInfo } from "#loggers";
 import { InstallHintDialog } from "./InstallHintDialog";
 import { PwaInstallButton } from "./PwaInstallButton";
 import type { BeforeInstallPromptEvent } from "./types";
-import { getPwaInstallContext } from "./utils";
+import { getPwaInstallContext, getPwaInstallMode } from "./utils";
 
 export function PwaInstallControl() {
   const [isIos, setIsIos] = useState(false);
   const [isSafari, setIsSafari] = useState(false);
+  const [isGoogleIos, setIsGoogleIos] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
 
   // Stores the native install prompt so our button can trigger it later.
@@ -21,6 +22,7 @@ export function PwaInstallControl() {
 
       setIsIos(ctx.isIos);
       setIsSafari(ctx.isSafari);
+      setIsGoogleIos(ctx.isGoogleIos);
       setIsStandalone(ctx.isStandalone);
 
       logInfo("[PWA install] sync", ctx);
@@ -63,26 +65,27 @@ export function PwaInstallControl() {
   };
 
   const canPromptInstall = installPrompt !== null;
+  const installMode = getPwaInstallMode({
+    isIos,
+    isSafari,
+    isGoogleIos,
+    isStandalone,
+    canPromptInstall,
+  });
 
-  // Hide install UI when the app is already running as an installed app.
-  if (isStandalone) return null;
-
-  if (isIos) {
-    return <InstallHintDialog isIos={isIos} isSafari={isSafari} />;
-  }
-
-  if (!isSafari && !canPromptInstall) return null;
-
-  if (canPromptInstall) {
+  if (installMode === "hidden") return null;
+  if (installMode === "prompt") {
     return <PwaInstallButton onInstall={handleInstall} />;
   }
 
-  return <InstallHintDialog isIos={isIos} isSafari={isSafari} />;
+  return <InstallHintDialog mode={installMode} />;
 }
 
 // Behavior:
 // standalone app -> hide
-// iPhone/iPad in browser -> install dialog
 // prompt available -> install button
-// desktop Safari without prompt -> install dialog
+// iPhone/iPad Safari -> show Safari steps
+// iPhone/iPad Google/Chrome -> show open-in-Safari steps
+// iPhone/iPad other browsers -> show Safari fallback steps
+// Mac Safari without prompt -> show Add to Dock steps
 // other desktop browsers without prompt -> hide
