@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { cn } from "#lib/utils";
-import { privateNavItems } from "./links";
-import LogoutDialog from "./LogoutDialog";
-import { PRIVATE_ROUTES } from "#constants/routes";
+import { PwaInstallControl } from "#components/shared/pwa/PwaInstallControl";
 import { BrandLogoLink } from "#components/shared/BrandLogoLink";
 import { buttonVariants } from "#components/ui/button";
+import { PRIVATE_ROUTES } from "#constants/routes";
+import { privateNavItems } from "./links";
+import LogoutDialog from "./LogoutDialog";
+import { cn } from "#lib/utils";
 
 export function PrivateNavbar() {
   const pathname = usePathname();
@@ -21,6 +22,8 @@ export function PrivateNavbar() {
         </div>
 
         <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+          <PwaInstallControl />
+
           <div className="flex min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1">
             {privateNavItems.map((item) => {
               const isActive = pathname === item.href;
