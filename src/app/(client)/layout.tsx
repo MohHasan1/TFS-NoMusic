@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   description: "Private listening for clean vocal tracks.",
   applicationName: "NoMusic",
 
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+  },
+  
   appleWebApp: {
     capable: true,
     title: "NoMusic",
