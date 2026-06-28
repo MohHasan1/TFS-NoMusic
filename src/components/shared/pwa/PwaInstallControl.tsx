@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-import { InstallHintDialog } from "./InstallHintDialog";
-import type { BeforeInstallPromptEvent } from "./types";
-import { PwaInstallButton } from "./PwaInstallButton";
-import { getPwaInstallContext } from "./utils";
 import { logInfo } from "#loggers";
+import { InstallHintDialog } from "./InstallHintDialog";
+import { PwaInstallButton } from "./PwaInstallButton";
+import type { BeforeInstallPromptEvent } from "./types";
+import { getPwaInstallContext } from "./utils";
 
 export function PwaInstallControl() {
   const [isIos, setIsIos] = useState(false);
@@ -67,6 +66,11 @@ export function PwaInstallControl() {
 
   // Hide install UI when the app is already running as an installed app.
   if (isStandalone) return null;
+
+  if (isIos) {
+    return <InstallHintDialog isIos={isIos} isSafari={isSafari} />;
+  }
+
   if (!isSafari && !canPromptInstall) return null;
 
   if (canPromptInstall) {
@@ -78,6 +82,7 @@ export function PwaInstallControl() {
 
 // Behavior:
 // standalone app -> hide
-// non-Safari without prompt -> hide
+// iPhone/iPad in browser -> install dialog
 // prompt available -> install button
-// Safari without prompt -> install dialog
+// desktop Safari without prompt -> install dialog
+// other desktop browsers without prompt -> hide
