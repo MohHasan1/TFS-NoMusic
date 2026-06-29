@@ -1,11 +1,7 @@
 import { createLibraryCoverCacheKey } from "#offline/lib/cache-keys";
-import { deleteCachedMedia, cacheMedia } from "#offline/repositories/media";
-import {
-  deleteOfflineLibrary,
-  getOfflineLibraryById,
-  saveOfflineLibrary,
-} from "#offline/repositories/libraries";
-import { downloadNomusic } from "#offline/services/nomuisc";
+import { deleteOfflineLibrary, getOfflineLibraryById, saveOfflineLibrary } from "#offline/repositories/libraries";
+import { cacheMedia, deleteCachedMedia } from "#offline/repositories/media";
+import { downloadNomusic, removeNomusicDownload } from "#offline/services/nomusic";
 import type { TLibraryOffline } from "#offline/types";
 import type { TLibrary } from "#types/library";
 import type { TNoMusic } from "#types/nomusic";
@@ -25,10 +21,7 @@ function createLibraryDownloadId(id: TLibrary["id"]): string {
 /**
  * Performs the complete library download workflow.
  */
-async function performLibraryDownload(
-  library: TLibrary,
-  nomusic: readonly TNoMusic[],
-): Promise<TLibraryOffline> {
+async function performLibraryDownload(library: TLibrary, nomusic: readonly TNoMusic[]): Promise<TLibraryOffline> {
   const existingLibrary = await getOfflineLibraryById(library.id);
   if (existingLibrary) {
     return existingLibrary;
@@ -48,6 +41,7 @@ async function performLibraryDownload(
 
     const offlineLibrary: TLibraryOffline = {
       ...library,
+      uploadedImageURL: library.uploadedImageURL ? coverCacheKey : undefined,
       nomusicIds: downloadedNomusic.map((record) => record.id),
       downloadedAt: Date.now(),
     };
@@ -78,10 +72,7 @@ async function performLibraryDownload(
  * Repeated calls for the same library while it is downloading
  * return the existing Promise instead of starting duplicate work.
  */
-export function downloadLibrary(
-  library: TLibrary,
-  nomusic: readonly TNoMusic[],
-): Promise<TLibraryOffline> {
+export function downloadLibrary(library: TLibrary, nomusic: readonly TNoMusic[]): Promise<TLibraryOffline> {
   const downloadId = createLibraryDownloadId(library.id);
 
   const activeDownload = activeLibraryDownloads.get(downloadId);
@@ -119,4 +110,9 @@ export async function removeLibraryDownload(id: TLibraryOffline["id"]): Promise<
 
   await deleteCachedMedia(coverCacheKey);
   await deleteOfflineLibrary(id);
+}
+
+export async function removeLibraryDownloadWithNomusic(id: TLibraryOffline["id"], nomusicIds: readonly TNoMusic["id"][]): Promise<void> {
+  await removeLibraryDownload(id);
+  await Promise.allSettled(nomusicIds.map((nomusicId) => removeNomusicDownload(nomusicId)));
 }

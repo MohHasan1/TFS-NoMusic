@@ -1,4 +1,4 @@
-import { RiAlbumFill, RiMusic2Line } from "@remixicon/react";
+import { RiAlbumFill, RiDownload2Line, RiMusic2Line } from "@remixicon/react";
 
 import { OFFLINE_ROUTES } from "#constants/routes";
 
@@ -12,6 +12,11 @@ export const offlineNavItems = [
     label: "Libraries",
     href: OFFLINE_ROUTES.LIBRARIES,
     icon: RiAlbumFill,
+  },
+  {
+    label: "Test",
+    href: OFFLINE_ROUTES.TEST,
+    icon: RiDownload2Line,
   },
 ] as const;
 

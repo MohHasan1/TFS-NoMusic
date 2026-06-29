@@ -22,6 +22,7 @@ const OFFLINE_ROUTES = {
   HOME: "/offline",
   NOMUSIC: "/offline/nomusic",
   LIBRARIES: "/offline/libraries",
+  TEST: "/offline/test",
 } as const;
 
 export { OFFLINE_ROUTES, PUBLIC_ROUTES, PRIVATE_ROUTES };
