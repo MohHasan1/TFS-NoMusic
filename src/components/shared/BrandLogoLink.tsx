@@ -1,8 +1,12 @@
 import Link from "next/link";
 
-export function BrandLogoLink({ link }: TProps) {
+export function BrandLogoLink({ link, prefetch = true }: TProps) {
   return (
-    <Link href={link} className="group font-semibold uppercase transition-colors duration-300">
+    <Link
+    href={link}
+    prefetch={prefetch}
+      className="group font-semibold uppercase transition-colors duration-300"
+    >
       <span className="text-white/80 group-hover:text-white/60">No</span>
       <span
         className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent 
@@ -16,4 +20,5 @@ export function BrandLogoLink({ link }: TProps) {
 
 type TProps = {
   link: string;
+  prefetch?: boolean;
 };

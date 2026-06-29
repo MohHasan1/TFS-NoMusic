@@ -1,8 +1,4 @@
-// app/pwa-splash/page.tsx
-
 import { BrandLogo } from "#components/shared/BrandLogo";
-
-
 
 export default function PwaSplashPage() {
   return (

@@ -18,4 +18,10 @@ const PRIVATE_ROUTES = {
   REQUEST_NOMUSIC: "/request-nomusic",
 } as const;
 
-export { PUBLIC_ROUTES, PRIVATE_ROUTES };
+const OFFLINE_ROUTES = {
+  HOME: "/offline",
+  NOMUSIC: "/offline/nomusic",
+  LIBRARIES: "/offline/libraries",
+} as const;
+
+export { OFFLINE_ROUTES, PUBLIC_ROUTES, PRIVATE_ROUTES };
