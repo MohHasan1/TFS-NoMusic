@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 
-import { OfflineNavbar } from "#components/_layout/offline/OfflineNavbar";
 import { GlowOrb } from "#components/shared/GlowOrb";
 import "../(client)/globals.css";
+import { OfflineNavbar } from "#features/offline/components/_layout/OfflineNavbar";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -17,7 +17,10 @@ export const metadata: Metadata = {
 
 export default function OfflineLayout({ children }: TProps) {
   return (
-    <html lang="en" className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}>
+    <html
+      lang="en"
+      className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}
+    >
       <body className="min-h-dvh h-full">
         <div className="relative min-h-dvh bg-linear-to-br from-background to-background via-primary/10">
           <OfflineNavbar />

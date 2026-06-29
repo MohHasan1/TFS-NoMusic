@@ -1,5 +1,5 @@
-import OfflineHomeContentSection from "#components/offline/home/sections/OfflineHomeContentSection";
-import OfflineHomeHeaderSection from "#components/offline/home/sections/OfflineHomeHeaderSection";
+import OfflineHomeContentSection from "#features/offline/components/home/OfflineHomeContentSection";
+import OfflineHomeHeaderSection from "#features/offline/components/home/OfflineHomeHeaderSection";
 
 export default function OfflinePage() {
   return (

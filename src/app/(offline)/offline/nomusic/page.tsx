@@ -1,5 +1,5 @@
-import NoMusicContentSection from "#components/offline/nomusic/sections/NoMusicContentSection";
-import NoMusicHeaderSection from "#components/offline/nomusic/sections/NoMusicHeaderSection";
+import NoMusicContentSection from "#features/offline/components/nomusic/sections/NoMusicContentSection";
+import NoMusicHeaderSection from "#features/offline/components/nomusic/sections/NoMusicHeaderSection";
 
 export default function OfflineNoMusicPage() {
   return (

@@ -1,5 +1,5 @@
-import LibContentSection from "#components/offline/libraries/sections/LibContentSection";
-import LibHeaderSection from "#components/offline/libraries/sections/LibHeaderSection";
+import LibContentSection from "#features/offline/components/libraries/sections/LibContentSection";
+import LibHeaderSection from "#features/offline/components/libraries/sections/LibHeaderSection";
 
 export default function OfflineLibrariesPage() {
   return (
