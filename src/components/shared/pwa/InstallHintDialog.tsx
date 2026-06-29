@@ -63,22 +63,22 @@ type TDialogMode = Extract<
 
 const copyByMode = {
   "ios-safari-manual": [
-    "Tap Share - the square with the upward arrow — in Safari.",
+    "Tap Share, the square with the upward arrow, in Safari.",
     "Then scroll down, tap Add to Home Screen, and confirm by tapping Add.",
   ],
 
   "ios-google-manual": [
-    "Tap Share - the square with the upward arrow — at the top right, beside the address bar.",
+    "Tap Share, the square with the upward arrow, at the top right, beside the address bar.",
     "Then tap Add to Home Screen and confirm by tapping Add.",
   ],
 
   "ios-other-manual": [
-    "Find and tap Share - the square with the upward arrow — in your browser.",
+    "Find and tap Share, the square with the upward arrow or ..., in your browser.",
     "Then tap Add to Home Screen and confirm by tapping Add.",
   ],
 
   "safari-desktop-manual": [
-    "Click Share - the square with the upward arrow - in Safari's top toolbar.",
+    "Click Share, the square with the upward arrow, in Safari's top toolbar.",
     "Then choose Add to Dock and confirm by clicking Add.",
   ],
 };

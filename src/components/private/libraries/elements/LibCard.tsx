@@ -1,6 +1,6 @@
+import { RiArrowRightUpLine, RiMusic2Line, RiUser3Line } from "@remixicon/react";
 import Image from "next/image";
 import Link from "next/link";
-import { RiArrowRightUpLine, RiMusic2Line, RiUser3Line } from "@remixicon/react";
 
 import { getGradientFromText } from "#components/private/_utils/helpers";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader } from "#components/ui/card";
 const isDev = process.env.NODE_ENV === "development";
 
 export function LibCard({ href, name, author, trackCount, imageURL }: TProps) {
-  const trackLabel = `${trackCount ?? 0} NoMusic`;
+  const count = trackCount ? (trackCount > 50 ? 50 : trackCount) : 0;
+  const trackLabel = `${count} NoMusic`;
   const libAuthor = author || "-";
   const gradient = getGradientFromText(name);
 
