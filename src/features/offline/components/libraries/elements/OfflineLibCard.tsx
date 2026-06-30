@@ -1,13 +1,13 @@
+"use client";
+
 import { RiArrowRightUpLine, RiMusic2Line, RiUser3Line } from "@remixicon/react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { getGradientFromText } from "#components/private/_utils/helpers";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { OFFLINE_ROUTES } from "#constants/routes";
-import { TLibraryOffline } from "#offline/types";
-
-const isDev = process.env.NODE_ENV === "development";
+import { OfflineCachedImage } from "#features/offline/components/shared/OfflineCachedImage";
+import type { TLibraryOffline } from "#offline/types";
 
 export function OfflineLibCard({ library }: TProps) {
   const count = library.trackCount ? (library.trackCount > 50 ? 50 : library.trackCount) : 0;
@@ -23,20 +23,13 @@ export function OfflineLibCard({ library }: TProps) {
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/55 via-transparent to-transparent" />
 
             <div className="relative size-full overflow-hidden">
-              {library.uploadedImageURL ? (
-                <Image
-                  src={library.uploadedImageURL}
-                  alt={`${library.name} cover`}
-                  fill
-                  unoptimized={isDev}
-                  sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <div
-                  className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`}
-                />
-              )}
+              <OfflineCachedImage
+                src={library.uploadedImageURL}
+                alt={`${library.name} cover`}
+                sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                fallback={<div className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`} />}
+              />
             </div>
 
             <div className="absolute inset-x-0 bottom-0 z-20 px-3 pb-3">
@@ -48,10 +41,7 @@ export function OfflineLibCard({ library }: TProps) {
           </CardHeader>
 
           <CardContent className="space-y-2 p-3 md:space-y-2.5 md:p-4">
-            <h3
-              className="truncate text-xs font-semibold text-primary-200 md:text-sm"
-              title={library.name}
-            >
+            <h3 className="truncate text-xs font-semibold text-primary-200 md:text-sm" title={library.name}>
               {library.name}
             </h3>
 

@@ -1,3 +1,4 @@
+export { useCachedMediaUrl } from "./useCachedMediaUrl";
 export { useLibraries } from "./useLibraries";
 export { useLibrariesDownload } from "./useLibrariesDownload";
 export { useLibrary } from "./useLibrary";

@@ -1,9 +1,9 @@
-import Image from "next/image";
+"use client";
+
 import { formatPlaybackTime } from "#components/private/_utils/helpers";
 import { NoMusicCover } from "#components/private/nomusic/elements/NoMusicCover";
+import { OfflineCachedImage } from "#features/offline/components/shared/OfflineCachedImage";
 import type { TNoMusic } from "#types/nomusic";
-
-const isDev = process.env.NODE_ENV === "development";
 
 export function OfflineLibraryTrackRow({ index, track }: TProps) {
   return (
@@ -12,7 +12,7 @@ export function OfflineLibraryTrackRow({ index, track }: TProps) {
 
       <div className="flex min-w-0 items-center gap-3">
         <div className="relative size-10 shrink-0 overflow-hidden rounded-xl border border-white/8 bg-card-secondary md:size-11">
-          {track.coverImage ? <Image src={track.coverImage} alt={track.name} fill unoptimized={isDev} sizes="44px" className="object-cover" /> : <NoMusicCover name={track.name} artist={track.artist} />}
+          <OfflineCachedImage src={track.coverImage} alt={track.name} sizes="44px" className="object-cover" fallback={<NoMusicCover name={track.name} artist={track.artist} />} />
         </div>
 
         <div className="min-w-0">
