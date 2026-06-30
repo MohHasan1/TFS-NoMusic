@@ -1,20 +1,9 @@
 import { RiDownload2Line } from "@remixicon/react";
 import type { ComponentType } from "react";
 
-type TIcon = ComponentType<{
-  className?: string;
-}>;
-
-type TProps = {
-  description: string;
-  hint: string;
-  icon: TIcon;
-  title: string;
-};
-
 export function OfflineEmptyState({ title, description, hint, icon: Icon }: TProps) {
   return (
-    <section className="mx-auto w-full max-w-3xl rounded-3xl border border-dashed border-border/70 bg-card/70 p-6 backdrop-blur-xl sm:p-8">
+    <section className="mx-auto w-full max-w-full rounded-3xl border border-dashed border-border/70 bg-card/70 p-6 backdrop-blur-xl sm:p-8">
       <div className="flex flex-col items-center justify-center text-center">
         <div className="mb-4 flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary-400">
           <Icon className="size-6" />
@@ -34,3 +23,14 @@ export function OfflineEmptyState({ title, description, hint, icon: Icon }: TPro
     </section>
   );
 }
+
+type TIcon = ComponentType<{
+  className?: string;
+}>;
+
+type TProps = {
+  description: string;
+  hint: string;
+  icon: TIcon;
+  title: string;
+};

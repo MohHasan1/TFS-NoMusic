@@ -1,10 +1,12 @@
-import { getOfflineLibraryUiById } from "#features/offline/components/shared/mock-data";
+"use client";
+
 import { OfflineLibraryAudioEmptyBox } from "../elements/OfflineLibraryAudioEmptyBox";
 import { OfflineLibraryTrackRow } from "../elements/OfflineLibraryTrackRow";
+import { useNomusicByLibId } from "#offline/hooks";
 
 export function OfflineLibraryAudioSection({ libId }: TProps) {
-  const library = getOfflineLibraryUiById(libId);
-  const tracks = library.tracks;
+  const { nomusic } = useNomusicByLibId(libId);
+  const tracks = nomusic;
 
   return (
     <section className="space-y-4">

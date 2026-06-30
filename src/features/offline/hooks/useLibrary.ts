@@ -4,10 +4,9 @@ import { useCallback, useEffect, useState } from "react";
 
 import { OfflineLibraries } from "#offline/repositories/libraries";
 import type { TLibraryOffline } from "#offline/types";
-import type { TLibrary } from "#types/library";
 
-export function useLibraries(type?: TLibrary["type"]) {
-  const [libraries, setLibraries] = useState<TLibraryOffline[]>([]);
+export function useLibrary(id?: TLibraryOffline["id"]) {
+  const [library, setLibrary] = useState<TLibraryOffline | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,26 +14,32 @@ export function useLibraries(type?: TLibrary["type"]) {
     setIsLoading(true);
     setError(null);
 
-    const result = await OfflineLibraries.getAll();
+    if (!id) {
+      setLibrary(null);
+      setIsLoading(false);
+      return;
+    }
+
+    const result = await OfflineLibraries.getById(id);
 
     if (result.isSuccess) {
-      setLibraries(type ? result.data.filter((library) => library.type === type) : result.data);
+      setLibrary(result.data ?? null);
       setError(null);
     } else {
-      setLibraries([]);
+      setLibrary(null);
       setError(result.message);
     }
 
     setIsLoading(false);
-  }, [type]);
+  }, [id]);
 
   useEffect(() => {
     void refresh();
   }, [refresh]);
 
   return {
-    libraries,
-    type,
+    library,
+    id,
     isLoading,
     error,
     refresh,

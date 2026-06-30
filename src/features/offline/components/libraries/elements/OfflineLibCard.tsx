@@ -5,7 +5,7 @@ import Link from "next/link";
 import { getGradientFromText } from "#components/private/_utils/helpers";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { OFFLINE_ROUTES } from "#constants/routes";
-import type { TOfflineLibraryUi } from "#features/offline/components/shared/mock-data";
+import { TLibraryOffline } from "#offline/types";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -17,16 +17,25 @@ export function OfflineLibCard({ library }: TProps) {
 
   return (
     <article>
-      <Link href={`${OFFLINE_ROUTES.LIBRARIES}/${library.id}`} prefetch={false} className="group block">
+      <Link href={OFFLINE_ROUTES.LIBRARY(library.id)} prefetch={false} className="group block">
         <Card className="relative w-full overflow-hidden bg-card transition-all duration-300 hover:border-primary-400/50">
           <CardHeader className="relative block aspect-square overflow-hidden bg-muted p-0">
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/55 via-transparent to-transparent" />
 
             <div className="relative size-full overflow-hidden">
               {library.uploadedImageURL ? (
-                <Image src={library.uploadedImageURL} alt={`${library.name} cover`} fill unoptimized={isDev} sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                <Image
+                  src={library.uploadedImageURL}
+                  alt={`${library.name} cover`}
+                  fill
+                  unoptimized={isDev}
+                  sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               ) : (
-                <div className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`} />
+                <div
+                  className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`}
+                />
               )}
             </div>
 
@@ -39,7 +48,10 @@ export function OfflineLibCard({ library }: TProps) {
           </CardHeader>
 
           <CardContent className="space-y-2 p-3 md:space-y-2.5 md:p-4">
-            <h3 className="truncate text-xs font-semibold text-primary-200 md:text-sm" title={library.name}>
+            <h3
+              className="truncate text-xs font-semibold text-primary-200 md:text-sm"
+              title={library.name}
+            >
               {library.name}
             </h3>
 
@@ -60,5 +72,5 @@ export function OfflineLibCard({ library }: TProps) {
 }
 
 type TProps = {
-  library: TOfflineLibraryUi;
+  library: TLibraryOffline;
 };

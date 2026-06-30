@@ -26,6 +26,22 @@ export function createOfflineRepo<K extends TStoreKey>(storeName: K) {
         return db.get(storeName, id);
       });
     },
+    /**
+     * Get multiple records by their IDs.
+     *
+     * Missing records are omitted from the result.
+     */
+    getMany(ids: readonly TStoreRecord<K>["id"][]) {
+      return offlineTryCatch(async () => {
+        const db = await getIndexedDb();
+
+        const records = await Promise.all(ids.map((id) => db.get(storeName, id)));
+
+        return records.filter(
+          (record): record is NonNullable<typeof record> => record !== undefined,
+        );
+      });
+    },
 
     /**
      * Save or update one record

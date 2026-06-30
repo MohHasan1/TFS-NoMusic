@@ -1,9 +1,12 @@
+"use client";
+
 import type { TLibrarySection } from "#components/private/libraries/constants/librarySections";
-import { getOfflineLibrariesByType } from "#features/offline/components/shared/mock-data";
 import { OfflineLibCard } from "./OfflineLibCard";
+import { useLibraries } from "#offline/hooks";
+import LibEmptyBox from "./LibEmptyBox";
 
 export function OfflineLibSectionFrame({ title, description, type }: TProps) {
-  const libraries = getOfflineLibrariesByType(type);
+  const { libraries } = useLibraries(type);
 
   return (
     <section className="space-y-6">
@@ -12,11 +15,15 @@ export function OfflineLibSectionFrame({ title, description, type }: TProps) {
         {description ? <p className="text-sm text-white/55">{description}</p> : null}
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-        {libraries.map((library) => (
-          <OfflineLibCard key={library.id} library={library} />
-        ))}
-      </div>
+      {libraries.length === 0 ? (
+        <LibEmptyBox />
+      ) : (
+        <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+          {libraries.map((library) => (
+            <OfflineLibCard key={library.id} library={library} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

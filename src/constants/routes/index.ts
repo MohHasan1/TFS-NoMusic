@@ -22,6 +22,7 @@ const OFFLINE_ROUTES = {
   HOME: "/offline",
   NOMUSIC: "/offline/nomusic",
   LIBRARIES: "/offline/libraries",
+  LIBRARY: (id: string) => `/offline/libraries/${id}`,
   TEST: "/offline/test",
 } as const;
 
