@@ -10,7 +10,12 @@ export default function OfflineHomeContentSection() {
         const Icon = section.icon;
 
         return (
-          <Link key={section.href} href={section.href} prefetch={false} className="group rounded-3xl border border-border/70 bg-card/70 p-6 text-left backdrop-blur-xl transition-colors hover:border-primary/40 hover:bg-card">
+          <Link
+            key={section.href}
+            href={section.href}
+            prefetch={false}
+            className="group rounded-3xl border border-border/70 bg-card/70 p-6 text-left backdrop-blur-xl transition-colors hover:border-primary/40 hover:bg-card"
+          >
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-3">
                 <div className="flex size-11 items-center justify-center rounded-2xl bg-primary/10 text-primary-400">
@@ -19,7 +24,9 @@ export default function OfflineHomeContentSection() {
 
                 <div className="space-y-2">
                   <h2 className="text-lg font-semibold">{section.title}</h2>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{section.description}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {section.description}
+                  </p>
                 </div>
               </div>
 

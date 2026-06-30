@@ -35,8 +35,8 @@
       "#client-actions/*": ["./src/client-actions/*"],
       "#validations/*": ["./src/validations/*"],
       "#services/*": ["./src/services/*"],
-      "#features/*": ["./src/features/*"],
       "#offline/*": ["./src/features/offline/*"],
+      "#features/*": ["./src/features/*"],
       "#components/*": ["./src/components/*"],
 
       "#payload-client": ["./src/lib/payload/client.ts"],

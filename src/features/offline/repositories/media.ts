@@ -1,59 +1,58 @@
-import { clearMediaCache, deleteCachedResponse, getCachedResponse, hasCachedResponse, putCachedResponse } from "#offline/lib/cache-storage";
+import { CacheStorage } from "#offline/lib/cacheStorage";
+import { errorResponse, successResponse } from "#responses";
 
 /**
- * Fetches a media file and stores it in Cache Storage.
+ * Media repository (Cache Storage layer)
  */
-export async function cacheMedia(url: string, cacheKey: string): Promise<string> {
-  // The media server must allow this app's origin through CORS.
-  const response = await fetch(url);
+export const MediaRepo = {
+  /**
+   * Fetches media from network and caches it.
+   */
+  async cache(cacheKey: string, url: string,) {
+    const response = await fetch(url);
+    if (!response.ok) {
+      return errorResponse([], `Failed to fetch media: ${response.status}`);
+    }
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch media: ${response.status} ${response.statusText}`);
-  }
+    await CacheStorage.put(cacheKey, response);
+    return successResponse(cacheKey);
+  },
 
-  // putCachedResponse() clones the response internally.
-  await putCachedResponse(cacheKey, response);
+  /**
+   * Get cached Response
+   */
+  get(cacheKey: string) {
+    return CacheStorage.get(cacheKey);
+  },
 
-  return cacheKey;
-}
+  /**
+   * Get cached Blob (for audio/images usage)
+   */
+  async getBlob(cacheKey: string) {
+    const res = await CacheStorage.get(cacheKey);
+    if (!res.isSuccess) return errorResponse();
 
-/**
- * Returns the complete cached Response.
- */
-export async function getCachedMediaResponse(cacheKey: string): Promise<Response | null> {
-  return getCachedResponse(cacheKey);
-}
+    return successResponse(res.data ? await res.data?.blob() : null);
+  },
 
-/**
- * Returns the cached media body as a Blob.
- */
-export async function getCachedMediaBlob(cacheKey: string): Promise<Blob | null> {
-  const response = await getCachedResponse(cacheKey);
+  /**
+   * Check if media exists
+   */
+  has(cacheKey: string) {
+    return CacheStorage.has(cacheKey);
+  },
 
-  if (!response) {
-    return null;
-  }
+  /**
+   * Delete one cached media file
+   */
+  del(cacheKey: string) {
+    return CacheStorage.del(cacheKey);
+  },
 
-  return response.blob();
-}
-
-/**
- * Checks whether media exists under the given cache key.
- */
-export async function hasCachedMedia(cacheKey: string): Promise<boolean> {
-  return hasCachedResponse(cacheKey);
-}
-
-/**
- * Deletes one media file from Cache Storage.
- */
-export async function deleteCachedMedia(cacheKey: string): Promise<boolean> {
-  return deleteCachedResponse(cacheKey);
-}
-
-/**
- * Deletes the complete media cache.
- */
-export async function clearCachedMedia(): Promise<boolean> {
-  return clearMediaCache();
-}
+  /**
+   * Clear all cached media
+   */
+  clear() {
+    return CacheStorage.clear();
+  },
+};

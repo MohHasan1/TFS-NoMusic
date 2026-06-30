@@ -1,8 +1,8 @@
 /* Converts unknown runtime errors into a default app response. */
 
-import { TResponse, errorResponse } from "./app-response";
+import { TErrorResponse, errorResponse } from "./app-response";
 
-export function defaultErrorResponse(error: unknown): TResponse<null> {
+export function defaultErrorResponse(error: unknown): TErrorResponse {
   if (error instanceof Error) {
     return errorResponse(
       [

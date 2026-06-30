@@ -9,12 +9,12 @@ import { OFFLINE_ROUTES } from "#constants/routes";
 import { cn } from "#lib/utils";
 import { dummyLibrary } from "#offline/data/dummy-library";
 import { dummyLibraryNomusic, dummyNomusic } from "#offline/data/dummy-nomusic";
-import { createLibraryCoverCacheKey, createNomusicCoverCacheKey } from "#offline/lib/cache-keys";
+import { createLibraryCoverCacheKey, createNomusicCoverCacheKey } from "#offline/lib/cacheStorage/keys";
 import { getOfflineLibraries } from "#offline/repositories/libraries";
 import { hasCachedMedia } from "#offline/repositories/media";
 import { getOfflineNomusic } from "#offline/repositories/nomusic";
-import { downloadLibrary, removeLibraryDownloadWithNomusic } from "#offline/services/libraries";
-import { downloadNomusic, removeNomusicDownload } from "#offline/services/nomusic";
+import { downloadLibrary, removeLibraryDownload } from "#offline/services/libraries-download";
+import { downloadNomusic, removeIndividualNomusicDownload } from "#offline/services/nomusic-download";
 
 type TSnapshot = {
   hasDummyLibrary: boolean;
@@ -40,7 +40,12 @@ export default function OfflineTestPage() {
   const [busyAction, setBusyAction] = useState<string | null>(null);
 
   const refreshSnapshot = useCallback(async () => {
-    const [nomusic, libraries, hasDummySongCover, hasDummyLibraryCover] = await Promise.all([getOfflineNomusic(), getOfflineLibraries(), hasCachedMedia(createNomusicCoverCacheKey(dummyNomusic.id)), hasCachedMedia(createLibraryCoverCacheKey(dummyLibrary.id))]);
+    const [nomusic, libraries, hasDummySongCover, hasDummyLibraryCover] = await Promise.all([
+      getOfflineNomusic(),
+      getOfflineLibraries(),
+      hasCachedMedia(createNomusicCoverCacheKey(dummyNomusic.id)),
+      hasCachedMedia(createLibraryCoverCacheKey(dummyLibrary.id)),
+    ]);
 
     setSnapshot({
       hasDummySong: nomusic.some((record) => record.id === dummyNomusic.id),
@@ -73,9 +78,14 @@ export default function OfflineTestPage() {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 px-4 pt-24 pb-32 lg:px-8">
       <header className="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary-400">Offline mode</p>
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-primary-400">
+          Offline mode
+        </p>
         <h1 className="text-xl font-semibold uppercase sm:text-2xl md:text-3xl">NoMusic Test</h1>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">Use these temporary buttons to save and remove dummy offline data, then verify the results inside the NoMusic and Libraries pages.</p>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+          Use these temporary buttons to save and remove dummy offline data, then verify the results
+          inside the NoMusic and Libraries pages.
+        </p>
       </header>
 
       <Card className="border-border/70 bg-card/70 backdrop-blur-xl">
@@ -83,27 +93,44 @@ export default function OfflineTestPage() {
           <CardTitle className="text-base">Dummy downloads</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 sm:grid-cols-2">
-          <Button onClick={() => runAction("Downloading dummy song", () => downloadNomusic(dummyNomusic).then(() => undefined))} disabled={busyAction !== null}>
+          <Button
+            onClick={() =>
+              runAction("Downloading dummy song", () =>
+                downloadNomusic(dummyNomusic).then(() => undefined),
+              )
+            }
+            disabled={busyAction !== null}
+          >
             Download dummy song
           </Button>
 
-          <Button onClick={() => runAction("Downloading dummy library", () => downloadLibrary(dummyLibrary, dummyLibraryNomusic).then(() => undefined))} disabled={busyAction !== null}>
+          <Button
+            onClick={() =>
+              runAction("Downloading dummy library", () =>
+                downloadLibrary(dummyLibrary, dummyLibraryNomusic).then(() => undefined),
+              )
+            }
+            disabled={busyAction !== null}
+          >
             Download dummy library
           </Button>
 
-          <Button variant="outline" onClick={() => runAction("Removing dummy song", () => removeNomusicDownload(dummyNomusic.id))} disabled={busyAction !== null}>
+          <Button
+            variant="outline"
+            onClick={() =>
+              runAction("Removing dummy song", () =>
+                removeIndividualNomusicDownload(dummyNomusic.id),
+              )
+            }
+            disabled={busyAction !== null}
+          >
             Remove dummy song
           </Button>
 
           <Button
             variant="outline"
             onClick={() =>
-              runAction("Removing dummy library", () =>
-                removeLibraryDownloadWithNomusic(
-                  dummyLibrary.id,
-                  dummyLibraryNomusic.map((record) => record.id),
-                ),
-              )
+              runAction("Removing dummy library", () => removeLibraryDownload(dummyLibrary.id))
             }
             disabled={busyAction !== null}
           >
@@ -131,13 +158,26 @@ export default function OfflineTestPage() {
           <CardTitle className="text-base">Next step</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3 sm:flex-row">
-          <Link href={OFFLINE_ROUTES.NOMUSIC} prefetch={false} className={cn(buttonVariants({ size: "sm" }))}>
+          <Link
+            href={OFFLINE_ROUTES.NOMUSIC}
+            prefetch={false}
+            className={cn(buttonVariants({ size: "sm" }))}
+          >
             Open Offline NoMusic
           </Link>
-          <Link href={OFFLINE_ROUTES.LIBRARIES} prefetch={false} className={cn(buttonVariants({ size: "sm", variant: "outline" }))}>
+          <Link
+            href={OFFLINE_ROUTES.LIBRARIES}
+            prefetch={false}
+            className={cn(buttonVariants({ size: "sm", variant: "outline" }))}
+          >
             Open Offline Libraries
           </Link>
-          <Button variant="ghost" size="sm" onClick={() => runAction("Refreshing snapshot", refreshSnapshot)} disabled={busyAction !== null}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => runAction("Refreshing snapshot", refreshSnapshot)}
+            disabled={busyAction !== null}
+          >
             Refresh snapshot
           </Button>
         </CardContent>

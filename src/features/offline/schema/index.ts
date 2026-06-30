@@ -1,28 +1,10 @@
 import type { DBSchema } from "idb";
 
-import { OFFLINE_DOWNLOADED_AT_INDEX, OFFLINE_LIBRARY_STORE, OFFLINE_NOMUSIC_STORE } from "#features/offline/constants";
-import type { TLibraryOffline, TNomusicOffline } from "#offline/types";
+import { OFFLINE_DB } from "#offline/constants";
+import { TNomusicOfflineStore } from "./nomusic";
+import { TLibrariesOfflineStore } from "./libraries";
 
-// Schema
-export interface IOfflineDatabaseSchema extends DBSchema {
-  [OFFLINE_NOMUSIC_STORE]: TOfflineNomusicStore;
-  [OFFLINE_LIBRARY_STORE]: TOfflineLibraryStore;
+export interface IOFFLINE_DB_SCHEMA extends DBSchema {
+  [OFFLINE_DB.NOMUSIC_STORE]: TNomusicOfflineStore;
+  [OFFLINE_DB.LIBRARY_STORE]: TLibrariesOfflineStore;
 }
-
-// -- NoMusic
-type TOfflineNomusicStore = {
-  key: TNomusicOffline["id"];
-  value: TNomusicOffline;
-  indexes: {
-    [OFFLINE_DOWNLOADED_AT_INDEX]: TNomusicOffline["downloadedAt"];
-  };
-};
-
-// -- Libarary
-type TOfflineLibraryStore = {
-  key: TLibraryOffline["id"];
-  value: TLibraryOffline;
-  indexes: {
-    [OFFLINE_DOWNLOADED_AT_INDEX]: TLibraryOffline["downloadedAt"];
-  };
-};

@@ -11,28 +11,6 @@ import { getOfflineNomusic } from "#offline/repositories/nomusic";
 import type { TNomusicOffline } from "#offline/types";
 import NoMusicEmptyBox from "../elements/NoMusicEmptyBox";
 
-type TNomusicCardRecord = TNomusicOffline & {
-  resolvedCoverImage: string | null;
-};
-
-function formatPlaybackTime(seconds: number | null | undefined) {
-  const safeSeconds = Math.max(0, Math.floor(seconds ?? 0));
-  const minutes = Math.floor(safeSeconds / 60);
-  const remainingSeconds = safeSeconds % 60;
-
-  return `${minutes}:${String(remainingSeconds).padStart(2, "0")}`;
-}
-
-async function resolveCachedCoverImage(cacheKey: string | null | undefined) {
-  if (!cacheKey) return null;
-  if (!cacheKey.startsWith(OFFLINE_MEDIA_PATH)) return cacheKey;
-
-  const blob = await getCachedMediaBlob(cacheKey);
-  if (!blob) return null;
-
-  return URL.createObjectURL(blob);
-}
-
 export default function NoMusicContentSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -167,4 +145,26 @@ export default function NoMusicContentSection() {
       ))}
     </section>
   );
+}
+
+type TNomusicCardRecord = TNomusicOffline & {
+  resolvedCoverImage: string | null;
+};
+
+function formatPlaybackTime(seconds: number | null | undefined) {
+  const safeSeconds = Math.max(0, Math.floor(seconds ?? 0));
+  const minutes = Math.floor(safeSeconds / 60);
+  const remainingSeconds = safeSeconds % 60;
+
+  return `${minutes}:${String(remainingSeconds).padStart(2, "0")}`;
+}
+
+async function resolveCachedCoverImage(cacheKey: string | null | undefined) {
+  if (!cacheKey) return null;
+  if (!cacheKey.startsWith(OFFLINE_MEDIA_PATH)) return cacheKey;
+
+  const blob = await getCachedMediaBlob(cacheKey);
+  if (!blob) return null;
+
+  return URL.createObjectURL(blob);
 }
