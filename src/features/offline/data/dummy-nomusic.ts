@@ -1,39 +1,55 @@
 import type { TNoMusic } from "#types/nomusic";
 
-const DUMMY_AUDIO_URL = "/nomusic.svg";
-const DUMMY_COVER_URL = "/web-app-manifest-512x512.png";
-const DUMMY_SECONDARY_COVER_URL = "/web-app-manifest-192x192.png";
-
 export const dummyNomusic: TNoMusic = {
-  id: "offline-dummy-song",
-  name: "Offline Test Song",
-  artist: "NoMusic",
-  language: "english",
-  uploadedAt: "2026-06-29T00:00:00.000Z",
-  duration: 126,
-  coverImage: DUMMY_COVER_URL,
-  audioStreamUrl: DUMMY_AUDIO_URL,
+  id: "69fc3ae55e5e0a1",
+  name: "Majboor (Unplugged)",
+  artist: "Sheheryar Rehan | Zoha Waseem",
+  language: "hindi",
+  uploadedAt: "2026-05-07T07:10:29.615Z",
+  duration: 153,
+  coverImage:
+    "https://i.ytimg.com/vi/dLAYG-TjnVQ/maxresdefault.jpg",
+  audioStreamUrl:
+    "https://cdn.thefamilysuite.org/nomusic/vocals/majboor_unplugged_071af050.mp3",
 };
 
 export const dummyLibraryNomusic: TNoMusic[] = [
   {
-    id: "offline-dummy-library-song-1",
-    name: "Offline Library Song One",
-    artist: "NoMusic",
-    language: "english",
-    uploadedAt: "2026-06-29T01:00:00.000Z",
-    duration: 164,
-    coverImage: DUMMY_COVER_URL,
-    audioStreamUrl: DUMMY_AUDIO_URL,
+    id: "69fc4885da4851b8",
+    name: "Jaane Do Humein",
+    artist: "Rishabh Vyas",
+    language: "hindi",
+    uploadedAt: "2026-05-07T08:08:37.314Z",
+    duration: 222,
+    coverImage:
+      "https://i.ytimg.com/vi/UagcipST9BU/maxresdefault.jpg",
+    audioStreamUrl:
+      "https://cdn.thefamilysuite.org/nomusic/vocals/jaane_do_humein_d002ef3e.mp3",
   },
+
   {
-    id: "offline-dummy-library-song-2",
-    name: "Offline Library Song Two",
-    artist: "NoMusic",
-    language: "bangla",
-    uploadedAt: "2026-06-29T02:00:00.000Z",
-    duration: 142,
-    coverImage: DUMMY_SECONDARY_COVER_URL,
-    audioStreamUrl: DUMMY_AUDIO_URL,
+    id: "69fc4966da4851b8",
+    name: "Take Me In Your Arms",
+    artist: "Unknown",
+    language: "arabic",
+    uploadedAt: "2026-05-07T08:12:22.069Z",
+    duration: 0,
+    coverImage:
+      "https://i.ytimg.com/vi/bkYVPdAhTX8/maxresdefault.jpg",
+    audioStreamUrl:
+      "https://cdn.thefamilysuite.org/nomusic/vocals/take_me_In_your_arms.mp3",
   },
-] as const;
+
+  {
+    id: "69fc49f39ba5b35c",
+    name: "Heer (Tuneit)",
+    artist: "Tuneit",
+    language: "hindi",
+    uploadedAt: "2026-05-07T08:14:43.215Z",
+    duration: 152,
+    coverImage:
+      "https://i.ytimg.com/vi/JWLIPq0Fwsg/maxresdefault.jpg",
+    audioStreamUrl:
+      "https://cdn.thefamilysuite.org/nomusic/vocals/heer_female_version_ec46299e.mp3",
+  },
+];
