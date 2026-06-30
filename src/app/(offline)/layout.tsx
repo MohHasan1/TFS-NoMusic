@@ -17,10 +17,7 @@ export const metadata: Metadata = {
 
 export default function OfflineLayout({ children }: TProps) {
   return (
-    <html
-      lang="en"
-      className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}
-    >
+    <html lang="en" className={`${montserrat.className} dark h-full min-h-dvh antialiased bg-background`}>
       <body className="min-h-dvh h-full">
         <div className="relative min-h-dvh bg-linear-to-br from-background to-background via-primary/10">
           <OfflineNavbar />

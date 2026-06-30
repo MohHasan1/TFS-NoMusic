@@ -3,8 +3,8 @@ import { OfflinePageHeader } from "#features/offline/components/shared/OfflinePa
 export default function NoMusicHeaderSection() {
   return (
     <OfflinePageHeader
-      title="Collection"
-      description="Open individual downloaded songs here when you are offline."
+      title="Collections"
+      description="Browse your private collection of vocals-only tracks."
     />
   );
 }
