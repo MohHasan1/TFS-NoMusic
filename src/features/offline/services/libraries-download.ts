@@ -1,24 +1,26 @@
+import { OfflineLibraries } from "#offline/repositories/libraries";
+import { NomusicDownloadService } from "./nomusic-download";
 import { successResponse, errorResponse } from "#responses";
-
 import { CacheKey } from "#offline/lib/cacheStorage/keys";
 import { MediaRepo } from "#offline/repositories/media";
-import { OfflineLibraries } from "#offline/repositories/libraries";
-import { offlineTryCatch } from "#offline/utils/trycatch";
-
+import type { TLibraryOffline } from "#offline/types";
 import type { TLibrary } from "#types/library";
 import type { TNoMusic } from "#types/nomusic";
-import type { TLibraryOffline } from "#offline/types";
-import { NomusicDownloadService } from "./nomusic-download";
 
 /**
  * Tracks active library downloads.
  */
 const activeLibraryDownloads = new Map<string, ReturnType<typeof __performDownload>>();
 
+export const LibrariesDownloadService = {
+  download,
+  remove,
+};
+
 /**
  * PUBLIC API
  */
-export function downloadLibrary(library: TLibrary, nomusic: TNoMusic[]) {
+export function download(library: TLibrary, nomusic: TNoMusic[]) {
   const downloadId = String(library.id);
 
   const active = activeLibraryDownloads.get(downloadId);
@@ -35,7 +37,7 @@ export function downloadLibrary(library: TLibrary, nomusic: TNoMusic[]) {
 /**
  * REMOVE LIBRARY
  */
-export async function removeLibrary(id: TLibraryOffline["id"]) {
+export async function remove(id: TLibraryOffline["id"]) {
   const isdownloading = activeLibraryDownloads.has(String(id));
   if (isdownloading) {
     return errorResponse([], "Song is currently downloading.");
