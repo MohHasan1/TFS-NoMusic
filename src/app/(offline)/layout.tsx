@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Suspense } from "react";
 
+import PlaybackInitializer from "#components/private/Initializer/PlaybackInitializer";
+import PlayerBar from "#components/private/player/player-bar/PlayerBar";
+import { PlayerDialog } from "#components/private/player/player-dialog/PlayerDialog";
 import { GlowOrb } from "#components/shared/GlowOrb";
 import "../(client)/globals.css";
 import NextTopLoader from "nextjs-toploader";
@@ -42,6 +45,9 @@ export default function OfflineLayout({ children }: TProps) {
               color="linear-gradient(90deg, var(--primary-600) 0%, var(--primary-200) 45%, var(--primary-400) 100%)"
             />
           </main>
+          <PlayerBar />
+          <PlayerDialog />
+          <PlaybackInitializer />
         </div>
       </body>
     </html>
