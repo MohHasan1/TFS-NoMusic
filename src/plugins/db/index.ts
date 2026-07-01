@@ -29,7 +29,15 @@ export function getDb(): DbAdapter {
   }
 
   // NOTE: THIS IS FOR BUILD TO PASS BUT IT WILL NOT BE USED AT BUILD TIME
-  if (env === "production" && !vercelEnv) return makeSqliteDb(process.env.SQLITE_URL || "file:./dev.db");
+  if (env === "production" && !vercelEnv) {
+    switch (provider) {
+      case "mongodb":
+        return makeMongooseDb(requireEnv("MONGODB_URI"));
+
+      default:
+        return makeSqliteDb(process.env.SQLITE_URL || "file:./dev.db");
+    }
+  }
 
   throw new Error(
     `[db] Unsupported environment. NODE_ENV must be "development" or "production". ${env}`,

@@ -1,4 +1,4 @@
-import { SerwistProvider } from "@serwist/turbopack/react";
+// import { SerwistProvider } from "@serwist/turbopack/react";
 import { appleStartupImages } from "./appleStartupImages";
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
@@ -49,9 +49,9 @@ export default function RootLayout({ children }: TProps) {
           height={3}
           color="linear-gradient(90deg, var(--primary-600) 0%, var(--primary-200) 45%, var(--primary-400) 100%)"
         />
-        <SerwistProvider swUrl="/serwist/sw.js" cacheOnNavigation={false}>
+        {/* <SerwistProvider swUrl="/serwist/sw.js" cacheOnNavigation={false}> */}
           {children}
-        </SerwistProvider>
+        {/* </SerwistProvider> */}
         <Toaster position="top-right" />
       </body>
     </html>
