@@ -48,10 +48,13 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
     "@react-email/ui": "6.1.1",
+    "@serwist/turbopack": "^9.5.11",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.28.1",
+    "serwist": "^9.5.11",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

@@ -1,9 +1,8 @@
 import { withPayload } from "@payloadcms/next/withPayload";
+import { withSerwist } from "@serwist/turbopack";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  // allowedDevOrigins: ['192.168.1.115', "sam-hostels-carrier-exhaust.trycloudflare.com"],
   cacheComponents: true,
   images: {
     loader: "custom",
@@ -13,4 +12,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withPayload(nextConfig);
+export default withSerwist(withPayload(nextConfig));
