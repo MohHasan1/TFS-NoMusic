@@ -6,9 +6,13 @@ import { LibraryCover } from "#components/private/library/elements/LibraryCover"
 import { OfflineCachedImage } from "#features/offline/components/shared/OfflineCachedImage";
 import { useLibrary } from "#offline/hooks";
 import { OfflineNotFoundLibrary } from "../elements/OfflineNotFoundLibrary";
+import { useSearchParams } from "next/navigation";
 
-export function OfflineLibraryHeroSection({ libId }: TProps) {
-  const { library, isLoading } = useLibrary(libId);
+export function OfflineLibraryHeroSection() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
+  const { library, isLoading } = useLibrary(id!);
 
   if (isLoading) {
     return null;
@@ -29,14 +33,24 @@ export function OfflineLibraryHeroSection({ libId }: TProps) {
         <div className="relative aspect-square overflow-hidden rounded-[1.75rem] border border-white/8 bg-card-secondary shadow-[0_24px_60px_-30px_color-mix(in_oklab,var(--primary-600)_55%,transparent)]">
           <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-br from-primary-400/10 via-transparent to-primary-600/12" />
 
-          <OfflineCachedImage src={library.uploadedImageURL} alt={`${library.name} cover`} sizes="(min-width: 1280px) 360px, (min-width: 1040px) 32vw, 100vw" className="object-cover" fallback={<LibraryCover alt={`${library.name} cover`} name={library.name} />} />
+          <OfflineCachedImage
+            src={library.uploadedImageURL}
+            alt={`${library.name} cover`}
+            sizes="(min-width: 1280px) 360px, (min-width: 1040px) 32vw, 100vw"
+            className="object-cover"
+            fallback={<LibraryCover alt={`${library.name} cover`} name={library.name} />}
+          />
         </div>
 
         <div className="space-y-4 lg:space-y-5 space-x-4">
           <div className="space-y-3">
-            <h1 className="text-3xl font-semibold tracking-tight text-white/95 sm:text-4xl lg:text-5xl">{library.name}</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-white/95 sm:text-4xl lg:text-5xl">
+              {library.name}
+            </h1>
 
-            <p className="max-w-2xl text-sm leading-7 text-white/62 sm:text-base">{library.description || "Private library collection."}</p>
+            <p className="max-w-2xl text-sm leading-7 text-white/62 sm:text-base">
+              {library.description || "Private library collection."}
+            </p>
           </div>
 
           <div className="inline-flex items-center gap-2 text-sm text-white/60">
@@ -53,7 +67,3 @@ export function OfflineLibraryHeroSection({ libId }: TProps) {
     </section>
   );
 }
-
-type TProps = {
-  libId: string;
-};

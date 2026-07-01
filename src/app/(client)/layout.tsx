@@ -30,6 +30,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: "#160a26",
   colorScheme: "dark",
+  userScalable: false,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }: TProps) {

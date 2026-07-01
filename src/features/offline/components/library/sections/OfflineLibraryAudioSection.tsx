@@ -1,13 +1,16 @@
 "use client";
 
-import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
 import { useNomusicByLibId } from "#offline/hooks";
+import { useSearchParams } from "next/navigation";
 
 import { OfflineLibraryAudioEmptyBox } from "../elements/OfflineLibraryAudioEmptyBox";
 import { OfflineLibraryTrackRow } from "../elements/OfflineLibraryTrackRow";
 
-export function OfflineLibraryAudioSection({ libId }: TProps) {
-  const { nomusic } = useNomusicByLibId(libId);
+export function OfflineLibraryAudioSection() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const { nomusic } = useNomusicByLibId(id!);
+  
   const tracks = nomusic;
 
   return (
@@ -25,11 +28,7 @@ export function OfflineLibraryAudioSection({ libId }: TProps) {
         ) : (
           <div className="space-y-1.5">
             {tracks.map((track, index) => (
-              <OfflineLibraryTrackRow
-                key={track.id}
-                index={index}
-                track={track}
-              />
+              <OfflineLibraryTrackRow key={track.id} index={index} track={track} />
             ))}
           </div>
         )}
