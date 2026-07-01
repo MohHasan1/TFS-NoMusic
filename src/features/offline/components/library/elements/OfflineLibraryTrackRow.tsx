@@ -13,6 +13,7 @@ export function OfflineLibraryTrackRow({ index, track }: TProps) {
   return (
     <button
       type="button"
+      data-library-audio-index={index}
       aria-label={`Play ${track.name}`}
       className={cn(
         "grid w-full cursor-pointer grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-3 rounded-3xl border border-transparent px-3 py-3 text-left transition-colors md:grid-cols-[40px_minmax(0,1fr)_minmax(90px,130px)_56px] md:gap-4 md:px-4",

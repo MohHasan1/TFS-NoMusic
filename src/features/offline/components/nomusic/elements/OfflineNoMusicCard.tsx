@@ -12,12 +12,14 @@ import { cn } from "#lib/utils";
 import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
 import type { TNoMusic } from "#types/nomusic";
 
-const OfflineNoMusicCardComponent = ({ noMusic }: TProps) => {
+const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive } = usePlayerPlayback(noMusic.id);
 
   return (
     <Button
       type="button"
+      data-nomusic-index={index}
+      data-nomusic-id={noMusic.id}
       variant="ghost"
       aria-label={`Play ${noMusic.name}`}
       className="group h-auto cursor-pointer p-0 text-left"
@@ -80,5 +82,6 @@ const OfflineNoMusicCardComponent = ({ noMusic }: TProps) => {
 export const OfflineNoMusicCard = memo(OfflineNoMusicCardComponent);
 
 type TProps = {
+  index: number;
   noMusic: TNoMusic;
 };

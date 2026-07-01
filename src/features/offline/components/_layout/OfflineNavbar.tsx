@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { buttonVariants } from "#components/ui/button";
@@ -13,10 +14,10 @@ export function OfflineNavbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/50 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-3 sm:px-4 lg:px-8">
         <div className="shrink-0">
-          <a href={offlineHomeHref} className="group font-semibold uppercase transition-colors duration-300">
+          <Link href={offlineHomeHref} prefetch={false} className="group font-semibold uppercase transition-colors duration-300">
             <span className="text-white/80 group-hover:text-white/60">No</span>
             <span className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent transition-all duration-300 group-hover:from-primary-400/80 group-hover:to-primary-600/80">Music</span>
-          </a>
+          </Link>
         </div>
 
         <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
@@ -26,9 +27,10 @@ export function OfflineNavbar() {
               const Icon = item.icon;
 
               return (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={false}
                   className={cn(
                     buttonVariants({
                       variant: isActive ? "secondary" : "ghost",
@@ -38,7 +40,7 @@ export function OfflineNavbar() {
                 >
                   <Icon className="size-4" />
                   <span className="hidden md:block">{item.label}</span>
-                </a>
+                </Link>
               );
             })}
           </div>
