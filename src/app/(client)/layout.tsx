@@ -49,7 +49,9 @@ export default function RootLayout({ children }: TProps) {
           height={3}
           color="linear-gradient(90deg, var(--primary-600) 0%, var(--primary-200) 45%, var(--primary-400) 100%)"
         />
-        <SerwistProvider swUrl="/serwist/sw.js">{children}</SerwistProvider>
+        <SerwistProvider swUrl="/serwist/sw.js" cacheOnNavigation={false}>
+          {children}
+        </SerwistProvider>
         <Toaster position="top-right" />
       </body>
     </html>

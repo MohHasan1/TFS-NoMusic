@@ -6,12 +6,14 @@ const OFFLINE_ROUTES = [
   "/offline/nomusic",
   "/offline/libraries/id",
 
+  "/favicon.ico",
+  "/apple-icon.png",
+
   "/manifest.json",
-  "web-app-manifest-192x192.png",
-  "web-app-manifest-512x512.png",
+  "/web-app-manifest-192x192.png",
+  "/web-app-manifest-512x512.png",
 ] as const;
 
-// web-app-manifest-192x192.png
 /*
  * Change this value whenever the offline shell changes.
  * This tells Serwist to download fresh HTML.
@@ -27,7 +29,18 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
      * Do not automatically include every Next.js build asset.
      * Do not install-time precache assets from the whole application.
      */
-    globPatterns: [],
+    // globPatterns: [],
+
+    /*
+     * Precache generated Next.js application assets.
+     *
+     * JS    → React/Next.js client code
+     * CSS   → globals.css and component styles
+     * fonts → next/font output
+     */
+    // globPatterns: ["**/*.{js,css,woff,woff2}"],
+    // Only publicly accessible Next.js browser assets.
+    globPatterns: [".next/static/**/*.{js,css,woff,woff2}"],
 
     /*
      * Fetch and cache these pages when the Service Worker installs.

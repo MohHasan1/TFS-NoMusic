@@ -3,7 +3,7 @@
 
 // import { defaultCache } from "@serwist/turbopack/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import {  NetworkOnly, Serwist } from "serwist";
+import { NetworkOnly, Serwist } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -52,33 +52,6 @@ const serwist = new Serwist({
 
       handler: new NetworkOnly(),
     },
-
-    // Cache only /offline documents.
-    // {
-    //   matcher({ request, url, sameOrigin }) {
-    //     return sameOrigin && request.mode === "navigate" && isOfflinePath(url.pathname);
-    //   },
-
-    //   handler: new NetworkFirst({
-    //     cacheName: "nomusic-offline-shell-v1",
-    //     networkTimeoutSeconds: 3,
-    //     plugins: [
-    //       new CacheableResponsePlugin({
-    //         statuses: [200],
-    //       }),
-    //     ],
-    //   }),
-    // },
-    // Other page navigations remain network-only.
-    // {
-    //   matcher({ request, sameOrigin }) {
-    //     return sameOrigin && request.mode === "navigate";
-    //   },
-
-    //   handler: new NetworkOnly(),
-    // },
-    // Handles Next.js CSS, JS and other required assets.
-    // ...defaultCache,
   ],
 });
 
