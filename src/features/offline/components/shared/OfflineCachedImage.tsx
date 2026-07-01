@@ -1,21 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import type { ReactNode } from "react";
 
-import { useCachedMediaUrl } from "#offline/hooks";
-
-const isDev = process.env.NODE_ENV === "development";
-
 export function OfflineCachedImage({ src, alt, sizes, className, fallback = null }: TProps) {
-  const { url } = useCachedMediaUrl(src);
-
-  if (!url) {
-    // return fallback;
-    return
+  if (!src) {
+    return fallback;
   }
 
-  return <Image src={url} alt={alt} fill unoptimized={isDev} sizes={sizes} className={className} />;
+  // biome-ignore lint/performance/noImgElement: Offline media must keep the raw /offline-media URL so the service worker can intercept it.
+  return (
+    <img src={src} alt={alt} sizes={sizes} loading="lazy" decoding="async" className={className} />
+  );
 }
 
 type TProps = {

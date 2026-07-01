@@ -1,4 +1,5 @@
 import { CacheStorage } from "#offline/lib/cacheStorage";
+import { offlineTryCatch } from "#offline/utils/trycatch";
 import { errorResponse, successResponse } from "#responses";
 
 /**
@@ -8,14 +9,30 @@ export const MediaRepo = {
   /**
    * Fetches media from network and caches it.
    */
-  async cache(cacheKey: string, url: string,) {
-    const response = await fetch(url);
-    if (!response.ok) {
-      return errorResponse([], `Failed to fetch media: ${response.status}`);
-    }
+  async cache(cacheKey: string, url: string) {
+    return offlineTryCatch(async () => {
+      const response = await fetch(url);
+      if (!response.ok) {
+        return errorResponse([], `Failed to fetch media: ${response.status}`);
+      }
 
-    await CacheStorage.put(cacheKey, response);
-    return successResponse(cacheKey);
+      /*
+       * Only store the complete resource.
+       *
+       * A 206 response contains only part of the audio file and should
+       * not become the source used for future range requests.
+       */
+      if (response.status !== 200) {
+        return errorResponse([], `Failed to fetch complete media: ${response.status}`);
+      }
+
+      if (!response.body) {
+        return errorResponse([], "Media response has no body.");
+      }
+
+      await CacheStorage.put(cacheKey, response);
+      return successResponse(cacheKey);
+    });
   },
 
   /**
