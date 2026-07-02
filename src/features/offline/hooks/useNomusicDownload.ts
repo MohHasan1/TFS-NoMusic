@@ -22,7 +22,6 @@ export function useNomusicDownload() {
 
     try {
       const result = await NomusicDownloadService.download(nomusic);
-
       if (!result.isSuccess) {
         setError(result.message);
       }
