@@ -1,12 +1,19 @@
 const OFFLINE_IMAGE_WIDTH = 512;
 const OFFLINE_IMAGE_QUALITY = 70;
-const CDN_HOST = "https://cdn.thefamilysuite.org";
+// const CDN_HOST = "https://cdn.thefamilysuite.org";
 
-function getAbsoluteSourceUrl(src: string): string {
-  return new URL(src, CDN_HOST).href;
+// function getAbsoluteSourceUrl(src: string): string {
+//   return new URL(src, CDN_HOST).href;
+// }
+
+function normalizeSrc(src: string): string {
+  return src.startsWith("/") ? src.slice(1) : src;
 }
 
 export function buildOfflineCloudflareImageUrl(src: string): string {
+  if (process.env.NODE_ENV === "development") {
+    return src;
+  }
   const params = [
     `width=${OFFLINE_IMAGE_WIDTH}`,
     `quality=${OFFLINE_IMAGE_QUALITY}`,
@@ -14,7 +21,7 @@ export function buildOfflineCloudflareImageUrl(src: string): string {
     "fit=scale-down",
   ];
 
-  const sourceUrl = getAbsoluteSourceUrl(src);
+  const sourceUrl = normalizeSrc(src);
 
   return `/cdn-cgi/image/${params.join(",")}/${sourceUrl}`;
 }
