@@ -11,7 +11,24 @@ export const MediaRepo = {
    */
   async cache(cacheKey: string, url: string) {
     return offlineTryCatch(async () => {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: "GET",
+        cache: "no-store",
+      });
+
+      // console.table({
+      //   requestedURL: url,
+      //   finalURL: response.url,
+      //   status: response.status,
+      //   ok: response.ok,
+      //   type: response.type,
+      //   redirected: response.redirected,
+      //   contentType: response.headers.get("content-type"),
+      //   contentLength: response.headers.get("content-length"),
+      //   acceptRanges: response.headers.get("accept-ranges"),
+      //   contentRange: response.headers.get("content-range"),
+      // });
+
       if (!response.ok) {
         return errorResponse([], `Failed to fetch media: ${response.status}`);
       }

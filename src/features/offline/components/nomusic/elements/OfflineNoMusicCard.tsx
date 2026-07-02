@@ -1,7 +1,7 @@
 "use client";
 
 import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixicon/react";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Button } from "#components/ui/button";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
@@ -9,15 +9,28 @@ import { cn } from "#lib/utils";
 import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
 import { OfflineImage } from "#offline/components/shared/OfflineImage";
 import type { TNoMusic } from "#types/nomusic";
+import { OfflineNoMusicRemoveButton } from "./OfflineNoMusicRemoveButton";
 import { OfflineNoMusicCover } from "../../shared/OfflineNoMusicCover";
 import { OfflinePlayingBars } from "./OfflinePlayingBars";
 
 const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
   const isNew = isNewByUpdatedDate(noMusic?.uploadedAt);
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) return null;
 
   return (
-    <Button type="button" data-nomusic-index={index} data-nomusic-id={noMusic?.id} variant="ghost" aria-label={`Play ${noMusic?.name}`} className="group h-auto cursor-pointer p-0 text-left">
+    <Button
+      type="button"
+      render={<div />}
+      nativeButton={false}
+      data-nomusic-index={index}
+      data-nomusic-id={noMusic?.id}
+      variant="ghost"
+      aria-label={`Play ${noMusic?.name}`}
+      className="group h-auto cursor-pointer p-0 text-left"
+    >
       <Card className={cn("relative w-full overflow-hidden bg-card transition-all duration-300", isActive ? "border-primary ring-1 ring-primary-400/40" : "border group-hover:border-primary-400/50")}>
         <CardHeader className="relative aspect-square overflow-hidden bg-muted p-0">
           <OfflineImage
@@ -39,6 +52,10 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
               </span>
             </div>
           )}
+
+          <div className="absolute left-2 top-2 z-20">
+            <OfflineNoMusicRemoveButton noMusic={noMusic} onRemoved={() => setIsVisible(false)} />
+          </div>
 
           <span className="absolute bg-card-secondary/60 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">{formatPlaybackTime(noMusic?.duration ?? 0)}</span>
         </CardHeader>

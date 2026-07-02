@@ -2,19 +2,21 @@ import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 
-import { getLibrary } from "#services/libraries/libraries.ports";
+import { getLibrary, getLibraryAudio } from "#services/libraries/libraries.ports";
 import { LibraryCover } from "../elements/LibraryCover";
+import { LibraryDownloadButton } from "../elements/LibraryDownloadButton";
 import type { Library } from "#payload-types";
 
 export async function LibraryHeroSection({ libId }: TProps) {
   await connection();
-  const response = await getLibrary(libId);
+  const [response, tracksResponse] = await Promise.all([getLibrary(libId), getLibraryAudio(libId)]);
 
   if (!response.isSuccess) {
     notFound();
   }
 
   const library = response.data;
+  const tracks = tracksResponse.isSuccess ? tracksResponse.data : [];
 
   const trackCount = library.trackCount;
   const count = trackCount ? (trackCount > 50 ? 50 : trackCount) : 0;
@@ -51,6 +53,8 @@ export async function LibraryHeroSection({ libId }: TProps) {
             <RiUser3Line className="size-4 shrink-0 text-primary-400" />
             <span className="font-medium">{libAuthor}</span>
           </div>
+
+          <LibraryDownloadButton library={library} tracks={tracks} />
         </div>
       </div>
     </section>

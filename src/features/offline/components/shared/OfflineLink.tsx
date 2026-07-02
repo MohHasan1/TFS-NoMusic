@@ -1,6 +1,7 @@
 "use client";
 
 import type { AnchorHTMLAttributes, MouseEvent } from "react";
+import { navigateOffline } from "#offline/utils/navigation";
 
 export function OfflineLink({ href, ...props }: TProps) {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -19,16 +20,7 @@ export function OfflineLink({ href, ...props }: TProps) {
 
     // Keep the offline shell mounted while the URL still reflects the current view.
     event.preventDefault();
-
-    const nextURL = new URL(href, window.location.origin);
-    const currentURL = new URL(window.location.href);
-
-    // Skip the history update when the user is already on this offline view.
-    if (nextURL.pathname === currentURL.pathname && nextURL.search === currentURL.search) {
-      return;
-    }
-
-    window.history.pushState(null, "", nextURL);
+    navigateOffline(href);
   };
 
   return <a {...props} href={href} onClick={handleClick} />;
