@@ -3,7 +3,6 @@ import { getLibraryIdByLanguage } from "../helpers/library";
 import type { Nomusic } from "@/payload-types";
 import { parseBuffer } from "music-metadata";
 import { isID } from "#lib/utils";
-import { logInfo } from "#loggers";
 
 // TODO: make it better
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({

@@ -23,7 +23,6 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
           <OfflineImage
             src={noMusic?.coverImage}
             alt={noMusic?.name || "NoMusic cover Image"}
-            sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
             className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
             fallback={<OfflineNoMusicCover name={noMusic?.name} artist={noMusic?.artist} />}
           />

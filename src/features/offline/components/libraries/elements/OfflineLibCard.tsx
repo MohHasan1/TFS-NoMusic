@@ -25,7 +25,6 @@ export function OfflineLibCard({ library }: TProps) {
               <OfflineImage
                 src={library.uploadedImageURL}
                 alt={`${library.name} cover`}
-                sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 fallback={<div className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`} />}
               />

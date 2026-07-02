@@ -24,11 +24,22 @@ export function OfflineLibraryTrackRow({ index, track }: TProps) {
 
       <div className="flex min-w-0 items-center gap-3">
         <div className="relative size-10 shrink-0 overflow-hidden rounded-xl border border-white/8 bg-card-secondary md:size-11">
-          <OfflineImage src={track.coverImage} alt={track.name} sizes="44px" className="object-cover" fallback={<OfflineNoMusicCover name={track.name} artist={track.artist} />} />
+          <OfflineImage
+            src={track.coverImage}
+            alt={track.name}
+            className="object-cover"
+            fallback={<OfflineNoMusicCover name={track.name} artist={track.artist} />}
+          />
         </div>
 
         <div className="min-w-0">
-          <p className={cn("truncate text-sm font-semibold text-white/90 md:text-base", isActive && "text-primary-200")} title={track.name}>
+          <p
+            className={cn(
+              "truncate text-sm font-semibold text-white/90 md:text-base",
+              isActive && "text-primary-200",
+            )}
+            title={track.name}
+          >
             {track.name}
           </p>
 
@@ -38,11 +49,16 @@ export function OfflineLibraryTrackRow({ index, track }: TProps) {
         </div>
       </div>
 
-      <p className="hidden truncate capitalize text-sm text-white/45 md:block" title={track.language || ""}>
+      <p
+        className="hidden truncate capitalize text-sm text-white/45 md:block"
+        title={track.language || ""}
+      >
         {track.language || "-"}
       </p>
 
-      <span className="text-right text-xs tabular-nums text-white/60 md:text-sm">{formatPlaybackTime(track.duration ?? 0, "zero")}</span>
+      <span className="text-right text-xs tabular-nums text-white/60 md:text-sm">
+        {formatPlaybackTime(track.duration ?? 0, "zero")}
+      </span>
     </button>
   );
 }

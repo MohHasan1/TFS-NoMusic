@@ -2,10 +2,9 @@
  * Change this value whenever the offline shell changes.
  * This tells Serwist to download fresh HTML.
  */
-const shellRevision = "offline-shell-v1";
+const shellRevision = "v2";
 
 const offlinePages = ["/offline"] as const;
-
 const appMetadataAssets = [
   "/favicon.ico",
   "/apple-icon.png",

@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { StatusDot } from "@/components/shared/StatusDot";
 import PlayerFalbackImage from "../../elements/PlayerFallbackImage";
+import { PlayerArtworkImage } from "../../elements/PlayerArtworkImage";
 import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
 import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
 import PlayerDialogButton from "./PlayerDialogButton";
-
-const isDev = process.env.NODE_ENV === "development";
 
 const PlayerArtwork = () => {
   const { track } = usePlayerTrack();
@@ -18,11 +16,9 @@ const PlayerArtwork = () => {
       <div className="relative shrink-0 size-11 md:size-12">
         {track?.coverImage ? (
           <div className="relative h-full w-full overflow-hidden bg-muted shadow-lg rounded-xl">
-            <Image
+            <PlayerArtworkImage
               src={track.coverImage}
               alt="Track artwork"
-              fill
-              unoptimized={isDev}
               sizes="(max-width: 768px) 44px, 48px"
               className="object-cover"
             />
