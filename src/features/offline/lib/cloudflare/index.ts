@@ -1,10 +1,5 @@
 const OFFLINE_IMAGE_WIDTH = 512;
 const OFFLINE_IMAGE_QUALITY = 70;
-// const CDN_HOST = "https://cdn.thefamilysuite.org";
-
-// function getAbsoluteSourceUrl(src: string): string {
-//   return new URL(src, CDN_HOST).href;
-// }
 
 function normalizeSrc(src: string): string {
   return src.startsWith("/") ? src.slice(1) : src;
