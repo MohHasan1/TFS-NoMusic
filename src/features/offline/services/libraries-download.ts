@@ -7,7 +7,7 @@ import { MediaRepo } from "#offline/repositories/media";
 import type { TLibraryOffline } from "#offline/types";
 import type { TLibrary } from "#types/library";
 import type { TNoMusic } from "#types/nomusic";
-import { buildOfflineCloudflareImageUrl } from "#offline/lib/cloudflare/index";
+// import { buildOfflineCloudflareImageUrl } from "#offline/lib/cloudflare/index";
 
 /**
  * Tracks active library downloads.
@@ -82,8 +82,8 @@ async function __performDownload(library: TLibrary, nomusic: TNoMusic[]) {
 
   // 1. cache cover
   if (library.uploadedImageURL) {
-    const coverUrl = buildOfflineCloudflareImageUrl(library.uploadedImageURL);
-    const coverRes = await MediaRepo.cache(coverCacheKey, coverUrl);
+    // const coverUrl = buildOfflineCloudflareImageUrl(library.uploadedImageURL);
+    const coverRes = await MediaRepo.cache(coverCacheKey, library.uploadedImageURL);
     if (!coverRes.isSuccess) {
       return coverRes;
     }
