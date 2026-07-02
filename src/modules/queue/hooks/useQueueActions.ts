@@ -7,8 +7,8 @@ import { queueController } from "../controller";
 
 export function useQueueActions() {
   const setQueue = useCallback(
-    (sourceKey: string, tracks: TNoMusic[], startTrackId: TNoMusic["id"]) => {
-      queueController.setQueue({ sourceKey, tracks, startTrackId });
+    (sourceKey: string, tracks: TNoMusic[], startTrackId: TNoMusic["id"], forceRebuild = false) => {
+      queueController.setQueue({ sourceKey, tracks, startTrackId, forceRebuild });
     },
     [],
   );

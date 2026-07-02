@@ -3,8 +3,13 @@ import { queueEngine } from "../engines";
 import type { TNoMusic } from "#types/nomusic";
 
 class QueueController {
-  setQueue(params: { sourceKey: string; tracks: TNoMusic[]; startTrackId: TNoMusic["id"] }) {
-    const { sourceKey, tracks, startTrackId } = params;
+  setQueue(params: {
+    sourceKey: string;
+    tracks: TNoMusic[];
+    startTrackId: TNoMusic["id"];
+    forceRebuild?: boolean;
+  }) {
+    const { sourceKey, tracks, startTrackId, forceRebuild = false } = params;
 
     const {
       queueSourceKey,
@@ -17,12 +22,12 @@ class QueueController {
     } = store.getState();
 
     // Same source: just different track is clicked in the same source - current-index is just upated:
-    if (queueSourceKey === sourceKey) {
+    if (queueSourceKey === sourceKey && !forceRebuild) {
       setCurrentIndex(queueEngine.getIndexByTrackId(queueIdIndexMap, startTrackId));
       return;
     }
 
-    // New source:
+    // New source or existing source (forceRebuild):
     const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueIdData(tracks);
     const currentIndex = queueEngine.getIndexByTrackId(newQueueIdIndexMap, startTrackId);
 

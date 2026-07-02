@@ -10,9 +10,9 @@ export function useTrackPlayback(sourceKey: string) {
   const { addTracks } = useRegistryActions();
 
   const start = useCallback(
-    (tracks: TNoMusic[], selectedTrack: TNoMusic) => {
+    (tracks: TNoMusic[], selectedTrack: TNoMusic, forceRebuild = false) => {
       addTracks(tracks);
-      setQueue(sourceKey, tracks, selectedTrack.id);
+      setQueue(sourceKey, tracks, selectedTrack.id, forceRebuild);
       playTrack(selectedTrack);
     },
     [addTracks, playTrack, setQueue, sourceKey],

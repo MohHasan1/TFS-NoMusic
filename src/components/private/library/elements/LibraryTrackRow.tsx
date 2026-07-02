@@ -65,9 +65,9 @@ export function LibraryTrackRow({ index, track }: TProps) {
         {track.language || "-"}
       </p>
 
-      <div className="col-start-3 flex justify-end md:col-start-4">
+      {/* <div className="col-start-3 flex justify-end md:col-start-4">
         <NoMusicDownloadButton noMusic={track} />
-      </div>
+      </div> */}
 
       <span className="col-start-4 text-right text-xs tabular-nums text-white/60 md:col-start-5 md:text-sm">
         {formatPlaybackTime(track.duration ?? 0)}

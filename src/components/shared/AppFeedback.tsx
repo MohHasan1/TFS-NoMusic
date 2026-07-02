@@ -23,7 +23,7 @@ export function AppFeedback() {
         color="linear-gradient(90deg, var(--primary-600) 0%, var(--primary-200) 45%, var(--primary-400) 100%)"
       />
       <Toaster
-        position="top-left"
+        position="top-center"
         toastOptions={{
           classNames: {
             toast:
