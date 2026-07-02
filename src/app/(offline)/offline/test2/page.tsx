@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "#components/ui/button";
-import { dummyLibrary } from "#offline/data/dummy-library";
+import { dummyLibraries, dummyLibrary } from "#offline/data/dummy-library";
 import { dummyLibraryNomusic, dummyNomusic } from "#offline/data/dummy-nomusic";
 import { useLibraries, useLibrariesDownload, useNomusic, useNomusicDownload } from "#offline/hooks";
 import { CacheKey } from "#offline/lib/cacheStorage/keys";
@@ -110,20 +110,34 @@ export default function OfflineTestTwoPage() {
         <Button
           type="button"
           onClick={() =>
-            run("Download library", () => downloadLibrary(dummyLibrary, [...dummyLibraryNomusic]))
+            run("Download libraries", async () => {
+              const results = await Promise.all(
+                dummyLibraries.map((library) => downloadLibrary(library, [...dummyLibraryNomusic])),
+              );
+
+              return results.find((result) => !result.isSuccess) ?? results[0]!;
+            })
           }
           disabled={isPending}
         >
-          Download Library
+          Download Libraries
         </Button>
 
         <Button
           type="button"
           variant="outline"
-          onClick={() => run("Remove library", () => removeLibrary(dummyLibrary.id))}
+          onClick={() =>
+            run("Remove libraries", async () => {
+              const results = await Promise.all(
+                dummyLibraries.map((library) => removeLibrary(library.id)),
+              );
+
+              return results.find((result) => !result.isSuccess) ?? results[0]!;
+            })
+          }
           disabled={isPending}
         >
-          Remove Library
+          Remove Libraries
         </Button>
 
         <Button

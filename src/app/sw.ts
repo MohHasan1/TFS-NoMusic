@@ -29,7 +29,7 @@ const serwist = new Serwist({
      * match the precached:
      * /offline
      */
-    ignoreURLParametersMatching: [/^(view|id)$/],
+    ignoreURLParametersMatching: [/^(view|id)$/, /^(favicon|icon|apple-icon)(\..+)?$/],
   },
 
   runtimeCaching: [

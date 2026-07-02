@@ -1,9 +1,11 @@
+
 import { OfflineNomusic } from "#offline/repositories/nomusic";
 import { successResponse, errorResponse } from "#responses";
 import { CacheKey } from "#offline/lib/cacheStorage/keys";
 import { MediaRepo } from "#offline/repositories/media";
 import type { TNomusicOffline } from "#offline/types";
 import type { TNoMusic } from "#types/nomusic";
+import { buildOfflineCloudflareImageUrl } from "#offline/lib/cloudflare/index";
 
 const activeDownloads = new Map<string, ReturnType<typeof __performDownload>>();
 
@@ -91,7 +93,8 @@ async function __performDownload(nomusic: TNoMusic) {
   }
 
   if (nomusic.coverImage) {
-    const coverRes = await MediaRepo.cache(coverCacheKey, nomusic.coverImage);
+    const coverUrl = buildOfflineCloudflareImageUrl(nomusic.coverImage);
+    const coverRes = await MediaRepo.cache(coverCacheKey, coverUrl);
     if (!coverRes.isSuccess) {
       await MediaRepo.del(audioCacheKey);
       return coverRes;

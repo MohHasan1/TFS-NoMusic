@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { Button } from "#components/ui/button";
-import { dummyLibrary } from "#offline/data/dummy-library";
+import { dummyLibraries, dummyLibrary } from "#offline/data/dummy-library";
 import { dummyLibraryNomusic, dummyNomusic } from "#offline/data/dummy-nomusic";
 import { CacheKey } from "#offline/lib/cacheStorage/keys";
 import { OfflineLibraries } from "#offline/repositories/libraries";
@@ -107,26 +107,36 @@ export default function OfflineTestPage() {
         <Button
           type="button"
           onClick={() =>
-            runAction("Download dummy library", () =>
-              LibrariesDownloadService.download(dummyLibrary, [...dummyLibraryNomusic]),
-            )
+            runAction("Download dummy libraries", async () => {
+              const results = await Promise.all(
+                dummyLibraries.map((library) =>
+                  LibrariesDownloadService.download(library, [...dummyLibraryNomusic]),
+                ),
+              );
+
+              return results.find((result) => !result.isSuccess) ?? results[0]!;
+            })
           }
           disabled={isPending}
         >
-          Download Dummy Library
+          Download Dummy Libraries
         </Button>
 
         <Button
           type="button"
           variant="outline"
           onClick={() =>
-            runAction("Remove dummy library", () =>
-              LibrariesDownloadService.remove(dummyLibrary.id),
-            )
+            runAction("Remove dummy libraries", async () => {
+              const results = await Promise.all(
+                dummyLibraries.map((library) => LibrariesDownloadService.remove(library.id)),
+              );
+
+              return results.find((result) => !result.isSuccess) ?? results[0]!;
+            })
           }
           disabled={isPending}
         >
-          Remove Dummy Library
+          Remove Dummy Libraries
         </Button>
 
         <Button

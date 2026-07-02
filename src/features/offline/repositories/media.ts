@@ -16,12 +16,7 @@ export const MediaRepo = {
         return errorResponse([], `Failed to fetch media: ${response.status}`);
       }
 
-      /*
-       * Only store the complete resource.
-       *
-       * A 206 response contains only part of the audio file and should
-       * not become the source used for future range requests.
-       */
+      // Only store the complete resource.
       if (response.status !== 200) {
         return errorResponse([], `Failed to fetch complete media: ${response.status}`);
       }
