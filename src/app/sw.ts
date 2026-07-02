@@ -1,9 +1,9 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-import { OFFLINE_STORAGE } from "#offline/constants";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { CacheOnly, NetworkOnly, RangeRequestsPlugin, Serwist } from "serwist";
+import { OFFLINE_STORAGE } from "#offline/constants";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -46,16 +46,17 @@ const serwist = new Serwist({
   clientsClaim: true,
 
   precacheOptions: {
+    cacheName: "nomusic-offline-shell",
     cleanupOutdatedCaches: true,
 
     /*
      * Makes:
-     * /offline/libraries/id?id=abc
+     * /offline?view=library&id=abc
      *
      * match the precached:
-     * /offline/libraries/id
+     * /offline
      */
-    ignoreURLParametersMatching: [/^id$/],
+    ignoreURLParametersMatching: [/^(view|id)$/],
   },
 
   runtimeCaching: [
@@ -109,31 +110,15 @@ const serwist = new Serwist({
   ],
 });
 
-// Handles offline navigation
-// serwist.setCatchHandler(async ({ request }) => {
-//   if (request.mode !== "navigate") {
-//     return Response.error();
-//   }
-
-//   const requestedURL = new URL(request.url);
-
-//   /*
-//    * Do not create an endless redirect if an unlisted
-//    * /offline route is requested.
-//    */
-//   if (isOfflinePath(requestedURL.pathname)) {
-//     return Response.error();
-//   }
-
-//   return Response.redirect(new URL(OFFLINE_PATH, self.location.origin).href, 302);
-// });
 
 function isOfflineMediaPath(pathname: string): boolean {
   return pathname.startsWith(`${OFFLINE_STORAGE.ROOT_PATH}/`);
 }
 
+
 serwist.setCatchHandler(async ({ request }) => {
   const requestedURL = new URL(request.url);
+  console.log("requestedURL",requestedURL)
 
   /*
    * Missing downloaded audio/image.
@@ -144,6 +129,7 @@ serwist.setCatchHandler(async ({ request }) => {
       statusText: "Offline media not found",
     });
   }
+  console.log("Passed Missing downloaded audio/image.")
 
   /*
    * Only page navigations should redirect.
@@ -151,13 +137,18 @@ serwist.setCatchHandler(async ({ request }) => {
   if (request.mode !== "navigate") {
     return Response.error();
   }
+  console.log("Passed Only page navigations should redirect.")
 
   /*
    * Avoid redirecting /offline to itself.
    */
   if (isOfflinePath(requestedURL.pathname)) {
-    return Response.error();
+    // return Response.error();
+    const offlineResponse = await serwist.matchPrecache(OFFLINE_PATH);
+
+    return offlineResponse ?? Response.error();
   }
+  console.log("Passed Avoid redirecting /offline to itself.")
 
   /*
    * A network request can fail even while the browser is online,
@@ -165,9 +156,11 @@ serwist.setCatchHandler(async ({ request }) => {
    *
    * Only redirect when the browser reports that it is offline.
    */
-  if (self.navigator.onLine) {
-    return Response.error();
-  }
+  // if (self.navigator.onLine) {
+  //   return Response.error();
+  // }
+  console.log("Passed self.navigator.onLine.")
+
 
   return Response.redirect(new URL(OFFLINE_PATH, self.location.origin).href, 302);
 });

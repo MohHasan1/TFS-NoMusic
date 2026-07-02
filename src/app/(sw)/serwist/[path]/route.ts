@@ -2,9 +2,6 @@ import { createSerwistRoute } from "@serwist/turbopack";
 
 const OFFLINE_ROUTES = [
   "/offline",
-  "/offline/libraries",
-  "/offline/nomusic",
-  "/offline/libraries/id",
 
   "/favicon.ico",
   "/apple-icon.png",
@@ -18,7 +15,7 @@ const OFFLINE_ROUTES = [
  * Change this value whenever the offline shell changes.
  * This tells Serwist to download fresh HTML.
  */
-const OFFLINE_SHELL_REVISION = "offline-shell-v1";
+const OFFLINE_SHELL_REVISION = "v1";
 
 export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute(
   {
@@ -40,7 +37,10 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
      */
     // globPatterns: ["**/*.{js,css,woff,woff2}"],
     // Only publicly accessible Next.js browser assets.
+    // globDirectory: ".next/static",
+    // globPatterns: ["**/*.{js,css,woff,woff2}"],
     globPatterns: [".next/static/**/*.{js,css,woff,woff2}"],
+    // todo: media/favicon, apple and fonts
 
     /*
      * Fetch and cache these pages when the Service Worker installs.

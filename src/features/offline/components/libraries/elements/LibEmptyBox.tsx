@@ -1,6 +1,5 @@
-import { RiAlbumFill } from "@remixicon/react";
-
 import { OfflineEmptyState } from "#features/offline/components/shared/OfflineEmptyState";
+import { RiAlbumFill } from "@remixicon/react";
 
 export default function LibEmptyBox() {
   return (

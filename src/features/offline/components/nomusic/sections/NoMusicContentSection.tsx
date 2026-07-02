@@ -2,15 +2,15 @@
 
 import type React from "react";
 import { useCallback } from "react";
-
 import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
+import { OfflineCardGridSkeleton } from "#offline/components/shared/OfflineCardGridSkeleton";
 import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
 import { useNomusic } from "#offline/hooks";
 import NoMusicEmptyBox from "../elements/NoMusicEmptyBox";
 import { OfflineNoMusicCard } from "../elements/OfflineNoMusicCard";
 
 export default function NoMusicContentSection() {
-  const { nomusic } = useNomusic();
+  const { nomusic, isLoading } = useNomusic();
   const { start } = useTrackPlayback(OFFLINE_SOURCE_KEYS.NOMUSIC_PAGE());
 
   const handleCardClick = useCallback(
@@ -34,15 +34,16 @@ export default function NoMusicContentSection() {
     [nomusic, start],
   );
 
+  if (isLoading) return <OfflineCardGridSkeleton count={8} />;
+
   return (
     <>
       {nomusic.length === 0 ? (
         <NoMusicEmptyBox />
       ) : (
-        <section
-          onClick={handleCardClick}
-          className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"
-        >
+        // biome-ignore lint/a11y/noStaticElementInteractions: Delegated click handling matches the client NoMusic browser.
+        // biome-ignore lint/a11y/useKeyWithClickEvents: Child buttons handle keyboard activation and bubble the click event here.
+        <section onClick={handleCardClick} className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {nomusic.map((noMusic, index) => (
             <OfflineNoMusicCard key={noMusic.id} index={index} noMusic={noMusic} />
           ))}

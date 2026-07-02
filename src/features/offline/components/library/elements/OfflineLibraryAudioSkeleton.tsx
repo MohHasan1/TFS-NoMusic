@@ -3,7 +3,7 @@ import { Skeleton } from "#components/ui/skeleton";
 const SKELETON_ROW_COUNT = 5;
 const SKELETON_ROW_KEYS = ["row-1", "row-2", "row-3", "row-4", "row-5"] as const;
 
-export function LibarayAudioSectionSkeleton() {
+export function OfflineLibraryAudioSkeleton() {
   return (
     <section className="space-y-4">
       <div className="space-y-2">
@@ -16,7 +16,10 @@ export function LibarayAudioSectionSkeleton() {
 
         <div className="space-y-1.5">
           {SKELETON_ROW_KEYS.slice(0, SKELETON_ROW_COUNT).map((key) => (
-            <div key={key} className="grid grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-3 rounded-3xl px-3 py-3 md:grid-cols-[40px_minmax(0,1fr)_minmax(90px,130px)_56px] md:gap-4 md:px-4">
+            <div
+              key={key}
+              className="grid grid-cols-[22px_minmax(0,1fr)_44px] items-center gap-3 rounded-3xl px-3 py-3 md:grid-cols-[40px_minmax(0,1fr)_minmax(90px,130px)_56px] md:gap-4 md:px-4"
+            >
               <Skeleton className="h-4 w-4 bg-white/8" />
               <div className="flex min-w-0 items-center gap-3">
                 <Skeleton className="size-10 rounded-xl bg-white/8 md:size-11" />

@@ -1,10 +1,10 @@
-import { LIBRARY_SECTIONS } from "#components/private/libraries/constants/librarySections";
 import { OfflineLibSectionFrame } from "../elements/OfflineLibSectionFrame";
+import { OFFLINE_LIBRARY_SECTIONS } from "../constants";
 
 export default function LibContentSection() {
   return (
     <div className="space-y-10">
-      {LIBRARY_SECTIONS.map((section) => (
+      {OFFLINE_LIBRARY_SECTIONS.map((section) => (
         <OfflineLibSectionFrame
           key={section.type}
           type={section.type}

@@ -1,12 +1,11 @@
 "use client";
 
 import { RiArrowRightUpLine, RiMusic2Line, RiUser3Line } from "@remixicon/react";
-import Link from "next/link";
-
 import { getGradientFromText } from "#components/private/_utils/helpers";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { OFFLINE_ROUTES } from "#constants/routes";
-import { OfflineCachedImage } from "#features/offline/components/shared/OfflineCachedImage";
+import { OfflineImage } from "#offline/components/shared/OfflineImage";
+import { OfflineLink } from "#offline/components/shared/OfflineLink";
 import type { TLibraryOffline } from "#offline/types";
 
 export function OfflineLibCard({ library }: TProps) {
@@ -17,13 +16,13 @@ export function OfflineLibCard({ library }: TProps) {
 
   return (
     <article>
-      <Link href={OFFLINE_ROUTES.LIBRARY(library.id)} prefetch={false} className="group block">
+      <OfflineLink href={OFFLINE_ROUTES.LIBRARY(library.id)} className="group block">
         <Card className="relative w-full overflow-hidden bg-card transition-all duration-300 hover:border-primary-400/50">
           <CardHeader className="relative block aspect-square overflow-hidden bg-muted p-0">
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/55 via-transparent to-transparent" />
 
             <div className="relative size-full overflow-hidden">
-              <OfflineCachedImage
+              <OfflineImage
                 src={library.uploadedImageURL}
                 alt={`${library.name} cover`}
                 sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
@@ -56,7 +55,7 @@ export function OfflineLibCard({ library }: TProps) {
             </div>
           </CardContent>
         </Card>
-      </Link>
+      </OfflineLink>
     </article>
   );
 }

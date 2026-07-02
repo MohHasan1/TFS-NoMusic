@@ -1,19 +1,24 @@
 "use client";
 
-import type { TLibrarySection } from "#components/private/libraries/constants/librarySections";
+import { OfflineCardGridSkeleton } from "#offline/components/shared/OfflineCardGridSkeleton";
 import { OfflineLibCard } from "./OfflineLibCard";
+import { TLibraryOffline } from "#offline/types";
 import { useLibraries } from "#offline/hooks";
 import LibEmptyBox from "./LibEmptyBox";
 
 export function OfflineLibSectionFrame({ title, description, type }: TProps) {
-  const { libraries } = useLibraries(type);
+  const { libraries, isLoading } = useLibraries(type);
 
   return (
     <section className="space-y-6">
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold tracking-tight text-white/90 md:text-xl">{title}</h2>
-        {description ? <p className="text-sm text-white/55">{description}</p> : null}
+      <div className="space-y-1.5">
+        <h2 className="text-lg font-semibold tracking-tight text-primary-200 md:text-xl">
+          {title}
+        </h2>
+        {description ? <p className="text-sm text-foreground/80">{description}</p> : null}
       </div>
+
+      {isLoading && <OfflineCardGridSkeleton count={4} />}
 
       {libraries.length === 0 ? (
         <LibEmptyBox />
@@ -28,4 +33,8 @@ export function OfflineLibSectionFrame({ title, description, type }: TProps) {
   );
 }
 
-type TProps = TLibrarySection;
+export type TProps = {
+  title: string;
+  description: string;
+  type: TLibraryOffline["type"];
+};

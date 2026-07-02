@@ -1,14 +1,13 @@
+import { OfflineEmptyState } from "#offline/components/shared/OfflineEmptyState";
 import { RiMusic2Line } from "@remixicon/react";
-
-import { OfflineEmptyState } from "#features/offline/components/shared/OfflineEmptyState";
 
 export function OfflineLibraryAudioEmptyBox() {
   return (
     <OfflineEmptyState
       icon={RiMusic2Line}
       title="No NoMusic in this library yet"
-      description="Saved offline tracks for this library will appear here in the same list layout as the client view."
-      hint="Downloaded tracks for this library will appear here once they are available on this device."
+      description="Downloaded NoMusic from this library will appear here, ready to play anytime."
+      hint="Download this library again while you're online to access it offline."
     />
   );
 }

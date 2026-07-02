@@ -20,9 +20,9 @@ const PRIVATE_ROUTES = {
 
 const OFFLINE_ROUTES = {
   HOME: "/offline",
-  NOMUSIC: "/offline/nomusic",
-  LIBRARIES: "/offline/libraries",
-  LIBRARY: (id: string) => `/offline/libraries/id?id=${id}`,
+  NOMUSIC: "/offline?view=nomusic",
+  LIBRARIES: "/offline?view=libraries",
+  LIBRARY: (id: string) => `/offline?view=library&id=${encodeURIComponent(id)}`,
   TEST: "/offline/test",
 } as const;
 

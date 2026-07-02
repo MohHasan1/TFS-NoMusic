@@ -1,20 +1,18 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import type React from "react";
 
+import { OfflineLibraryAudioEmptyBox } from "../elements/OfflineLibraryAudioEmptyBox";
+import { OfflineLibraryAudioSkeleton } from "../elements/OfflineLibraryAudioSkeleton";
+import { OfflineLibraryTrackRow } from "../elements/OfflineLibraryTrackRow";
 import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
 import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
+import type { TLibraryOffline } from "#offline/types";
 import { useNomusicByLibId } from "#offline/hooks";
-import { OfflineLibraryAudioEmptyBox } from "../elements/OfflineLibraryAudioEmptyBox";
-import { OfflineLibraryTrackRow } from "../elements/OfflineLibraryTrackRow";
 
-export function OfflineLibraryAudioSection() {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
-  const { nomusic } = useNomusicByLibId(id ?? undefined);
-  const { start } = useTrackPlayback(OFFLINE_SOURCE_KEYS.LIBRARY_PAGE(id ?? "unknown"));
-  const tracks = nomusic;
+export function OfflineLibraryAudioSection({ libId }: TProps) {
+  const { nomusic, isLoading } = useNomusicByLibId(libId);
+  const { start } = useTrackPlayback(OFFLINE_SOURCE_KEYS.LIBRARY_PAGE(libId));
 
   const handleRowClick = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;
@@ -28,11 +26,13 @@ export function OfflineLibraryAudioSection() {
     const index = Number(indexValue);
     if (!Number.isInteger(index)) return;
 
-    const selectedTrack = tracks[index];
+    const selectedTrack = nomusic[index];
     if (!selectedTrack) return;
 
-    start(tracks, selectedTrack);
+    start(nomusic, selectedTrack);
   };
+
+  if (isLoading) return <OfflineLibraryAudioSkeleton />;
 
   return (
     <section className="space-y-4">
@@ -44,13 +44,11 @@ export function OfflineLibraryAudioSection() {
           <span className="text-right">Time</span>
         </div>
 
-        {tracks.length === 0 ? (
+        {nomusic.length === 0 ? (
           <OfflineLibraryAudioEmptyBox />
         ) : (
-          // biome-ignore lint/a11y/noStaticElementInteractions: Delegated click handling matches the client library browser.
-          // biome-ignore lint/a11y/useKeyWithClickEvents: Child buttons handle keyboard activation and bubble the click event here.
           <div className="space-y-1.5" onClick={handleRowClick}>
-            {tracks.map((track, index) => (
+            {nomusic.map((track, index) => (
               <OfflineLibraryTrackRow key={track.id} index={index} track={track} />
             ))}
           </div>
@@ -59,3 +57,7 @@ export function OfflineLibraryAudioSection() {
     </section>
   );
 }
+
+type TProps = {
+  libId: TLibraryOffline["id"];
+};

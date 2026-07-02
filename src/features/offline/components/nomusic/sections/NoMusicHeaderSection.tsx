@@ -1,10 +1,10 @@
-import { OfflinePageHeader } from "#features/offline/components/shared/OfflinePageHeader";
+import { OfflinePageHeader } from "#offline/components/shared/OfflinePageHeader";
 
 export default function NoMusicHeaderSection() {
   return (
     <OfflinePageHeader
       title="Collections"
-      description="Browse your private collection of vocals-only tracks."
+      description="Browse your downloaded collections of nomusic, ready to play anytime."
     />
   );
 }
