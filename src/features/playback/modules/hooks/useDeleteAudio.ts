@@ -7,28 +7,31 @@ import { useQueueActions } from "#playback-queue/hooks/useQueueActions";
 import { usePlayerPlay } from "#playback-player/hooks/usePlayerPlay";
 import type { TNoMusic } from "#types/nomusic";
 
-const useDeleteAudio = () => {
+const useDeleteAudio = (sourceKey: string) => {
   const { playTrackById } = usePlayerPlay();
   const { clearPlayer } = usePlayerActions();
-  const { getCurrentTrackId, deleteById } = useQueueActions();
+  const { deleteById } = useQueueActions();
 
   const deleteAudio = useCallback(
     (deleteId: TNoMusic["id"]) => {
-      const currentTrackId = getCurrentTrackId();
-      const isDeletingCurrentTrack = currentTrackId === deleteId;
+      const res = deleteById(sourceKey, deleteId);
 
-      const res = deleteById(deleteId);
+      // Source key did not match active queue, so do not touch player.
+      if (!res.didDeleteFromQueue) return;
 
-      if (!isDeletingCurrentTrack) return;
+      // Deleted song was not the currently playing song.
+      if (!res.wasCurrentTrack) return;
 
+      // Deleted current song and there is no next song.
       if (res.nextId == null) {
         clearPlayer();
         return;
       }
 
+      // Deleted current song and queue has a replacement.
       playTrackById(res.nextId);
     },
-    [clearPlayer, deleteById, getCurrentTrackId, playTrackById],
+    [clearPlayer, deleteById, playTrackById, sourceKey],
   );
 
   return {

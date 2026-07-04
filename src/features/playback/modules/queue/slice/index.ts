@@ -3,7 +3,7 @@ import type { TNoMusic } from "#types/nomusic";
 
 export const createQueueSlice = combine(
   {
-    queueSourceKey: null as TQueueState["queueSourceKey"],
+    queueSourceKey: "" as TQueueState["queueSourceKey"],
     queueIds: [] as TQueueState["queueIds"],
     queueIdIndexMap: {} as TQueueState["queueIdIndexMap"],
     currentIndex: -1 as TQueueState["currentIndex"],
@@ -32,7 +32,7 @@ export const createQueueSlice = combine(
 
     clearQueue: () => {
       set({
-        queueSourceKey: null,
+        queueSourceKey: "",
         queueIds: [],
         queueIdIndexMap: {},
         currentIndex: -1,
@@ -45,7 +45,7 @@ export const createQueueSlice = combine(
 export type TQueueSlice = ReturnType<typeof createQueueSlice>;
 
 export type TQueueState = {
-  queueSourceKey: string | null; // which source's (page:nomusic, playlist:A) tracks is in the queue
+  queueSourceKey: string; // which source's (page:nomusic, playlist:A) tracks is in the queue
   queueIds: TNoMusic["id"][];
   queueIdIndexMap: Record<string, number>;
   currentIndex: number;

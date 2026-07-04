@@ -1,12 +1,13 @@
-import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
-import { notFound } from "next/navigation";
 import { connection } from "next/server";
+import { notFound } from "next/navigation";
+import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
 
 import { getLibrary, getLibraryAudio } from "#services/libraries/libraries.ports";
-import { LibraryCover } from "../elements/LibraryCover";
 import { LibraryDownloadButton } from "../elements/LibraryDownloadButton";
+import { LibraryCover } from "../elements/LibraryCover";
 import type { Library } from "#payload-types";
 
+// TODO: REFATOR - use zustand - for double fetch of getLibraryAudio
 export async function LibraryHeroSection({ libId }: TProps) {
   await connection();
   const [response, tracksResponse] = await Promise.all([getLibrary(libId), getLibraryAudio(libId)]);

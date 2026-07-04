@@ -2,8 +2,8 @@
 
 import { useCallback } from "react";
 
-import type { TNoMusic } from "#types/nomusic";
 import { queueController } from "../controller";
+import type { TNoMusic } from "#types/nomusic";
 
 export function useQueueActions() {
   const setQueue = useCallback(
@@ -12,6 +12,10 @@ export function useQueueActions() {
     },
     [],
   );
+
+  const setQueueSourceKey = useCallback((sourceKey: string) => {
+    queueController.setQueueSourceKey(sourceKey);
+  }, []);
 
   const getCurrentTrackId = useCallback(() => {
     return queueController.getCurrentTrackId();
@@ -29,8 +33,8 @@ export function useQueueActions() {
     queueController.extendQueue(sourceKey, tracks);
   }, []);
 
-  const deleteById = useCallback((deleteId: string) => {
-    return queueController.deleteById(deleteId);
+  const deleteById = useCallback((sourceKey: string, deleteId: string) => {
+    return queueController.deleteById(sourceKey, deleteId);
   }, []);
 
   const clearQueue = useCallback(() => {
@@ -39,6 +43,7 @@ export function useQueueActions() {
 
   return {
     setQueue,
+    setQueueSourceKey,
     getCurrentTrackId,
     getNextTrackId,
     getPreviousTrackId,

@@ -173,6 +173,7 @@ export class QueueEngine {
     if (deleteIndex === undefined) {
       return {
         nextIndex: currentIndex,
+        nextId: deleteId,
         newQueueIds: queueIds,
         newQueueIdIndexMap: queueIdIndexMap,
       };

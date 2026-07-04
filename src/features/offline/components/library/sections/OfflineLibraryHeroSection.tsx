@@ -1,11 +1,11 @@
 "use client";
 
 import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
-import { useState } from "react";
+
+import { OfflineLibraryRemoveButton } from "#offline/components/library/elements/OfflineLibraryRemoveButton";
 import { LibraryCover } from "#components/private/library/elements/LibraryCover";
 import { OfflineImage } from "#features/offline/components/shared/OfflineImage";
 import type { TLibraryOffline } from "#offline/types";
-import { OfflineLibraryRemoveButton } from "#offline/components/library/elements/OfflineLibraryRemoveButton";
 
 export function OfflineLibraryHeroSection({ library }: TProps) {
   const trackCount = library.trackCount;

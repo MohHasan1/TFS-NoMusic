@@ -35,6 +35,12 @@ class QueueController {
       currentIndex,
     });
   }
+  
+  setQueueSourceKey(sourceKey: string) {
+    store.setState({
+      queueSourceKey: sourceKey,
+    });
+  }
 
   extendQueue(sourceKey: string, tracks: TNoMusic[]) {
     const { queueIds, queueIdIndexMap, queueSourceKey } = store.getState();
@@ -86,8 +92,22 @@ class QueueController {
     return queueEngine.getNextRepeatMode(repeatMode);
   }
 
-  deleteById(deleteId: TNoMusic["id"]) {
-    const { currentIndex, queueIds, queueIdIndexMap, repeatMode } = store.getState();
+  deleteById(sourceKey: string, deleteId: TNoMusic["id"]) {
+    const { queueSourceKey, currentIndex, queueIds, queueIdIndexMap, repeatMode } =
+      store.getState();
+
+    // Important: do not mutate active queue if source does not match
+    if (queueSourceKey !== sourceKey) {
+      return {
+        didDeleteFromQueue: false,
+        wasCurrentTrack: false,
+        nextIndex: currentIndex,
+        nextId: undefined,
+      };
+    }
+
+    const currentId = queueIds[currentIndex];
+    const wasCurrentTrack = currentId === deleteId;
 
     const res = queueEngine.deleteOne(
       currentIndex,
@@ -103,7 +123,12 @@ class QueueController {
       queueIdIndexMap: res.newQueueIdIndexMap,
     });
 
-    return {nextIndex: res.nextIndex, nextId: res.nextId};
+    return {
+      didDeleteFromQueue: true,
+      wasCurrentTrack,
+      nextIndex: res.nextIndex,
+      nextId: res.nextId,
+    };
   }
 
   clearQueue() {

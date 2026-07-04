@@ -1,11 +1,11 @@
 "use client";
 
 import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixicon/react";
-import { memo } from "react";
+import { memo, useState } from "react";
 
 import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
 
-// import { OfflineNoMusicRemoveButton } from "./OfflineNoMusicRemoveButton";
+import { OfflineNoMusicRemoveButton } from "./OfflineNoMusicRemoveButton";
 import { OfflineImage } from "#offline/components/shared/OfflineImage";
 import { OfflineNoMusicCover } from "../../shared/OfflineNoMusicCover";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
@@ -18,9 +18,9 @@ import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
   const isNew = isNewByUpdatedDate(noMusic?.uploadedAt);
-  // const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
 
-  // if (!isVisible) return null;
+  if (!isVisible) return null;
 
   return (
     <Button
@@ -69,9 +69,9 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
             </div>
           )}
 
-          {/* <div className="absolute left-2 top-2 z-20">
+          <div className="absolute left-2 top-2 z-20">
             <OfflineNoMusicRemoveButton noMusic={noMusic} onRemoved={() => setIsVisible(false)} />
-          </div> */}
+          </div>
 
           <span className="absolute bg-card-secondary/60 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">
             {formatPlaybackTime(noMusic?.duration ?? 0)}

@@ -2,8 +2,8 @@
 
 import { useCallback } from "react";
 
-import { store } from "#store";
 import { queueController } from "../controller";
+import { store } from "#store";
 
 export function useQueueRepeat() {
   const repeatMode = store.use.repeatMode();
