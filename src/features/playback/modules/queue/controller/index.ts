@@ -15,10 +15,7 @@ class QueueController {
       queueSourceKey,
       queueIdIndexMap,
 
-      setQueueIds,
       setCurrentIndex,
-      setQueueSourceKey,
-      setQueueIdIndexMap,
     } = store.getState();
 
     // Same source: just different track is clicked in the same source - current-index is just upated:
@@ -31,15 +28,16 @@ class QueueController {
     const { newQueueIds, newQueueIdIndexMap } = queueEngine.createQueueIdData(tracks);
     const currentIndex = queueEngine.getIndexByTrackId(newQueueIdIndexMap, startTrackId);
 
-    setQueueSourceKey(sourceKey);
-    setQueueIds(newQueueIds);
-    setQueueIdIndexMap(newQueueIdIndexMap);
-    setCurrentIndex(currentIndex);
+    store.setState({
+      queueSourceKey: sourceKey,
+      queueIds: newQueueIds,
+      queueIdIndexMap: newQueueIdIndexMap,
+      currentIndex,
+    });
   }
 
   extendQueue(sourceKey: string, tracks: TNoMusic[]) {
-    const { queueIds, queueIdIndexMap, setQueueIds, setQueueIdIndexMap, queueSourceKey } =
-      store.getState();
+    const { queueIds, queueIdIndexMap, queueSourceKey } = store.getState();
 
     // If source is not equal, queue should not be extended - very important:
     if (queueSourceKey !== sourceKey) {
@@ -48,8 +46,10 @@ class QueueController {
 
     const res = queueEngine.extendQueue(queueIds, queueIdIndexMap, tracks);
 
-    setQueueIds(res.queueIds);
-    setQueueIdIndexMap(res.queueIdIndexMap);
+    store.setState({
+      queueIds: res.queueIds,
+      queueIdIndexMap: res.queueIdIndexMap,
+    });
   }
 
   getCurrentTrackId() {
@@ -84,6 +84,26 @@ class QueueController {
   getNextRepeatMode() {
     const { repeatMode } = store.getState();
     return queueEngine.getNextRepeatMode(repeatMode);
+  }
+
+  deleteById(deleteId: TNoMusic["id"]) {
+    const { currentIndex, queueIds, queueIdIndexMap, repeatMode } = store.getState();
+
+    const res = queueEngine.deleteOne(
+      currentIndex,
+      deleteId,
+      queueIds,
+      queueIdIndexMap,
+      repeatMode,
+    );
+
+    store.setState({
+      queueIds: res.newQueueIds,
+      currentIndex: res.nextIndex,
+      queueIdIndexMap: res.newQueueIdIndexMap,
+    });
+
+    return {nextIndex: res.nextIndex, nextId: res.nextId};
   }
 
   clearQueue() {

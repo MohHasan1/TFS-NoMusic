@@ -7,9 +7,19 @@ export class QueueEngine {
     return tracks.map((track) => track.id);
   }
 
+  createQueueIdIndexMap(queueIds: TQueueState["queueIds"]) {
+    const queueIdIndexMap: Record<string, number> = {};
+
+    queueIds.forEach((trackId, index) => {
+      queueIdIndexMap[String(trackId)] = index;
+    });
+
+    return queueIdIndexMap;
+  }
+
   createQueueIdData(tracks: TNoMusic[]) {
     const newQueueIds: TNoMusic["id"][] = [];
-    const newQueueIdIndexMap: Record<string, number> = {};
+    const newQueueIdIndexMap: TQueueState["queueIdIndexMap"] = {};
 
     tracks.forEach((track, index) => {
       newQueueIds.push(track.id);
@@ -22,22 +32,12 @@ export class QueueEngine {
     };
   }
 
-  createQueueIdIndexMap(queueIds: TQueueState["queueIds"]) {
-    const queueIdIndexMap: Record<string, number> = {};
-
-    queueIds.forEach((trackId, index) => {
-      queueIdIndexMap[String(trackId)] = index;
-    });
-
-    return queueIdIndexMap;
+  getCurrentId(queueIds: TQueueState["queueIds"], currentIndex: number) {
+    return queueIds[currentIndex] ?? null;
   }
 
   getIndexByTrackId(queueIdIndexMap: TQueueState["queueIdIndexMap"], trackId: TNoMusic["id"]) {
     return queueIdIndexMap[String(trackId)] ?? -1;
-  }
-
-  getCurrentId(queueIds: TQueueState["queueIds"], currentIndex: number) {
-    return queueIds[currentIndex] ?? null;
   }
 
   getNextIdAndIndex(
@@ -160,6 +160,96 @@ export class QueueEngine {
       queueIds: nextQueueIds,
       queueIdIndexMap: nextQueueIdIndexMap,
     };
+  }
+
+  deleteOne(
+    currentIndex: TQueueState["currentIndex"],
+    deleteId: TQueueState["queueIds"]["0"],
+    queueIds: TQueueState["queueIds"],
+    queueIdIndexMap: TQueueState["queueIdIndexMap"],
+    repeatMode?: TQueueState["repeatMode"],
+  ) {
+    const deleteIndex = queueIdIndexMap[deleteId];
+    if (deleteIndex === undefined) {
+      return {
+        nextIndex: currentIndex,
+        newQueueIds: queueIds,
+        newQueueIdIndexMap: queueIdIndexMap,
+      };
+    }
+
+    // 1. create a queueIds and queueIdIndexMap
+    const newQueueIds = [...queueIds.slice(0, deleteIndex), ...queueIds.slice(deleteIndex + 1)];
+    const newQueueIdIndexMap = this.createQueueIdIndexMap(newQueueIds);
+
+    // 3. compute the next index
+    let nextIndex = currentIndex;
+
+    const currentId = queueIds[currentIndex];
+
+    // a - if queue became empty
+    if (newQueueIds.length === 0) {
+      nextIndex = -1;
+    }
+
+    // b - Deleted the currently playing audio - play next
+    else if (currentId === deleteId) {
+      // Get the index that shifted into the deleted position
+      // const newIndex = Math.min(deleteIndex, newQueueIds.length - 1);
+      nextIndex = this.__getNextIndexAfterDeleteCurrent(newQueueIds, deleteIndex, repeatMode);
+    }
+
+    // c - Deleted something before the current audio - play current
+    else if (deleteIndex < currentIndex) {
+      // Current song shifted left by 1
+      nextIndex = currentIndex - 1;
+    }
+
+    // d - Deleted something after current audio - play current
+    else {
+      // Current index stays same
+      nextIndex = currentIndex;
+    }
+
+    // 4. return queueIds, queueIdIndexMap, new currentIndex
+    return {
+      nextIndex,
+      nextId: newQueueIds[nextIndex],
+      newQueueIds: newQueueIds,
+      newQueueIdIndexMap: newQueueIdIndexMap,
+    };
+  }
+
+  private __getNextIndexAfterDeleteCurrent(
+    newQueueIds: TQueueState["queueIds"],
+    deleteIndex: number,
+    repeatMode: TQueueState["repeatMode"] = DEFAULT_REPEAT,
+  ) {
+    if (newQueueIds.length === 0) {
+      return -1;
+    }
+
+    if (repeatMode === "random") {
+      return this.getRandomIndex(newQueueIds, -1);
+    }
+
+    /*
+     * repeat one cannot repeat the deleted song anymore.
+     * So treat it like normal next.
+     */
+
+    // A song shifted into the deleted position
+    if (deleteIndex < newQueueIds.length) {
+      return deleteIndex;
+    }
+
+    // Deleted the last song
+    if (repeatMode === "all") {
+      return 0;
+    }
+
+    // Normal mode: no next song
+    return -1;
   }
 }
 

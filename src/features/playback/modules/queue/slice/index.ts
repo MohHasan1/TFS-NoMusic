@@ -6,7 +6,7 @@ export const createQueueSlice = combine(
     queueSourceKey: null as TQueueState["queueSourceKey"],
     queueIds: [] as TQueueState["queueIds"],
     queueIdIndexMap: {} as TQueueState["queueIdIndexMap"],
-    currentIndex: -1,
+    currentIndex: -1 as TQueueState["currentIndex"],
     repeatMode: "all" as TQueueState["repeatMode"],
   },
   (set) => ({

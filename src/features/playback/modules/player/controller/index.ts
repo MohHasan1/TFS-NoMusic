@@ -69,20 +69,19 @@ class PlayerController {
    * @returns A promise from `playerEngine.play()` when starting a new track,
    * otherwise `undefined` when toggling pause/resume.
    */
-  //TODO: play behavious same input song - restart or pause/play
   playTrack(track: TNoMusic) {
     this.init();
 
     const { currentTrack, isPlaying, setCurrentTrack, setIsBuffering, setError } = store.getState();
 
     if (currentTrack?.id === track.id && isPlaying) {
-      playerEngine.pause();
-      return undefined;
+      return playerEngine.pause();
+      // return undefined;
     }
 
     if (currentTrack?.id === track.id && !isPlaying) {
-      playerEngine.resume();
-      return undefined;
+      return playerEngine.resume();
+      // return undefined;
     }
 
     setCurrentTrack(track);
@@ -99,10 +98,9 @@ class PlayerController {
     const { tracksById } = store.getState();
     const track = tracksById[trackId];
     if (!track) return;
-    
-    this.playTrack(track);
-  }
 
+    return this.playTrack(track);
+  }
 
   /**
    * Pauses the currently playing track.
@@ -112,6 +110,10 @@ class PlayerController {
   pauseTrack() {
     this.init();
     playerEngine.pause();
+
+    store.setState({
+      isBuffering: false,
+    });
   }
 
   /**
@@ -121,7 +123,7 @@ class PlayerController {
    */
   resumeTrack() {
     this.init();
-    playerEngine.resume();
+    return playerEngine.resume();
   }
 
   /**
@@ -134,7 +136,7 @@ class PlayerController {
    */
   togglePlayback() {
     this.init();
-    playerEngine.toggle();
+    return playerEngine.toggle();
   }
 
   /**
@@ -166,9 +168,7 @@ class PlayerController {
   }
 
   subscribeTrackEnded(fn: () => void) {
-    playerEngine.subscribeEnded(() => {
-      fn();
-    });
+    return playerEngine.subscribeEnded(fn);
   }
 }
 

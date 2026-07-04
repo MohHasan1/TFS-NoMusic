@@ -1,6 +1,8 @@
 import SubscriberSet, { type Subscriber } from "./SubscriberSet";
 
 export class PlayerEngine {
+  private playbackToken = 0;
+
   private track: TPlayerTrack | null = null;
 
   private audio: HTMLAudioElement | null = null;
@@ -66,6 +68,50 @@ export class PlayerEngine {
     });
   }
 
+  private createPlaybackToken() {
+    this.playbackToken += 1;
+    return this.playbackToken;
+  }
+
+  private cancelPendingPlayback() {
+    this.playbackToken += 1;
+  }
+
+  private isLatestPlayback(token: number) {
+    return token === this.playbackToken;
+  }
+
+  private isAbortError(error: unknown) {
+    return (
+      typeof DOMException !== "undefined" &&
+      error instanceof DOMException &&
+      error.name === "AbortError"
+    );
+  }
+
+  private async safePlay(token: number) {
+    if (!this.audio) return;
+    if (!this.audio.src) return;
+
+    try {
+      await this.audio.play();
+      if (!this.isLatestPlayback(token)) return;
+    } catch (error) {
+      if (!this.isLatestPlayback(token)) return;
+
+      // This happens when user presses next fast.
+      // Not a real error.
+      if (this.isAbortError(error)) {
+        this.bufferingListeners.emit(false);
+        return;
+      }
+
+      this.bufferingListeners.emit(false);
+      this.playingListeners.emit(false);
+      this.errorListeners.emit("Couldn't play this audio. Please try again.");
+    }
+  }
+
   private loadTrack(track: TPlayerTrack) {
     if (!this.audio) return;
 
@@ -85,6 +131,8 @@ export class PlayerEngine {
   play(track: TPlayerTrack, options: TPlayOptions = {}) {
     if (!this.audio) return;
 
+    const token = this.createPlaybackToken();
+
     this.loadTrack(track);
     if (!this.audio.src) return;
 
@@ -92,33 +140,47 @@ export class PlayerEngine {
       this.audio.currentTime = 0;
     }
 
-    return this.audio.play();
+    // return this.audio.play();
+
+    this.bufferingListeners.emit(true);
+    this.errorListeners.emit(null);
+
+    return this.safePlay(token);
   }
 
   pause() {
     if (!this.audio) return;
-
+    this.cancelPendingPlayback();
     this.audio.pause();
+    this.bufferingListeners.emit(false);
   }
 
   resume() {
     if (!this.audio) return;
 
-    this.audio.play();
+    // this.audio.play();
+    const token = this.createPlaybackToken();
+
+    this.bufferingListeners.emit(true);
+    this.errorListeners.emit(null);
+
+    return this.safePlay(token);
   }
 
   toggle() {
     if (!this.audio) return;
 
     if (this.audio.paused) {
-      return this.audio.play();
+      return this.resume();
     }
 
-    this.audio.pause();
+    this.pause();
   }
 
   stop() {
     if (!this.audio) return;
+
+    this.cancelPendingPlayback();
 
     this.audio.pause();
     this.audio.currentTime = 0;
