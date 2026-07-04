@@ -17,6 +17,10 @@ export function useQueueActions() {
     queueController.setQueueSourceKey(sourceKey);
   }, []);
 
+  const getQueueSourceKey = useCallback(() => {
+    return queueController.getQueueSourceKey();
+  }, []);
+
   const getCurrentTrackId = useCallback(() => {
     return queueController.getCurrentTrackId();
   }, []);
@@ -43,6 +47,7 @@ export function useQueueActions() {
 
   return {
     setQueue,
+    getQueueSourceKey,
     setQueueSourceKey,
     getCurrentTrackId,
     getNextTrackId,

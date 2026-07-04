@@ -1,39 +1,54 @@
 "use client";
 
 import { RiDeleteBinLine } from "@remixicon/react";
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { toast } from "sonner";
 
 import { Button } from "#components/ui/button";
 import { Spinner } from "#components/ui/spinner";
 import { OFFLINE_ROUTES } from "#constants/routes";
-import { useLibrariesDownload } from "#offline/hooks";
 import { cn } from "#lib/utils";
-import type { TLibraryOffline } from "#offline/types";
+import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
 import { navigateOffline } from "#offline/utils/navigation";
+import { useLibrariesDownload } from "#offline/hooks";
+import type { TLibraryOffline } from "#offline/types";
+
+import { usePlayerActions } from "#playback-player/hooks/usePlayerActions";
+import { useQueueActions } from "#playback-queue/hooks/useQueueActions";
 
 export function OfflineLibraryRemoveButton({ library, className }: TProps) {
-  const { remove, isPending } = useLibrariesDownload();
   const [isRemoved, setIsRemoved] = useState(false);
 
+  const { remove, isPending } = useLibrariesDownload();
+  const { getQueueSourceKey, clearQueue } = useQueueActions();
+  const { clearPlayer } = usePlayerActions();
+
   const isRemoving = isPending(library.id);
+  const sourceKey = OFFLINE_SOURCE_KEYS.LIBRARY_PAGE(library.id);
 
   if (isRemoved) return null;
 
-  async function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+  async function handleClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
 
     if (isRemoving) return;
 
     const result = await remove(library.id);
+
     if (!result.isSuccess) {
       toast.error(`Couldn't remove “${library.name}” from offline downloads.`);
       return;
     }
 
+    if (sourceKey === getQueueSourceKey()) {
+      clearPlayer();
+      clearQueue();
+    }
+
     setIsRemoved(true);
     navigateOffline(OFFLINE_ROUTES.LIBRARIES);
+
     toast.success(`Removed “${library.name}” from offline downloads.`);
   }
 
@@ -59,6 +74,6 @@ export function OfflineLibraryRemoveButton({ library, className }: TProps) {
 }
 
 type TProps = {
-  library: TLibraryOffline;
   className?: string;
+  library: TLibraryOffline;
 };

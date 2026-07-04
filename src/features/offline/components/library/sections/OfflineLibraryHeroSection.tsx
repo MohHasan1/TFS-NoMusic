@@ -48,7 +48,7 @@ export function OfflineLibraryHeroSection({ library }: TProps) {
             <span className="font-medium">{libAuthor}</span>
           </div>
 
-          <OfflineLibraryRemoveButton library={library}  />
+          <OfflineLibraryRemoveButton library={library} />
         </div>
       </div>
     </section>

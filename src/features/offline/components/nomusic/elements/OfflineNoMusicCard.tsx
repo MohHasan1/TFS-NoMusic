@@ -14,10 +14,14 @@ import type { TNoMusic } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { cn } from "#lib/utils";
 import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
+import { useNomusic } from "#offline/hooks";
 
 const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
   const isNew = isNewByUpdatedDate(noMusic?.uploadedAt);
+
+  const { refresh } = useNomusic();
+
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;

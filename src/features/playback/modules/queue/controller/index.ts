@@ -35,11 +35,15 @@ class QueueController {
       currentIndex,
     });
   }
-  
+
   setQueueSourceKey(sourceKey: string) {
     store.setState({
       queueSourceKey: sourceKey,
     });
+  }
+
+  getQueueSourceKey() {
+    return store.getState().queueSourceKey;
   }
 
   extendQueue(sourceKey: string, tracks: TNoMusic[]) {
