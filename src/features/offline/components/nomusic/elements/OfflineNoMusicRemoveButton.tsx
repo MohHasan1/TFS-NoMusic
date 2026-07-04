@@ -9,10 +9,11 @@ import { Spinner } from "#components/ui/spinner";
 import { useNomusic, useNomusicDownload } from "#offline/hooks";
 import { cn } from "#lib/utils";
 import type { TNoMusic } from "#types/nomusic";
-import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
 import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
-import { useQueueActions } from "#modules/queue/hooks/useQueueActions";
-import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
+import { useQueueActions } from "#playback-queue/hooks/useQueueActions";
+import { useRegistryActions } from "#playback-registry/hooks/useRegistryActions";
+import { useTrackPlayback } from "#playback/modules/hooks/useTrackPlayback";
+
 
 export function OfflineNoMusicRemoveButton({ noMusic, className, onRemoved }: TProps) {
   const [isRemoved, setIsRemoved] = useState(false);

@@ -16,7 +16,7 @@ import {
   AlertDialogTrigger,
 } from "#components/ui/alert-dialog";
 import { Button } from "#components/ui/button";
-import { useLogoutCleanup } from "#modules/hooks/useLogoutCleanup";
+import { useLogoutCleanup } from "#playback/modules/hooks/useLogoutCleanup";
 import { logoutAction } from "#server-actions/auth/logout";
 import { Spinner } from "#components/ui/spinner";
 

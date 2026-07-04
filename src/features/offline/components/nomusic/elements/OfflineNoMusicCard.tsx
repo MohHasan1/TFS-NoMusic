@@ -4,7 +4,7 @@ import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixi
 import { memo } from "react";
 
 import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
-import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
+
 // import { OfflineNoMusicRemoveButton } from "./OfflineNoMusicRemoveButton";
 import { OfflineImage } from "#offline/components/shared/OfflineImage";
 import { OfflineNoMusicCover } from "../../shared/OfflineNoMusicCover";
@@ -13,6 +13,7 @@ import { OfflinePlayingBars } from "./OfflinePlayingBars";
 import type { TNoMusic } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { cn } from "#lib/utils";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 
 const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);

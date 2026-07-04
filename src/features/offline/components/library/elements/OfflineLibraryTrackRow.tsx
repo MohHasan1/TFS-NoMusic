@@ -2,7 +2,7 @@
 
 import { formatPlaybackTime } from "#lib/helpers/playback";
 import { cn } from "#lib/utils";
-import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 import { OfflineImage } from "#offline/components/shared/OfflineImage";
 import { OfflineNoMusicCover } from "#offline/components/shared/OfflineNoMusicCover";
 import type { TNoMusic } from "#types/nomusic";

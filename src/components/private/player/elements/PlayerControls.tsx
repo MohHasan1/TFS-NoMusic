@@ -7,12 +7,13 @@ import {
   RiSkipBackFill,
   RiSkipForwardFill,
 } from "@remixicon/react";
-import { usePlayerTrackBuffering } from "#modules/player/hooks/usePlayerTrackBuffering";
-import { useTrackNavigation } from "#modules/hooks/useTrackNavigation";
-import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
-import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { usePlayerTrackBuffering } from "#playback-player/hooks/usePlayerTrackBuffering";
+import { useTrackNavigation } from "#playback/modules/hooks/useTrackNavigation";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
+import { Button } from "#components/ui/button";
+import { cn } from "#lib/utils";
+
 
 export function PlayerControls({ size = "default" }: TProps) {
   const { track } = usePlayerTrack();

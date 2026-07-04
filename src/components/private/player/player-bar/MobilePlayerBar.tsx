@@ -1,6 +1,7 @@
 "use client";
 
-import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
+import { RiArrowUpSLine } from "@remixicon/react";
+
 import { PlayerQueueControls } from "../elements/PlayerQueueControls";
 import PlayerDialogButton from "./elements/PlayerDialogButton";
 import { PlayerControls } from "../elements/PlayerControls";
@@ -8,8 +9,9 @@ import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 import { Card, CardContent } from "#components/ui/card";
 import PlayerArtwork from "./elements/PlayerArtwork";
-import { RiArrowUpSLine } from "@remixicon/react";
-import { cn } from "@/lib/utils";
+
+import { usePlayerDialog } from "#playback-dialog/hooks/indes";
+import { cn } from "#lib/utils";
 
 const MobilePlayerBar = () => {
   const { isOpen } = usePlayerDialog();
@@ -36,7 +38,7 @@ const MobilePlayerBar = () => {
           </div>
 
           <div className="flex justify-between items-center w-full">
-           {!isOpen ? <PlayerSeekBar className="w-full" /> : <div className="max-w-2xl w-full" />}
+            {!isOpen ? <PlayerSeekBar className="w-full" /> : <div className="max-w-2xl w-full" />}
 
             <PlayerDialogButton className="p-1">
               <RiArrowUpSLine className="size-4" />

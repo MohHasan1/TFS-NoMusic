@@ -1,6 +1,6 @@
 "use client";
 
-import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
 
 const PlayerTrackInfo = () => {
   const { track } = usePlayerTrack();

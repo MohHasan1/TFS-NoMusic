@@ -1,7 +1,8 @@
 "use client";
 
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
 import { GlowOrb } from "#components/shared/GlowOrb";
-import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
+
 import { PlayerArtworkImage } from "../elements/PlayerArtworkImage";
 import PlayerFallbackImage from "../elements/PlayerFallbackImage";
 

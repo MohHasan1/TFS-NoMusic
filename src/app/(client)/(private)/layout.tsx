@@ -13,7 +13,14 @@ export default function PrivateLayout({ children }: TProps) {
       <main className="relative min-h-dvh bg-linear-to-br from-background to-background via-primary/10">
         <GlowOrb mode="fixed" position="top" />
 
-        <SerwistProvider swUrl="/serwist/sw.js" cacheOnNavigation={false}>
+        <SerwistProvider
+          swUrl="/serwist/sw.js"
+          cacheOnNavigation={false}
+          options={{
+            scope: "/",
+            // updateViaCache: "none",
+          }}
+        >
           {children}
         </SerwistProvider>
       </main>

@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 
 import { useTrackNavigation } from "./useTrackNavigation";
-import { playerController } from "#modules/player/controller";
+import { playerController } from "#playback-player/controller";
+
 
 export function useTrackAutoPlay() {
   const { playNext } = useTrackNavigation();

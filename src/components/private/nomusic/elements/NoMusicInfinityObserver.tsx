@@ -2,7 +2,7 @@ import { DefinedUseInfiniteQueryResult, InfiniteData } from "@tanstack/react-que
 import { useInView } from "react-intersection-observer";
 import { useCallback } from "react";
 
-import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
+import { useTrackPlayback } from "#playback/modules/hooks/useTrackPlayback";
 import { SOURCE_KEYS } from "#constants/private/source";
 import { TNoMusicPaginated } from "#types/nomusic";
 

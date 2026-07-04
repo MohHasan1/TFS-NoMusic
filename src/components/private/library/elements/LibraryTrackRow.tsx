@@ -5,7 +5,7 @@ import Image from "next/image";
 import { getGradientFromText } from "#components/private/_utils/helpers";
 import { NoMusicDownloadButton } from "#components/private/nomusic/elements/NoMusicDownloadButton";
 import { formatPlaybackTime } from "#lib/helpers/playback";
-import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 import type { TNoMusic } from "#types/nomusic";
 import { cn } from "#lib/utils";
 

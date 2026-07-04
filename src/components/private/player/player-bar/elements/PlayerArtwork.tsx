@@ -1,10 +1,11 @@
 "use client";
 
-import { StatusDot } from "@/components/shared/StatusDot";
-import PlayerFalbackImage from "../../elements/PlayerFallbackImage";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
+import { StatusDot } from "#components/shared/StatusDot";
+
 import { PlayerArtworkImage } from "../../elements/PlayerArtworkImage";
-import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
-import { usePlayerPlayback } from "@/modules/player/hooks/usePlayerPlayback";
+import PlayerFalbackImage from "../../elements/PlayerFallbackImage";
 import PlayerDialogButton from "./PlayerDialogButton";
 
 const PlayerArtwork = () => {

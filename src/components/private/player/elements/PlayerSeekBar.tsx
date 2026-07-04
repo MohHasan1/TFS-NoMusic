@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
+import { usePlayerSeek } from "#playback-player/hooks/usePlayerSeek";
 import { formatPlaybackTime } from "#lib/helpers/playback";
-import { Slider } from "@/components/ui/slider";
-import { cn } from "@/lib/utils";
-import { usePlayerSeek } from "@/modules/player/hooks/usePlayerSeek";
+import { Slider } from "#components/ui/slider";
+import { cn } from "#lib/utils";
 
 const SEEK_STEP_SECONDS = 1;
 const SEEK_SYNC_THRESHOLD_SECONDS = 0.25;
@@ -38,7 +39,11 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
 
   return (
     <div className={cn("flex max-w-2xl w-full items-center gap-3", className)}>
-      {showTime ? <span className="text-right font-mono text-[10px] tabular-nums text-muted-foreground">{formatPlaybackTime(displayTime, "zero")}</span> : null}
+      {showTime ? (
+        <span className="text-right font-mono text-[10px] tabular-nums text-muted-foreground">
+          {formatPlaybackTime(displayTime, "zero")}
+        </span>
+      ) : null}
 
       <Slider
         value={sliderValue}
@@ -74,10 +79,17 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
         }}
         trackClassName="bg-primary-400/10"
         className="flex-1 cursor-pointer"
-        thumbClassName={cn("opacity-0", "group-hover:opacity-100 group-focus-within:opacity-100 data-[dragging]:opacity-100")}
+        thumbClassName={cn(
+          "opacity-0",
+          "group-hover:opacity-100 group-focus-within:opacity-100 data-[dragging]:opacity-100",
+        )}
       />
 
-      {showTime ? <span className="w-10 font-mono text-[10px] tabular-nums text-muted-foreground">{formatPlaybackTime(safeDuration)}</span> : null}
+      {showTime ? (
+        <span className="w-10 font-mono text-[10px] tabular-nums text-muted-foreground">
+          {formatPlaybackTime(safeDuration)}
+        </span>
+      ) : null}
     </div>
   );
 }

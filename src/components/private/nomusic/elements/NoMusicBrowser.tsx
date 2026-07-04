@@ -5,7 +5,7 @@ import React, { useCallback, useMemo } from "react";
 import { NoMusicEmptyBox } from "#components/private/nomusic/elements/NomusicEmptyBox";
 import { NoMusicGridSkeleton } from "#components/private/nomusic/elements/NoMusicGridSkeleton";
 import { NoMusicCard } from "#components/private/nomusic/elements/NoMusicCard";
-import { useTrackPlayback } from "#modules/hooks/useTrackPlayback";
+import { useTrackPlayback } from "#playback/modules/hooks/useTrackPlayback";
 import { SOURCE_KEYS } from "#constants/private/source";
 import { TNoMusicPaginated } from "#types/nomusic";
 

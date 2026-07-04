@@ -1,7 +1,8 @@
-import { getGradientFromText } from "#components/private/_utils/helpers";
-import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
-import { cn } from "@/lib/utils";
 import { RiMusic2Line } from "@remixicon/react";
+
+import { getGradientFromText } from "#components/private/_utils/helpers";
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
+import { cn } from "#lib/utils";
 
 const PlayerFallbackImage = ({ iconClassname }: TProps) => {
   const { track } = usePlayerTrack();

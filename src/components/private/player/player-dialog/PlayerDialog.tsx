@@ -1,8 +1,9 @@
 "use client";
 
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
+import { usePlayerDialog } from "#playback-dialog/hooks/indes";
 import { Dialog, DialogContent } from "#components/ui/dialog";
-import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
-import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
+
 import { PlayerDialogContent } from "./PlayerDialogContent";
 import { PlayerDialogFooter } from "./PlayerDialogFooter";
 import { PlayerDialogHeader } from "./PlayerDialogHeader";

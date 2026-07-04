@@ -19,6 +19,14 @@
       }
     ],
     "paths": {
+      "#offline/*": ["./src/features/offline/*"],
+
+      "#playback-dialog/*": ["./src/features/playback/modules/player-dialog/*"],
+      "#playback-registry/*": ["./src/features/playback/modules/registry/*"],
+      "#playback-player/*": ["./src/features/playback/modules/player/*"],
+      "#playback-queue/*": ["./src/features/playback/modules/queue/*"],
+      "#playback/*": ["./src/features/playback/*"],
+
       "#collection-default-select/*": ["./src/collections/defaults/*"],
 
       "#modules/*": ["./src/modules/*"],
@@ -35,7 +43,6 @@
       "#client-actions/*": ["./src/client-actions/*"],
       "#validations/*": ["./src/validations/*"],
       "#services/*": ["./src/services/*"],
-      "#offline/*": ["./src/features/offline/*"],
       "#features/*": ["./src/features/*"],
       "#components/*": ["./src/components/*"],
 
@@ -46,10 +53,17 @@
       "#payload-config": ["./src/payload.config.ts"],
       "#emails-templates/*": ["./src/emails/templates/*"],
 
-      "@/*": ["./src/*"],
-      "#lib/*": ["./src/lib/*"]
+      "#lib/*": ["./src/lib/*"],
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 "use client";
 
+import { usePlayerDialog } from "#playback-dialog/hooks/indes";
 import { Button } from "#components/ui/button";
-import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
 
 const PlayerDialogButton = ({ children, className }: TProps) => {
   const { toggle } = usePlayerDialog();

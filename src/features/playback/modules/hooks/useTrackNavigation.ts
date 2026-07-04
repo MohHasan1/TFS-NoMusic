@@ -1,10 +1,9 @@
 "use client";
 
+import { playerController } from "#playback-player/controller";
+import { queueController } from "#playback-queue/controller";
+import { registryController } from "#playback-registry/controller";
 import { useCallback } from "react";
-
-import { queueController } from "#modules/queue/controller";
-import { playerController } from "#modules/player/controller";
-import { registryController } from "#modules/registry/controller";
 
 export function useTrackNavigation() {
   const playNext = useCallback(() => {

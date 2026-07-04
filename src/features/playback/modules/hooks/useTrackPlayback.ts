@@ -1,6 +1,7 @@
-import { usePlayerPlay } from "#modules/player/hooks/usePlayerPlay";
-import { useQueueActions } from "#modules/queue/hooks/useQueueActions";
-import { useRegistryActions } from "#modules/registry/hooks/useRegistryActions";
+
+import { usePlayerPlay } from "#playback-player/hooks/usePlayerPlay";
+import { useQueueActions } from "#playback-queue/hooks/useQueueActions";
+import { useRegistryActions } from "#playback-registry/hooks/useRegistryActions";
 import { TNoMusic } from "#types/nomusic";
 import { useCallback } from "react";
 

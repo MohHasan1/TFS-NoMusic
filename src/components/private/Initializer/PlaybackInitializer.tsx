@@ -1,7 +1,7 @@
 "use client";
 
-import { useTrackSession } from "#modules/hooks/useTrackSession";
-import { useTrackAutoPlay } from "#modules/hooks/useTrackAutoPlay";
+import { useTrackSession } from "#playback/modules/hooks/useTrackSession";
+import { useTrackAutoPlay } from "#playback/modules/hooks/useTrackAutoPlay";
 
 const PlaybackInitializer = () => {
   useTrackAutoPlay();

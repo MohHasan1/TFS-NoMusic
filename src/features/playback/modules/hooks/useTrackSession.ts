@@ -3,7 +3,8 @@
 import { store } from "#store";
 import { useEffect } from "react";
 import { useTrackNavigation } from "./useTrackNavigation";
-import { usePlayerSeekTo } from "#modules/player/hooks/usePlayerSeekTo";
+import { usePlayerSeekTo } from "#playback-player/hooks/usePlayerSeekTo";
+
 
 export function useTrackSession() {
   const track = store.use.currentTrack();

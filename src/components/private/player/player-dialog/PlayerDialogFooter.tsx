@@ -1,10 +1,10 @@
 "use client";
 
-// import { DialogFooter } from "#components/ui/dialog";
-import { usePlayerDialog } from "#modules/player-dialog/hooks/indes";
-import { usePlayerTrack } from "#modules/player/hooks/usePlayerTrack";
-import { PlayerControls } from "../elements/PlayerControls";
+import { usePlayerDialog } from "#playback-dialog/hooks/indes";
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
+
 import { PlayerQueueControls } from "../elements/PlayerQueueControls";
+import { PlayerControls } from "../elements/PlayerControls";
 import { PlayerSeekBar } from "../elements/PlayerSeekBar";
 
 export function PlayerDialogFooter() {
@@ -25,9 +25,7 @@ export function PlayerDialogFooter() {
           </div>
         </div>
 
-        <div className="w-full px-6 pt-5 md:px-8 md:pt-4">
-          {isOpen && <PlayerSeekBar />}
-        </div>
+        <div className="w-full px-6 pt-5 md:px-8 md:pt-4">{isOpen && <PlayerSeekBar />}</div>
       </div>
 
       <div className="grid grid-cols-3 items-center gap-2 px-6 pt-4 pb-8">

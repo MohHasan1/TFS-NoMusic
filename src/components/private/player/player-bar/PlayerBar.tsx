@@ -1,7 +1,9 @@
 "use client";
 
-import { usePlayerTrack } from "@/modules/player/hooks/usePlayerTrack";
-import { useMediaQuery } from "#modules/hooks/useMediaQuery";
+
+import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
+import { useMediaQuery } from "#playback/modules/hooks/useMediaQuery";
+
 import DesktopPlayerBar from "./DesktopPlayerBar";
 import MobilePlayerBar from "./MobilePlayerBar";
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixicon/react";
 
 import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
-import { usePlayerPlayback } from "#modules/player/hooks/usePlayerPlayback";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { Button } from "#components/ui/button";
 import type { TNoMusic } from "#types/nomusic";

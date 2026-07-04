@@ -1,10 +1,9 @@
 "use client";
 
+import { playerController } from "#playback-player/controller";
+import { queueController } from "#playback-queue/controller";
+import { registryController } from "#playback-registry/controller";
 import { useCallback } from "react";
-
-import { playerController } from "#modules/player/controller";
-import { queueController } from "#modules/queue/controller";
-import { registryController } from "#modules/registry/controller";
 
 export function useLogoutCleanup() {
   const cleanupBeforeLogout = useCallback(() => {
