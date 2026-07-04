@@ -5,7 +5,7 @@ import { playerController } from "../controller";
 
 export function usePlayerToggle() {
   const toggleTrack = useCallback(() => {
-    return playerController.togglePlayback();
+    void playerController.togglePlayback();
   }, []);
 
   return {
