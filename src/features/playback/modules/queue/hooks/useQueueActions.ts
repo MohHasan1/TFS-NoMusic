@@ -29,6 +29,10 @@ export function useQueueActions() {
     queueController.extendQueue(sourceKey, tracks);
   }, []);
 
+  const deleteById = useCallback((deleteId: string) => {
+    return queueController.deleteById(deleteId);
+  }, []);
+
   const clearQueue = useCallback(() => {
     queueController.clearQueue();
   }, []);
@@ -39,6 +43,7 @@ export function useQueueActions() {
     getNextTrackId,
     getPreviousTrackId,
     extendQueue,
+    deleteById,
     clearQueue,
   };
 }
