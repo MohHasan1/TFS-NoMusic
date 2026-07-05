@@ -73,8 +73,12 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
             </div>
           )}
 
-          <div className="absolute left-2 top-2 z-20">
-            <OfflineNoMusicRemoveButton noMusic={noMusic} onRemoved={() => setIsVisible(false)} />
+          <div className="absolute left-0 top-0 z-20 flex h-full w-full max-h-10 max-w-10 items-start justify-start rounded-br-full bg-card-secondary p-0">
+            <OfflineNoMusicRemoveButton
+              noMusic={noMusic}
+              onRemoved={() => setIsVisible(false)}
+              className="hover:border-primary/60 hover:bg-primary/30"
+            />
           </div>
 
           <span className="absolute bg-card-secondary/60 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">

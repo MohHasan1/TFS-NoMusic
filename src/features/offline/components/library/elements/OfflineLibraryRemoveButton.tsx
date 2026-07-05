@@ -1,6 +1,6 @@
 "use client";
 
-import { RiDeleteBinLine } from "@remixicon/react";
+import { RiDeleteBin2Line } from "@remixicon/react";
 import { useState, type MouseEvent } from "react";
 import { toast } from "sonner";
 
@@ -68,7 +68,7 @@ export function OfflineLibraryRemoveButton({ library, className }: TProps) {
         className,
       )}
     >
-      {isRemoving ? <Spinner className="size-3" /> : <RiDeleteBinLine className="size-3" />}
+      {isRemoving ? <Spinner className="size-3" /> : <RiDeleteBin2Line className="size-3" />}
     </Button>
   );
 }

@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useState, type MouseEvent } from "react";
-import { RiCloseCircleLine } from "@remixicon/react";
+import { RiCloseLargeFill } from "@remixicon/react";
 
 import useDeleteAudio from "#playback/hooks/useDeleteAudio";
 
@@ -45,20 +45,25 @@ export function OfflineNoMusicRemoveButton({ noMusic, className, onRemoved }: TP
   return (
     <Button
       type="button"
-      size="icon-sm"
+      size="icon-xs"
       variant="outline"
       aria-label={`Remove ${noMusic.name} from offline downloads`}
       title={`Remove ${noMusic.name} from offline downloads`}
       disabled={isRemoving}
       onClick={handleClick}
       className={cn(
-        "rounded-full border-primary/40 bg-primary/20 text-primary-200",
+        "h-full w-full items-start justify-start rounded-br-full p-2.5 md:p-2",
+        "border-primary/40 bg-primary/20 text-primary-200",
         "shadow-md shadow-primary/20 ring-1 ring-white/5",
         "hover:border-primary/60 hover:bg-primary/30",
         className,
       )}
     >
-      {isRemoving ? <Spinner className="size-4" /> : <RiCloseCircleLine className="size-4" />}
+      {isRemoving ? (
+        <Spinner className="size-3" />
+      ) : (
+        <RiCloseLargeFill className="size-2.5 font-extrabold md:size-3" />
+      )}
     </Button>
   );
 }

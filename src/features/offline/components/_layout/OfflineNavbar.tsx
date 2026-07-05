@@ -16,9 +16,14 @@ export function OfflineNavbar() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/50 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-3 sm:px-4 lg:px-8">
         <div className="shrink-0">
-          <OfflineLink href={offlineHomeHref} className="group font-semibold uppercase transition-colors duration-300">
+          <OfflineLink
+            href={offlineHomeHref}
+            className="group font-semibold uppercase transition-colors duration-300"
+          >
             <span className="text-white/80 group-hover:text-white/60">No</span>
-            <span className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent transition-all duration-300 group-hover:from-primary-400/80 group-hover:to-primary-600/80">Music</span>
+            <span className="bg-linear-to-br from-primary-400 to-primary-600 bg-clip-text text-transparent transition-all duration-300 group-hover:from-primary-400/80 group-hover:to-primary-600/80">
+              Music
+            </span>
           </OfflineLink>
         </div>
 
@@ -36,6 +41,7 @@ export function OfflineNavbar() {
                   href={item.href}
                   className={cn(
                     buttonVariants({
+                      className: "text-primary-200",
                       variant: isActive ? "secondary" : "ghost",
                       size: "xs",
                     }),

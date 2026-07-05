@@ -38,17 +38,21 @@ export function OfflineLibraryHeroSection({ library }: TProps) {
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-2 text-sm text-white/60">
-            <RiMusic2Line className="size-4 shrink-0 text-primary-400" />
-            <span className="font-medium">{trackLabel}</span>
-          </div>
+          <div className="flex items-center justify-between max-w-2xl">
+            <div className="space-x-4">
+              <div className="inline-flex items-center gap-2 text-sm text-white/60">
+                <RiMusic2Line className="size-4 shrink-0 text-primary-400" />
+                <span className="font-medium">{trackLabel}</span>
+              </div>
 
-          <div className="inline-flex items-center gap-2 text-sm text-white/60">
-            <RiUser3Line className="size-4 shrink-0 text-primary-400" />
-            <span className="font-medium">{libAuthor}</span>
-          </div>
+              <div className="inline-flex items-center gap-2 text-sm text-white/60">
+                <RiUser3Line className="size-4 shrink-0 text-primary-400" />
+                <span className="font-medium">{libAuthor}</span>
+              </div>
+            </div>
 
-          <OfflineLibraryRemoveButton library={library} />
+            <OfflineLibraryRemoveButton library={library} />
+          </div>
         </div>
       </div>
     </section>
