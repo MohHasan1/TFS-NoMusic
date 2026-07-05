@@ -35,6 +35,7 @@ export function PrivateNavbar() {
                   href={item.href}
                   className={cn(
                     buttonVariants({
+                      className: "text-primary-200",
                       variant: isActive ? "secondary" : "ghost",
                       size: "xs",
                     }),

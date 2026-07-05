@@ -42,12 +42,12 @@ export function NoMusicDownloadButton({ noMusic, className, showIsDownloaded = f
 
     const result = await download(noMusic);
     if (!result.isSuccess) {
-     toast.error(`Couldn’t save “${noMusic.name}” for offline listening.`);
+      toast.error(`Couldn't save “${noMusic.name}” for offline listening.`);
       return;
     }
 
     setIsDownloaded(true);
-toast.success(`“${noMusic.name}” is now available offline.`);
+    toast.success(`“${noMusic.name}” is now available offline.`);
   }
 
   if (showIsDownloaded && isDownloaded) return null;
@@ -55,16 +55,17 @@ toast.success(`“${noMusic.name}” is now available offline.`);
   return (
     <Button
       type="button"
-      size="icon-sm"
+      size="icon-xs"
       variant={isDownloaded ? "secondary" : "outline"}
       aria-label={isDownloaded ? `${noMusic.name} downloaded` : `Download ${noMusic.name}`}
       title={
-        isDownloaded ? `${noMusic.name} saved offline` : `Downloade ${noMusic.name} for offline`
+        isDownloaded ? `${noMusic.name} saved offline` : `Download ${noMusic.name} for offline`
       }
       disabled={isDownloading || isDownloaded}
       onClick={handleClick}
       className={cn(
-        "rounded-full border-primary/40 bg-primary/20 text-primary-200",
+        "rounded-br-full w-full h-full items-start justify-start p-2.5 md:p-2",
+        "border-primary/40 bg-primary/20 text-primary-200",
         "shadow-md shadow-primary/20 ring-1 ring-white/5",
         "hover:border-primary/60 hover:bg-primary/30",
         className,
@@ -75,7 +76,7 @@ toast.success(`“${noMusic.name}” is now available offline.`);
       ) : isDownloaded ? (
         <RiCheckLine className="size-3" />
       ) : (
-        <RiDownload2Line className="size-3 font-extrabold" />
+        <RiDownload2Line className="size-2.5 md:size-3 font-extrabold" />
       )}
     </Button>
   );

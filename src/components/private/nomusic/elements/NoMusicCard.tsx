@@ -7,10 +7,10 @@ import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixi
 import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
 import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
+import { NoMusicDownloadButton } from "./NoMusicDownloadButton";
 import { Button } from "#components/ui/button";
 import type { TNoMusic } from "#types/nomusic";
 import { NoMusicCover } from "./NoMusicCover";
-import { NoMusicDownloadButton } from "./NoMusicDownloadButton";
 import { PlayingBars } from "./PlayingBars";
 import { cn } from "#lib/utils";
 
@@ -74,7 +74,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
             </div>
           )}
 
-          <div className="absolute left-2 top-2 z-20">
+          <div className="absolute left-0 top-0 z-20 rounded-br-full bg-card-secondary max-w-10 max-h-10 h-full w-full p-0 flex justify-start items-start">
             <NoMusicDownloadButton noMusic={noMusic} />
           </div>
 

@@ -48,7 +48,7 @@ export function LibraryDownloadButton({
 
     const result = await download(library, tracks);
     if (!result.isSuccess) {
-      toast.error(`Couldn’t save “${library.name}” for offline listening.`);
+      toast.error(`Couldn't save “${library.name}” for offline listening.`);
       return;
     }
 
@@ -71,7 +71,7 @@ export function LibraryDownloadButton({
       onClick={handleClick}
       className={cn(
         "rounded-full border-primary/40 bg-primary/20 text-primary-200",
-        "shadow-md shadow-primary/20 ring-1 ring-white/5",
+        "ring-1 ring-primary/5",
         "hover:border-primary/60 hover:bg-primary/30",
         className,
       )}
