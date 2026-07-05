@@ -1,18 +1,22 @@
 "use client";
 
-import { RiDownloadLine } from "@remixicon/react";
-
+import { RiDownloadLine, RiInstallLine } from "@remixicon/react";
 import { Button } from "#components/ui/button";
-import { cn } from "#lib/utils";
 
 export function PwaInstallButton({ onInstall }: TProps) {
   return (
-    <div className={cn("flex justify-center items-center")}>
-      <Button type="button" variant="default" size="xs" onClick={onInstall} aria-label="Install NoMusic">
-        <RiDownloadLine data-icon="inline-start" />
-        <span className={"hidden sm:inline"}>Install</span>
-      </Button>
-    </div>
+    <Button
+      type="button"
+      variant="default"
+      size="sm"
+      onClick={onInstall}
+      aria-label="Install NoMusic"
+      title="Install NoMusic"
+    >
+      {/* <RiDownloadLine data-icon="inline-start" />
+        <span className={"hidden sm:inline"}>Install</span> */}
+      <RiInstallLine className={"size-3"} aria-hidden="true" />
+    </Button>
   );
 }
 

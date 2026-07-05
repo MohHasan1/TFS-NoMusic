@@ -15,8 +15,8 @@ export function BackOnlineBanner() {
   return (
     <Button
       type="button"
-      size="xs"
-      variant={isOnline ? "default" : "outline"}
+      size="sm"
+      variant={isChecking ? "outline" : "default"}
       disabled={!isOnline}
       onClick={() => {
         router.push("/");

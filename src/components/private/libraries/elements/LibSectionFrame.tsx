@@ -7,15 +7,17 @@ import { TLibrary } from "#types/library";
 import { LibCard } from "./LibCard";
 
 export async function LibSectionFrame({ title, description, type }: TProps) {
-  await connection()
+  await connection();
   const res = await listLibraries(type);
   const libs = res.isSuccess ? res.data.docs : [];
 
   return (
     <section className="space-y-6">
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold tracking-tight text-white/90 md:text-xl">{title}</h2>
-        {description ? <p className="text-sm text-white/55">{description}</p> : null}
+      <div className="space-y-1.5">
+        <h2 className="text-lg font-semibold tracking-tight text-primary-200 md:text-xl">
+          {title}
+        </h2>
+        {description ? <p className="text-sm text-foreground/80">{description}</p> : null}
       </div>
 
       {libs.length === 0 ? (

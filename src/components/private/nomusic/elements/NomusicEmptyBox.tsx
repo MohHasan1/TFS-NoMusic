@@ -1,36 +1,15 @@
-import Link from "next/link";
 import { RiMusic2Line } from "@remixicon/react";
-import { Button } from "#components/ui/button";
+import { PrivateEmptyState } from "#components/private/shared/PrivateEmptyState";
 import { PRIVATE_ROUTES } from "#constants/routes";
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "#components/ui/empty";
 
 export function NoMusicEmptyBox() {
   return (
-    <Empty className="border border-dashed bg-card rounded-2xl">
-      <EmptyHeader>
-        <EmptyMedia variant="icon">
-          <RiMusic2Line />
-        </EmptyMedia>
-        <EmptyTitle>No NoMusic available yet</EmptyTitle>
-        <EmptyDescription>
-          Request a track and it will show up here once it is added.
-        </EmptyDescription>
-      </EmptyHeader>
-      <EmptyContent>
-        <Button
-          nativeButton={false}
-          render={<Link href={PRIVATE_ROUTES.REQUEST_NOMUSIC}>Request NoMusic</Link>}
-          variant="outline"
-          size="sm"
-        />
-      </EmptyContent>
-    </Empty>
+    <PrivateEmptyState
+      title="No NoMusic available yet"
+      description="Request a track and it will show up here once it is added."
+      icon={RiMusic2Line}
+      ctaHref={PRIVATE_ROUTES.REQUEST_NOMUSIC}
+      ctaLabel="Request NoMusic"
+    />
   );
 }
