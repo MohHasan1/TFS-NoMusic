@@ -3,17 +3,18 @@ import { LibarayAudioSectionSkeleton } from "#components/private/library/element
 import { LibraryHeroSkeleton } from "#components/private/library/elements/LibraryHeroSkeleton";
 import { LibarayAudioSection } from "#components/private/library/sections/LibarayAudioSection";
 import { LibraryHeroSection } from "#components/private/library/sections/LibraryHeroSection";
+import { PrivatePageShell } from "#components/private/shared/PrivatePageShell";
 
 export default function LibraryPage({ params }: TProps) {
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-10 px-4 pt-24 pb-32 lg:px-8">
+    <PrivatePageShell>
       <Suspense fallback={<LibraryHeroSkeleton />}>
         <LibraryHeroSlot params={params} />
       </Suspense>
       <Suspense fallback={<LibarayAudioSectionSkeleton />}>
         <LibraryAudioSlot params={params} />
       </Suspense>
-    </div>
+    </PrivatePageShell>
   );
 }
 

@@ -3,7 +3,7 @@ import { RequestNoMusicForm } from "../forms/RequestNoMusicForm";
 
 const RequestNomusicSection = () => {
   return (
-    <FormShell className="py-24">
+    <FormShell className="py-2 sm:py-4">
       <RequestNoMusicForm />
     </FormShell>
   );
