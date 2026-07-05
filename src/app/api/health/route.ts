@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 
 export function HEAD() {
   return new Response(null, {

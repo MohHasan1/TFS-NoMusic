@@ -9,6 +9,8 @@ const PUBLIC_ROUTES = {
 
   REQUEST_ACCESS: "/request-access",
   CHECK_EMAIL: "/check-email",
+
+  API_HEALTH: "/api/health",
 } as const;
 
 const PRIVATE_ROUTES = {
