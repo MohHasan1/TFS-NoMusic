@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { Suspense } from "react";
 
-import PlaybackInitializer from "#components/private/Initializer/PlaybackInitializer";
-import PlayerBar from "#components/private/player/player-bar/PlayerBar";
-import { PlayerDialog } from "#components/private/player/player-dialog/PlayerDialog";
+import PlaybackInitializer from "#playback/initializer";
+import PlayerBar from "#playback/components/player-bar/PlayerBar";
+import { PlayerDialog } from "#playback/components/player-dialog/PlayerDialog";
 import { AppFeedback } from "#components/shared/AppFeedback";
 import { GlowOrb } from "#components/shared/GlowOrb";
 import { OfflineNavbar } from "#features/offline/components/_layout/OfflineNavbar";

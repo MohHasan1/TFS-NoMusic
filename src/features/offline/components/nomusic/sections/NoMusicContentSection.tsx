@@ -4,7 +4,7 @@ import type React from "react";
 import { useCallback } from "react";
 
 import { OfflineCardGridSkeleton } from "#offline/components/shared/OfflineCardGridSkeleton";
-import { useTrackPlayback } from "#playback/modules/hooks/useTrackPlayback";
+import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
 import { OfflineNoMusicCard } from "../elements/OfflineNoMusicCard";
 import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
 import NoMusicEmptyBox from "../elements/NoMusicEmptyBox";

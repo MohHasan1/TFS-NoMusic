@@ -8,7 +8,7 @@ import {
   RiSkipForwardFill,
 } from "@remixicon/react";
 import { usePlayerTrackBuffering } from "#playback-player/hooks/usePlayerTrackBuffering";
-import { useTrackNavigation } from "#playback/modules/hooks/useTrackNavigation";
+import { useTrackNavigation } from "#playback/hooks/useTrackNavigation";
 import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
 import { Button } from "#components/ui/button";

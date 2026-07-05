@@ -1,8 +1,8 @@
-import PlaybackInitializer from "#components/private/Initializer/PlaybackInitializer";
-import { PlayerDialog } from "#components/private/player/player-dialog/PlayerDialog";
+import PlaybackInitializer from "#playback/initializer";
+import { PlayerDialog } from "#playback/components/player-dialog/PlayerDialog";
 import { PrivateNavbar } from "#components/_layout/private/PrivateNavbar";
 import QueryProvider from "#components/private/_providers/QueryProvider";
-import PlayerBar from "#components/private/player/player-bar/PlayerBar";
+import PlayerBar from "#playback/components/player-bar/PlayerBar";
 import { GlowOrb } from "#components/shared/GlowOrb";
 import { SerwistProvider } from "@serwist/turbopack/react";
 

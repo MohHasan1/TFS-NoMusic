@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useState, type MouseEvent } from "react";
 import { RiCloseCircleLine } from "@remixicon/react";
 
-import useDeleteAudio from "#playback/modules/hooks/useDeleteAudio";
+import useDeleteAudio from "#playback/hooks/useDeleteAudio";
 
 import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
 import { useNomusicDownload } from "#offline/hooks";

@@ -3,7 +3,7 @@
 import type React from "react";
 
 import { SOURCE_KEYS } from "#constants/private/source";
-import { useTrackPlayback } from "#playback/modules/hooks/useTrackPlayback";
+import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
 import type { TNoMusic } from "#types/nomusic";
 
 import { LibraryTrackRow } from "./LibraryTrackRow";

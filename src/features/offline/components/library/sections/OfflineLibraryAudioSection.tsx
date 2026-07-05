@@ -5,7 +5,7 @@ import type React from "react";
 import { OfflineLibraryAudioEmptyBox } from "../elements/OfflineLibraryAudioEmptyBox";
 import { OfflineLibraryAudioSkeleton } from "../elements/OfflineLibraryAudioSkeleton";
 import { OfflineLibraryTrackRow } from "../elements/OfflineLibraryTrackRow";
-import { useTrackPlayback } from "#playback/modules/hooks/useTrackPlayback";
+import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
 import { OFFLINE_SOURCE_KEYS } from "#offline/constants/source";
 import type { TLibraryOffline } from "#offline/types";
 import { useNomusicByLibId } from "#offline/hooks";

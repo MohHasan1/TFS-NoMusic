@@ -2,7 +2,7 @@
 
 
 import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
-import { useMediaQuery } from "#playback/modules/hooks/useMediaQuery";
+import { useMediaQuery } from "#playback/hooks/useMediaQuery";
 
 import DesktopPlayerBar from "./DesktopPlayerBar";
 import MobilePlayerBar from "./MobilePlayerBar";
