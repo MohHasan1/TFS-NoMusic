@@ -1,5 +1,3 @@
-// NOT IN USE
-
 "use client";
 
 import { useCallback, useTransition } from "react";
@@ -15,14 +13,12 @@ import {
   AlertDialogHeader,
   AlertDialogMedia,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "#components/ui/alert-dialog";
-import { Button } from "#components/ui/button";
+import { Spinner } from "#components/ui/spinner";
 import { useLogoutCleanup } from "#playback/hooks/useLogoutCleanup";
 import { logoutAction } from "#server-actions/auth/logout";
-import { Spinner } from "#components/ui/spinner";
 
-const LogoutDialog = () => {
+export function LogoutMenuDialog({ open, onOpenChange }: TProps) {
   const { cleanupBeforeLogout } = useLogoutCleanup();
   const [isPending, startTransition] = useTransition();
 
@@ -35,15 +31,7 @@ const LogoutDialog = () => {
   }, [cleanupBeforeLogout]);
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger
-        render={
-          <Button type="button" size="icon" variant="default" aria-label="Log out" title="Log Out">
-            <RiLogoutBoxRLine className="size-3.5" />
-          </Button>
-        }
-      />
-
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent
         size="sm"
         className={
@@ -79,6 +67,9 @@ const LogoutDialog = () => {
       </AlertDialogContent>
     </AlertDialog>
   );
-};
+}
 
-export default LogoutDialog;
+type TProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
