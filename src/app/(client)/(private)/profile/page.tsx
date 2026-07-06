@@ -5,10 +5,6 @@ import { ProfileOverviewFallback } from "#components/private/profile/sections/Pr
 import { ProfileOverviewServerSection } from "#components/private/profile/sections/ProfileOverviewServerSection";
 import { PrivatePageShell } from "#components/private/shared/PrivatePageShell";
 
-export const unstable_instant = {
-  prefetch: "static",
-};
-
 export default function ProfilePage() {
   return (
     <PrivatePageShell>
