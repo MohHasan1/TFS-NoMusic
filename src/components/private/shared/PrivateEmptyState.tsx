@@ -23,7 +23,7 @@ export function PrivateEmptyState({ title, description, icon: Icon, ctaHref, cta
               render={<Link href={ctaHref}>{ctaLabel}</Link>}
               variant="outline"
               size="sm"
-              className="border-border/70 bg-primary/10 text-primary-200 hover:bg-primary/15"
+              className="border-border/70 bg-primary/10 text-primary-200 hover:text-primary-200/70 hover:bg-primary/15"
             >
               <RiArrowRightLine data-icon="inline-end" />
             </Button>

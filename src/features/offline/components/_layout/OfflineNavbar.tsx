@@ -4,9 +4,9 @@ import { useSearchParams } from "next/navigation";
 
 import { buttonVariants } from "#components/ui/button";
 import { OfflineLink } from "#features/offline/components/shared/OfflineLink";
+import { OfflineOnlineDialog } from "../shared/OfflineOnlineDialog";
 import { cn } from "#lib/utils";
 import { offlineHomeHref, offlineNavItems } from "./links";
-import { BackOnlineBanner } from "../shared/OfflineOnlineButton";
 
 export function OfflineNavbar() {
   const searchParams = useSearchParams();
@@ -28,7 +28,7 @@ export function OfflineNavbar() {
         </div>
 
         <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
-          <BackOnlineBanner />
+          <OfflineOnlineDialog />
 
           <div className="flex min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1">
             {offlineNavItems.map((item) => {

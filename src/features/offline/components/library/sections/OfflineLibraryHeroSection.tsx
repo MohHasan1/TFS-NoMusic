@@ -2,7 +2,7 @@
 
 import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
 
-import { OfflineLibraryRemoveButton } from "#offline/components/library/elements/OfflineLibraryRemoveButton";
+import { OfflineLibraryRemoveDialog } from "#offline/components/library/elements/OfflineLibraryRemoveDialog";
 import { LibraryCover } from "#components/private/library/elements/LibraryCover";
 import { OfflineImage } from "#features/offline/components/shared/OfflineImage";
 import type { TLibraryOffline } from "#offline/types";
@@ -51,7 +51,7 @@ export function OfflineLibraryHeroSection({ library }: TProps) {
               </div>
             </div>
 
-            <OfflineLibraryRemoveButton library={library} />
+            <OfflineLibraryRemoveDialog library={library} />
           </div>
         </div>
       </div>

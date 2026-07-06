@@ -15,6 +15,7 @@ import { Button } from "#components/ui/button";
 import { cn } from "#lib/utils";
 import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
 import { useNomusic } from "#offline/hooks";
+import OfflineAudioRemoveDialog from "./OfflineAudioRemoveDialog";
 
 const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
@@ -74,7 +75,7 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
           )}
 
           <div className="absolute left-0 top-0 z-20 flex h-full w-full max-h-10 max-w-10 items-start justify-start rounded-br-full bg-card-secondary p-0">
-            <OfflineNoMusicRemoveButton
+            <OfflineAudioRemoveDialog
               noMusic={noMusic}
               onRemoved={() => setIsVisible(false)}
               className="hover:border-primary/60 hover:bg-primary/30"

@@ -73,3 +73,5 @@ type TProps = {
   className?: string;
   onRemoved: () => void;
 };
+
+

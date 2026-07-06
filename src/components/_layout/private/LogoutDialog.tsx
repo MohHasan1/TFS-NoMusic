@@ -35,29 +35,39 @@ const LogoutDialog = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger
-        render={<Button type="button" variant="destructive" size="icon" aria-label="Log out" />}
-      >
-        <RiLogoutBoxRLine className="size-4" />
-      </AlertDialogTrigger>
+        render={
+          <Button type="button" size="icon" variant="default" aria-label="Log out" title="Log Out">
+            <RiLogoutBoxRLine className="size-3.5" />
+          </Button>
+        }
+      />
 
-      <AlertDialogContent size="sm" className={"border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]"}>
+      <AlertDialogContent
+        size="sm"
+        className={
+          "border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]"
+        }
+      >
         <AlertDialogHeader>
-          <AlertDialogMedia className="bg-destructive/10 text-destructive">
-            <RiLogoutBoxRLine className="size-7" />
+          <AlertDialogMedia className="bg-primary/35 text-primary-400">
+            <RiLogoutBoxRLine className="size-6" />
           </AlertDialogMedia>
-          <AlertDialogTitle>Log out?</AlertDialogTitle>
+          <AlertDialogTitle className="text-primary-200">Log out?</AlertDialogTitle>
           <AlertDialogDescription>
             The server cat will close your session and take you back to sign-in.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel type="button" size="sm" disabled={isPending}>
+            Cancel
+          </AlertDialogCancel>
 
           <AlertDialogAction
             type="button"
+             size="sm" 
             disabled={isPending}
-            variant="destructive"
+            variant="default"
             onClick={handleLogout}
           >
             {isPending && <Spinner data-icon="inline-start" />}

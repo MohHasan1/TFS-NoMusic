@@ -21,28 +21,30 @@ export function InstallHintDialog({ mode }: TProps) {
         render={
           <Button
             type="button"
-            variant="secondary"
-            size="icon-xs"
+            size="xs"
             aria-label="Install NoMusic Dialog"
+            title="Install NoMusic"
           >
-            <RiShareForwardLine data-icon="inline-start" />
+            <RiShareForwardLine className={"size-3"} data-icon="inline-start" aria-hidden="true" />
+            <span className={"hidden text-center sm:inline"}>Install</span>
+            {/* <RiShareForwardLine className="size-3" /> */}
           </Button>
         }
       />
       {/* TODO: standardize shadow */}
-      <DialogContent className="max-w-sm border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]">
+      <DialogContent className="text-center max-w-sm border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]">
         <DialogHeader>
-          <DialogTitle className="text-primary-400">To Install NoMusic</DialogTitle>
+          <DialogTitle className="text-primary-400/90">To Install NoMusic</DialogTitle>
           <DialogDescription className="space-y-4 mt-4">
-            <span className="block space-y-2 text-left">
+            <span className="block space-y-2 text-center">
               {steps.map((step, index) => (
-                <span key={step} className="flex gap-2">
-                  <span className="font-medium text-primary-300">{index + 1}.</span>
+                <span key={step} className="flex gap-2 text-muted-foreground/90">
+                  <span className="font-medium">{index + 1}.</span>
                   <span>{step}</span>
                 </span>
               ))}
             </span>
-            <span className="block text-primary-200">
+            <span className="block text-primary-200/90 text-center">
               If you already installed NoMusic, you can ignore this message.
             </span>
           </DialogDescription>
