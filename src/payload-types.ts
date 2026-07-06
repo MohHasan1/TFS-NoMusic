@@ -184,6 +184,8 @@ export interface User {
   name: string;
   role?: ('admin' | 'editor' | 'viewer' | 'user') | null;
   isApproved?: boolean | null;
+  imageFile?: (string | null) | Media;
+  uploadedImageURL?: string | null;
   emailAction?: ('none' | 'send' | 'resend') | null;
   emailStatus?: ('not_sent' | 'sent' | 'failed') | null;
   updatedAt: string;
@@ -206,6 +208,28 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  type?: ('audio' | 'image' | 'other') | null;
+  /**
+   * Choose this before selecting the file.
+   */
+  prefix: 'vocals' | 'images/vocals' | 'images/users' | 'images/libraries' | 'images/playlist';
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -237,28 +261,6 @@ export interface Request {
   emailStatus?: ('not_sent' | 'sent' | 'failed') | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt?: string | null;
-  type?: ('audio' | 'image' | 'other') | null;
-  /**
-   * Choose this before selecting the file.
-   */
-  prefix: 'vocals' | 'images/vocals' | 'images/users' | 'images/libraries' | 'images/playlist';
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -453,6 +455,8 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   role?: T;
   isApproved?: T;
+  imageFile?: T;
+  uploadedImageURL?: T;
   emailAction?: T;
   emailStatus?: T;
   updatedAt?: T;

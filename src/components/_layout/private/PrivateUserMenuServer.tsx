@@ -8,5 +8,5 @@ export async function PrivateUserMenuServer() {
     return <PrivateUserMenu userEmail="" userName="Account" />;
   }
 
-  return <PrivateUserMenu userEmail={response.data.email} userName={response.data.name} />;
+  return <PrivateUserMenu userEmail={response.data.email} userName={response.data.name} userAvatarUrl={response.data.uploadedImageURL} />;
 }

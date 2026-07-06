@@ -14,6 +14,7 @@ import {
   EMAIL_STATUS_OPTIONS,
 } from "./constants/emails";
 import { sendWelcomeEmailBeforeChange } from "./hooks/user";
+import { syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -23,7 +24,9 @@ export const Users: CollectionConfig = {
       generateEmailHTML: async ({ token, user }) => {
         const userName = (user as User)?.name;
         const verificationUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}&userId=${user.id}`;
-        return await render(VerifyEmail({ userName, verificationUrl, isPrev: isPreviewOrDevEnv() }));
+        return await render(
+          VerifyEmail({ userName, verificationUrl, isPrev: isPreviewOrDevEnv() }),
+        );
       },
     },
     forgotPassword: {
@@ -32,7 +35,9 @@ export const Users: CollectionConfig = {
         const token = args?.token;
         const userName = user.name;
         const resetUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password?token=${token}`;
-        return await render(ResetPasswordEmail({ userName, resetUrl, isPrev: isPreviewOrDevEnv() }));
+        return await render(
+          ResetPasswordEmail({ userName, resetUrl, isPrev: isPreviewOrDevEnv() }),
+        );
       },
     },
     tokenExpiration: 60 * 60 * 24 * 30,
@@ -44,10 +49,13 @@ export const Users: CollectionConfig = {
 
   admin: {
     useAsTitle: "name",
-    defaultColumns: ["name", "email", "emailStatus"]
+    defaultColumns: ["name", "email", "emailStatus"],
   },
 
-  hooks: { beforeChange: [sendWelcomeEmailBeforeChange] },
+  hooks: {
+    beforeChange: [sendWelcomeEmailBeforeChange],
+    beforeValidate: [syncUploadImageURLBeforeValidate],
+  },
 
   defaultPopulate: {
     id: true,
@@ -60,7 +68,7 @@ export const Users: CollectionConfig = {
   access: {
     create: access.isAdmin,
     read: access.isAdminOrSelf,
-    update: access.isAdmin,
+    update: access.isAdminOrSelf,
     delete: access.isAdmin,
   },
 
@@ -84,6 +92,22 @@ export const Users: CollectionConfig = {
           name: "isApproved",
           type: "checkbox",
           defaultValue: true,
+        },
+      ],
+    },
+
+    {
+      label: "coverImage",
+      type: "collapsible",
+      fields: [
+        {
+          name: "imageFile",
+          type: "upload",
+          relationTo: "media",
+        },
+        {
+          name: "uploadedImageURL",
+          type: "text",
         },
       ],
     },
