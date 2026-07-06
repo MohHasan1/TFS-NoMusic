@@ -12,8 +12,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "#components/ui/dropdown-menu";
+import { OfflineModeMenuButton } from "./OfflineModeMenuButton";
 import { LogoutMenuDialog } from "./LogoutMenuDialog";
 import { LogoutMenuButton } from "./LogoutMenuButton";
+import { ProfileMenuButton } from "./ProfileMenuButton";
 
 export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
@@ -51,11 +53,18 @@ export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) 
                 </Avatar>
 
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-primary-200">{userName}</p>
+                  <p className="truncate text-sm font-medium text-primary-200 uppercase">{userName}</p>
                   <p className="truncate text-xs text-muted-foreground">{userEmail}</p>
                 </div>
               </div>
             </DropdownMenuLabel>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator className={"bg-primary-600"}/>
+
+          <DropdownMenuGroup>
+            <ProfileMenuButton />
+            <OfflineModeMenuButton />
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator className={"bg-primary-600"}/>

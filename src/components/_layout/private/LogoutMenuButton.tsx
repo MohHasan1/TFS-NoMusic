@@ -17,7 +17,7 @@ export function LogoutMenuButton({ onOpen }: TProps) {
         event.preventDefault();
         onOpen();
       }}
-      className="cursor-pointer bg-primary! text-primary-foreground! hover:bg-primary/85! focus:bg-primary/85! focus:text-primary-foreground! data-highlighted:bg-primary/85! data-highlighted:text-primary-foreground!"
+      className="cursor-pointer text-primary-400! hover:bg-primary/85! focus:bg-primary/85! focus:text-primary-foreground! data-highlighted:bg-primary/85! data-highlighted:text-primary-foreground!"
     >
       <RiLogoutBoxRLine className="size-3.5" data-icon="inline-start" />
       Log out

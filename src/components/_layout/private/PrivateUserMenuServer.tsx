@@ -1,7 +1,10 @@
+import { connection } from "next/server";
 import { getCurrentUser } from "#services/auth/auth.ports";
 import { PrivateUserMenu } from "./PrivateUserMenu";
 
 export async function PrivateUserMenuServer() {
+  await connection();
+
   const response = await getCurrentUser();
 
   if (!response.isSuccess) {
