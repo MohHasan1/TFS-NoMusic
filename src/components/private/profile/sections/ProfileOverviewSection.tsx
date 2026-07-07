@@ -5,6 +5,7 @@ export function ProfileOverviewSection({
   email,
   isVerified,
   name,
+  preferredAudioLang,
   userAvatarUrl,
 }: TProps) {
   return (
@@ -14,6 +15,7 @@ export function ProfileOverviewSection({
         email={email}
         isVerified={isVerified}
         name={name}
+        preferredAudioLang={preferredAudioLang}
         userAvatarUrl={userAvatarUrl}
       />
     </section>
@@ -25,5 +27,6 @@ type TProps = {
   email: string;
   isVerified?: boolean | null;
   name: string;
+  preferredAudioLang?: string | null;
   userAvatarUrl?: string | null;
 };

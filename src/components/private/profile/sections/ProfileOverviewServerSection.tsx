@@ -8,7 +8,6 @@ import { ProfileOverviewSection } from "./ProfileOverviewSection";
 
 export async function ProfileOverviewServerSection() {
   await connection();
-
   const response = await getCurrentUser();
 
   if (!response.isSuccess) {
@@ -29,6 +28,7 @@ export async function ProfileOverviewServerSection() {
       email={response.data.email}
       isVerified={response.data._verified}
       name={response.data.name}
+      preferredAudioLang={response.data.prefAudioLang}
       userAvatarUrl={response.data.uploadedImageURL}
     />
   );

@@ -4,7 +4,7 @@ export default function LibHeaderSection() {
   return (
     <PrivatePageHeader
       title="Libraries"
-      description="Organized private groups of NoMusic tracks in one place."
+      description="Browse albums, custom libraries, and language libraries in your private NoMusic space."
     />
   );
 }

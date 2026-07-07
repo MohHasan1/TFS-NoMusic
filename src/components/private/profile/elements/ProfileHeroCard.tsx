@@ -1,12 +1,7 @@
-import { RiCheckLine, RiMailLine, RiTimeLine } from "@remixicon/react";
+import { RiCheckLine, RiMailLine, RiTimeLine, RiTranslate2 } from "@remixicon/react";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "#components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "#components/ui/card";
+import { capitalizeFirstLetter } from "#lib/utils";
 import { ProfileImage } from "./ProfileImage";
 import { ProfileInfoTile } from "./ProfileInfoTile";
 
@@ -15,10 +10,14 @@ export function ProfileHeroCard({
   email,
   isVerified,
   name,
+  preferredAudioLang,
   userAvatarUrl,
 }: TProps) {
   const memberSince = formatDate(createdAt);
   const firstName = name.trim().split(/\s+/)[0] || name;
+  const preferredLanguage = preferredAudioLang
+    ? capitalizeFirstLetter(preferredAudioLang)
+    : "Not set";
 
   return (
     <Card className="overflow-hidden rounded-4xl border-primary/15 bg-linear-to-br from-card via-card-secondary/70 to-primary/10 shadow-[0_30px_100px_-55px_var(--color-primary)]">
@@ -52,12 +51,18 @@ export function ProfileHeroCard({
         </div>
       </CardHeader>
 
-      <CardContent className="grid gap-3 p-6 pt-0 sm:grid-cols-2 sm:p-8 sm:pt-0">
+      <CardContent className="grid gap-3 p-6 pt-0 sm:grid-cols-2 lg:grid-cols-3 sm:p-8 sm:pt-0">
         <ProfileInfoTile
           icon={RiMailLine}
           label="Signed-in email"
           value={email}
           helper="This is the email tied to your private account."
+        />
+        <ProfileInfoTile
+          icon={RiTranslate2}
+          label="Preferred audio"
+          value={preferredLanguage}
+          helper="This is the language we use as your default NoMusic collection."
         />
         <ProfileInfoTile
           icon={RiTimeLine}
@@ -83,5 +88,6 @@ type TProps = {
   email: string;
   isVerified?: boolean | null;
   name: string;
+  preferredAudioLang?: string | null;
   userAvatarUrl?: string | null;
 };
