@@ -184,6 +184,7 @@ export interface User {
   name: string;
   role?: ('admin' | 'editor' | 'viewer' | 'user') | null;
   isApproved?: boolean | null;
+  prefAudioLang?: ('bangla' | 'hindi' | 'english' | 'arabic' | 'others') | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
   emailAction?: ('none' | 'send' | 'resend') | null;
@@ -455,6 +456,7 @@ export interface UsersSelect<T extends boolean = true> {
   name?: T;
   role?: T;
   isApproved?: T;
+  prefAudioLang?: T;
   imageFile?: T;
   uploadedImageURL?: T;
   emailAction?: T;

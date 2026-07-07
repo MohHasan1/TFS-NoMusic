@@ -23,6 +23,7 @@ export const Nomusic: CollectionConfig = {
   },
 
   admin: {
+    group: "Content",
     useAsTitle: "name",
   },
 

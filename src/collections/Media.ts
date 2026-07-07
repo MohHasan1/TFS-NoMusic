@@ -12,6 +12,7 @@ export const Media: CollectionConfig = {
   },
 
   admin: {
+    group: "Content",
     useAsTitle: "filename",
   },
 

@@ -15,6 +15,8 @@ import {
 } from "./constants/emails";
 import { sendWelcomeEmailBeforeChange } from "./hooks/user";
 import { syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
+import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { capitalizeFirstLetter } from "#lib/utils";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -48,6 +50,7 @@ export const Users: CollectionConfig = {
   },
 
   admin: {
+    group: "Auth",
     useAsTitle: "name",
     defaultColumns: ["name", "email", "emailStatus"],
   },
@@ -92,6 +95,21 @@ export const Users: CollectionConfig = {
           name: "isApproved",
           type: "checkbox",
           defaultValue: true,
+        },
+      ],
+    },
+
+    {
+      type: "collapsible",
+      label: "User Preferneces",
+      fields: [
+        {
+          name: "prefAudioLang",
+          type: "select",
+          options: LANGUAGES_VALUES.map((lang) => ({
+            label: capitalizeFirstLetter(lang),
+            value: lang,
+          })),
         },
       ],
     },
