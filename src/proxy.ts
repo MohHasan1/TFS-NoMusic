@@ -1,19 +1,24 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 const SIGN_IN_PATH = "/signin";
-const COLLECTION_PAGE = "/nomusic";
-const DEFAULT_AUTHENTICATED_PATH = COLLECTION_PAGE;
+const COLLECTION_PATH = "/nomusic";
+const DEFAULT_AUTHENTICATED_PATH = COLLECTION_PATH;
 
 const PROTECTED_ROUTES = ["/nomusic", "/libraries", "/profile", "/request-nomusic"];
 export const config = {
-  matcher: ["/signin", "/nomusic/:path*", "/libraries/:path*", "/profile/:path*", "/request-nomusic/:path*"],
+  matcher: [
+    "/signin",
+    "/nomusic/:path*",
+    "/libraries/:path*",
+    "/profile/:path*",
+    "/request-nomusic/:path*",
+  ],
 };
 
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isSignInPage = pathname === SIGN_IN_PATH;
-  const isCollectionPage = pathname === COLLECTION_PAGE;
   const isPrivatePage = isProtectedRoute(pathname);
 
   const token = request.cookies.get("payload-token")?.value;
@@ -53,23 +58,21 @@ export default async function proxy(request: NextRequest) {
     }
 
     // Logged-in users should not access signin
-    // if (isSignInPage) {
-    //   return NextResponse.redirect(new URL(DEFAULT_AUTHENTICATED_PATH, request.url));
-    // }
-    if (
-      isSignInPage ||
-      (isCollectionPage &&
-        !request.nextUrl.searchParams.get("language") &&
-        Boolean(prefAudioLang))
-    ) {
-      const redirectURL = new URL(DEFAULT_AUTHENTICATED_PATH, request.url);
-
-      if (prefAudioLang) {
-        redirectURL.searchParams.set("language", prefAudioLang);
-      }
-
-      return NextResponse.redirect(redirectURL);
+    if (isSignInPage) {
+      return NextResponse.redirect(new URL(DEFAULT_AUTHENTICATED_PATH, request.url));
     }
+
+    // const isCollectionPage = pathname === COLLECTION_PATH;
+    // if (
+    //   isSignInPage ||
+    //   (isCollectionPage && !request.nextUrl.searchParams.get("language") && Boolean(prefAudioLang))
+    // ) {
+    //   const redirectURL = new URL(DEFAULT_AUTHENTICATED_PATH, request.url);
+    //   if (prefAudioLang) {
+    //     redirectURL.searchParams.set("language", prefAudioLang);
+    //   }
+    //   return NextResponse.redirect(redirectURL);
+    // }
 
     return NextResponse.next();
   } catch {

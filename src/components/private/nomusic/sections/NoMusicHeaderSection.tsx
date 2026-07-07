@@ -1,9 +1,14 @@
-import { PrivatePageHeader } from "#components/private/shared/PrivatePageHeader";
+"use client";
 
-const NoMusicHeaderSection = async () => {
+import { PrivatePageHeader } from "#components/private/shared/PrivatePageHeader";
+import { useSearchParams } from "next/navigation";
+
+const NoMusicHeaderSection = () => {
+  const searchParams = useSearchParams();
+  const lang = searchParams.get("language");
   return (
     <PrivatePageHeader
-      title="Collection"
+      title={`${lang ?? ""} Collection`}
       description="Browse your private collection of vocals-only tracks."
     />
   );

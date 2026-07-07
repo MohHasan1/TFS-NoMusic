@@ -2,7 +2,6 @@
 
 import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
-import { redirect } from "next/navigation";
 
 import FormCard from "@/components/shared/form/FormCard";
 import SigninFormContent from "./SigninFormContent";
@@ -11,7 +10,6 @@ import SigninFormFooter from "./SigninFormFooter";
 import { SigninSchema, SigninStrictSchema } from "#validations/auth/signin";
 import { signinAction } from "#server-actions/auth/signin";
 import { SIGNIN_CLIENT } from "#constants/auth/signin";
-import { PRIVATE_ROUTES } from "#constants/routes";
 
 const SigninForm = () => {
   const [isSubmitting, startTransition] = useTransition();
@@ -40,9 +38,7 @@ const SigninForm = () => {
         const result = await signinAction(value);
         if (!result?.isSuccess) {
           setErrorMessage(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
-          return;
         }
-        redirect(PRIVATE_ROUTES.NOMUSIC);
       });
     },
   });

@@ -66,6 +66,7 @@ export const Users: CollectionConfig = {
     email: true,
     role: true,
     isApproved: true,
+    prefAudioLang: true,
   },
 
   access: {
