@@ -1,7 +1,7 @@
 "use client";
 
 import { RiWifiOffLine } from "@remixicon/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 
 import { DropdownMenuItem } from "#components/ui/dropdown-menu";
 import { OFFLINE_ROUTES } from "#constants/routes";
