@@ -1,12 +1,16 @@
 import FormShell from "@/components/shared/form/containers/FormShell";
 import SigninForm from "../forms/SignInForm";
 
-const SigninSection = () => {
+const SigninSection = ({ redirectTo }: TProps) => {
   return (
     <FormShell>
-      <SigninForm />
+      <SigninForm redirectTo={redirectTo} />
     </FormShell>
   );
 };
 
 export default SigninSection;
+
+type TProps = {
+  redirectTo?: string;
+};

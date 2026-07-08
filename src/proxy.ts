@@ -4,6 +4,8 @@ const SIGN_IN_PATH = "/signin";
 const COLLECTION_PATH = "/nomusic";
 const DEFAULT_AUTHENTICATED_PATH = COLLECTION_PATH;
 
+const PWA_PREF_LANG_PARAM = "setPrefAudioLang";
+
 const PROTECTED_ROUTES = ["/nomusic", "/libraries", "/profile", "/request-nomusic"];
 export const config = {
   matcher: [
@@ -57,22 +59,30 @@ export default async function proxy(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Logged-in users should not access signin
+    // Logged-in users should not access signin - redirect to /colection?language={value}
     if (isSignInPage) {
-      return NextResponse.redirect(new URL(DEFAULT_AUTHENTICATED_PATH, request.url));
+      // return NextResponse.redirect(new URL(DEFAULT_AUTHENTICATED_PATH, request.url));
+      const redirectURL = new URL(DEFAULT_AUTHENTICATED_PATH, request.url);
+      if (prefAudioLang) {
+        redirectURL.searchParams.set("language", prefAudioLang);
+      }
+      return NextResponse.redirect(redirectURL);
     }
 
-    // const isCollectionPage = pathname === COLLECTION_PATH;
-    // if (
-    //   isSignInPage ||
-    //   (isCollectionPage && !request.nextUrl.searchParams.get("language") && Boolean(prefAudioLang))
-    // ) {
-    //   const redirectURL = new URL(DEFAULT_AUTHENTICATED_PATH, request.url);
-    //   if (prefAudioLang) {
-    //     redirectURL.searchParams.set("language", prefAudioLang);
-    //   }
-    //   return NextResponse.redirect(redirectURL);
-    // }
+    const isCollectionPage = pathname === COLLECTION_PATH;
+    const shouldHandlePwaPrefAudioLang =
+      isCollectionPage && request.nextUrl.searchParams.get(PWA_PREF_LANG_PARAM) === "1";
+
+    if (shouldHandlePwaPrefAudioLang) {
+      const redirectURL = new URL(request.url);
+
+      redirectURL.searchParams.delete(PWA_PREF_LANG_PARAM);
+      if (!redirectURL.searchParams.has("language") && prefAudioLang) {
+        redirectURL.searchParams.set("language", prefAudioLang);
+      }
+
+      return NextResponse.redirect(redirectURL);
+    }
 
     return NextResponse.next();
   } catch {

@@ -3,9 +3,9 @@
   "name": "NoMusic",
   "short_name": "NoMusic",
   "display": "standalone",
-  "start_url": "/nomusic",
+  "start_url": "/nomusic?setPrefAudioLang=1",
   "scope": "/",
-  "description": "Private listening for clean vocal tracks.",
+  "description": "Take a break from music and immerse yourself in your private NoMusic vocal collection.",
   "theme_color": "#160a26",
   "background_color": "#110a1d",
   "icons": [
@@ -20,6 +20,36 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop-collection.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Browse your NoMusic collection"
+    },
+    {
+      "src": "/screenshots/desktop-libraries.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Organize private libraries"
+    },
+    {
+      "src": "/screenshots/mobile-collection.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Listen on mobile"
+    },
+    {
+      "src": "/screenshots/mobile-libraries.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Play NoMusic anywhere"
     }
   ]
 }

@@ -1,17 +1,17 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { useForm } from "@tanstack/react-form";
+import { useState, useTransition } from "react";
+
+import { SIGNIN_CLIENT } from "#constants/auth/signin";
+import { signinAction } from "#server-actions/auth/signin";
+import { SigninSchema, SigninStrictSchema } from "#validations/auth/signin";
 
 import FormCard from "@/components/shared/form/FormCard";
 import SigninFormContent from "./SigninFormContent";
 import SigninFormFooter from "./SigninFormFooter";
 
-import { SigninSchema, SigninStrictSchema } from "#validations/auth/signin";
-import { signinAction } from "#server-actions/auth/signin";
-import { SIGNIN_CLIENT } from "#constants/auth/signin";
-
-const SigninForm = () => {
+const SigninForm = ({ redirectTo }: TProps) => {
   const [isSubmitting, startTransition] = useTransition();
   const [errorMessage, setErrorMessage] = useState<string>("");
   // const [serverError, setServerError] = useState<TError[]>([]);
@@ -35,7 +35,7 @@ const SigninForm = () => {
         return;
       }
       startTransition(async () => {
-        const result = await signinAction(value);
+        const result = await signinAction(value, redirectTo);
         if (!result?.isSuccess) {
           setErrorMessage(result?.message || SIGNIN_CLIENT.FALLBACK_ERROR);
         }
@@ -43,20 +43,11 @@ const SigninForm = () => {
     },
   });
 
-  return (
-    <FormCard
-      title={SIGNIN_CLIENT.FORM_TITLE}
-      description={SIGNIN_CLIENT.FORM_DESC}
-      content={
-        <SigninFormContent
-          form={form}
-          isSubmitting={isSubmitting}
-          clearErrorFn={() => setErrorMessage("")}
-        />
-      }
-      footer={<SigninFormFooter isSubmitting={isSubmitting} errorMsg={errorMessage} />}
-    />
-  );
+  return <FormCard title={SIGNIN_CLIENT.FORM_TITLE} description={SIGNIN_CLIENT.FORM_DESC} content={<SigninFormContent form={form} isSubmitting={isSubmitting} clearErrorFn={() => setErrorMessage("")} />} footer={<SigninFormFooter isSubmitting={isSubmitting} errorMsg={errorMessage} />} />;
 };
 
 export default SigninForm;
+
+type TProps = {
+  redirectTo?: string;
+};
