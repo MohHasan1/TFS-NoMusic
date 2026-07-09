@@ -4,11 +4,11 @@ export const REQUEST_NOMUSIC_CONST = {
 
 export const REQUEST_NOMUSIC_CLIENT = {
   FORM_TITLE: "Request NoMusic 🎵",
-  FORM_DESC: "Send a YouTube link and I'll check if I can add it.",
+  FORM_DESC: "Send a YouTube or Spotify link and I'll check if I can add it.",
 
-  URL_LBL: "YouTube link",
-  URL_PLACEHOLDER: "https://youtube.com/watch?v=...",
-  VALIDATION_URL_ERROR: "Please enter a valid YouTube link so the server cat can find it.",
+  URL_LBL: "YouTube or Spotify link",
+  URL_PLACEHOLDER: "https://youtube.com/watch?v=... or https://open.spotify.com/track/...",
+  VALIDATION_URL_ERROR: "Please enter a valid YouTube or Spotify link so the server cat can find it.",
 
   SUCCESS_ALERT_TITLE: "Request sent! 🐾",
   SUCCESS_SUBMIT_MSG: "I'll take a look and let the server cat add it if available 🐾",
