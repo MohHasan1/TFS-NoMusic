@@ -3,10 +3,11 @@ import {
   getLibraryAdapter,
   getLibraryAudioAdapter,
   listLibrariesAdapter,
+  TlistLibrariesAdapter,
 } from "./libraries-pl.adapter";
 
-export async function listLibraries(type?: Library["type"]) {
-  return listLibrariesAdapter(type);
+export async function listLibraries({ type, limit }: TlistLibrariesAdapter) {
+  return listLibrariesAdapter({ type, limit });
 }
 
 export async function getLibrary(id: Library["id"]) {

@@ -1,7 +1,7 @@
+import { revalidateTag } from "next/cache";
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "payload";
-
-import type { Library, NomusicLibrary } from "#payload-types";
 import { isID } from "#lib/utils";
+import type { Library, NomusicLibrary } from "#payload-types";
 
 export const syncLibraryTrackCountAfterChange: CollectionAfterChangeHook<NomusicLibrary> = async ({
   doc,
@@ -26,6 +26,10 @@ export const syncLibraryTrackCountAfterChange: CollectionAfterChangeHook<Nomusic
   await Promise.all(
     Array.from(affectedLibraryIds).map((libraryId) => syncLibraryTrackCount(req, libraryId)),
   );
+
+  for (const libraryId of affectedLibraryIds) {
+    revalidateTag(`library-audio:${libraryId}`, "max");
+  }
 };
 
 export const syncLibraryTrackCountAfterDelete: CollectionAfterDeleteHook<NomusicLibrary> = async ({
@@ -37,6 +41,7 @@ export const syncLibraryTrackCountAfterDelete: CollectionAfterDeleteHook<Nomusic
   if (!libraryId) return;
 
   await syncLibraryTrackCount(req, libraryId);
+  revalidateTag(`library-audio:${libraryId}`, "max");
 };
 
 // --- Helpers

@@ -1,8 +1,8 @@
 import type { CollectionConfig } from "payload";
+import { access } from "./access";
 import { LIBRARY_TYPES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
-import { generateSlugBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
-import { access } from "./access";
+import { generateSlugBeforeValidate, revalidateLibraryAfterChange, revalidateLibraryAfterDelete, syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
 
 export const Libraries: CollectionConfig = {
   slug: "libraries",
@@ -21,7 +21,11 @@ export const Libraries: CollectionConfig = {
   },
 
   // add an auto count hook
-  hooks: { beforeValidate: [generateSlugBeforeValidate, syncUploadImageURLBeforeValidate] },
+  hooks: {
+    beforeValidate: [generateSlugBeforeValidate, syncUploadImageURLBeforeValidate],
+    afterChange: [revalidateLibraryAfterChange],
+    afterDelete: [revalidateLibraryAfterDelete],
+  },
 
   defaultPopulate: {
     id: true,

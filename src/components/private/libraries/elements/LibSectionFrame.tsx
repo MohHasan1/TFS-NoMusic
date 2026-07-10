@@ -8,7 +8,7 @@ import { LibCard } from "./LibCard";
 
 export async function LibSectionFrame({ title, description, type }: TProps) {
   await connection();
-  const res = await listLibraries(type);
+  const res = await listLibraries({ type });
   const libs = res.isSuccess ? res.data.docs : [];
 
   return (

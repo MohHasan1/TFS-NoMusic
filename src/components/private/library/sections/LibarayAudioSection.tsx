@@ -1,4 +1,4 @@
-import { connection } from "next/server";
+// import { connection } from "next/server";
 
 import type { Library } from "#payload-types";
 import { LibraryAudioBrowser } from "../elements/LibraryAudioBrowser";
@@ -6,7 +6,7 @@ import { getLibraryAudio } from "#services/libraries/libraries.ports";
 import { LibarayAudioEmptyBox } from "../elements/LibarayAudioEmptyBox";
 
 export async function LibarayAudioSection({ libId }: TProps) {
-  await connection();
+  // await connection();
   const response = await getLibraryAudio(libId);
   const tracks = response.isSuccess ? response.data : [];
 

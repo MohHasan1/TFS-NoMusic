@@ -7,13 +7,14 @@ import { tryCatchResponse } from "#trycatch-response";
 import { getPayloadClient } from "#payload-client";
 import type { Library, Nomusic, NomusicLibrary } from "#payload-types";
 
-export async function listLibrariesAdapter(type?: Library["type"]) {
+export async function listLibrariesAdapter({ type, limit = 50 }: TlistLibrariesAdapter) {
   const payload = await getPayloadClient();
 
   return tryCatchResponse(async () => {
     const result = await payload.find({
       collection: "libraries",
       depth: 0,
+      limit: limit,
       pagination: false,
       sort: "-updatedAt",
       select: LIBRARIES_DEFAULT_SELECT,
@@ -32,6 +33,11 @@ export async function listLibrariesAdapter(type?: Library["type"]) {
     };
   });
 }
+
+export type TlistLibrariesAdapter = {
+  type?: Library["type"];
+  limit?: number;
+};
 
 export async function getLibraryAdapter(id: Library["id"]) {
   const payload = await getPayloadClient();

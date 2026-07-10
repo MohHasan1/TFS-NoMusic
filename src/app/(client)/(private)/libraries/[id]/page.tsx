@@ -4,6 +4,19 @@ import { LibraryHeroSkeleton } from "#components/private/library/elements/Librar
 import { LibarayAudioSection } from "#components/private/library/sections/LibarayAudioSection";
 import { LibraryHeroSection } from "#components/private/library/sections/LibraryHeroSection";
 import { PrivatePageShell } from "#components/private/shared/PrivatePageShell";
+import { cacheLife, cacheTag } from "next/cache";
+import { listLibraries } from "#services/libraries/libraries.ports";
+
+export async function generateStaticParams() {
+  const res = await listLibraries({ limit: 1 });
+  if (!res.isSuccess) return [];
+
+  return [
+    {
+      id: String(res.data.docs[0].id),
+    },
+  ];
+}
 
 export default function LibraryPage({ params }: TProps) {
   return (
@@ -19,12 +32,24 @@ export default function LibraryPage({ params }: TProps) {
 }
 
 async function LibraryHeroSlot({ params }: TProps) {
+  "use cache";
+
   const { id } = await params;
+
+  cacheLife("max");
+  cacheTag(`library:${id}`);
+
   return <LibraryHeroSection libId={id} />;
 }
 
 async function LibraryAudioSlot({ params }: TProps) {
+  "use cache";
+
   const { id } = await params;
+
+  cacheLife("max");
+  cacheTag(`library-audio:${id}`);
+
   return <LibarayAudioSection libId={id} />;
 }
 
