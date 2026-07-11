@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { verifyPayloadToken } from "#lib/auth/verify-payload-token";
 
 const SIGN_IN_PATH = "/signin";
 const COLLECTION_PATH = "/nomusic";
@@ -8,13 +9,7 @@ const PWA_PREF_LANG_PARAM = "setPrefAudioLang";
 
 const PROTECTED_ROUTES = ["/nomusic", "/libraries", "/profile", "/request-nomusic"];
 export const config = {
-  matcher: [
-    "/signin",
-    "/nomusic/:path*",
-    "/libraries/:path*",
-    "/profile/:path*",
-    "/request-nomusic/:path*",
-  ],
+  matcher: ["/signin", "/nomusic/:path*", "/libraries/:path*", "/profile/:path*", "/request-nomusic/:path*"],
 };
 
 export default async function proxy(request: NextRequest) {
@@ -32,6 +27,30 @@ export default async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const tokenPayload = await verifyPayloadToken(token);
+  if (!tokenPayload || tokenPayload.collection !== "users") {
+    if (isSignInPage) {
+      return allowSignInAndClearToken();
+    }
+
+    if (isPrivatePage) {
+      return redirectToSignIn(request, {
+        clearToken: true,
+      });
+    }
+
+    return NextResponse.next();
+  }
+
+  const isCollectionPage = pathname === COLLECTION_PATH;
+  const shouldHandlePwaPrefAudioLang = isCollectionPage && request.nextUrl.searchParams.get(PWA_PREF_LANG_PARAM) === "1";
+
+  // Normal private navigation only needs local JWT verification. The uncommon
+  // flows below still load the user because they need prefAudioLang.
+  if (!isSignInPage && !shouldHandlePwaPrefAudioLang) {
+    return NextResponse.next();
+  }
+
   try {
     const response = await fetch(new URL("/api/users/me", request.url), {
       method: "GET",
@@ -42,10 +61,9 @@ export default async function proxy(request: NextRequest) {
     });
 
     const data = response.ok ? await response.json().catch(() => null) : null;
-    const isAuthenticated = Boolean(data?.user);
     const prefAudioLang = data?.user?.prefAudioLang;
 
-    if (!isAuthenticated) {
+    if (!data?.user) {
       if (isSignInPage) {
         return allowSignInAndClearToken();
       }
@@ -68,10 +86,6 @@ export default async function proxy(request: NextRequest) {
       }
       return NextResponse.redirect(redirectURL);
     }
-
-    const isCollectionPage = pathname === COLLECTION_PATH;
-    const shouldHandlePwaPrefAudioLang =
-      isCollectionPage && request.nextUrl.searchParams.get(PWA_PREF_LANG_PARAM) === "1";
 
     if (shouldHandlePwaPrefAudioLang) {
       const redirectURL = new URL(request.url);

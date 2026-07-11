@@ -10,11 +10,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Added a user service with ports and Payload adapter layers for fetching users by ID.
 - Added `createdAt` to the default populated fields for users.
+- Added lightweight local verification for Payload JWT signatures and expiration using `jose`.
 
 ### Changed
 
 - Updated the private user menu fallback labels and formatting.
 - Changed the repository workflow so normal commits update `Unreleased` without automatically bumping the package version.
+- Protected library routes in Proxy without a database-backed authentication request during normal navigation.
+- Redirect unauthenticated profile and private-menu requests to sign-in.
+- Limited `/api/users/me` checks in Proxy to flows that require the user's preferred audio language.
 
 ## [0.1.2] - 2026-07-10
 

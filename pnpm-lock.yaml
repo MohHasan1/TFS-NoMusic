@@ -47,6 +47,9 @@ importers:
       idb:
         specifier: ^8.0.3
         version: 8.0.3
+      jose:
+        specifier: ^6.2.3
+        version: 6.2.3
       music-metadata:
         specifier: ^11.12.3
         version: 11.12.3
