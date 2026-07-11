@@ -20,7 +20,7 @@ export function PrivateMobileBottomNav() {
         isOpen ? "translate-y-[calc(100%+env(safe-area-inset-bottom))]" : "translate-y-0",
       )}
     >
-      <div className="mx-auto grid h-16 max-w-lg grid-cols-3 px-2">
+      <div className="mx-auto grid items-start h-20 max-w-lg grid-cols-3 px-2">
         {privateNavItems.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -33,7 +33,7 @@ export function PrivateMobileBottomNav() {
               href={item.href}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl px-1 text-[10px] font-medium transition-colors",
+                "relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl px-1 pt-4 text-[10px] font-medium transition-colors",
                 isActive ? "text-primary-400" : "text-primary-200 hover:text-primary-200/75",
               )}
             >
