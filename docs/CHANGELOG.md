@@ -10,6 +10,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Add new changes here.
 
+## [0.1.2] - 2026-07-10
+
+### Added
+
+- Added a repository commit workflow requiring each requested commit to update this changelog and bump the package version.
+- Added patch bumps as the default when no semantic version level is requested.
+
 ## [0.1.1] - 2026-07-10
 
 ### Added
