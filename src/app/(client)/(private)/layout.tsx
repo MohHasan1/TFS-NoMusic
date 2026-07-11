@@ -1,10 +1,11 @@
-import PlaybackInitializer from "#playback/initializer";
-import { PlayerDialog } from "#playback/components/player-dialog/PlayerDialog";
-import { PrivateNavbar } from "#components/_layout/private/PrivateNavbar";
-import QueryProvider from "#components/private/_providers/QueryProvider";
-import PlayerBar from "#playback/components/player-bar/PlayerBar";
-import { GlowOrb } from "#components/shared/GlowOrb";
 import { SerwistProvider } from "@serwist/turbopack/react";
+import { PrivateMobileBottomNav } from "#components/_layout/private/mobile-bottom-nav/PrivateMobileBottomNav";
+import { PrivateNavbar } from "#components/_layout/private/navbar/PrivateNavbar";
+import QueryProvider from "#components/private/_providers/QueryProvider";
+import { GlowOrb } from "#components/shared/GlowOrb";
+import PlayerBar from "#playback/components/player-bar/PlayerBar";
+import { PlayerDialog } from "#playback/components/player-dialog/PlayerDialog";
+import PlaybackInitializer from "#playback/initializer";
 
 export default function PrivateLayout({ children }: TProps) {
   return (
@@ -24,6 +25,8 @@ export default function PrivateLayout({ children }: TProps) {
           {children}
         </SerwistProvider>
       </main>
+      <PrivateMobileBottomNav />
+
       <PlayerBar />
       <PlayerDialog />
       <PlaybackInitializer />

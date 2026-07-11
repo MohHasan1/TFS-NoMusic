@@ -10,15 +10,8 @@ import { PrivatePageShell } from "#components/private/shared/PrivatePageShell";
 
 export default function NoMusicPage() {
   return (
-    <PrivatePageShell>
-      <Suspense
-        fallback={
-          <PrivatePageHeader
-            title="Collection"
-            description="Explore private NoMusic vocals in one clean collection."
-          />
-        }
-      >
+    <PrivatePageShell className="pb-60">
+      <Suspense fallback={<PrivatePageHeader title="Collection" description="Explore private NoMusic vocals in one clean collection." />}>
         <NoMusicHeaderSection />
       </Suspense>
       <Suspense fallback={<NoMusicLanguageFilterSkeleton />}>

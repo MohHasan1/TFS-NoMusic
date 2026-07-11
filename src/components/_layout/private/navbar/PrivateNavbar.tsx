@@ -1,11 +1,10 @@
 import { Suspense } from "react";
-
-import { PwaInstallControl } from "#components/shared/pwa/PwaInstallControl";
 import { BrandLogoLink } from "#components/shared/BrandLogoLink";
+import { PwaInstallControl } from "#components/shared/pwa/PwaInstallControl";
 import { PRIVATE_ROUTES } from "#constants/routes";
+import { PrivateUserMenuFallback } from "../user-menu/PrivateUserMenuFallback";
+import { PrivateUserMenuServer } from "../user-menu/PrivateUserMenuServer";
 import { PrivateNavLinks } from "./PrivateNavLinks";
-import { PrivateUserMenuFallback } from "./PrivateUserMenuFallback";
-import { PrivateUserMenuServer } from "./PrivateUserMenuServer";
 
 export function PrivateNavbar() {
   return (

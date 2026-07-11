@@ -1,7 +1,7 @@
 "use client";
 
-import type { MouseEvent } from "react";
 import { RiLogoutBoxRLine } from "@remixicon/react";
+import type { MouseEvent } from "react";
 
 import { DropdownMenuItem } from "#components/ui/dropdown-menu";
 

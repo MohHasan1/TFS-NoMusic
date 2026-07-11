@@ -1,28 +1,21 @@
 "use client";
 
 import { RiArrowUpSLine } from "@remixicon/react";
-
-import { PlayerQueueControls } from "../elements/PlayerQueueControls";
-import PlayerDialogButton from "./elements/PlayerDialogButton";
-import { PlayerControls } from "../elements/PlayerControls";
-import { PlayerSeekBar } from "../elements/PlayerSeekBar";
-import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 import { Card, CardContent } from "#components/ui/card";
-import PlayerArtwork from "./elements/PlayerArtwork";
-
-import { usePlayerDialog } from "#playback-dialog/hooks/indes";
 import { cn } from "#lib/utils";
+import { usePlayerDialog } from "#playback-dialog/hooks/indes";
+import { PlayerControls } from "../elements/PlayerControls";
+import { PlayerQueueControls } from "../elements/PlayerQueueControls";
+import { PlayerSeekBar } from "../elements/PlayerSeekBar";
+import PlayerArtwork from "./elements/PlayerArtwork";
+import PlayerDialogButton from "./elements/PlayerDialogButton";
+import PlayerTrackInfo from "./elements/PlayerTrackInfo";
 
 const MobilePlayerBar = () => {
   const { isOpen } = usePlayerDialog();
 
   return (
-    <div
-      className={cn(
-        "fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+0.15rem)] z-100 px-2 md:hidden transition-all duration-700 ease-in-out",
-        isOpen ? "translate-y-40" : "translate-y-0",
-      )}
-    >
+    <div className={cn("fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+4.25rem)] z-100 px-2 md:hidden transition-all duration-700 ease-in-out", isOpen ? "translate-y-[calc(100%+4.25rem+env(safe-area-inset-bottom))]" : "translate-y-0")}>
       <Card className="mx-auto w-full max-w-3xl rounded-3xl border bg-card-secondary p-3 backdrop-blur-xl">
         <CardContent className="flex flex-col gap-4 px-0 items-center">
           <div className="flex items-center justify-between gap-3 w-full">

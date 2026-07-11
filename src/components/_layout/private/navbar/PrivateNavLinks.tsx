@@ -4,14 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { buttonVariants } from "#components/ui/button";
-import { privateNavItems } from "./links";
 import { cn } from "#lib/utils";
+import { privateNavItems } from "./links";
 
 export function PrivateNavLinks() {
   const pathname = usePathname();
 
   return (
-    <div className="flex min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1">
+    <div className="hidden min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1 md:flex">
       {privateNavItems.map((item) => {
         const isActive = pathname === item.href;
         const Icon = item.icon;

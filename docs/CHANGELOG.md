@@ -6,7 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
-No unreleased changes.
+### Added
+
+- Added a mobile bottom navigation with NoMusic, Libraries, Request, and Profile destinations.
+
+### Changed
+
+- Reorganized private layout components into dedicated navbar, mobile navigation, and user-menu folders.
+- Coordinated mobile player and bottom-navigation positioning and transitions so both move out of view when the player dialog opens.
+- Updated private page spacing and player-bar layout behavior for the new mobile navigation.
 
 ## [0.1.3] - 2026-07-10
 
