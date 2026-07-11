@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+No unreleased changes.
+
+## [0.1.3] - 2026-07-10
+
 ### Added
 
 - Added a user service with ports and Payload adapter layers for fetching users by ID.
