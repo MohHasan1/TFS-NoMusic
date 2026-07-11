@@ -12,13 +12,13 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || "",
-  serverURL:
-    process.env.SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
+  serverURL: process.env.SERVER_URL || process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000",
   db,
   email: resendEmailAdapter,
   collections,
   admin: {
     user: Admins.slug,
+    autoRefresh: true,
     autoLogin:
       process.env.NODE_ENV === "development"
         ? {

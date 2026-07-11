@@ -19,6 +19,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - Protected library routes in Proxy without a database-backed authentication request during normal navigation.
 - Redirect unauthenticated profile and private-menu requests to sign-in.
 - Limited `/api/users/me` checks in Proxy to flows that require the user's preferred audio language.
+- Enabled Payload Admin token auto-refresh while the Admin Panel remains open.
+
+### Architecture notes
+
+- Protected pages now use two authentication layers. Proxy performs lightweight JWT signature and expiration verification before routing, allowing cached and partially prerendered page content to begin rendering quickly without a database request.
+- `PrivateUserMenuServer` renders within a Suspense boundary and performs Payload's full authentication check, including database-backed session validation. If the session is revoked, missing, or otherwise invalid, it redirects the user to sign-in.
+- This approach was chosen to keep routine navigation and refreshes fast while still validating the authoritative account session during navbar rendering. The trade-off is that page content can begin streaming before the full session check finishes; sensitive APIs and database operations must therefore continue enforcing Payload access control independently.
 
 ## [0.1.2] - 2026-07-10
 
