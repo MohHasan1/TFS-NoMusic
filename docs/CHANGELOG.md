@@ -9,12 +9,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Added
 
 - Added a mobile bottom navigation with NoMusic, Libraries, Request, and Profile destinations.
+- Added a matching offline bottom navigation and offline dropdown menu with a connectivity-aware “Go online” action.
 
 ### Changed
 
 - Reorganized private layout components into dedicated navbar, mobile navigation, and user-menu folders.
 - Coordinated mobile player and bottom-navigation positioning and transitions so both move out of view when the player dialog opens.
 - Updated private page spacing and player-bar layout behavior for the new mobile navigation.
+- Reorganized offline layout components into dedicated navbar, mobile navigation, and offline-menu folders.
+- Updated offline `ViewContainer` spacing and player-dialog transitions to match the online mobile layout.
+
+### Fixed
+
+- Fixed Base UI trigger semantics when opening the online dialog from the offline dropdown menu.
 
 ## [0.1.3] - 2026-07-10
 

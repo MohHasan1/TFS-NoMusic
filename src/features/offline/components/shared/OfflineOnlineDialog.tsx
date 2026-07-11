@@ -6,13 +6,14 @@ import { useTransition } from "react";
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogMedia, AlertDialogTitle, AlertDialogTrigger } from "#components/ui/alert-dialog";
 import { Button } from "#components/ui/button";
+import { DropdownMenuItem } from "#components/ui/dropdown-menu";
 import { Spinner } from "#components/ui/spinner";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { useReliableOnlineStatus } from "#offline/hooks/useOnlineStatus";
 
 const ONLINE_COLLECTION_HREF = `${PRIVATE_ROUTES.NOMUSIC}?setPrefAudioLang=1`;
 
-export function OfflineOnlineDialog() {
+export function OfflineOnlineDialog({ trigger = "button" }: TProps) {
   const router = useRouter();
   const { isOnline, isChecking } = useReliableOnlineStatus();
   const [pending, startTransition] = useTransition();
@@ -22,10 +23,18 @@ export function OfflineOnlineDialog() {
   return (
     <AlertDialog>
       <AlertDialogTrigger
+        nativeButton={trigger !== "menu-item"}
         render={
-          <Button type="button" size="icon-sm" variant={isChecking ? "outline" : "default"} disabled={!isOnline} title={isOnline ? "Return to the online app" : "Reconnect to go back online"}>
-            <StatusIcon className={isChecking ? "size-3 animate-spin" : "size-3"} aria-hidden="true" />
-          </Button>
+          trigger === "menu-item" ? (
+            <DropdownMenuItem className="cursor-pointer text-primary-200" closeOnClick={false} disabled={!isOnline}>
+              <StatusIcon className={isChecking ? "size-3.5 animate-spin" : "size-3.5"} data-icon="inline-start" />
+              Go online
+            </DropdownMenuItem>
+          ) : (
+            <Button type="button" size="icon-sm" variant={isChecking ? "outline" : "default"} disabled={!isOnline} title={isOnline ? "Return to the online app" : "Reconnect to go back online"}>
+              <StatusIcon className={isChecking ? "size-3 animate-spin" : "size-3"} aria-hidden="true" />
+            </Button>
+          )
         }
       />
 
@@ -63,3 +72,7 @@ export function OfflineOnlineDialog() {
     </AlertDialog>
   );
 }
+
+type TProps = {
+  trigger?: "button" | "menu-item";
+};
