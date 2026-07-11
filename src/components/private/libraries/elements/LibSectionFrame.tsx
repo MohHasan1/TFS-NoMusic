@@ -1,13 +1,16 @@
-import { connection } from "next/server";
-
-import { listLibraries } from "#services/libraries/libraries.ports";
+import { cacheLife, cacheTag } from "next/cache";
 import { PRIVATE_ROUTES } from "#constants/routes";
-import { LibEmptyBox } from "./LibEmptyBox";
-import { TLibrary } from "#types/library";
+import { listLibraries } from "#services/libraries/libraries.ports";
+import type { TLibrary } from "#types/library";
 import { LibCard } from "./LibCard";
+import { LibEmptyBox } from "./LibEmptyBox";
 
 export async function LibSectionFrame({ title, description, type }: TProps) {
-  await connection();
+  "use cache";
+
+  cacheLife("max");
+  cacheTag(`libraries:${type}`);
+
   const res = await listLibraries({ type });
   const libs = res.isSuccess ? res.data.docs : [];
 

@@ -1,18 +1,34 @@
 import { revalidateTag } from "next/cache";
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionBeforeValidateHook } from "payload";
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionBeforeValidateHook,
+} from "payload";
 import slugify from "slugify";
 import { isID } from "#lib/utils";
 import type { Library } from "#payload-types";
 
-export const revalidateLibraryAfterChange: CollectionAfterChangeHook<Library> = ({ doc }) => {
+export const revalidateLibraryAfterChange: CollectionAfterChangeHook<Library> = ({
+  doc,
+  previousDoc,
+}) => {
   revalidateTag(`library:${doc.id}`, "max");
+  revalidateTag(`libraries:${doc.type}`, "max");
+
+  if (previousDoc.type !== doc.type) {
+    revalidateTag(`libraries:${previousDoc.type}`, "max");
+  }
 };
 
 export const revalidateLibraryAfterDelete: CollectionAfterDeleteHook<Library> = ({ doc }) => {
   revalidateTag(`library:${doc.id}`, "max");
+  revalidateTag(`libraries:${doc.type}`, "max");
 };
 
-export const generateSlugBeforeValidate: CollectionBeforeValidateHook<Library> = async ({ data, operation }) => {
+export const generateSlugBeforeValidate: CollectionBeforeValidateHook<Library> = async ({
+  data,
+  operation,
+}) => {
   //
   if (!data) return data;
 
@@ -28,7 +44,10 @@ export const generateSlugBeforeValidate: CollectionBeforeValidateHook<Library> =
   return data;
 };
 
-export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Library> = async ({ data, req }) => {
+export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Library> = async ({
+  data,
+  req,
+}) => {
   if (!data?.imageFile) return data;
   if (data.uploadedImageURL) return data;
 
