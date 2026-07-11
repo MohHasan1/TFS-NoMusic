@@ -1,4 +1,3 @@
-
 import { OfflineLibraries } from "#offline/repositories/libraries";
 import { NomusicDownloadService } from "./nomusic-download";
 import { successResponse, errorResponse } from "#responses";
@@ -7,7 +6,6 @@ import { MediaRepo } from "#offline/repositories/media";
 import type { TLibraryOffline } from "#offline/types";
 import type { TLibrary } from "#types/library";
 import type { TNoMusic } from "#types/nomusic";
-// import { buildOfflineCloudflareImageUrl } from "#offline/lib/cloudflare/index";
 
 /**
  * Tracks active library downloads.

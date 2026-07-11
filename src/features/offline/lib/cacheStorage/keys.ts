@@ -13,4 +13,7 @@ export const CacheKey = {
   library: {
     cover: (id: string | number) => buildKey(OFFLINE_STORAGE.LIBRARY_PATH, id, "cover"),
   },
+  user: {
+    cover: (id: string | number) => buildKey(OFFLINE_STORAGE.USER_PATH, id, "cover"),
+  },
 };

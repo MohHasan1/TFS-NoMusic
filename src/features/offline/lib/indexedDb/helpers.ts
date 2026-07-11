@@ -1,9 +1,8 @@
-import { TOffline_Schema_Transaction, TOffline_Stores } from "./types";
+import type { TOffline_Schema_Transaction, TOffline_Stores } from "./types";
 import { errorResponse, successResponse } from "#responses";
-import { IOFFLINE_DB_SCHEMA } from "#offline/schema";
+import type { IOFFLINE_DB_SCHEMA } from "#offline/schema";
 import { OFFLINE_DB_CONFIG } from "./config";
-
-import { IDBPDatabase } from "idb";
+import type { IDBPDatabase } from "idb";
 
 /**
  * Ensures IndexedDB is available in the browser.
@@ -45,7 +44,7 @@ export function createStore(db: IDBPDatabase<IOFFLINE_DB_SCHEMA>, storeKey: TOff
 
   // SAFE GUARD (good to keep)
   if (db.objectStoreNames.contains(config.name)) return;
-  
+
   const store = db.createObjectStore(config.name, {
     keyPath: "id",
   });

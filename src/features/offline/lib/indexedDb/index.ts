@@ -1,9 +1,8 @@
 import { checkIndexedDB, createStore, ensureStoreIndexes } from "./helpers";
-import { IOFFLINE_DB_SCHEMA } from "#offline/schema";
+import type { IOFFLINE_DB_SCHEMA } from "#offline/schema";
 import { OFFLINE_DB } from "#offline/constants";
+import type { TOffline_Stores } from "./types";
 import { OFFLINE_DB_CONFIG } from "./config";
-import { TOffline_Stores } from "./types";
-
 import type { IDBPDatabase } from "idb";
 import { openDB } from "idb";
 

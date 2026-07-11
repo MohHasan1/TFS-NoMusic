@@ -4,8 +4,6 @@ import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixi
 import { memo, useState } from "react";
 
 import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
-
-import { OfflineNoMusicRemoveButton } from "./OfflineNoMusicRemoveButton";
 import { OfflineImage } from "#offline/components/shared/OfflineImage";
 import { OfflineNoMusicCover } from "../../shared/OfflineNoMusicCover";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
@@ -14,14 +12,11 @@ import type { TNoMusic } from "#types/nomusic";
 import { Button } from "#components/ui/button";
 import { cn } from "#lib/utils";
 import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
-import { useNomusic } from "#offline/hooks";
 import OfflineAudioRemoveDialog from "./OfflineAudioRemoveDialog";
 
 const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
   const { isActive, isPlaying } = usePlayerPlayback(noMusic?.id);
   const isNew = isNewByUpdatedDate(noMusic?.uploadedAt);
-
-  const { refresh } = useNomusic();
 
   const [isVisible, setIsVisible] = useState(true);
 

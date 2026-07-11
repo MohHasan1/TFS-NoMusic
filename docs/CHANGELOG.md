@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Added a mobile bottom navigation with NoMusic, Libraries, Request, and Profile destinations.
 - Added a matching offline bottom navigation and offline dropdown menu with a connectivity-aware “Go online” action.
+- Added an offline user store that precaches the signed-in user's profile and avatar to IndexedDB and Cache Storage for offline use.
 
 ### Changed
 
@@ -18,6 +19,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - Updated private page spacing and player-bar layout behavior for the new mobile navigation.
 - Reorganized offline layout components into dedicated navbar, mobile navigation, and offline-menu folders.
 - Updated offline `ViewContainer` spacing and player-dialog transitions to match the online mobile layout.
+- Updated the offline dropdown menu to show the cached user's avatar, name, and email instead of a generic offline label.
+- Split logout cleanup into separate playback and offline-user cleanup hooks, clearing the cached offline user and avatar on logout.
 
 ### Fixed
 

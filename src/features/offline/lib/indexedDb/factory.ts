@@ -1,5 +1,5 @@
-import { TStoreRecord, TStoreKey } from "./config";
 import { offlineTryCatch } from "#offline/utils/trycatch";
+import type { TStoreKey, TStoreRecord } from "./config";
 import { OFFLINE_DB } from "#offline/constants";
 import { getIndexedDb } from ".";
 

@@ -1,5 +1,5 @@
 import { OFFLINE_DB } from "#offline/constants";
-import { TLibraryOffline } from "#offline/types";
+import type { TLibraryOffline } from "#offline/types";
 
 export type TLibrariesOfflineStore = {
   key: TLibraryOffline["id"];

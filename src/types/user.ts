@@ -4,6 +4,8 @@ export type TUser = {
   id: User["id"];
   name: User["name"];
   email: User["email"];
-  roles: User["role"];
+  createdAt: User["createdAt"];
   isApproved: User["isApproved"];
+  prefAudioLang: User["prefAudioLang"];
+  uploadedImageURL: User["uploadedImageURL"];
 };
