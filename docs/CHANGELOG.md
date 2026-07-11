@@ -9,7 +9,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Changed
 
 - Increased mobile bottom navigation row height and top-aligned nav items on both the private and offline layouts.
-- Cached NoMusic listing and paginated listing with a days-long cache life tagged `audio`, using Next.js `"use cache"`.
 
 ## [0.2.0] - 2026-07-11
 
