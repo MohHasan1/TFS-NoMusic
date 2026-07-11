@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.2.0] - 2026-07-11
+
 ### Added
 
 - Added a mobile bottom navigation with NoMusic, Libraries, Request, and Profile destinations.
