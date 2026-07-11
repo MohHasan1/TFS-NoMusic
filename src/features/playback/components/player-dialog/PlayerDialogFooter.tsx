@@ -34,7 +34,7 @@ export function PlayerDialogFooter() {
           <NoMusicDownloadButton noMusic={track} className="rounded-full bg-none border-none" />
         </div>
 
-        <div className="">
+        <div className="justify-self-center">
           <PlayerControls size="xl" />
         </div>
 

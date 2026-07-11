@@ -18,7 +18,8 @@ export function PlayerDialog() {
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogContent
         showCloseButton={true}
-        className="flex flex-col border border-primary-400/25 bg-card-secondary backdrop-blur-xl p-0 sm:max-w-130 gap-0 md:gap-6 max-h-[calc(100dvh-1rem)]"
+        overlayClassName="duration-700 ease-in-out"
+        className="flex flex-col border border-primary-400/25 bg-card-secondary backdrop-blur-xl p-0 sm:max-w-130 gap-0 md:gap-6 max-h-[calc(100dvh-1rem)] duration-700 ease-in-out data-open:slide-in-from-bottom data-closed:slide-out-to-bottom"
       >
         <PlayerDialogHeader />
         <PlayerDialogContent />

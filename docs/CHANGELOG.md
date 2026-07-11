@@ -9,6 +9,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Changed
 
 - Increased mobile bottom navigation row height and top-aligned nav items on both the private and offline layouts.
+- Synced the player dialog's open/close animation (slide-from-bottom, timing, and backdrop fade) with the player bar and bottom nav's slide transitions.
+- Centered the player controls in the player dialog footer.
+- Bumped the offline shell precache revision to pick up the updated shell HTML.
 
 ## [0.2.0] - 2026-07-11
 
