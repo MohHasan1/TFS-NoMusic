@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.2.2] - 2026-07-11
+
+### Fixed
+
+- Fixed the mobile player bar sitting too low against the taller bottom navigation by updating its hardcoded bottom offset to match the increased nav height.
+
 ## [0.2.1] - 2026-07-11
 
 ### Changed

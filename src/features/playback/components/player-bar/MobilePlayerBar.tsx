@@ -15,7 +15,12 @@ const MobilePlayerBar = () => {
   const { isOpen } = usePlayerDialog();
 
   return (
-    <div className={cn("fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+4.25rem)] z-100 px-2 md:hidden transition-all duration-700 ease-in-out", isOpen ? "translate-y-[calc(100%+4.25rem+env(safe-area-inset-bottom))]" : "translate-y-0")}>
+    <div
+      className={cn(
+        "fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+5.25rem)] z-100 px-2 md:hidden transition-all duration-700 ease-in-out",
+        isOpen ? "translate-y-[calc(100%+4.55rem+env(safe-area-inset-bottom))]" : "translate-y-0",
+      )}
+    >
       <Card className="mx-auto w-full max-w-3xl rounded-3xl border bg-card-secondary p-3 backdrop-blur-xl">
         <CardContent className="flex flex-col gap-4 px-0 items-center">
           <div className="flex items-center justify-between gap-3 w-full">
