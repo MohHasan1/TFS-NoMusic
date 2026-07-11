@@ -21,6 +21,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - Updated offline `ViewContainer` spacing and player-dialog transitions to match the online mobile layout.
 - Updated the offline dropdown menu to show the cached user's avatar, name, and email instead of a generic offline label.
 - Split logout cleanup into separate playback and offline-user cleanup hooks, clearing the cached offline user and avatar on logout.
+- Refined NoMusic card, language filter, and player text colors for better contrast, and synced the NoMusic card color updates to its offline counterpart.
 
 ### Fixed
 

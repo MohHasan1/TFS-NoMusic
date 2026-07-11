@@ -64,7 +64,7 @@ export function NoMusicDownloadButton({ noMusic, className, showIsDownloaded = f
       disabled={isDownloading || isDownloaded}
       onClick={handleClick}
       className={cn(
-        "rounded-br-full w-full h-full items-start justify-start p-2.5 md:p-2",
+        "rounded-br-full size-full items-start justify-start p-2.5 md:p-2",
         "border-primary/40 bg-primary/20 text-primary-200",
         "shadow-md shadow-primary/20 ring-1 ring-white/5",
         "hover:border-primary/60 hover:bg-primary/30",

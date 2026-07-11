@@ -14,7 +14,6 @@ import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
 import { Button } from "#components/ui/button";
 import { cn } from "#lib/utils";
 
-
 export function PlayerControls({ size = "default" }: TProps) {
   const { track } = usePlayerTrack();
   const trackId = track?.id ?? "";
@@ -34,9 +33,9 @@ export function PlayerControls({ size = "default" }: TProps) {
         size="icon"
         onClick={playPrevious}
         aria-label="Previous track"
-        className="rounded-full text-muted-foreground hover:text-foreground"
+        className="rounded-full text-primary-200 hover:text-foreground"
       >
-        <RiSkipBackFill className={cn(SKIP_ICON_SIZE[size])} />
+        <RiSkipBackFill className={cn(ICON_SIZE[size])} />
       </Button>
 
       <Button
@@ -45,17 +44,14 @@ export function PlayerControls({ size = "default" }: TProps) {
         onClick={togglePlayback}
         aria-label={playLabel}
         aria-pressed={isPlaying}
-        className={cn(
-          "rounded-full",
-          size === "lg" && "size-14 [&_svg:not([class*='size-'])]:size-7",
-        )}
+        className={cn("rounded-full p-5", size==="xl" && "p-5 md:p-6")}
       >
         {isBuffering ? (
-          <RiLoader4Line className={cn(SKIP_ICON_SIZE[size], "animate-spin")} />
+          <RiLoader4Line className={cn(ICON_SIZE[size], "animate-spin")} />
         ) : isPlaying ? (
-          <RiPauseFill className={cn(SKIP_ICON_SIZE[size], "fill-current")} />
+          <RiPauseFill className={cn(ICON_SIZE[size], "fill-current")} />
         ) : (
-          <RiPlayFill className={cn(SKIP_ICON_SIZE[size], "translate-x-px fill-current")} />
+          <RiPlayFill className={cn(ICON_SIZE[size], "translate-x-px fill-current")} />
         )}
       </Button>
 
@@ -65,9 +61,9 @@ export function PlayerControls({ size = "default" }: TProps) {
         size="icon"
         onClick={playNext}
         aria-label="Next track"
-        className="rounded-full text-muted-foreground hover:text-foreground"
+        className="rounded-full text-primary-200 hover:text-foreground"
       >
-        <RiSkipForwardFill className={cn(SKIP_ICON_SIZE[size])} />
+        <RiSkipForwardFill className={cn(ICON_SIZE[size])} />
       </Button>
     </div>
   );
@@ -75,16 +71,17 @@ export function PlayerControls({ size = "default" }: TProps) {
 
 type TProps = {
   showPrevious?: boolean;
-  size?: "default" | "lg";
+  size?: "default" | "lg" | "xl";
 };
 
 const PLAY_BUTTON_SIZE = {
   default: "icon-lg",
   lg: "icon-lg",
+  xl: "icon-lg",
 } as const;
 
-const SKIP_ICON_SIZE = {
-  default: "size-6",
-  lg: "size-6",
-  xl: "size-6",
+const ICON_SIZE = {
+  default: "size-4.5",
+  lg: "size-5",
+  xl:  "size-6",
 } as const;

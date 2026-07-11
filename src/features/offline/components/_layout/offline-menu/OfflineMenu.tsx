@@ -1,6 +1,6 @@
 "use client";
 
-import { RiUser3Line } from "@remixicon/react";
+import { RiUser3Line, RiWifiOffLine } from "@remixicon/react";
 
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "#components/ui/avatar";
 import { Button } from "#components/ui/button";
@@ -37,7 +37,7 @@ export function OfflineMenu() {
                 {user ? getInitials(user.name) : <RiUser3Line className="size-4" />}
               </AvatarFallback>
               <AvatarBadge>
-                <RiUser3Line />
+                <RiWifiOffLine />
               </AvatarBadge>
             </Avatar>
           </Button>
@@ -55,6 +55,9 @@ export function OfflineMenu() {
                 <AvatarFallback className="bg-primary-400/40 text-primary-200">
                   {user ? getInitials(user.name) : <RiUser3Line className="size-4" />}
                 </AvatarFallback>
+                <AvatarBadge>
+                  <RiWifiOffLine />
+                </AvatarBadge>
               </Avatar>
               <span className="min-w-0">
                 <span className="block truncate text-sm font-medium text-primary-200">

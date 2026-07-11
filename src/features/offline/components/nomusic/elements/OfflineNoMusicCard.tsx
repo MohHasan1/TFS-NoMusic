@@ -77,7 +77,7 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
             />
           </div>
 
-          <span className="absolute bg-card-secondary/60 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">
+          <span className="absolute bg-card-secondary/60 text-primary-200 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">
             {formatPlaybackTime(noMusic?.duration ?? 0)}
           </span>
         </CardHeader>
@@ -90,12 +90,12 @@ const OfflineNoMusicCardComponent = ({ index, noMusic }: TProps) => {
             {noMusic?.name ?? "Untitled"}
           </h3>
 
-          <div className="flex items-center justify-start gap-2 text-[10px] text-muted-foreground md:text-xs">
+          <div className="flex items-center justify-start gap-2 text-[10px] md:text-xs text-primary-200/80 capitalize">
             <RiUser3Line className="size-3 shrink-0 text-primary-400" />
             <span className="truncate">{noMusic?.artist || "Unknown Artist"}</span>
           </div>
 
-          <div className="flex items-center justify-start gap-2 text-[10px] capitalize text-muted-foreground md:text-xs">
+          <div className="flex items-center justify-start gap-2 text-[10px] md:text-xs text-primary-200/80 capitalize">
             <RiGlobalLine className="size-3 shrink-0 text-primary-400" />
             {noMusic?.language ?? "unknown"}
           </div>

@@ -6,6 +6,7 @@ import { usePlayerTrack } from "#playback-player/hooks/usePlayerTrack";
 import { PlayerQueueControls } from "../elements/PlayerQueueControls";
 import { PlayerControls } from "../elements/PlayerControls";
 import { PlayerSeekBar } from "../elements/PlayerSeekBar";
+import { NoMusicDownloadButton } from "#components/private/nomusic/elements/NoMusicDownloadButton";
 
 export function PlayerDialogFooter() {
   const { isOpen } = usePlayerDialog();
@@ -17,10 +18,10 @@ export function PlayerDialogFooter() {
     <>
       <div className="flex flex-col justify-between items-center">
         <div className="flex flex-col justify-between items-center text-center px-6 md:px-8">
-          <div className="max-w-xs truncate text-2xl font-semibold text-primary-400">
+          <div className="max-w-xs truncate text-2xl font-semibold text-primary-200">
             {track.name ?? "Untitled Nomusic"}
           </div>
-          <div className="max-w-sm truncate text-sm md:text-base text-muted-foreground">
+          <div className="max-w-sm truncate text-sm md:text-base text-primary-200/75">
             {track.artist ?? "Unknown Artist"}
           </div>
         </div>
@@ -28,13 +29,13 @@ export function PlayerDialogFooter() {
         <div className="w-full px-6 pt-5 md:px-8 md:pt-4">{isOpen && <PlayerSeekBar />}</div>
       </div>
 
-      <div className="grid grid-cols-3 items-center gap-2 px-6 pt-4 pb-8">
+      <div className="grid grid-cols-3 items-center gap-2 px-10 pt-4 pb-10">
         <div className="flex items-center gap-1 justify-self-start">
-          {/* <PlayerQueueControls /> */}
+          <NoMusicDownloadButton noMusic={track} className="rounded-full bg-none border-none" />
         </div>
 
-        <div className="justify-self-center">
-          <PlayerControls size="lg" />
+        <div className="">
+          <PlayerControls size="xl" />
         </div>
 
         <div className="flex items-center gap-1 justify-self-end">

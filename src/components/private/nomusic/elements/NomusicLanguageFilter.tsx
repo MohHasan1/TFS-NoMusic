@@ -72,13 +72,13 @@ export function NomusicLanguageFilter() {
 
   return (
     <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
-      <SelectTrigger className="bg-card-secondary w-60 justify-center md:w-52">
+      <SelectTrigger className="bg-card-secondary w-60 justify-center md:w-52 text-primary-200">
         <SelectValue className="w-full text-center" placeholder="Language" />
       </SelectTrigger>
 
-      <SelectContent className="bg-card-secondary backdrop-blur-md">
+      <SelectContent className="bg-card-secondary backdrop-blur-md text-primary-200">
         {LANGUAGE_OPTIONS.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
+          <SelectItem key={option.value} value={option.value} className="cursor-pointer">
             {option.label}
           </SelectItem>
         ))}

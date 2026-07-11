@@ -40,7 +40,7 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
   return (
     <div className={cn("flex max-w-2xl w-full items-center gap-3", className)}>
       {showTime ? (
-        <span className="text-right font-mono text-[10px] tabular-nums text-muted-foreground">
+        <span className="text-right font-mono text-[10px] tabular-nums text-primary-200">
           {formatPlaybackTime(displayTime, "zero")}
         </span>
       ) : null}
@@ -86,7 +86,7 @@ export function PlayerSeekBar({ showTime = true, className }: TProps) {
       />
 
       {showTime ? (
-        <span className="w-10 font-mono text-[10px] tabular-nums text-muted-foreground">
+        <span className="w-10 font-mono text-[10px] tabular-nums text-primary-200">
           {formatPlaybackTime(safeDuration)}
         </span>
       ) : null}

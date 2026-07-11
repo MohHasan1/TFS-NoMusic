@@ -9,7 +9,7 @@ export function PlayerDialogHeader() {
   return (
     <DialogHeader className="flex flex-col items-center gap-1 text-center p-4 md:p-6">
       <DialogTitle
-        className={"text-xs font-semibold uppercase tracking-wide text-muted-foreground"}
+        className={"text-xs font-semibold uppercase tracking-wide text-primary-200/80"}
       >
         Playing from
       </DialogTitle>

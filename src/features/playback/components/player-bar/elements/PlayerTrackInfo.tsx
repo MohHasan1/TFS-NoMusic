@@ -16,7 +16,7 @@ const PlayerTrackInfo = () => {
       </h4>
 
       <p
-        className="w-full truncate text-muted-foreground text-xs capitalize"
+        className="w-full truncate text-primary-200/80 text-xs capitalize"
         title={track.artist || "Unknown Artist"}
       >
         {track.artist || "Unknown Artist"}

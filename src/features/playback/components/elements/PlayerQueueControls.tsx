@@ -21,8 +21,8 @@ export function PlayerQueueControls({ className }: TProps) {
         aria-label={NEXT_REPEAT_LABEL[repeatMode]}
         title={REPEAT_LABEL[repeatMode]}
         className={cn(
-          "rounded-full hover:text-primary-400",
-          isRepeatActive ? "text-primary-200" : "text-muted-foreground",
+          "rounded-full text-primary-200 hover:text-foreground",
+          isRepeatActive && "text-primary-400",
         )}
       >
         <RepeatIcon className="size-4" />
