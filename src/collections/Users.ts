@@ -1,22 +1,16 @@
 import type { CollectionConfig } from "payload";
 import { render } from "react-email";
-
+import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import ResetPasswordEmail from "#emails-templates/ResetPasswordEmail";
 import VerifyEmail from "#emails-templates/VerifyEmail";
-import { isPreviewOrDevEnv } from "@/lib/env";
+import { capitalizeFirstLetter } from "#lib/utils";
 import { ROLE_OPTIONS } from "@/collections/constants/roles";
+import { isPreviewOrDevEnv } from "@/lib/env";
 import type { User } from "@/payload-types";
 import { access } from "./access";
-import {
-  EMAIL_ACTION,
-  EMAIL_ACTION_OPTIONS,
-  EMAIL_STATUS,
-  EMAIL_STATUS_OPTIONS,
-} from "./constants/emails";
-import { sendWelcomeEmailBeforeChange } from "./hooks/user";
+import { EMAIL_ACTION, EMAIL_ACTION_OPTIONS, EMAIL_STATUS, EMAIL_STATUS_OPTIONS } from "./constants/emails";
 import { syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
-import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
-import { capitalizeFirstLetter } from "#lib/utils";
+import { sendWelcomeEmailBeforeChange } from "./hooks/user";
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -26,9 +20,7 @@ export const Users: CollectionConfig = {
       generateEmailHTML: async ({ token, user }) => {
         const userName = (user as User)?.name;
         const verificationUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?token=${token}&userId=${user.id}`;
-        return await render(
-          VerifyEmail({ userName, verificationUrl, isPrev: isPreviewOrDevEnv() }),
-        );
+        return await render(VerifyEmail({ userName, verificationUrl, isPrev: isPreviewOrDevEnv() }));
       },
     },
     forgotPassword: {
@@ -37,9 +29,7 @@ export const Users: CollectionConfig = {
         const token = args?.token;
         const userName = user.name;
         const resetUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password?token=${token}`;
-        return await render(
-          ResetPasswordEmail({ userName, resetUrl, isPrev: isPreviewOrDevEnv() }),
-        );
+        return await render(ResetPasswordEmail({ userName, resetUrl, isPrev: isPreviewOrDevEnv() }));
       },
     },
     tokenExpiration: 60 * 60 * 24 * 30,
@@ -66,6 +56,7 @@ export const Users: CollectionConfig = {
     email: true,
     role: true,
     isApproved: true,
+    createdAt: true,
     prefAudioLang: true,
   },
 

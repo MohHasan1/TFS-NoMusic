@@ -4,17 +4,10 @@ import { useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "#components/ui/avatar";
 import { Button } from "#components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "#components/ui/dropdown-menu";
-import { OfflineModeMenuButton } from "./OfflineModeMenuButton";
-import { LogoutMenuDialog } from "./LogoutMenuDialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "#components/ui/dropdown-menu";
 import { LogoutMenuButton } from "./LogoutMenuButton";
+import { LogoutMenuDialog } from "./LogoutMenuDialog";
+import { OfflineModeMenuButton } from "./OfflineModeMenuButton";
 import { ProfileMenuButton } from "./ProfileMenuButton";
 
 export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) {
@@ -29,11 +22,7 @@ export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) 
             <Button type="button" variant="default" size="icon-lg" className="rounded-full p-5.5">
               <Avatar size="lg">
                 {userAvatarUrl ? <AvatarImage src={userAvatarUrl} alt={userName} /> : null}
-                <AvatarFallback
-                  className={"bg-primary text-primary-foreground hover:bg-primary/80"}
-                >
-                  {initials}
-                </AvatarFallback>
+                <AvatarFallback className={"bg-primary text-primary-foreground hover:bg-primary/80"}>{initials}</AvatarFallback>
               </Avatar>
             </Button>
           }
@@ -45,11 +34,7 @@ export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) 
               <div className="flex items-center gap-2">
                 <Avatar size="lg">
                   {userAvatarUrl ? <AvatarImage src={userAvatarUrl} alt={userName} /> : null}
-                  <AvatarFallback
-                    className={"bg-primary text-primary-foreground hover:bg-primary/80"}
-                  >
-                    {initials}
-                  </AvatarFallback>
+                  <AvatarFallback className={"bg-primary text-primary-foreground hover:bg-primary/80"}>{initials}</AvatarFallback>
                 </Avatar>
 
                 <div className="min-w-0">
@@ -60,14 +45,14 @@ export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) 
             </DropdownMenuLabel>
           </DropdownMenuGroup>
 
-          <DropdownMenuSeparator className={"bg-primary-600"}/>
+          <DropdownMenuSeparator className={"bg-primary-600"} />
 
           <DropdownMenuGroup>
             <ProfileMenuButton />
             <OfflineModeMenuButton />
           </DropdownMenuGroup>
 
-          <DropdownMenuSeparator className={"bg-primary-600"}/>
+          <DropdownMenuSeparator className={"bg-primary-600"} />
 
           <DropdownMenuGroup>
             <LogoutMenuButton onOpen={() => setIsLogoutOpen(true)} />

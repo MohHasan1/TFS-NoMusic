@@ -8,7 +8,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ### Added
 
-- Add new changes here.
+- Added a user service with ports and Payload adapter layers for fetching users by ID.
+- Added `createdAt` to the default populated fields for users.
+
+### Changed
+
+- Updated the private user menu fallback labels and formatting.
+- Changed the repository workflow so normal commits update `Unreleased` without automatically bumping the package version.
 
 ## [0.1.2] - 2026-07-10
 
