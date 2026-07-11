@@ -98,6 +98,7 @@ export const Users: CollectionConfig = {
         {
           name: "prefAudioLang",
           type: "select",
+          saveToJWT: true,
           options: LANGUAGES_VALUES.map((lang) => ({
             label: capitalizeFirstLetter(lang),
             value: lang,
