@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Changed
+
+- Documented the two-layer authentication architecture, its security boundaries, and the performance trade-off behind local JWT gating followed by Payload session validation, with contributor guidance to request approval before updating the authentication document.
+
 ## [0.2.3] - 2026-07-11
 
 ### Changed
