@@ -2,6 +2,7 @@ const PUBLIC_ROUTES = {
   HOME: "/",
 
   SIGNIN: "/signin",
+  LOGOUT: "/signin?sessionExpired=1",
   SIGNUP: "/signup",
 
   FORGOT_PASSWORD: "/forgot-password",

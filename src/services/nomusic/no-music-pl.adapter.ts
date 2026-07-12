@@ -17,7 +17,7 @@ export async function listNomusicAdapter(limit: number) {
   //     headers: await nextHeaders(),
   //   }),
   // );
-  // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
+  // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.LOGOUT);
 
   // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>
@@ -48,7 +48,7 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
   //     headers: await nextHeaders(),
   //   }),
   // );
-  // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.SIGNIN);
+  // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.LOGOUT);
 
   // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>

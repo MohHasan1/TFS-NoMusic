@@ -1,5 +1,7 @@
 # Authentication architecture
 
+> **Warning:** After an authoritative session check fails, always redirect to `PUBLIC_ROUTES.LOGOUT`. Redirecting to `PUBLIC_ROUTES.SIGNIN` can cause an infinite loop while the browser still holds a locally valid JWT.
+
 NoMusic uses two authentication layers for private pages. The design keeps navigation fast while still checking the authoritative Payload session during rendering.
 
 ## Protection flow
@@ -82,5 +84,13 @@ In practical terms:
 ## Redirect behavior
 
 When Proxy sends an unauthenticated visitor to sign-in, it preserves the requested internal path in the `redirect` query parameter. The sign-in Server Action accepts only safe internal paths, rejecting external, protocol-relative, and sign-in-loop destinations.
+
+### Warning: use the logout route after a failed session check
+
+When an authoritative `getCurrentUser()` check fails, redirect to `PUBLIC_ROUTES.LOGOUT`, not `PUBLIC_ROUTES.SIGNIN`.
+
+`PUBLIC_ROUTES.LOGOUT` points to `/signin?sessionExpired=1`. Proxy recognizes that parameter, clears the stale `payload-token`, removes the parameter, and redirects to the clean `/signin` URL.
+
+Redirecting directly to `PUBLIC_ROUTES.SIGNIN` can recreate an infinite loop: Proxy accepts the still-valid local JWT and redirects back to the private page, while the database-backed check rejects the deleted or revoked session and redirects to sign-in again.
 
 For detailed route matching, token handling, preferred-language behavior, and redirect rules, see `docs/PROXY_AUTH.md`.
