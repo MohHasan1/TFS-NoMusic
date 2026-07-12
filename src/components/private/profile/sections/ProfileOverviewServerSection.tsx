@@ -12,5 +12,14 @@ export async function ProfileOverviewServerSection() {
     redirect(PUBLIC_ROUTES.LOGOUT);
   }
 
-  return <ProfileOverviewSection createdAt={response.data.createdAt} email={response.data.email} isVerified={response.data._verified} name={response.data.name} preferredAudioLang={response.data.prefAudioLang} userAvatarUrl={response.data.uploadedImageURL} />;
+  return (
+    <ProfileOverviewSection
+      createdAt={response.data.createdAt}
+      email={response.data.email}
+      isVerified={response.data._verified}
+      name={response.data.name}
+      preferredAudioLang={response.data.prefAudioLang}
+      userAvatarUrl={response.data.uploadedImageURL}
+    />
+  );
 }
