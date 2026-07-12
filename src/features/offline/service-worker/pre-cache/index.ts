@@ -1,8 +1,13 @@
+import { version } from "../../../../../package.json";
+
 /*
- * Change this value whenever the offline shell changes.
- * This tells Serwist to download fresh HTML.
+ * Tied to the app version so it changes on every release, telling
+ * Serwist to download fresh HTML. The offline shell HTML references the
+ * current build's JS/CSS chunk hashes, which change on every release
+ * regardless of whether the offline feature itself was touched — see
+ * docs/OFFLINE_CACHING.md.
  */
-const shellRevision = "v5.2";
+const shellRevision = version;
 
 const offlinePages = ["/offline"] as const;
 const appMetadataAssets = [

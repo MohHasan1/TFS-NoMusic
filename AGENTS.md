@@ -20,6 +20,7 @@ Whenever the user asks to commit changes:
    * Move the relevant entries from `[Unreleased]` into a new release section.
    * Keep the changelog version, release date, Git tag, and `package.json` version synchronized.
    * Commit the release changes together.
+7. Whenever the user asks to commit, verify that `shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts` (which mirrors `package.json`'s version) reflects a version bump if this commit changes build output that will be deployed. Since normal commits don't bump `package.json`'s version (rule 4), flag to the user if the pending changes look deploy-bound and no version bump is staged — see `docs/OFFLINE_CACHING.md`.
 
 ## Commit message format
 
@@ -44,6 +45,10 @@ When authentication-related behavior or implementation changes, ask the user whe
 ## Analytics documentation
 
 Whenever PostHog init config, `#analytics` event types, `track()` usage, identify/reset hooks, or `data-ph-capture-attribute-*` tagging changes, update `docs/ANALYTICS.md` in the same change.
+
+## Offline shell cache versioning
+
+The offline shell precache revision (`shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts`) is imported directly from `package.json`'s `version` field, so it changes automatically whenever the app version is bumped. Because of this, every deploy should ship with a release version bump — a deploy without one won't refresh the cached offline shell, which can leave offline mode stuck on a blank "Loading" screen. See `docs/OFFLINE_CACHING.md` for details.
 
 ## UI implementation
 

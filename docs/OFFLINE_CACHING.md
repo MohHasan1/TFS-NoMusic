@@ -16,21 +16,26 @@ The service worker ([src/app/sw.ts](../src/app/sw.ts)) is built with
 
 2. **The offline shell HTML and static metadata assets** — `/offline`,
    `favicon.ico`, `manifest.json`, etc. These are listed as explicit
-   `entries` and are versioned with a single hand-maintained string,
-   `shellRevision`, in the same file.
+   `entries` and are versioned with `shellRevision`, in the same file.
+   `shellRevision` is imported directly from `package.json`'s `version`
+   field, so it changes automatically whenever the app version is bumped —
+   there's no separate value to maintain by hand.
 
 Serwist only re-fetches a precached URL when its revision string changes.
 For the build chunks this happens automatically (new hash per build). For
-`/offline`, it only happens when `shellRevision` is bumped by hand.
+`/offline`, it happens whenever `package.json`'s version changes.
 
-## Why `shellRevision` must be bumped on every release
+## Why the offline shell revision must track every release
 
 `/offline` is server-rendered HTML that references the current build's
 JS/CSS chunk filenames. Next.js gives those filenames a new content hash on
 **every production build**, whether or not the offline feature itself
 changed.
 
-If `shellRevision` is *not* bumped on a release:
+Because `shellRevision` == `package.json` version, this means: **any deploy
+that changes build output should ship with a version bump.** A deploy
+without a version bump won't refresh the cached offline shell. If that
+happens:
 
 - Serwist treats the precached `/offline` HTML as unchanged and keeps
   serving the version from the previous build.
@@ -49,8 +54,7 @@ If `shellRevision` is *not* bumped on a release:
 
 ## Rule of thumb
 
-Bump `shellRevision` in
-[pre-cache/index.ts](../src/features/offline/service-worker/pre-cache/index.ts)
-on **every** production deploy — not just deploys that touch the offline
-feature. It pins the shell to a specific build's chunk hashes, not to
-"whether the offline UI changed."
+Every production deploy should go out with a `package.json` version bump
+(see the release workflow in `CLAUDE.md`/`AGENTS.md`) — not just deploys
+that touch the offline feature. The version pins the shell to a specific
+build's chunk hashes, not to "whether the offline UI changed."
