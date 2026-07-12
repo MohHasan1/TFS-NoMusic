@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.1] - 2026-07-12
+
 ### Added
 
 - Added `data-ph-capture-attribute-action` tagging to the sign-in, forgot-password, and signup form submit buttons, the PWA install button, each NoMusic language filter option, and the brand logo link, completing the analytics tagging plan documented in `docs/ANALYTICS.md`.
