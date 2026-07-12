@@ -2,7 +2,7 @@
  * Change this value whenever the offline shell changes.
  * This tells Serwist to download fresh HTML.
  */
-const shellRevision = "v5.1";
+const shellRevision = "v5.2";
 
 const offlinePages = ["/offline"] as const;
 const appMetadataAssets = [

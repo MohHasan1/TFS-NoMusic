@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Fixed
+
+- Bumped the offline shell precache revision, which was stuck on a stale build's precached `/offline` HTML pointing to JS chunk hashes no longer served after deploy — this caused offline mode to hang on a blank "Loading" screen. Documented the caching mechanism and the requirement to bump the revision on every deploy in `docs/OFFLINE_CACHING.md`.
+
 ## [0.3.1] - 2026-07-12
 
 ### Added
