@@ -63,6 +63,7 @@ export function OfflineOnlineDialog({ trigger = "button" }: TProps) {
                 router.push(ONLINE_COLLECTION_HREF);
               });
             }}
+            data-ph-capture-attribute-action="go_online_pressed_offline"
           >
             {pending && <Spinner />}
             Go online

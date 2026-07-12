@@ -61,6 +61,9 @@ export function OfflineLibraryRemoveButton({ library, className }: TProps) {
       title={`Remove ${library.name} from offline downloads`}
       disabled={isRemoving}
       onClick={handleClick}
+      data-ph-capture-attribute-action="library_removed_offline"
+      data-ph-capture-attribute-library-id={library.id}
+      data-ph-capture-attribute-library-name={library.name}
       className={cn(
         "rounded-full border-primary/40 bg-primary/20 text-primary-200",
         "shadow-md shadow-primary/20 ring-1 ring-white/5",

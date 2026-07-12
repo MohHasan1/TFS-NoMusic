@@ -15,6 +15,7 @@ export function OfflineModeMenuButton() {
         router.push(OFFLINE_ROUTES.HOME);
       }}
       className="cursor-pointer text-primary-200"
+      data-ph-capture-attribute-action="offline_mode_pressed"
     >
       <RiWifiOffLine className="size-3.5" data-icon="inline-start" />
       Offline mode

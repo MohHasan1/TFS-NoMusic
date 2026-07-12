@@ -54,7 +54,12 @@ export function LogoutMenuDialog({ open, onOpenChange }: TProps) {
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel type="button" size="sm" disabled={isPending}>
+          <AlertDialogCancel
+            type="button"
+            size="sm"
+            disabled={isPending}
+            data-ph-capture-attribute-action="logout_cancelled"
+          >
             Cancel
           </AlertDialogCancel>
 
@@ -64,6 +69,7 @@ export function LogoutMenuDialog({ open, onOpenChange }: TProps) {
             disabled={isPending}
             variant="default"
             onClick={handleLogout}
+            data-ph-capture-attribute-action="logout_confirmed"
           >
             {isPending && <Spinner data-icon="inline-start" />}
             {isPending ? "See ya..." : "Log out"}

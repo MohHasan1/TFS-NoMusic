@@ -51,6 +51,9 @@ export function OfflineNoMusicRemoveButton({ noMusic, className, onRemoved }: TP
       title={`Remove ${noMusic.name} from offline downloads`}
       disabled={isRemoving}
       onClick={handleClick}
+      data-ph-capture-attribute-action="audio_removed_offline"
+      data-ph-capture-attribute-audio-id={noMusic.id}
+      data-ph-capture-attribute-audio-name={noMusic.name}
       className={cn(
         "h-full w-full items-start justify-start rounded-br-full p-2.5 md:p-2",
         "border-primary/40 bg-primary/20 text-primary-200",

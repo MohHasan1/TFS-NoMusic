@@ -63,6 +63,9 @@ export function NoMusicDownloadButton({ noMusic, className, showIsDownloaded = f
       }
       disabled={isDownloading || isDownloaded}
       onClick={handleClick}
+      data-ph-capture-attribute-action="audio_downloaded"
+      data-ph-capture-attribute-audio-id={noMusic.id}
+      data-ph-capture-attribute-audio-name={noMusic.name}
       className={cn(
         "rounded-br-full size-full items-start justify-start p-2.5 md:p-2",
         "border-primary/40 bg-primary/20 text-primary-200",
