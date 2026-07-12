@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.2.5] - 2026-07-12
+
 ### Changed
 
 - Centralized revoked-session redirects through `PUBLIC_ROUTES.LOGOUT` in the private navbar and profile, and documented the redirect-loop warning for future authentication changes.
