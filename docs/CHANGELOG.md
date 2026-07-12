@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.0] - 2026-07-12
+
 ### Added
 
 - Added a PostHog-backed analytics feature slice: client-side init, a typed `AnalyticsEvents` map with `track()`, and `useIdentifyUser`/`useResetIdentity` hooks wired into the private user menu and logout flows.
