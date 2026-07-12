@@ -27,6 +27,7 @@ export async function PrivateUserMenuServer() {
         }}
       />
       <PrivateUserMenu
+        userId={res.data.id}
         userEmail={res.data.email}
         userName={res.data.name}
         userAvatarUrl={res.data.uploadedImageURL}

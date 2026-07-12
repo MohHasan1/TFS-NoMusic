@@ -23,7 +23,7 @@ export function PlayerControls({ size = "default" }: TProps) {
 
   const { playNext, playPrevious } = useTrackNavigation();
 
-  const playLabel = isPlaying ? "Pause" : "Play";
+  const playLabel = isPlaying ? `Paused ${track?.name}` : `Playing ${track?.name}` ;
 
   return (
     <div className="flex items-center gap-2 lg:gap-4">

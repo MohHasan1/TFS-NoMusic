@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added a PostHog-backed analytics feature slice: client-side init (autocapture off, pageview/pageleave tracking on, session recording off), a typed `AnalyticsEvents` map with `track()`, and `useIdentifyUser`/`useResetIdentity` hooks wired into the private user menu and logout flows.
+
 ### Changed
 
 - Centralized revoked-session redirects through `PUBLIC_ROUTES.LOGOUT` in the private navbar and profile, and documented the redirect-loop warning for future authentication changes.

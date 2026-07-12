@@ -29,6 +29,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
       data-nomusic-id={noMusic?.id}
       variant="ghost"
       aria-label={`Play ${noMusic?.name}`}
+      title={`Play ${noMusic?.name}`}
       className="group h-auto cursor-pointer p-0 text-left"
     >
       <Card
