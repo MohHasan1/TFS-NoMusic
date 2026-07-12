@@ -17,3 +17,15 @@ Whenever the user asks to commit changes:
    * Move the relevant entries from `[Unreleased]` into a new release section.
    * Keep the changelog version, release date, Git tag, and `package.json` version synchronized.
    * Commit the release changes together.
+
+## Proxy documentation
+
+Whenever `src/proxy.ts` or its authentication, routing, redirect, cookie, token, or preferred-language behavior changes, update `docs/PROXY_AUTH.md` in the same change.
+
+## UI implementation
+
+- Prefer the project's installed shadcn components and existing shared components instead of building equivalent UI primitives from scratch.
+- Before creating a UI component, check the shadcn registry for an available equivalent. If it exists but is not installed in the project, install and use it.
+- Reuse the app's theme tokens and semantic color classes. Do not hardcode colors when an appropriate theme token exists.
+- Keep Tailwind usage minimal: add only the classes required to achieve the requested layout, state, and responsive behavior.
+- Reuse existing variants, utilities, and component APIs before introducing custom styling or duplicated abstractions.

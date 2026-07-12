@@ -10,6 +10,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Refactored Proxy authentication into focused route, token, user-fallback, and preferred-language helpers.
 - Added the preferred audio language to user JWTs so normal authenticated navigation avoids a user API request.
+- Documented Proxy authentication, routing, redirect, cookie, token, and preferred-language behavior.
+- Updated contributor guidance to keep Proxy documentation synchronized and to prefer shadcn components, app theme tokens, and minimal Tailwind styling.
 
 ## [0.2.2] - 2026-07-11
 
