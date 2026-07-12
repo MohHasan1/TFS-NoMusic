@@ -15,7 +15,12 @@ export function LibCard({ href, name, author, trackCount, imageURL }: TProps) {
 
   return (
     <article>
-      <Link href={href} className="group block">
+      <Link
+        href={href}
+        className="group block"
+        data-ph-capture-attribute-action="library_pressed"
+        data-ph-capture-attribute-library-name={name}
+      >
         <Card className="relative w-full overflow-hidden bg-card transition-all duration-300 hover:border-primary-400/50">
           <CardHeader className="relative block aspect-square overflow-hidden bg-muted p-0">
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/55 via-transparent to-transparent" />

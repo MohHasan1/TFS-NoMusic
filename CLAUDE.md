@@ -26,6 +26,10 @@ Whenever `src/proxy.ts` or its authentication, routing, redirect, cookie, token,
 
 When authentication-related behavior or implementation changes, ask the user whether they want `docs/AUTHENTICATION.md` updated. Do not update that document automatically.
 
+## Analytics documentation
+
+Whenever PostHog init config, `#analytics` event types, `track()` usage, identify/reset hooks, or `data-ph-capture-attribute-*` tagging changes, update `docs/ANALYTICS.md` in the same change.
+
 ## UI implementation
 
 - Prefer the project's installed shadcn components and existing shared components instead of building equivalent UI primitives from scratch.

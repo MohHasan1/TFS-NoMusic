@@ -19,6 +19,8 @@
       }
     ],
     "paths": {
+      "#analytics/*": ["./src/features/analytics/*"],
+
       "#offline/*": ["./src/features/offline/*"],
 
       "#playback-dialog/*": ["./src/features/playback/modules/player-dialog/*"],

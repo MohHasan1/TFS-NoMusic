@@ -15,6 +15,7 @@ export function ProfileMenuButton() {
         router.push(PRIVATE_ROUTES.PROFILE);
       }}
       className="cursor-pointer text-primary-200"
+      data-ph-capture-attribute-action="profile_pressed"
     >
       <RiUserLine className="size-3.5" data-icon="inline-start" />
       Profile

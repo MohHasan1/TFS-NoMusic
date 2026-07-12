@@ -7,7 +7,13 @@ const PlayerDialogButton = ({ children, className }: TProps) => {
   const { toggle } = usePlayerDialog();
 
   return (
-    <Button type="button" variant="ghost" onClick={toggle} className={className}>
+    <Button
+      type="button"
+      variant="ghost"
+      onClick={toggle}
+      data-ph-capture-attribute-action="player_dialog_pressed"
+      className={className}
+    >
       {children}
     </Button>
   );

@@ -1,3 +1,4 @@
+import { isDevEnv } from "#lib/env";
 import Image from "next/image";
 
 export function ProfileImage({ name, userAvatarUrl }: TProps) {
@@ -10,8 +11,10 @@ export function ProfileImage({ name, userAvatarUrl }: TProps) {
           src={userAvatarUrl}
           alt={`${name} profile image`}
           fill
+          priority
           sizes="(max-width: 640px) 256px, 288px"
           className="object-cover"
+          unoptimized={isDevEnv()}
         />
       ) : (
         <div className="flex size-full items-center justify-center bg-linear-to-br from-primary to-primary/70 text-7xl font-semibold text-primary-foreground sm:text-8xl">

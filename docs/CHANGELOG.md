@@ -6,6 +6,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added a PostHog-backed analytics feature slice: client-side init, a typed `AnalyticsEvents` map with `track()`, and `useIdentifyUser`/`useResetIdentity` hooks wired into the private user menu and logout flows.
+- Added `data-ph-capture-attribute-action` tagging (plus `audio-id`/`audio-name`/`library-id`/`library-name` where available) across 16 interactive elements — NoMusic and library cards/rows, download/remove buttons, the player dialog toggle, go-online and logout confirmations, and the profile/offline-mode menu items — with `autocapture` scoped via `css_selector_allowlist` so only tagged elements are ever captured. Documented the full convention, including the `_offline` action suffix for offline-only interactions, in `docs/ANALYTICS.md`.
+- Added an `isDevEnv` helper to `#lib/env`, used to opt PostHog out of capturing by default in development.
+
+### Changed
+
+- Prioritized and unoptimized (in dev) the profile image for faster local loading.
+
 ## [0.2.5] - 2026-07-12
 
 ### Changed

@@ -18,6 +18,9 @@ export function LibraryTrackRow({ index, track }: TProps) {
   return (
     <div
       data-library-audio-index={index}
+      data-ph-capture-attribute-action="library_audio_pressed"
+      data-ph-capture-attribute-audio-id={track.id}
+      data-ph-capture-attribute-audio-name={track.name}
       className={cn(
         "grid cursor-pointer grid-cols-[22px_minmax(0,1fr)_28px_44px] items-center gap-3 rounded-3xl border border-transparent px-3 py-3 transition-colors md:grid-cols-[40px_minmax(0,1fr)_minmax(90px,130px)_28px_56px] md:gap-4 md:px-4",
         isActive ? "bg-white/5" : "hover:bg-white/3",

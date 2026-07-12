@@ -15,6 +15,7 @@ import {
   AlertDialogTitle,
 } from "#components/ui/alert-dialog";
 import { Spinner } from "#components/ui/spinner";
+import { useResetIdentity } from "#analytics/hooks/useResetIdentity";
 import { useOfflineUserCleanup } from "#offline/hooks/useOfflineUserCleanup";
 import { usePlaybackCleanup } from "#playback/hooks/usePlaybackCleanup";
 import { logoutAction } from "#server-actions/auth/logout";
@@ -22,15 +23,17 @@ import { logoutAction } from "#server-actions/auth/logout";
 export function LogoutMenuDialog({ open, onOpenChange }: TProps) {
   const { cleanupPlayback } = usePlaybackCleanup();
   const { cleanupOfflineUser } = useOfflineUserCleanup();
+  const { resetIdentity } = useResetIdentity();
   const [isPending, startTransition] = useTransition();
 
   const handleLogout = useCallback(() => {
     startTransition(async () => {
       cleanupPlayback();
+      resetIdentity();
       await cleanupOfflineUser();
       await logoutAction();
     });
-  }, [cleanupPlayback, cleanupOfflineUser]);
+  }, [cleanupPlayback, cleanupOfflineUser, resetIdentity]);
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -51,7 +54,12 @@ export function LogoutMenuDialog({ open, onOpenChange }: TProps) {
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel type="button" size="sm" disabled={isPending}>
+          <AlertDialogCancel
+            type="button"
+            size="sm"
+            disabled={isPending}
+            data-ph-capture-attribute-action="logout_cancelled"
+          >
             Cancel
           </AlertDialogCancel>
 
@@ -61,6 +69,7 @@ export function LogoutMenuDialog({ open, onOpenChange }: TProps) {
             disabled={isPending}
             variant="default"
             onClick={handleLogout}
+            data-ph-capture-attribute-action="logout_confirmed"
           >
             {isPending && <Spinner data-icon="inline-start" />}
             {isPending ? "See ya..." : "Log out"}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { useIdentifyUser } from "#analytics/hooks/useIdentifyUser";
 import { Avatar, AvatarFallback, AvatarImage } from "#components/ui/avatar";
 import { Button } from "#components/ui/button";
 import {
@@ -17,9 +18,11 @@ import { LogoutMenuDialog } from "./LogoutMenuDialog";
 import { OfflineModeMenuButton } from "./OfflineModeMenuButton";
 import { ProfileMenuButton } from "./ProfileMenuButton";
 
-export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) {
+export function PrivateUserMenu({ userId, userEmail, userName, userAvatarUrl }: TProps) {
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const initials = getInitials(userName);
+
+  useIdentifyUser({ userId, userEmail, userName });
 
   return (
     <>
@@ -83,6 +86,7 @@ export function PrivateUserMenu({ userEmail, userName, userAvatarUrl }: TProps) 
 }
 
 type TProps = {
+  userId: string;
   userAvatarUrl?: string | null;
   userEmail: string;
   userName: string;
