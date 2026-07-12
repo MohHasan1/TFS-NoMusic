@@ -10,6 +10,7 @@ const PATH = {
 } as const;
 const TOKEN_COOKIE = "payload-token";
 const PREF_LANG_PARAM = "setPrefAudioLang";
+const SESSION_EXPIRED_PARAM = "sessionExpired";
 const PROTECTED_ROUTES = Object.values(PRIVATE_ROUTES).filter((r) => typeof r === "string");
 
 export const config = {
@@ -32,6 +33,11 @@ export default async function proxy(request: NextRequest) {
   const isSignInPage = isSigninRoute(pathname);
   const isPrivatePage = isProtectedRoute(pathname);
   const shouldSetPrefLang = shouldUsePrefLang(request);
+
+  // -- Similar to logout - but through url
+  if (isSignInPage && request.nextUrl.searchParams.get(SESSION_EXPIRED_PARAM) === "1") {
+    return redirectAfterExpiredSession(request);
+  }
 
   const token = request.cookies.get(TOKEN_COOKIE)?.value;
 
@@ -102,6 +108,16 @@ function redirectToSignIn(request: NextRequest, options: { clearToken?: boolean 
 
 function allowRequestAndClearToken() {
   const response = NextResponse.next();
+  response.cookies.delete(TOKEN_COOKIE);
+
+  return response;
+}
+
+function redirectAfterExpiredSession(request: NextRequest) {
+  const url = request.nextUrl.clone();
+  url.searchParams.delete(SESSION_EXPIRED_PARAM);
+
+  const response = NextResponse.redirect(url);
   response.cookies.delete(TOKEN_COOKIE);
 
   return response;

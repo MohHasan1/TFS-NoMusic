@@ -6,9 +6,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.2.4] - 2026-07-11
+
 ### Changed
 
 - Documented the two-layer authentication architecture, its security boundaries, and the performance trade-off behind local JWT gating followed by Payload session validation, with contributor guidance to request approval before updating the authentication document.
+
+### Fixed
+
+- Prevented redirect loops after a Payload database session is revoked by clearing the stale authentication cookie and redirecting to a clean sign-in URL without an additional database request.
 
 ## [0.2.3] - 2026-07-11
 

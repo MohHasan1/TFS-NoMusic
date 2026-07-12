@@ -10,7 +10,7 @@ export async function PrivateUserMenuServer() {
 
   const res = await getCurrentUser();
   if (!res.isSuccess) {
-    redirect(PUBLIC_ROUTES.SIGNIN);
+    redirect(`${PUBLIC_ROUTES.SIGNIN}?sessionExpired=1`);
   }
 
   return (

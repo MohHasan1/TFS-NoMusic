@@ -51,6 +51,12 @@ The token must:
 - Be unexpired.
 - Belong to the `users` collection.
 
+### Revoked database session
+
+The private navbar performs the authoritative Payload session check. If that check fails, `PrivateUserMenuServer` redirects to `/signin?sessionExpired=1`.
+
+Proxy then removes the `sessionExpired` parameter, clears the stale `payload-token` cookie, and redirects to the clean `/signin` URL. This breaks the redirect loop that would otherwise occur when a locally valid JWT refers to a deleted or revoked database session, without adding another database request in Proxy.
+
 ## Preferred audio language
 
 `prefAudioLang` is stored in the user JWT with `saveToJWT: true`.
