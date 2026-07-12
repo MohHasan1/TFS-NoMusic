@@ -6,6 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added `data-ph-capture-attribute-action` tagging to the sign-in, forgot-password, and signup form submit buttons, the PWA install button, each NoMusic language filter option, and the brand logo link, completing the analytics tagging plan documented in `docs/ANALYTICS.md`.
+- Excluded the Payload admin panel (`/admin`) from PostHog tracking entirely — `initAnalytics()` is never called there.
+
 ## [0.3.0] - 2026-07-12
 
 ### Added

@@ -1,3 +1,6 @@
 import { initAnalytics } from "#analytics/lib/init";
 
-initAnalytics();
+// Don't track the Payload admin panel.
+if (!window.location.pathname.startsWith("/admin")) {
+  initAnalytics();
+}

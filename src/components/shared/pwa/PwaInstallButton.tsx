@@ -12,6 +12,7 @@ export function PwaInstallButton({ onInstall }: TProps) {
       onClick={onInstall}
       aria-label="Install NoMusic"
       title="Install NoMusic"
+      data-ph-capture-attribute-action="install_pressed"
     >
       <RiInstallLine className={"size-3"} data-icon="inline-start" aria-hidden="true" />
       <span className={"hidden text-center sm:inline"}>Install</span>

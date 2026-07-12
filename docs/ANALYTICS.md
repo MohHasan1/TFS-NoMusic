@@ -2,6 +2,8 @@
 
 NoMusic uses [PostHog](https://posthog.com) for product analytics. Client-side instrumentation lives in the `#analytics` feature slice (`src/features/analytics/`) and is initialized once in `src/instrumentation-client.ts`.
 
+`instrumentation-client.ts` skips calling `initAnalytics()` entirely when `window.location.pathname` starts with `/admin` (the Payload admin panel) — PostHog never loads there, so admin usage is never tracked. This check lives at the call site, not inside `initAnalytics()`, since knowing about Payload's admin route is app-routing knowledge, not something the generic analytics init should hardcode.
+
 `#analytics` is a leaf feature: it has no knowledge of playback, libraries, or offline internals. Other features depend on it; it never depends on them.
 
 ## Init
@@ -31,7 +33,7 @@ Two different needs, two different mechanisms. Don't cross them.
 
 PostHog's autocapture reports clicks on interactive elements automatically. `data-ph-capture-attribute-*` attributes on an element are attached as properties on that element's autocaptured event. This repo's naming convention:
 
-- `action` values are `snake_case`, never contain spaces or the word "nomusic" (use `audio` instead — e.g. `library_audio_pressed`), and end in `_pressed` when the interaction is a plain press/click with no more specific outcome (a more specific past-tense verb like `downloaded`, `removed`, `confirmed`, `cancelled` is used instead when one applies).
+- `action` values are `snake_case`, never contain spaces or the word "nomusic" (use `audio` instead — e.g. `library_audio_pressed`), and end in `_pressed` when the interaction is a plain press/click with no more specific outcome (a more specific past-tense verb like `downloaded`, `removed`, `confirmed`, `cancelled`, or `selected` for choosing an option from a dropdown/select is used instead when one applies).
 - Elements that live in the offline app (`src/features/offline/...`, or are otherwise offline-only) get `_offline` appended to `action`, so an event's origin is never ambiguous — even when the online and offline versions of a component are otherwise tracking the "same" interaction.
 
 ```tsx
@@ -63,6 +65,12 @@ Tagged elements. **Attributes** lists every `data-ph-capture-attribute-*` key be
 | `offline_mode_pressed` | offline mode menu item (lives in the private/online menu — pressing it navigates *into* offline mode, so no `_offline` suffix) | `OfflineModeMenuButton.tsx` | none |
 | `logout_confirmed` | confirm button in the logout dialog | `LogoutMenuDialog.tsx` (also mirrored in the unused `LogoutDialog.tsx`) | none |
 | `logout_cancelled` | cancel button in the logout dialog | `LogoutMenuDialog.tsx` (also mirrored in the unused `LogoutDialog.tsx`) | none |
+| `sign_in_pressed` | sign-in form submit button | `SigninFormFooter.tsx` (the `FormSubmitButton`, which spreads extra props onto the underlying `Button`) | none — no email/password captured; PII and credentials are never put in `data-ph-capture-attribute-*` |
+| `forgot_password_pressed` | forgot-password form submit button | `ForgotPasswordFormFooter.tsx` (same `FormSubmitButton` pattern) | none — no email captured, same reasoning |
+| `signup_pressed` | signup form submit button | `SignupFormFooter.tsx` (same `FormSubmitButton` pattern) | none — no email/password captured, same reasoning |
+| `install_pressed` | PWA install button | `PwaInstallButton.tsx` (the real install-prompt trigger; the manual-instructions `InstallHintDialog` shown to iOS/Safari/no-prompt users is not tagged) | none |
+| `language_filter_selected` | each option in the NoMusic language filter | `NomusicLanguageFilter.tsx` (the `SelectItem` per option, tagged inside the `.map()` — not the `SelectTrigger`) | `language` (the selected option's value) |
+| `brand_logo_pressed` | brand logo/home link | `BrandLogoLink.tsx` (shared by the public header and the private navbar; offline has its own separate inline logo markup in `OfflineNavbar.tsx`, untagged) | `link` (the destination href) |
 
 > **Status: implemented.** `autocapture` is scoped to `[data-ph-capture-attribute-action]` in `init.ts`, and every element above is tagged.
 

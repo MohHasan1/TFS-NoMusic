@@ -14,6 +14,7 @@ const ForgotPasswordFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         formId={FORGOT_PASSWORD_CONST.FORM_ID}
         label={FORGOT_PASSWORD_CLIENT.SUBMIT_LBL}
         pendingLabel={FORGOT_PASSWORD_CLIENT.SUBMIT_PENDING_LBL}
+        data-ph-capture-attribute-action="forgot_password_pressed"
       />
       <FormCTA
         isSubmitting={isSubmitting}

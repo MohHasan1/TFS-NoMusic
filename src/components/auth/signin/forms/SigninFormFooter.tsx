@@ -14,6 +14,7 @@ const SigninFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         formId={SIGNIN_CONST.FORM_ID}
         label={SIGNIN_CLIENT.SUBMIT_LBL}
         pendingLabel={SIGNIN_CLIENT.SUBMIT_PENDING_LBL}
+        data-ph-capture-attribute-action="sign_in_pressed"
       />
       <FormCTA
         isSubmitting={isSubmitting}

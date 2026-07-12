@@ -78,7 +78,13 @@ export function NomusicLanguageFilter() {
 
       <SelectContent className="bg-card-secondary backdrop-blur-md text-primary-200">
         {LANGUAGE_OPTIONS.map((option) => (
-          <SelectItem key={option.value} value={option.value} className="cursor-pointer">
+          <SelectItem
+            key={option.value}
+            value={option.value}
+            className="cursor-pointer"
+            data-ph-capture-attribute-action="language_filter_selected"
+            data-ph-capture-attribute-language={option.value}
+          >
             {option.label}
           </SelectItem>
         ))}

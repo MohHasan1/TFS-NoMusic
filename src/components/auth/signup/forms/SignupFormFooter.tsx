@@ -14,6 +14,7 @@ const SignupFormFooter = ({ isSubmitting, errorMsg }: TProps) => {
         label={SIGNUP_CLIENT.SUBMIT_LBL}
         pendingLabel={SIGNUP_CLIENT.SUBMIT_PENDING_LBL}
         formId={SIGNUP_CONST.FORM_ID}
+        data-ph-capture-attribute-action="signup_pressed"
       />
     </FormFooterContainer>
   );
