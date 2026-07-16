@@ -6,23 +6,22 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.3] - 2026-07-16
+
 ### Added
 
 - Added an offline "Storage" page (`/offline?view=storage`, reachable from the offline menu) showing used/available device storage via `navigator.storage.estimate()`.
-
-### Fixed
-
-- Fixed the player's track source label falling back to nothing for source keys with no explicit label (e.g. the offline home page's "Recently Added" preview) — now falls back to "Nomusic".
-- Fixed the checkbox/radio dropdown menu item indicator position (`end-2` → `inset-e-2`).
-
-### Added
-
 - Added "Recently Added NoMusic" and "Recently Added Libraries" preview sections to the offline home page, each linking to its full offline view, with matching skeleton loading states.
 - Added a "Home" destination to the offline navbar and mobile bottom navigation.
 
 ### Changed
 
 - `OfflineNomusic.getAll()` / `OfflineLibraries.getAll()` now accept an optional `limit`, reading only the N most recent records off the `downloadedAt` IndexedDB index instead of loading everything and slicing in memory. `useNomusic`/`useLibraries` pass it through.
+
+### Fixed
+
+- Fixed the player's track source label falling back to nothing for source keys with no explicit label (e.g. the offline home page's "Recently Added" preview) — now falls back to "Nomusic".
+- Fixed the checkbox/radio dropdown menu item indicator position (`end-2` → `inset-e-2`).
 - Reworked the offline home page's top navigation cards (icon+title inline, responsive spacing, full-width layout) and rewrote their descriptions.
 
 ## [0.3.2] - 2026-07-12
