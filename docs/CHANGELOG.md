@@ -13,6 +13,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Fixed
 
 - Fixed the player's track source label falling back to nothing for source keys with no explicit label (e.g. the offline home page's "Recently Added" preview) — now falls back to "Nomusic".
+- Fixed the checkbox/radio dropdown menu item indicator position (`end-2` → `inset-e-2`).
 
 ### Added
 
