@@ -1,8 +1,14 @@
-import { RiAlbumFill, RiMusic2Line } from "@remixicon/react";
+import { RiAlbumFill, RiHomeLine, RiMusic2Line } from "@remixicon/react";
 
 import { OFFLINE_ROUTES } from "#constants/routes";
 
 export const offlineNavItems = [
+  {
+    label: "Home",
+    href: OFFLINE_ROUTES.HOME,
+    matchViews: [null],
+    icon: RiHomeLine,
+  },
   {
     label: "NoMusic",
     href: OFFLINE_ROUTES.NOMUSIC,

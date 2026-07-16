@@ -52,7 +52,7 @@ Tagged elements. **Attributes** lists every `data-ph-capture-attribute-*` key be
 | `audio_pressed` | track card | `NoMusicCard.tsx` | `audio-id`, `audio-name` |
 | `audio_pressed_offline` | track card | `OfflineNoMusicCard.tsx` | `audio-id`, `audio-name` |
 | `library_pressed` | library card | `LibCard.tsx` | `library-name` (no `id` prop available here today — see note) |
-| `library_pressed_offline` | library card | `OfflineLibCard.tsx` | `library-id`, `library-name` |
+| `library_pressed_offline` | library card | `OfflineLibCard.tsx`, `OfflineLibRowCard.tsx` (recently-added row on the offline home page) | `library-id`, `library-name` |
 | `library_audio_pressed` | track row inside a library | `LibraryTrackRow.tsx` | `audio-id`, `audio-name` (no `library-id` here today — see note) |
 | `library_audio_pressed_offline` | track row inside a library | `OfflineLibraryTrackRow.tsx` | `audio-id`, `audio-name` (no `library-id` here today — see note) |
 | `audio_downloaded` | download button | `NoMusicDownloadButton.tsx` | `audio-id`, `audio-name` |

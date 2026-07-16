@@ -8,11 +8,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ### Added
 
-- Added "Recently Added NoMusic" and "Recently Added Libraries" preview sections to the offline home page, each linking to its full offline view.
+- Added "Recently Added NoMusic" and "Recently Added Libraries" preview sections to the offline home page, each linking to its full offline view, with matching skeleton loading states.
+- Added a "Home" destination to the offline navbar and mobile bottom navigation.
 
 ### Changed
 
 - `OfflineNomusic.getAll()` / `OfflineLibraries.getAll()` now accept an optional `limit`, reading only the N most recent records off the `downloadedAt` IndexedDB index instead of loading everything and slicing in memory. `useNomusic`/`useLibraries` pass it through.
+- Reworked the offline home page's top navigation cards (icon+title inline, responsive spacing, full-width layout) and rewrote their descriptions.
 
 ## [0.3.2] - 2026-07-12
 
