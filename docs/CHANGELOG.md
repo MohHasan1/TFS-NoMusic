@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Fixed
+
+- Fixed the player's track source label falling back to nothing for source keys with no explicit label (e.g. the offline home page's "Recently Added" preview) — now falls back to "Nomusic".
+
 ### Added
 
 - Added "Recently Added NoMusic" and "Recently Added Libraries" preview sections to the offline home page, each linking to its full offline view, with matching skeleton loading states.

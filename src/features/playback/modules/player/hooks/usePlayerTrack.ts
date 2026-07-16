@@ -33,7 +33,7 @@ export function usePlayerTrack() {
       return "Nomusic Library";
     }
 
-    return null;
+    return "Nomusic";
   }, [trackSourceKey]);
 
   return {
