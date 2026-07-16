@@ -27,6 +27,7 @@ const OFFLINE_ROUTES = {
   NOMUSIC: "/offline?view=nomusic",
   LIBRARIES: "/offline?view=libraries",
   LIBRARY: (id: string) => `/offline?view=library&id=${encodeURIComponent(id)}`,
+  STORAGE: "/offline?view=storage",
   TEST: "/offline/test",
 } as const;
 

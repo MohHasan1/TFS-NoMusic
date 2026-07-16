@@ -1,18 +1,21 @@
 "use client";
 
-import { RiUser3Line, RiWifiOffLine } from "@remixicon/react";
+import { RiHardDrive2Line, RiUser3Line, RiWifiOffLine } from "@remixicon/react";
 
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "#components/ui/avatar";
 import { Button } from "#components/ui/button";
+import { OFFLINE_ROUTES } from "#constants/routes";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "#components/ui/dropdown-menu";
 import { useUser } from "#offline/hooks";
+import { OfflineLink } from "../../shared/OfflineLink";
 import { OfflineOnlineDialog } from "../../shared/OfflineOnlineDialog";
 
 export function OfflineMenu() {
@@ -74,6 +77,18 @@ export function OfflineMenu() {
         <DropdownMenuSeparator className="bg-primary-600" />
 
         <DropdownMenuGroup>
+          <DropdownMenuItem
+            className={"cursor-pointer"}
+            render={
+              <OfflineLink href={OFFLINE_ROUTES.STORAGE}>
+                <RiHardDrive2Line />
+                Storage
+              </OfflineLink>
+            }
+          />
+          
+          <DropdownMenuSeparator className="bg-primary-600" />
+
           <OfflineOnlineDialog trigger="menu-item" />
         </DropdownMenuGroup>
       </DropdownMenuContent>

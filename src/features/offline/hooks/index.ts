@@ -4,4 +4,5 @@ export { useLibrary } from "./useLibrary";
 export { useNomusic } from "./useNomusic";
 export { useNomusicByLibId } from "./useNomusicByLibId";
 export { useNomusicDownload } from "./useNomusicDownload";
+export { useOfflineStorage } from "./useOfflineStorage";
 export { useUser } from "./useUser";

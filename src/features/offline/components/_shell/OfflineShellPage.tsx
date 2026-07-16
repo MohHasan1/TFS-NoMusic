@@ -5,6 +5,7 @@ import OfflineHomeView from "../home/views/OfflineHomeView";
 import OfflineLibrariesView from "../libraries/views/OfflineLibrariesView";
 import OfflineLibraryView from "../library/views/OfflineLibraryView";
 import OfflineNomusicView from "../nomusic/views/OfflineNomusicView";
+import OfflineStorageView from "../storage/views/OfflineStorageView";
 
 const OfflineShellPage = () => {
   const searchParams = useSearchParams();
@@ -19,6 +20,9 @@ const OfflineShellPage = () => {
 
     case "library":
       return <OfflineLibraryView />;
+
+    case "storage":
+      return <OfflineStorageView />;
 
     default:
       return <OfflineHomeView />;

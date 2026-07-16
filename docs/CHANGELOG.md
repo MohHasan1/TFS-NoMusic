@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added an offline "Storage" page (`/offline?view=storage`, reachable from the offline menu) showing used/available device storage via `navigator.storage.estimate()`.
+
 ### Fixed
 
 - Fixed the player's track source label falling back to nothing for source keys with no explicit label (e.g. the offline home page's "Recently Added" preview) — now falls back to "Nomusic".
