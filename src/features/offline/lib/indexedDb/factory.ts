@@ -6,14 +6,30 @@ import { getIndexedDb } from ".";
 export function createOfflineRepo<K extends TStoreKey>(storeName: K) {
   return {
     /**
-     * Get all downloaded records (newest first)
+     * Get all downloaded records (newest first).
+     * Pass `limit` to only read the N most recent records off the index.
      */
-    getAll() {
+    getAll(limit?: number) {
       return offlineTryCatch(async () => {
         const db = await getIndexedDb();
 
-        const records = await db.getAllFromIndex(storeName, OFFLINE_DB.DOWNLOADED_AT_INDEX);
-        return records.reverse();
+        if (limit === undefined) {
+          const records = await db.getAllFromIndex(storeName, OFFLINE_DB.DOWNLOADED_AT_INDEX);
+          return records.reverse();
+        }
+
+        const records: TStoreRecord<K>[] = [];
+        let cursor = await db
+          .transaction(storeName)
+          .store.index(OFFLINE_DB.DOWNLOADED_AT_INDEX)
+          .openCursor(null, "prev");
+
+        while (cursor && records.length < limit) {
+          records.push(cursor.value);
+          cursor = await cursor.continue();
+        }
+
+        return records;
       });
     },
 

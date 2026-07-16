@@ -6,7 +6,7 @@ import { OfflineLibraries } from "#offline/repositories/libraries";
 import type { TLibraryOffline } from "#offline/types";
 import type { TLibrary } from "#types/library";
 
-export function useLibraries(type?: TLibrary["type"]) {
+export function useLibraries(type?: TLibrary["type"], limit?: number) {
   const [libraries, setLibraries] = useState<TLibraryOffline[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +15,7 @@ export function useLibraries(type?: TLibrary["type"]) {
     setIsLoading(true);
     setError(null);
 
-    const result = await OfflineLibraries.getAll();
+    const result = await OfflineLibraries.getAll(limit);
 
     if (result.isSuccess) {
       setLibraries(type ? result.data.filter((library) => library.type === type) : result.data);
@@ -26,7 +26,7 @@ export function useLibraries(type?: TLibrary["type"]) {
     }
 
     setIsLoading(false);
-  }, [type]);
+  }, [type, limit]);
 
   useEffect(() => {
     void refresh();

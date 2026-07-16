@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added "Recently Added NoMusic" and "Recently Added Libraries" preview sections to the offline home page, each linking to its full offline view.
+
+### Changed
+
+- `OfflineNomusic.getAll()` / `OfflineLibraries.getAll()` now accept an optional `limit`, reading only the N most recent records off the `downloadedAt` IndexedDB index instead of loading everything and slicing in memory. `useNomusic`/`useLibraries` pass it through.
+
 ## [0.3.2] - 2026-07-12
 
 ### Fixed
