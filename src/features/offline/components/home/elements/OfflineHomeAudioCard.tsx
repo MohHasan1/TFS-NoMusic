@@ -88,7 +88,7 @@ const OfflineHomeAudioCardComponent = ({ index, noMusic }: TProps) => {
             {noMusic?.name ?? "Untitled"}
           </h3>
 
-          <p className="truncate text-[10px] text-muted-foreground md:text-xs">
+          <p className="truncate text-[10px] text-primary-200/80 md:text-xs">
             {noMusic?.artist || "Unknown Artist"}
           </p>
         </div>
