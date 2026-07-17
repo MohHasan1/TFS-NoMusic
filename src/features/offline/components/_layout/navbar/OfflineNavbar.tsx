@@ -28,7 +28,7 @@ export function OfflineNavbar() {
 
           <div className="hidden min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1 md:flex">
             {offlineNavItems.map((item) => {
-              const isActive = item.matchViews.some((matchView) => matchView === view);
+              const isActive = item.matchViews.some((matchView: string | null) => matchView === view);
               const Icon = item.icon;
 
               return (
