@@ -46,6 +46,10 @@ When authentication-related behavior or implementation changes, ask the user whe
 
 Whenever PostHog init config, `#analytics` event types, `track()` usage, identify/reset hooks, or `data-ph-capture-attribute-*` tagging changes, update `docs/ANALYTICS.md` in the same change.
 
+## Caching documentation
+
+Whenever `"use cache"`, `cacheLife`, `cacheTag`, or `revalidateTag`/`updateTag` usage changes (new cached routes/components, new or renamed cache tags, changed cache profiles, new/changed revalidation hooks), update `docs/CACHING.md` in the same change.
+
 ## Offline shell cache versioning
 
 The offline shell precache revision (`shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts`) is imported directly from `package.json`'s `version` field, so it changes automatically whenever the app version is bumped. Because of this, every deploy should ship with a release version bump — a deploy without one won't refresh the cached offline shell, which can leave offline mode stuck on a blank "Loading" screen. See `docs/OFFLINE_CACHING.md` for details.
