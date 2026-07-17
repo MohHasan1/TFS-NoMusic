@@ -19,6 +19,7 @@ Whenever the user asks to commit changes:
    * Keep the changelog version, release date, Git tag, and `package.json` version synchronized.
    * Commit the release changes together.
 7. Whenever the user asks to commit, verify that `shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts` (which mirrors `package.json`'s version) reflects a version bump if this commit changes build output that will be deployed. Since normal commits don't bump `package.json`'s version (rule 4), flag to the user if the pending changes look deploy-bound and no version bump is staged — see `docs/OFFLINE_CACHING.md`.
+8. Whenever the user asks to push, run the same deploy-bound check as rule 7 first. If there are deploy-bound changes with no version bump staged, don't just flag it — prepare a release (rule 6, default patch bump if none is specified) and commit it, then push.
 
 ## Commit message format
 
