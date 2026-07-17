@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { usePlayerDialog } from "#playback-dialog/hooks/indes";
-import { PRIVATE_ROUTES } from "#constants/routes";
 import { privateNavItems } from "../navbar/links";
 import { cn } from "#lib/utils";
 
@@ -22,9 +21,7 @@ export function PrivateMobileBottomNav() {
     >
       <div className="mx-auto grid items-start h-20 max-w-lg grid-cols-3 px-2">
         {privateNavItems.map((item) => {
-          const isActive =
-            pathname === item.href ||
-            (item.href === PRIVATE_ROUTES.LIBRARIES && pathname.startsWith(`${item.href}/`));
+          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
 
           return (
