@@ -15,6 +15,13 @@ export async function PrivateUserMenuServer() {
 
   return (
     <>
+      <PrivateUserMenu
+        userId={res.data.id}
+        userEmail={res.data.email}
+        userName={res.data.name}
+        userAvatarUrl={res.data.uploadedImageURL}
+      />
+
       <OfflineUserPrecache
         user={{
           id: res.data.id,
@@ -25,12 +32,6 @@ export async function PrivateUserMenuServer() {
           prefAudioLang: res.data.prefAudioLang,
           uploadedImageURL: res.data.uploadedImageURL,
         }}
-      />
-      <PrivateUserMenu
-        userId={res.data.id}
-        userEmail={res.data.email}
-        userName={res.data.name}
-        userAvatarUrl={res.data.uploadedImageURL}
       />
     </>
   );
