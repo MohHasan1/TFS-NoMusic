@@ -22,19 +22,21 @@ export default function LibraryPage({ params }: TProps) {
   return (
     <PrivatePageShell>
       <Suspense fallback={<LibraryHeroSkeleton />}>
-        <LibraryHeroSlot params={params} />
+        {params.then(({ id }) => (
+          <LibraryHeroSlot id={id} />
+        ))}
       </Suspense>
       <Suspense fallback={<LibarayAudioSectionSkeleton />}>
-        <LibraryAudioSlot params={params} />
+        {params.then(({ id }) => (
+          <LibraryAudioSlot id={id} />
+        ))}
       </Suspense>
     </PrivatePageShell>
   );
 }
 
-async function LibraryHeroSlot({ params }: TProps) {
+async function LibraryHeroSlot({ id }: { id: string }) {
   "use cache";
-
-  const { id } = await params;
 
   cacheLife("max");
   cacheTag(`library:${id}`);
@@ -42,12 +44,10 @@ async function LibraryHeroSlot({ params }: TProps) {
   return <LibraryHeroSection libId={id} />;
 }
 
-async function LibraryAudioSlot({ params }: TProps) {
+async function LibraryAudioSlot({ id }: { id: string }) {
   "use cache";
 
-  const { id } = await params;
-
-  cacheLife("max");
+  cacheLife("weeks");
   cacheTag(`library-audio:${id}`);
 
   return <LibarayAudioSection libId={id} />;

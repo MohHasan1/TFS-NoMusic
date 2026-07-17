@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Fixed
+
+- Fixed the library page's hero and audio-list sections always showing their loading skeleton instead of serving from cache, caused by passing the unresolved route `params` promise into a `"use cache"` component instead of a plain resolved id.
+
+### Changed
+
+- Shortened the library audio-list cache lifetime from `max` to `weeks` as a shorter revalidation backstop.
+
 ## [0.3.3] - 2026-07-16
 
 ### Added
