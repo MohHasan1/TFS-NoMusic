@@ -13,7 +13,7 @@ export function PrivateNavLinks() {
   return (
     <div className="hidden min-w-0 max-w-full items-center gap-1 rounded-full border bg-card p-1 md:flex">
       {privateNavItems.map((item) => {
-        const isActive = pathname === item.href;
+        const isActive = pathname.includes(item.href);
         const Icon = item.icon;
 
         return (
