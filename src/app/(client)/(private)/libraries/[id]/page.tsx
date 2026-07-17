@@ -9,14 +9,12 @@ import { listLibraries } from "#services/libraries/libraries.ports";
 import { CACHE_TAG } from "#constants/cache-tags";
 
 export async function generateStaticParams() {
-  const res = await listLibraries({ limit: 1 });
+  const res = await listLibraries({ limit: 25 });
   if (!res.isSuccess) return [];
 
-  return [
-    {
-      id: String(res.data.docs[0].id),
-    },
-  ];
+  return res.data.docs.map((lib) => ({
+    id: String(lib.id),
+  }));
 }
 
 export default function LibraryPage({ params }: TProps) {
