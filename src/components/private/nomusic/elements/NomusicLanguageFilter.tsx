@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useCallback } from "react";
+import { useRouter } from "nextjs-toploader/app";
 
 import { PRIVATE_ROUTES } from "#constants/routes";
 import {
