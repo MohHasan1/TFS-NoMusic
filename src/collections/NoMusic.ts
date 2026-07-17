@@ -3,6 +3,8 @@ import type { CollectionConfig } from "payload";
 import { capitalizeFirstLetter } from "./helpers/format";
 import {
   assignNomusicLibraryAfterChange,
+  revalidateNomusicAfterChange,
+  revalidateNomusicAfterDelete,
   syncAudioDurationBeforeValidate,
   syncUploadAudioURLBeforeValidate,
   syncUploadImageURLBeforeValidate,
@@ -19,7 +21,8 @@ export const Nomusic: CollectionConfig = {
       syncUploadImageURLBeforeValidate,
       syncAudioDurationBeforeValidate,
     ],
-    afterChange: [assignNomusicLibraryAfterChange],
+    afterChange: [assignNomusicLibraryAfterChange, revalidateNomusicAfterChange],
+    afterDelete: [revalidateNomusicAfterDelete],
   },
 
   admin: {

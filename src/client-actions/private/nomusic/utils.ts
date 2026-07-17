@@ -20,7 +20,3 @@ export function buildNomusicWhere(filters: TNomusicFilters): Where | undefined {
 
   return and.length > 0 ? { and } : undefined;
 }
-
-export function isNomusicFilters(filters: TNomusicFilters) {
-  return Object.values(filters).some(Boolean);
-}

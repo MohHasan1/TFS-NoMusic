@@ -1,13 +1,12 @@
+import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
 import { errorResponse, successResponse } from "#responses";
-import { headers as nextHeaders } from "next/headers";
 import { tryCatchResponse } from "#trycatch-response";
 import { TNoMusicPaginated } from "#types/nomusic";
 import { getPayloadClient } from "#payload-client";
-import { PUBLIC_ROUTES } from "#constants/routes";
 import { mapNomusic } from "./no-music.mapper";
 import { Nomusic } from "#payload-types";
-import { redirect } from "next/navigation";
+import type { Where } from "payload";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
@@ -39,7 +38,11 @@ export async function listNomusicAdapter(limit: number) {
   return successResponse(mapped);
 }
 
-export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TListNomusicArg = {}) {
+export async function listNomusicPaginatedAdapter({
+  page = 1,
+  limit = 50,
+  language,
+}: TListNomusicArg = {}) {
   const payload = await getPayloadClient();
 
   // -- Authentication
@@ -49,6 +52,8 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
   //   }),
   // );
   // if (!userRes.isSuccess || !userRes.data.user) redirect(PUBLIC_ROUTES.LOGOUT);
+
+  const where: Where | undefined = language ? { language: { equals: language } } : undefined;
 
   // -- Authorization -> Fetch no-music
   const res = await tryCatchResponse(() =>
@@ -61,6 +66,7 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
       pagination: true,
       // user: userRes.data.user,
       // overrideAccess: false,
+      where,
       select: NOMUSIC_DEFAULT_SELECT,
     }),
   );
@@ -77,4 +83,5 @@ export async function listNomusicPaginatedAdapter({ page = 1, limit = 50 }: TLis
 export type TListNomusicArg = {
   page?: number;
   limit?: number;
+  language?: TLANGUAGES_VALUES;
 };

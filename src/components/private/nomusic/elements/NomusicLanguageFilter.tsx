@@ -1,13 +1,14 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
-import { QUERY } from "#constants/private/query";
+import { PRIVATE_ROUTES } from "#constants/routes";
 import {
   ALL_LANGUAGE_VALUE,
   isLanguage,
   LANGUAGE_OPTIONS,
+  TLANGUAGES_VALUES,
 } from "#constants/private/nomusic-language";
 
 import {
@@ -18,56 +19,21 @@ import {
   SelectValue,
 } from "#components/ui/select";
 
-export function NomusicLanguageFilter() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+export function NomusicLanguageFilter({ language }: TProps) {
+  const router = useRouter();
 
-  const searchParamsString = searchParams.toString();
-  const rawLanguage = searchParams.get(QUERY.LANGUAGE);
-
-  const language = rawLanguage && isLanguage(rawLanguage) ? rawLanguage : ALL_LANGUAGE_VALUE;
-
-  const [selectedLanguage, setSelectedLanguage] = useState<string>(language);
-
-  useEffect(() => {
-    setSelectedLanguage(language);
-  }, [language]);
-
-  // To remove
-  useEffect(() => {
-    if (!rawLanguage) return;
-    if (isLanguage(rawLanguage)) return;
-
-    const params = new URLSearchParams(searchParamsString);
-    params.delete(QUERY.LANGUAGE);
-
-    const query = params.toString();
-    const href = query ? `${pathname}?${query}` : pathname;
-
-    window.history.replaceState(null, "", href);
-  }, [rawLanguage, pathname, searchParamsString]);
+  const selectedLanguage = language ?? ALL_LANGUAGE_VALUE;
 
   const handleLanguageChange = useCallback(
     (value: string) => {
-      const params = new URLSearchParams(searchParamsString);
+      const href =
+        value !== ALL_LANGUAGE_VALUE && isLanguage(value)
+          ? PRIVATE_ROUTES.NOMUSIC_LANGUAGE(value)
+          : PRIVATE_ROUTES.NOMUSIC;
 
-      if (value === ALL_LANGUAGE_VALUE) {
-        params.delete(QUERY.LANGUAGE);
-        setSelectedLanguage(ALL_LANGUAGE_VALUE);
-      } else if (isLanguage(value)) {
-        params.set(QUERY.LANGUAGE, value);
-        setSelectedLanguage(value);
-      } else {
-        params.delete(QUERY.LANGUAGE);
-        setSelectedLanguage(ALL_LANGUAGE_VALUE);
-      }
-
-      const query = params.toString();
-      const href = query ? `${pathname}?${query}` : pathname;
-
-      window.history.replaceState(null, "", href);
+      router.push(href);
     },
-    [pathname, searchParamsString],
+    [router],
   );
 
   return (
@@ -92,3 +58,7 @@ export function NomusicLanguageFilter() {
     </Select>
   );
 }
+
+type TProps = {
+  language?: TLANGUAGES_VALUES;
+};

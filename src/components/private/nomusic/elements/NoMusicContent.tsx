@@ -3,30 +3,22 @@
 import { useMemo } from "react";
 
 import { useNomusicPageInfiniteQuery } from "#client-actions/private/nomusic/query";
+import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import NoMusicInfinityObserver from "../elements/NoMusicInfinityObserver";
 import { TNomusicFilters } from "#client-actions/private/nomusic/keys";
-import { isLanguage } from "#constants/private/nomusic-language";
 import { NoMusicEmptyBox } from "../elements/NomusicEmptyBox";
 import NoMusicBrowser from "../elements/NoMusicBrowser";
 import { TNoMusicPaginated } from "#types/nomusic";
-import { useSearchParams } from "next/navigation";
-import { QUERY } from "#constants/private/query";
 import { TResponse } from "#responses";
 
-// TODO: when route is ?language="", double fetch happens - have to fix that
-const NoMusicContent = ({ initialNomusic }: TProps) => {
-  const searchParams = useSearchParams();
-  const rawLangValue = searchParams.get(QUERY.LANGUAGE)?.trim();
-
-  const langValue = isLanguage(rawLangValue) ? rawLangValue : undefined;
-
+const NoMusicContent = ({ initialNomusic, language }: TProps) => {
   const filters = useMemo<TNomusicFilters>(() => {
-    if (!langValue) return {};
+    if (!language) return {};
 
     return {
-      language: langValue,
+      language,
     };
-  }, [langValue]);
+  }, [language]);
 
   const initialData = initialNomusic.isSuccess
     ? initialNomusic.data
@@ -45,9 +37,9 @@ const NoMusicContent = ({ initialNomusic }: TProps) => {
       <NoMusicBrowser
         isFetching={query.isFetching && !query.isFetchingNextPage}
         pages={query.data?.pages}
-        queryParam={langValue}
+        queryParam={language}
       />
-      <NoMusicInfinityObserver query={query} queryParam={langValue} />
+      <NoMusicInfinityObserver query={query} queryParam={language} />
     </section>
   );
 };
@@ -56,4 +48,5 @@ export default NoMusicContent;
 
 type TProps = {
   initialNomusic: TResponse<TNoMusicPaginated>;
+  language?: TLANGUAGES_VALUES;
 };

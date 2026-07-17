@@ -1,8 +1,15 @@
-import type { CollectionAfterChangeHook, CollectionBeforeValidateHook } from "payload";
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionBeforeValidateHook,
+  Payload,
+} from "payload";
+import { revalidateTag } from "next/cache";
 import { getLibraryIdByLanguage } from "../helpers/library";
-import type { Nomusic } from "@/payload-types";
+import type { Nomusic, NomusicLibrary } from "@/payload-types";
 import { parseBuffer } from "music-metadata";
 import { isID } from "#lib/utils";
+import { tryCatchResponse } from "#trycatch-response";
 
 // TODO: make it better
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
@@ -139,3 +146,73 @@ export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic>
 
   // TODO: if smt failed push to queue
 };
+
+export const revalidateNomusicAfterChange: CollectionAfterChangeHook<Nomusic> = async ({
+  doc,
+  previousDoc,
+  operation,
+  req,
+}) => {
+  revalidateTag(`nomusic:${doc.language}`, "max");
+  revalidateTag("nomusic:all", "max");
+
+  if (operation === "update" && previousDoc.language !== doc.language) {
+    revalidateTag(`nomusic:${previousDoc.language}`, "max");
+  }
+
+  await revalidateLinkedLibraryAudio(req.payload, doc.id);
+};
+
+export const revalidateNomusicAfterDelete: CollectionAfterDeleteHook<Nomusic> = async ({
+  doc,
+  req,
+}) => {
+  revalidateTag(`nomusic:${doc.language}`, "max");
+  revalidateTag("nomusic:all", "max");
+
+  const links = await revalidateLinkedLibraryAudio(req.payload, doc.id);
+
+  // Song is gone — clean up its now-orphaned nomusic-libraries rows. Deleting
+  // each by id (not a bulk `where` delete) fires that collection's own
+  // afterDelete hook per row, which recomputes trackCount and revalidates
+  // library-audio:<id> again via syncLibraryTrackCountAfterDelete. Wrapped so
+  // one failed delete doesn't reject the others or throw out of this hook.
+  await Promise.all(
+    links.map((link) =>
+      tryCatchResponse(() =>
+        req.payload.delete({
+          collection: "nomusic-libraries",
+          id: link.id,
+          overrideAccess: true,
+        }),
+      ),
+    ),
+  );
+};
+
+// -- A song can belong to many libraries (language, album, user), so revalidate all of them.
+async function revalidateLinkedLibraryAudio(payload: Payload, nomusicId: Nomusic["id"]) {
+  const res = await tryCatchResponse(() =>
+    payload.find({
+      collection: "nomusic-libraries",
+      limit: 100,
+      depth: 0,
+      pagination: false,
+      select: { library: true },
+      where: {
+        nomusic: { equals: nomusicId },
+      },
+    }),
+  );
+
+  if (!res.isSuccess) return [];
+
+  const links = res.data.docs as NomusicLibrary[];
+
+  for (const link of links) {
+    const libraryId = isID(link.library) ? link.library : link.library.id;
+    revalidateTag(`library-audio:${libraryId}`, "max");
+  }
+
+  return links;
+}
