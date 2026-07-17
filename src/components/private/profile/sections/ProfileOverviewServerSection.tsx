@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
 import { connection } from "next/server";
+import { redirect } from "next/navigation";
 import { PUBLIC_ROUTES } from "#constants/routes";
 import { getCurrentUser } from "#services/auth/auth.ports";
 import { ProfileOverviewSection } from "./ProfileOverviewSection";
