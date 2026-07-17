@@ -98,6 +98,27 @@ This is the pattern `libraries/[id]/page.tsx` follows. See
 `node_modules/next/dist/docs/01-app/02-guides/instant-navigation.md` for
 the upstream reference example.
 
+### Gotcha: client components reading `useSearchParams()` (or other runtime APIs) need a `<Suspense>` boundary too
+
+`useSearchParams()`, `usePathname()`, `cookies()`, and `headers()` are all
+runtime APIs — like route `params`, they're only known at request time. A
+component that reads one needs an ancestor `<Suspense>` boundary, or its
+output is simply missing from the static shell entirely (no error, no
+fallback — just absent), since Next has nothing to bake into the prerender.
+
+This bit `nomusic/page.tsx`'s `NoMusicHeaderSection` (a `"use client"`
+component calling `useSearchParams()` to read the language filter): its
+`<Suspense>` wrapper had been commented out, so the header's title/description
+never appeared in the static HTML at all — confirmed by inspecting the built
+`.next/server/app/nomusic.html`, which had zero `<h1>` tags. It only ever
+rendered after client-side hydration. Re-wrapping it in `<Suspense>` with a
+matching fallback fixed it — the fallback ships in the static shell
+immediately, then swaps for the real client-rendered content once
+`useSearchParams()` resolves in the browser.
+
+See "Working with runtime APIs" in
+`node_modules/next/dist/docs/01-app/01-getting-started/08-caching.md`.
+
 ### Known gap: `generateStaticParams` only covers one library
 
 `libraries/[id]/page.tsx`'s `generateStaticParams` calls
