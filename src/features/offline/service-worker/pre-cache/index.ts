@@ -5,7 +5,7 @@ import { version } from "../../../../../package.json";
  * Serwist to download fresh HTML. The offline shell HTML references the
  * current build's JS/CSS chunk hashes, which change on every release
  * regardless of whether the offline feature itself was touched — see
- * docs/OFFLINE_CACHING.md.
+ * docs/project/OFFLINE_CACHING.md.
  */
 const shellRevision = version;
 

@@ -18,7 +18,7 @@ Whenever the user asks to commit changes:
    * Move the relevant entries from `[Unreleased]` into a new release section.
    * Keep the changelog version, release date, Git tag, and `package.json` version synchronized.
    * Commit the release changes together.
-7. Whenever the user asks to commit, verify that `shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts` (which mirrors `package.json`'s version) reflects a version bump if this commit changes build output that will be deployed. Since normal commits don't bump `package.json`'s version (rule 4), flag to the user if the pending changes look deploy-bound and no version bump is staged — see `docs/OFFLINE_CACHING.md`.
+7. Whenever the user asks to commit, verify that `shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts` (which mirrors `package.json`'s version) reflects a version bump if this commit changes build output that will be deployed. Since normal commits don't bump `package.json`'s version (rule 4), flag to the user if the pending changes look deploy-bound and no version bump is staged — see `docs/project/OFFLINE_CACHING.md`.
 8. Whenever the user asks to push, run the same deploy-bound check as rule 7 first. If there are deploy-bound changes with no version bump staged, don't just flag it — prepare a release (rule 6, default patch bump if none is specified) and commit it, then push.
 
 ## Commit message format
@@ -35,23 +35,23 @@ Use this format for commit messages:
 
 ## Proxy documentation
 
-Whenever `src/proxy.ts` or its authentication, routing, redirect, cookie, token, or preferred-language behavior changes, update `docs/PROXY_AUTH.md` in the same change.
+Whenever `src/proxy.ts` or its authentication, routing, redirect, cookie, token, or preferred-language behavior changes, update `docs/project/PROXY_AUTH.md` in the same change.
 
 ## Authentication documentation
 
-When authentication-related behavior or implementation changes, ask the user whether they want `docs/AUTHENTICATION.md` updated. Do not update that document automatically.
+When authentication-related behavior or implementation changes, ask the user whether they want `docs/project/AUTHENTICATION.md` updated. Do not update that document automatically.
 
 ## Analytics documentation
 
-Whenever PostHog init config, `#analytics` event types, `track()` usage, identify/reset hooks, or `data-ph-capture-attribute-*` tagging changes, update `docs/ANALYTICS.md` in the same change.
+Whenever PostHog init config, `#analytics` event types, `track()` usage, identify/reset hooks, or `data-ph-capture-attribute-*` tagging changes, update `docs/project/ANALYTICS.md` in the same change.
 
 ## Caching documentation
 
-Whenever `"use cache"`, `cacheLife`, `cacheTag`, or `revalidateTag`/`updateTag` usage changes (new cached routes/components, new or renamed cache tags, changed cache profiles, new/changed revalidation hooks), update `docs/CACHING.md` in the same change.
+Whenever `"use cache"`, `cacheLife`, `cacheTag`, or `revalidateTag`/`updateTag` usage changes (new cached routes/components, new or renamed cache tags, changed cache profiles, new/changed revalidation hooks), update `docs/project/CACHING.md` in the same change.
 
 ## Offline shell cache versioning
 
-The offline shell precache revision (`shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts`) is imported directly from `package.json`'s `version` field, so it changes automatically whenever the app version is bumped. Because of this, every deploy should ship with a release version bump — a deploy without one won't refresh the cached offline shell, which can leave offline mode stuck on a blank "Loading" screen. See `docs/OFFLINE_CACHING.md` for details.
+The offline shell precache revision (`shellRevision` in `src/features/offline/service-worker/pre-cache/index.ts`) is imported directly from `package.json`'s `version` field, so it changes automatically whenever the app version is bumped. Because of this, every deploy should ship with a release version bump — a deploy without one won't refresh the cached offline shell, which can leave offline mode stuck on a blank "Loading" screen. See `docs/project/OFFLINE_CACHING.md` for details.
 
 ## UI implementation
 

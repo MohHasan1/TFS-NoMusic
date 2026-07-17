@@ -7,7 +7,7 @@ export function initAnalytics() {
     defaults: "2026-05-30",
 
     // Only capture clicks on elements we've explicitly tagged with
-    // data-ph-capture-attribute-action (see docs/ANALYTICS.md)
+    // data-ph-capture-attribute-action (see docs/project/ANALYTICS.md)
     autocapture: {
       css_selector_allowlist: ["[data-ph-capture-attribute-action]"],
     },

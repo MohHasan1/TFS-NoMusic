@@ -4,7 +4,7 @@
  * revalidating it) must produce the exact same string — import from here
  * instead of hand-writing template strings so they can't drift apart.
  *
- * See docs/CACHING.md for the tag naming convention and what invalidates what.
+ * See docs/project/CACHING.md for the tag naming convention and what invalidates what.
  */
 export const CACHE_TAG = {
   LIBRARY: {

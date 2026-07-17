@@ -19,7 +19,7 @@ Private-page request
 
 ## Layer 1: fast Proxy gate
 
-`src/proxy.ts` protects the private route families listed in `docs/PROXY_AUTH.md`.
+`src/proxy.ts` protects the private route families listed in `docs/project/PROXY_AUTH.md`.
 
 It reads the `payload-token` cookie and verifies the JWT locally with `jose`. Verification checks:
 
@@ -93,4 +93,4 @@ When an authoritative `getCurrentUser()` check fails, redirect to `PUBLIC_ROUTES
 
 Redirecting directly to `PUBLIC_ROUTES.SIGNIN` can recreate an infinite loop: Proxy accepts the still-valid local JWT and redirects back to the private page, while the database-backed check rejects the deleted or revoked session and redirects to sign-in again.
 
-For detailed route matching, token handling, preferred-language behavior, and redirect rules, see `docs/PROXY_AUTH.md`.
+For detailed route matching, token handling, preferred-language behavior, and redirect rules, see `docs/project/PROXY_AUTH.md`.

@@ -5,12 +5,12 @@ service worker, and the deploy step required to keep it working.
 
 ## How it works
 
-The service worker ([src/app/sw.ts](../src/app/sw.ts)) is built with
+The service worker ([src/app/sw.ts](../../src/app/sw.ts)) is built with
 [Serwist](https://serwist.pages.dev/). It precaches two kinds of assets:
 
 1. **Build chunks** — `.next/static/**/*.{js,css,woff,woff2}`, matched via
    `globPatterns` in
-   [pre-cache/index.ts](../src/features/offline/service-worker/pre-cache/index.ts).
+   [pre-cache/index.ts](../../src/features/offline/service-worker/pre-cache/index.ts).
    Serwist derives a content hash for each of these automatically at build
    time, so they're always precached correctly — no manual step needed.
 
@@ -44,9 +44,9 @@ happens:
   (only the new build's hashed filenames are deployed).
 - When a user is actually offline and the service worker's navigation
   fallback (`serwist.setCatchHandler` in
-  [src/app/sw.ts](../src/app/sw.ts)) serves the stale `/offline` HTML, the
+  [src/app/sw.ts](../../src/app/sw.ts)) serves the stale `/offline` HTML, the
   browser renders the server-side `Suspense` fallback
-  (`"Loading"` in [offline/page.tsx](../src/app/(offline)/offline/page.tsx))
+  (`"Loading"` in [offline/page.tsx](../../src/app/(offline)/offline/page.tsx))
   first, then tries to fetch the old-hashed chunks to hydrate.
 - Those chunks aren't in the cache (only current-build chunks get
   precached) and there's no network to fetch them from, so hydration never
