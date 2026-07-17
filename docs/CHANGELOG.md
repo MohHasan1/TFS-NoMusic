@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.4] - 2026-07-16
+
 ### Added
 
 - Added per-language NoMusic routes (`/nomusic/bangla`, `/nomusic/hindi`, etc.) alongside `/nomusic`, replacing `?language=` query-string filtering. Invalid language segments redirect to `/nomusic`.
