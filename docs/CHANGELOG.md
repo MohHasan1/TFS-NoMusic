@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Fixed the library page's hero and audio-list sections always showing their loading skeleton instead of serving from cache, caused by passing the unresolved route `params` promise into a `"use cache"` component instead of a plain resolved id.
 - Fixed a library's `trackCount` staying permanently inflated after a linked song was deleted directly (rather than by unlinking it first) — deleting a NoMusic doc now also removes its now-orphaned `nomusic-libraries` link rows.
+- Fixed the preferred-audio-language redirect (after sign-in, and when returning from offline mode) silently landing on the unfiltered `/nomusic` collection instead of the user's language — it was still targeting the now-defunct `/nomusic?language=` query param instead of the `/nomusic/<language>` route.
 
 ## [0.3.3] - 2026-07-16
 

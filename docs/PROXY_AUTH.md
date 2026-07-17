@@ -63,10 +63,20 @@ Proxy then removes the `sessionExpired` parameter, clears the stale `payload-tok
 
 Proxy reads this value directly from the verified token. An API request to `/api/users/me` is used only as a migration fallback for older valid tokens that do not contain `prefAudioLang`.
 
-The preferred language is used in two cases:
+The preferred language is used in two cases, both redirecting to the
+per-language route (`PRIVATE_ROUTES.NOMUSIC_LANGUAGE`) rather than a query
+parameter — `/nomusic/{value}` instead of `/nomusic?language={value}`, since
+NoMusic language filtering is routed, not query-string-driven (see
+[NOMUSIC.md](./NOMUSIC.md)):
 
-1. An authenticated user visits `/signin` and is redirected to `/nomusic?language={value}`.
-2. `/nomusic?setPrefAudioLang=1` removes the temporary flag and adds the language parameter when one is not already present.
+1. An authenticated user visits `/signin` and is redirected to
+   `/nomusic/{value}` (or plain `/nomusic` if no preference is set).
+2. `/nomusic?setPrefAudioLang=1` (used when returning from offline mode, see
+   `OfflineOnlineDialog`) removes the temporary flag and redirects to
+   `/nomusic/{value}`.
+
+The sign-in Server Action (`signinAction`) does the same thing after a
+fresh credential-based sign-in, independent of Proxy.
 
 ## Full session validation
 

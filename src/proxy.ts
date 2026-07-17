@@ -160,23 +160,15 @@ function extractPrefAudioLang(str: unknown): string {
 }
 
 function redirectAuthenticatedUser(request: NextRequest, prefAudioLang: string) {
-  const url = new URL(PATH.AFTER_AUTHENTICATED, request.url);
+  const target = prefAudioLang
+    ? PRIVATE_ROUTES.NOMUSIC_LANGUAGE(prefAudioLang)
+    : PATH.AFTER_AUTHENTICATED;
 
-  if (prefAudioLang) {
-    url.searchParams.set("language", prefAudioLang);
-  }
-
-  return NextResponse.redirect(url);
+  return NextResponse.redirect(new URL(target, request.url));
 }
 
 function redirectWithPreferredLanguage(request: NextRequest, prefAudioLang: string) {
-  const url = request.nextUrl.clone();
+  const target = prefAudioLang ? PRIVATE_ROUTES.NOMUSIC_LANGUAGE(prefAudioLang) : PATH.COLLECTION;
 
-  url.searchParams.delete(PREF_LANG_PARAM);
-
-  if (!url.searchParams.has("language") && prefAudioLang) {
-    url.searchParams.set("language", prefAudioLang);
-  }
-
-  return NextResponse.redirect(url);
+  return NextResponse.redirect(new URL(target, request.url));
 }

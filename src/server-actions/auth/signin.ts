@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation";
 
 import { SIGNIN_CLIENT } from "#constants/auth/signin";
-import { QUERY } from "#constants/private/query";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { errorResponse } from "#responses";
 import { signIn } from "#services/auth/auth.ports";
@@ -27,14 +26,9 @@ export async function signinAction(data: TSigninStrictSchema, redirectTo?: strin
   }
 
   const prefAudioLang = res.data?.user?.prefAudioLang;
-  const params = new URLSearchParams();
-
-  if (prefAudioLang) {
-    params.set(QUERY.LANGUAGE, prefAudioLang);
-  }
-
-  const query = params.toString();
-  const href = query ? `${PRIVATE_ROUTES.NOMUSIC}?${query}` : PRIVATE_ROUTES.NOMUSIC;
+  const href = prefAudioLang
+    ? PRIVATE_ROUTES.NOMUSIC_LANGUAGE(prefAudioLang)
+    : PRIVATE_ROUTES.NOMUSIC;
 
   redirect(href);
 }
