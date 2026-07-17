@@ -6,6 +6,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.5] - 2026-07-17
+
+### Changed
+
+- `libraries/[id]`'s `generateStaticParams` now prerenders up to 25 libraries (all types) instead of just one, so more library pages load instantly instead of showing a loading skeleton on first visit.
+- The NoMusic language filter now uses the app's loading-indicator-aware router (`nextjs-toploader/app`) instead of `next/navigation`, matching other navigations in the app.
+
 ## [0.3.4] - 2026-07-16
 
 ### Added
