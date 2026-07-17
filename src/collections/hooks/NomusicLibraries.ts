@@ -2,6 +2,7 @@ import { revalidateTag } from "next/cache";
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "payload";
 import { isID } from "#lib/utils";
 import type { Library, NomusicLibrary } from "#payload-types";
+import { tryCatchResponse } from "#trycatch-response";
 
 export const syncLibraryTrackCountAfterChange: CollectionAfterChangeHook<NomusicLibrary> = async ({
   doc,
@@ -61,23 +62,25 @@ async function syncLibraryTrackCount(
   req: Parameters<CollectionAfterChangeHook<NomusicLibrary>>[0]["req"],
   libraryId: string | number,
 ) {
-  const { totalDocs } = await req.payload.count({
-    collection: "nomusic-libraries",
-    overrideAccess: true,
-    where: {
-      library: {
-        equals: libraryId,
+  await tryCatchResponse(async () => {
+    const { totalDocs } = await req.payload.count({
+      collection: "nomusic-libraries",
+      overrideAccess: true,
+      where: {
+        library: {
+          equals: libraryId,
+        },
       },
-    },
-  });
+    });
 
-  await req.payload.update({
-    collection: "libraries",
-    id: libraryId,
-    overrideAccess: true,
-    select: {},
-    data: {
-      trackCount: totalDocs,
-    } satisfies Partial<Library>,
+    await req.payload.update({
+      collection: "libraries",
+      id: libraryId,
+      overrideAccess: true,
+      select: {},
+      data: {
+        trackCount: totalDocs,
+      } satisfies Partial<Library>,
+    });
   });
 }
