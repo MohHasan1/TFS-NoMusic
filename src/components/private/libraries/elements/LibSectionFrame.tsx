@@ -1,4 +1,5 @@
 import { cacheLife, cacheTag } from "next/cache";
+import { CACHE_TAG } from "#constants/cache-tags";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { listLibraries } from "#services/libraries/libraries.ports";
 import type { TLibrary } from "#types/library";
@@ -9,7 +10,7 @@ export async function LibSectionFrame({ title, description, type }: TProps) {
   "use cache";
 
   cacheLife("max");
-  cacheTag(`libraries:${type}`);
+  cacheTag(CACHE_TAG.LIBRARY.LIST(type));
 
   const res = await listLibraries({ type });
   const libs = res.isSuccess ? res.data.docs : [];

@@ -3,12 +3,13 @@ import NoMusicContent from "../elements/NoMusicContent";
 import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
 import { listNomusicPaginated } from "#services/nomusic/no-music.ports";
 import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { CACHE_TAG } from "#constants/cache-tags";
 
 const NoMusicContentSection = async ({ language }: TProps) => {
   "use cache";
 
   cacheLife("weeks");
-  cacheTag(`nomusic:${language ?? "all"}`);
+  cacheTag(language ? CACHE_TAG.NOMUSIC.LIST(language) : CACHE_TAG.NOMUSIC.ALL);
 
   const res = await listNomusicPaginated({
     page: NOMUSIC_PAGINATION.PAGE,

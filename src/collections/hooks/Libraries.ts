@@ -7,22 +7,23 @@ import type {
 import slugify from "slugify";
 import { isID } from "#lib/utils";
 import type { Library } from "#payload-types";
+import { CACHE_TAG } from "#constants/cache-tags";
 
 export const revalidateLibraryAfterChange: CollectionAfterChangeHook<Library> = ({
   doc,
   previousDoc,
 }) => {
-  revalidateTag(`library:${doc.id}`, "max");
-  revalidateTag(`libraries:${doc.type}`, "max");
+  revalidateTag(CACHE_TAG.LIBRARY.DETAIL(doc.id), "max");
+  revalidateTag(CACHE_TAG.LIBRARY.LIST(doc.type), "max");
 
   if (previousDoc.type !== doc.type) {
-    revalidateTag(`libraries:${previousDoc.type}`, "max");
+    revalidateTag(CACHE_TAG.LIBRARY.LIST(previousDoc.type), "max");
   }
 };
 
 export const revalidateLibraryAfterDelete: CollectionAfterDeleteHook<Library> = ({ doc }) => {
-  revalidateTag(`library:${doc.id}`, "max");
-  revalidateTag(`libraries:${doc.type}`, "max");
+  revalidateTag(CACHE_TAG.LIBRARY.DETAIL(doc.id), "max");
+  revalidateTag(CACHE_TAG.LIBRARY.LIST(doc.type), "max");
 };
 
 export const generateSlugBeforeValidate: CollectionBeforeValidateHook<Library> = async ({

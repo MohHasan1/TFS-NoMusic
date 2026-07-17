@@ -6,6 +6,7 @@ import { LibraryHeroSection } from "#components/private/library/sections/Library
 import { PrivatePageShell } from "#components/private/shared/PrivatePageShell";
 import { cacheLife, cacheTag } from "next/cache";
 import { listLibraries } from "#services/libraries/libraries.ports";
+import { CACHE_TAG } from "#constants/cache-tags";
 
 export async function generateStaticParams() {
   const res = await listLibraries({ limit: 1 });
@@ -39,7 +40,7 @@ async function LibraryHeroSlot({ id }: { id: string }) {
   "use cache";
 
   cacheLife("max");
-  cacheTag(`library:${id}`);
+  cacheTag(CACHE_TAG.LIBRARY.DETAIL(id));
 
   return <LibraryHeroSection libId={id} />;
 }
@@ -48,7 +49,7 @@ async function LibraryAudioSlot({ id }: { id: string }) {
   "use cache";
 
   cacheLife("weeks");
-  cacheTag(`library-audio:${id}`);
+  cacheTag(CACHE_TAG.LIBRARY.AUDIO(id));
 
   return <LibarayAudioSection libId={id} />;
 }

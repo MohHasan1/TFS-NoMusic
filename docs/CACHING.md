@@ -18,10 +18,10 @@ Current usage:
 
 | Location | Cached unit | `cacheLife` | `cacheTag` |
 | --- | --- | --- | --- |
-| [libraries/[id]/page.tsx](../src/app/(client)/(private)/libraries/[id]/page.tsx) `LibraryHeroSlot` | Library hero section | `max` | `` library:${id} `` |
-| [libraries/[id]/page.tsx](../src/app/(client)/(private)/libraries/[id]/page.tsx) `LibraryAudioSlot` | Library audio list | `weeks` | `` library-audio:${id} `` |
-| [LibSectionFrame.tsx](../src/components/private/libraries/elements/LibSectionFrame.tsx) | Library grid section (by type) | `max` | `` libraries:${type} `` |
-| [noMusicContentSection.tsx](../src/components/private/nomusic/sections/noMusicContentSection.tsx) `NoMusicContentSection` | NoMusic paginated list (page 1) | `weeks` | `` nomusic:${language ?? "all"} `` |
+| [libraries/[id]/page.tsx](../src/app/(client)/(private)/libraries/[id]/page.tsx) `LibraryHeroSlot` | Library hero section | `max` | `CACHE_TAG.LIBRARY.DETAIL(id)` |
+| [libraries/[id]/page.tsx](../src/app/(client)/(private)/libraries/[id]/page.tsx) `LibraryAudioSlot` | Library audio list | `weeks` | `CACHE_TAG.LIBRARY.AUDIO(id)` |
+| [LibSectionFrame.tsx](../src/components/private/libraries/elements/LibSectionFrame.tsx) | Library grid section (by type) | `max` | `CACHE_TAG.LIBRARY.LIST(type)` |
+| [noMusicContentSection.tsx](../src/components/private/nomusic/sections/noMusicContentSection.tsx) `NoMusicContentSection` | NoMusic paginated list (page 1) | `weeks` | `CACHE_TAG.NOMUSIC.LIST(language)` or `.ALL` |
 
 `no-music.ports.ts` has commented-out `"use cache"` blocks (`listNomusic`,
 `listNomusicPaginated`) — left disabled intentionally. Caching for nomusic
@@ -30,13 +30,28 @@ lives at the component level (`NoMusicContentSection`) instead, same as the
 
 ## Tag naming convention
 
+All tag strings live in one place: [src/constants/cache-tags.ts](../src/constants/cache-tags.ts),
+`CACHE_TAG`. Import it from there in both directions — the `cacheTag(...)`
+call and the `revalidateTag(...)` call that invalidates it — instead of
+hand-writing template strings. That's the whole point: `cacheTag` and
+`revalidateTag` always live in different files (a component vs. a
+collection hook), so a hand-written string is one typo away from silently
+never invalidating.
+
 Tags are `<resource>:<key>`, matching the identifier that changes it:
 
-- `library:<id>` — a single library's own fields (name, author, image, etc.)
-- `library-audio:<id>` — the audio/track list belonging to a library
-- `libraries:<type>` — the library grid/listing for a given `type`
-- `nomusic:<language>` — the NoMusic list for a given language route
-  (`/nomusic/<language>`); `nomusic:all` for the unfiltered `/nomusic` route
+- `CACHE_TAG.LIBRARY.DETAIL(id)` → `library:<id>` — a single library's own
+  fields (name, author, image, etc.)
+- `CACHE_TAG.LIBRARY.AUDIO(id)` → `library-audio:<id>` — the audio/track
+  list belonging to a library
+- `CACHE_TAG.LIBRARY.LIST(type)` → `libraries:<type>` — the library grid/
+  listing for a given `type`
+- `CACHE_TAG.NOMUSIC.LIST(language)` → `nomusic:<language>` — the NoMusic
+  list for a given language route (`/nomusic/<language>`)
+- `CACHE_TAG.NOMUSIC.ALL` → `nomusic:all` — the unfiltered `/nomusic` route
+
+Adding a new cached resource? Add its tag builder(s) to `CACHE_TAG` first,
+then use it from both the `cacheTag` and `revalidateTag` call sites.
 
 ## Revalidation
 
@@ -46,9 +61,9 @@ this table is the source of truth for what invalidates what:
 
 | Change | Hook | Tags revalidated |
 | --- | --- | --- |
-| Library created / updated / deleted | [Libraries.ts](../src/collections/hooks/Libraries.ts) | `library:<id>`, `libraries:<type>` (+ old `libraries:<type>` if `type` changed) |
-| Nomusic↔library link created / updated / deleted | [NomusicLibraries.ts](../src/collections/hooks/NomusicLibraries.ts) | `library-audio:<libraryId>` |
-| Nomusic doc created / updated / deleted | [noMusic.ts](../src/collections/hooks/noMusic.ts) | `nomusic:<language>`, `nomusic:all` (+ old `nomusic:<language>` if `language` changed), **and** `library-audio:<libraryId>` for every library that song is linked to |
+| Library created / updated / deleted | [Libraries.ts](../src/collections/hooks/Libraries.ts) | `LIBRARY.DETAIL(id)`, `LIBRARY.LIST(type)` (+ old `LIBRARY.LIST(type)` if `type` changed) |
+| Nomusic↔library link created / updated / deleted | [NomusicLibraries.ts](../src/collections/hooks/NomusicLibraries.ts) | `LIBRARY.AUDIO(libraryId)` |
+| Nomusic doc created / updated / deleted | [noMusic.ts](../src/collections/hooks/noMusic.ts) | `NOMUSIC.LIST(language)`, `NOMUSIC.ALL` (+ old `NOMUSIC.LIST(language)` if `language` changed), **and** `LIBRARY.AUDIO(libraryId)` for every library that song is linked to |
 
 The last row is the one to remember: a song can belong to more than one
 library (language, album, or user — see the unique index on
@@ -101,7 +116,7 @@ Resolve `params` **outside** the cached scope and pass the plain value in:
 async function CachedSlot({ id }: { id: string }) {
   "use cache";
   cacheLife("max");
-  cacheTag(`resource:${id}`);
+  cacheTag(CACHE_TAG.LIBRARY.DETAIL(id));
   return ...;
 }
 ```

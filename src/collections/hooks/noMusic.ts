@@ -10,6 +10,7 @@ import type { Nomusic, NomusicLibrary } from "@/payload-types";
 import { parseBuffer } from "music-metadata";
 import { isID } from "#lib/utils";
 import { tryCatchResponse } from "#trycatch-response";
+import { CACHE_TAG } from "#constants/cache-tags";
 
 // TODO: make it better
 export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
@@ -153,11 +154,11 @@ export const revalidateNomusicAfterChange: CollectionAfterChangeHook<Nomusic> = 
   operation,
   req,
 }) => {
-  revalidateTag(`nomusic:${doc.language}`, "max");
-  revalidateTag("nomusic:all", "max");
+  revalidateTag(CACHE_TAG.NOMUSIC.LIST(doc.language), "max");
+  revalidateTag(CACHE_TAG.NOMUSIC.ALL, "max");
 
   if (operation === "update" && previousDoc.language !== doc.language) {
-    revalidateTag(`nomusic:${previousDoc.language}`, "max");
+    revalidateTag(CACHE_TAG.NOMUSIC.LIST(previousDoc.language), "max");
   }
 
   await revalidateLinkedLibraryAudio(req.payload, doc.id);
@@ -167,8 +168,8 @@ export const revalidateNomusicAfterDelete: CollectionAfterDeleteHook<Nomusic> = 
   doc,
   req,
 }) => {
-  revalidateTag(`nomusic:${doc.language}`, "max");
-  revalidateTag("nomusic:all", "max");
+  revalidateTag(CACHE_TAG.NOMUSIC.LIST(doc.language), "max");
+  revalidateTag(CACHE_TAG.NOMUSIC.ALL, "max");
 
   const links = await revalidateLinkedLibraryAudio(req.payload, doc.id);
 
@@ -211,7 +212,7 @@ async function revalidateLinkedLibraryAudio(payload: Payload, nomusicId: Nomusic
 
   for (const link of links) {
     const libraryId = isID(link.library) ? link.library : link.library.id;
-    revalidateTag(`library-audio:${libraryId}`, "max");
+    revalidateTag(CACHE_TAG.LIBRARY.AUDIO(libraryId), "max");
   }
 
   return links;

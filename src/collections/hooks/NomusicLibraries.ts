@@ -3,6 +3,7 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "paylo
 import { isID } from "#lib/utils";
 import type { Library, NomusicLibrary } from "#payload-types";
 import { tryCatchResponse } from "#trycatch-response";
+import { CACHE_TAG } from "#constants/cache-tags";
 
 export const syncLibraryTrackCountAfterChange: CollectionAfterChangeHook<NomusicLibrary> = async ({
   doc,
@@ -29,7 +30,7 @@ export const syncLibraryTrackCountAfterChange: CollectionAfterChangeHook<Nomusic
   );
 
   for (const libraryId of affectedLibraryIds) {
-    revalidateTag(`library-audio:${libraryId}`, "max");
+    revalidateTag(CACHE_TAG.LIBRARY.AUDIO(libraryId), "max");
   }
 };
 
@@ -42,7 +43,7 @@ export const syncLibraryTrackCountAfterDelete: CollectionAfterDeleteHook<Nomusic
   if (!libraryId) return;
 
   await syncLibraryTrackCount(req, libraryId);
-  revalidateTag(`library-audio:${libraryId}`, "max");
+  revalidateTag(CACHE_TAG.LIBRARY.AUDIO(libraryId), "max");
 };
 
 // --- Helpers
