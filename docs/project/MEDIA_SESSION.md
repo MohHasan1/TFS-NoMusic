@@ -6,6 +6,37 @@ This hook connects `nomusic`'s player to the phone's lock screen and
 notification media controls, using the browser's **Media Session API**
 (`navigator.mediaSession`).
 
+## Known platform limitation: iOS silent resume after ~30s pause
+
+**Not fixable from this codebase.** This is a documented WebKit/iOS bug,
+confirmed to not occur on Android.
+
+**Symptom:** In the installed (home-screen) PWA on iOS, pause a track
+from the lock screen, wait 30+ seconds, then press play from the lock
+screen. The button state updates as if playing, but no sound comes out
+— with no error, no exception, nothing in the console. Bringing the app
+to the foreground restores audio immediately.
+
+**Why the `play`/`pause` action-handler fix (below) doesn't help here:**
+that fix targets a different bug — the browser's *default* handler
+bypassing `nomusic`'s own resume/pause logic. On iOS, our handlers are
+already firing correctly (`resumeTrack()` is called, the underlying
+`<audio>` element's `.play()` resolves) — WebKit itself just fails to
+reconnect real audio output after the lock screen resumes a paused
+session that's been backgrounded a little while. There's no JS-level
+workaround (forcing a reload of the audio element, re-requesting
+`AudioContext`, etc.) that reliably fixes this — WakeLock can't help
+either, since Safari on iOS doesn't implement the WakeLock API at all.
+
+**Status as of early 2026:** affects iOS 26.x, has improved slightly
+across point releases but is not resolved. No reliable workaround exists
+other than reopening the app.
+
+Sources:
+- [iOS Audio Lockscreen Problem in PWA — Apple Developer Forums](https://developer.apple.com/forums/thread/762582)
+- [iOS 26 Audio issues in PWA web apps — MacRumors Forums](https://forums.macrumors.com/threads/ios-26-audio-issues-in-pwa-web-apps-not-fixed-in-26-1-or-26-2-but-much-better.2466839/)
+- [WkWebView BUG: audio stops when in background — Apple Developer Forums](https://developer.apple.com/forums/thread/121822)
+
 ## Explain it like I'm confused (no jargon)
 
 **Two `useEffect`s, why?**
