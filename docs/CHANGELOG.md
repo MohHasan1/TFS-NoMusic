@@ -6,9 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.7] - 2026-07-31
+
 ### Changed
 
 - Disabled the `seekbackward`/`seekforward` lock-screen/notification controls (rewind/fast-forward) since registering them made Chrome/Android show seek buttons in the notification instead of `nexttrack`/`previoustrack` (track skip), with no way to prefer one pair over the other.
+- Re-enabled explicit lock-screen `playbackState` reporting (play/pause icon) after fixing a missing effect dependency.
 
 ## [0.3.6] - 2026-07-31
 
