@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.6] - 2026-07-31
+
 ### Fixed
 
 - Fixed lock-screen/notification play controls resuming a track with no audible sound (progress kept advancing but nothing played) until the app was reopened — the `play`/`pause` notification buttons now go through the app's own resume/pause logic instead of the browser's default media-element handling.
