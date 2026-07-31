@@ -11,7 +11,7 @@ import { useTrackNavigation } from "./useTrackNavigation";
 
 export function useTrackSession() {
   const track = store.use.currentTrack();
-  // const isPlaying = store.use.isPlaying();
+  const isPlaying = store.use.isPlaying();
   const { playNext, playPrevious } = useTrackNavigation();
   const { seekTo } = usePlayerSeek();
   // const { currentTime, duration, seekTo } = usePlayerSeek();
@@ -107,11 +107,11 @@ export function useTrackSession() {
   // }, [track, currentTime, duration]);
 
   // Runs only when play/pause actually toggles: updates the play/pause icon.
-  // useEffect(() => {
-  //   if (!track) return;
-  //   if (typeof window === "undefined") return;
-  //   if (!("mediaSession" in navigator)) return;
+  useEffect(() => {
+    if (!track) return;
+    if (typeof window === "undefined") return;
+    if (!("mediaSession" in navigator)) return;
 
-  //   navigator.mediaSession.playbackState = isPlaying ? "playing" : "paused";
-  // }, [track, isPlaying]);
+    navigator.mediaSession.playbackState = isPlaying ? "playing" : "paused";
+  }, [track, isPlaying]);
 }
