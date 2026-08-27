@@ -1,7 +1,6 @@
 import type { Payload } from "payload";
-
+import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import { LIBRARY_IDS } from "../constants/libraries";
-import { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
 
 const libraryCache = new Map<string, string>();
 
@@ -29,15 +28,13 @@ export async function getLibraryIdByLanguage(payload: Payload, language: TLANGUA
     limit: 1,
     depth: 0,
     pagination: false,
-    select: {
-      name: true,
-    },
+    select: {},
     where: {
       type: {
         equals: "language",
       },
 
-      languageValue: {
+      slug: {
         equals: language,
       },
     },

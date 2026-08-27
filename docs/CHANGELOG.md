@@ -13,6 +13,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Fixed
 
 - Fixed the NoMusic language filter's selected value overflowing its pill instead of truncating when space is tight.
+- Fixed `getLibraryIdByLanguage`'s database fallback filtering by a `languageValue` field that doesn't exist on the `libraries` collection (now filters by `slug`), so languages without a hardcoded `LIBRARY_IDS` entry can actually resolve.
 
 ## [0.3.7] - 2026-07-31
 
