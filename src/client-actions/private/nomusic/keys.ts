@@ -11,4 +11,6 @@ export const QUERY_KEYS = {
 // NOTE: to add filter-by add here:["language", "artist"]: Must match the field:
 export const NOMUSIC_FILTER_FIELDS = ["language"] as const;
 export type TNomusicFilterField = (typeof NOMUSIC_FILTER_FIELDS)[number];
-export type TNomusicFilters = Partial<Record<TNomusicFilterField, string | null>>;
+export type TNomusicFilters = Partial<Record<TNomusicFilterField, string | null>> & {
+  search?: string | null;
+};

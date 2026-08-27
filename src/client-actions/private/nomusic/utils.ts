@@ -1,8 +1,8 @@
-import { TNomusicFilters, NOMUSIC_FILTER_FIELDS } from "./keys";
 import type { Where } from "payload";
+import { NOMUSIC_FILTER_FIELDS, type TNomusicFilters } from "./keys";
 
 export function buildNomusicWhere(filters: TNomusicFilters): Where | undefined {
-  const and = NOMUSIC_FILTER_FIELDS.flatMap((field) => {
+  const and: Where[] = NOMUSIC_FILTER_FIELDS.flatMap((field) => {
     const value = filters[field];
 
     if (!value) {
@@ -17,6 +17,14 @@ export function buildNomusicWhere(filters: TNomusicFilters): Where | undefined {
       },
     ];
   });
+
+  if (filters.search) {
+    and.push({
+      name: {
+        like: filters.search,
+      },
+    });
+  }
 
   return and.length > 0 ? { and } : undefined;
 }

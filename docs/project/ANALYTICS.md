@@ -70,6 +70,7 @@ Tagged elements. **Attributes** lists every `data-ph-capture-attribute-*` key be
 | `signup_pressed` | signup form submit button | `SignupFormFooter.tsx` (same `FormSubmitButton` pattern) | none — no email/password captured, same reasoning |
 | `install_pressed` | PWA install button | `PwaInstallButton.tsx` (the real install-prompt trigger; the manual-instructions `InstallHintDialog` shown to iOS/Safari/no-prompt users is not tagged) | none |
 | `language_filter_selected` | each option in the NoMusic language filter | `NomusicLanguageFilter.tsx` (the `SelectItem` per option, tagged inside the `.map()` — not the `SelectTrigger`) | `language` (the selected option's value) |
+| `audio_searched` | search button in the NoMusic title search box | `NomusicSearchInput.tsx` | `search` (the current input value at the moment the button is pressed, empty string when clearing) |
 | `brand_logo_pressed` | brand logo/home link | `BrandLogoLink.tsx` (shared by the public header and the private navbar; offline has its own separate inline logo markup in `OfflineNavbar.tsx`, untagged) | `link` (the destination href) |
 
 > **Status: implemented.** `autocapture` is scoped to `[data-ph-capture-attribute-action]` in `init.ts`, and every element above is tagged.
