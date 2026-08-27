@@ -23,6 +23,14 @@ const NoMusicContent = ({ initialNomusic, language }: TProps) => {
     return next;
   }, [language, search]);
 
+  // Folds search into the playback source key too, not just language, so a
+  // search producing a different track list forces the playback queue to
+  // actually rebuild instead of reusing the previous (unfiltered) queue.
+  // See queueController.setQueue's same-sourceKey short-circuit.
+  const sourceParam = useMemo(() => {
+    return [language, search].filter(Boolean).join(":") || undefined;
+  }, [language, search]);
+
   const initialData = initialNomusic.isSuccess ? initialNomusic.data : ([] as unknown as TNoMusicPaginated);
   const query = useNomusicPageInfiniteQuery(initialData, filters);
 
@@ -35,8 +43,8 @@ const NoMusicContent = ({ initialNomusic, language }: TProps) => {
 
   return (
     <section className="flex-col w-full">
-      <NoMusicBrowser isFetching={query.isFetching && !query.isFetchingNextPage} isFetchingNextPage={query.isFetchingNextPage} pages={query.data?.pages} queryParam={language} />
-      <NoMusicInfinityObserver query={query} queryParam={language} />
+      <NoMusicBrowser isFetching={query.isFetching && !query.isFetchingNextPage} isFetchingNextPage={query.isFetchingNextPage} pages={query.data?.pages} queryParam={sourceParam} />
+      <NoMusicInfinityObserver query={query} queryParam={sourceParam} />
     </section>
   );
 };
