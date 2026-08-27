@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.9] - 2026-08-27
+
 ### Fixed
 
 - Fixed the NoMusic playback queue not rebuilding when a search filter changed the visible track list — the playback source key was keyed only by language, so searching (or clearing a search) within the same language reused the previous, now-stale queue instead of rebuilding it, breaking next/previous navigation after playing a search result.
