@@ -1,26 +1,15 @@
-import { access } from "./access";
 import type { CollectionConfig } from "payload";
-import { capitalizeFirstLetter } from "./helpers/format";
-import {
-  assignNomusicLibraryAfterChange,
-  revalidateNomusicAfterChange,
-  revalidateNomusicAfterDelete,
-  syncAudioDurationBeforeValidate,
-  syncUploadAudioURLBeforeValidate,
-  syncUploadImageURLBeforeValidate,
-} from "./hooks/noMusic";
-import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
+import { LANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { access } from "./access";
+import { capitalizeFirstLetter } from "./helpers/format";
+import { assignNomusicLibraryAfterChange, revalidateNomusicAfterChange, revalidateNomusicAfterDelete, syncAudioDurationBeforeValidate, syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate } from "./hooks/noMusic";
 
 export const Nomusic: CollectionConfig = {
   slug: "nomusic",
 
   hooks: {
-    beforeValidate: [
-      syncUploadAudioURLBeforeValidate,
-      syncUploadImageURLBeforeValidate,
-      syncAudioDurationBeforeValidate,
-    ],
+    beforeValidate: [syncUploadAudioURLBeforeValidate, syncUploadImageURLBeforeValidate, syncAudioDurationBeforeValidate],
     afterChange: [assignNomusicLibraryAfterChange, revalidateNomusicAfterChange],
     afterDelete: [revalidateNomusicAfterDelete],
   },
@@ -44,6 +33,7 @@ export const Nomusic: CollectionConfig = {
       name: "name",
       type: "text",
       required: true,
+      index: true,
     },
     {
       name: "audioFile",
@@ -70,6 +60,7 @@ export const Nomusic: CollectionConfig = {
     {
       name: "artist",
       type: "text",
+      index: true,
     },
     {
       name: "album",

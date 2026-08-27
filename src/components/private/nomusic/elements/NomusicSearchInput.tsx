@@ -43,34 +43,14 @@ export function NomusicSearchInput() {
   return (
     <div className="flex items-center gap-2">
       <div className="relative min-w-0 max-w-56 w-44 sm:w-32 md:w-36 lg:w-48 xl:w-56">
-        <Input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="Search by Title"
-          className="bg-card-secondary w-full px-4 pr-8 text-primary-200"
-        />
+        <Input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Search title or artist" className="bg-card-secondary w-full px-4 pr-8 text-primary-200" />
         {value && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon-xs"
-            onClick={handleClear}
-            aria-label="Clear search"
-            className="absolute right-1 top-1/2 -translate-y-1/2 text-primary-200/70 hover:text-primary-200"
-          >
+          <Button type="button" variant="ghost" size="icon-xs" onClick={handleClear} aria-label="Clear search" className="absolute right-1 top-1/2 -translate-y-1/2 text-primary-200/70 hover:text-primary-200">
             <RiCloseLine className="size-4" />
           </Button>
         )}
       </div>
-      <Button
-        type="button"
-        variant="outline"
-        size="icon"
-        aria-label="Search"
-        onClick={handleSearch}
-        data-ph-capture-attribute-action="audio_searched"
-        data-ph-capture-attribute-search={value}
-      >
+      <Button type="button" variant="outline" size="icon" aria-label="Search" onClick={handleSearch} data-ph-capture-attribute-action="audio_searched" data-ph-capture-attribute-search={value}>
         <RiSearchLine />
       </Button>
     </div>

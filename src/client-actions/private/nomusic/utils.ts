@@ -1,6 +1,10 @@
 import type { Where } from "payload";
 import { NOMUSIC_FILTER_FIELDS, type TNomusicFilters } from "./keys";
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 export function buildNomusicWhere(filters: TNomusicFilters): Where | undefined {
   const and: Where[] = NOMUSIC_FILTER_FIELDS.flatMap((field) => {
     const value = filters[field];
@@ -19,10 +23,12 @@ export function buildNomusicWhere(filters: TNomusicFilters): Where | undefined {
   });
 
   if (filters.search) {
+    // Contains-anywhere match (not anchored) — see docs/project/NOMUSIC_SEARCH.md
+    // for why this means the name/artist indexes go unused.
+    const pattern = escapeRegExp(filters.search);
+
     and.push({
-      name: {
-        like: filters.search,
-      },
+      or: [{ name: { like: pattern } }, { artist: { like: pattern } }],
     });
   }
 
