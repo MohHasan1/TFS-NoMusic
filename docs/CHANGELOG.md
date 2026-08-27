@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Added
 
 - Added a title search box to `/nomusic`, next to the language filter. Search runs only when the search button is pressed (not live as-you-type) to limit database load, and includes a clear button to reset it.
+- Added Nepali as a NoMusic language option.
 
 ### Fixed
 

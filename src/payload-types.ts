@@ -184,7 +184,7 @@ export interface User {
   name: string;
   role?: ('admin' | 'editor' | 'viewer' | 'user') | null;
   isApproved?: boolean | null;
-  prefAudioLang?: ('bangla' | 'hindi' | 'english' | 'arabic' | 'others') | null;
+  prefAudioLang?: ('bangla' | 'hindi' | 'english' | 'arabic' | 'nepali' | 'others') | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
   emailAction?: ('none' | 'send' | 'resend') | null;
@@ -280,7 +280,7 @@ export interface Nomusic {
   externalImageURL?: string | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
-  language: 'bangla' | 'hindi' | 'english' | 'arabic' | 'others';
+  language: 'bangla' | 'hindi' | 'english' | 'arabic' | 'nepali' | 'others';
   genre?: ('pop' | 'hiphop' | 'rock' | 'electronic' | 'lofi' | 'classical' | 'jazz' | 'other') | null;
   updatedAt: string;
   createdAt: string;
