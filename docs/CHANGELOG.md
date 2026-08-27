@@ -11,6 +11,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - Added a title search box to `/nomusic`, next to the language filter. Search runs only when the search button is pressed (not live as-you-type) to limit database load, and includes a clear button to reset it.
 - NoMusic search now also matches artist, not just title.
 - Added Nepali as a NoMusic language option.
+- Added a small skeleton row to the NoMusic grid while loading the next infinite-scroll page, appended as real grid children (not a separate block) so it continues the same row/column flow as the loaded cards.
 
 ### Fixed
 

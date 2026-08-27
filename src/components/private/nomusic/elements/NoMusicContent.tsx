@@ -35,7 +35,7 @@ const NoMusicContent = ({ initialNomusic, language }: TProps) => {
 
   return (
     <section className="flex-col w-full">
-      <NoMusicBrowser isFetching={query.isFetching && !query.isFetchingNextPage} pages={query.data?.pages} queryParam={language} />
+      <NoMusicBrowser isFetching={query.isFetching && !query.isFetchingNextPage} isFetchingNextPage={query.isFetchingNextPage} pages={query.data?.pages} queryParam={language} />
       <NoMusicInfinityObserver query={query} queryParam={language} />
     </section>
   );

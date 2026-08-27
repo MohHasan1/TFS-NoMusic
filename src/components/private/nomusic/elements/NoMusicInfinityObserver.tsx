@@ -1,10 +1,9 @@
-import { DefinedUseInfiniteQueryResult, InfiniteData } from "@tanstack/react-query";
-import { useInView } from "react-intersection-observer";
+import type { DefinedUseInfiniteQueryResult, InfiniteData } from "@tanstack/react-query";
 import { useCallback } from "react";
-
-import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
+import { useInView } from "react-intersection-observer";
 import { SOURCE_KEYS } from "#constants/private/source";
-import { TNoMusicPaginated } from "#types/nomusic";
+import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
+import type { TNoMusicPaginated } from "#types/nomusic";
 
 const NoMusicInfinityObserver = ({ query, queryParam }: TProps) => {
   const { extend } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE(queryParam));
@@ -26,15 +25,7 @@ const NoMusicInfinityObserver = ({ query, queryParam }: TProps) => {
     extend(newTracks);
   }, [extend, query.fetchNextPage, query.hasNextPage, query.isFetchingNextPage]);
 
-  return (
-    <div className="flex items-center justify-center pb-40">
-      {query.hasNextPage ? (
-        <div ref={ref} className="h-10 pb-40" />
-      ) : (
-        <p className="text-sm text-muted-foreground">That's all - server cat is out of songs 🐾</p>
-      )}
-    </div>
-  );
+  return <div className="flex items-center justify-center pb-40">{query.hasNextPage ? <div ref={ref} className="h-10" /> : <p className="text-sm text-muted-foreground">That's all - server cat is out of songs 🐾</p>}</div>;
 };
 
 export default NoMusicInfinityObserver;

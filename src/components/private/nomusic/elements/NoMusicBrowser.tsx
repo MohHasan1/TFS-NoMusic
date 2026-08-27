@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useCallback, useMemo } from "react";
-
-import { NoMusicEmptyBox } from "#components/private/nomusic/elements/NomusicEmptyBox";
-import { NoMusicGridSkeleton } from "#components/private/nomusic/elements/NoMusicGridSkeleton";
+import type React from "react";
+import { useCallback, useMemo } from "react";
 import { NoMusicCard } from "#components/private/nomusic/elements/NoMusicCard";
-import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
+import { NoMusicGridSkeleton } from "#components/private/nomusic/elements/NoMusicGridSkeleton";
+import { NoMusicPaginationSkeleton } from "#components/private/nomusic/elements/NoMusicPaginationSkeleton";
+import { NoMusicEmptyBox } from "#components/private/nomusic/elements/NomusicEmptyBox";
 import { SOURCE_KEYS } from "#constants/private/source";
-import { TNoMusicPaginated } from "#types/nomusic";
+import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
+import type { TNoMusicPaginated } from "#types/nomusic";
 
-const NoMusicBrowser = ({ pages, isFetching, queryParam }: TProps) => {
+const NoMusicBrowser = ({ pages, isFetching, isFetchingNextPage, queryParam }: TProps) => {
   const { start } = useTrackPlayback(SOURCE_KEYS.NOMUSIC_PAGE(queryParam));
 
   const tracks = useMemo(() => {
@@ -50,13 +51,11 @@ const NoMusicBrowser = ({ pages, isFetching, queryParam }: TProps) => {
   }
 
   return (
-    <div
-      onClick={handleCardClick}
-      className="w-full grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4"
-    >
+    <div onClick={handleCardClick} className="w-full grid grid-cols-2 gap-4 pb-40 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {tracks.map((track, index) => (
         <NoMusicCard key={track?.id || index} index={index} noMusic={track} />
       ))}
+      {isFetchingNextPage && <NoMusicPaginationSkeleton />}
     </div>
   );
 };
@@ -66,5 +65,6 @@ export default NoMusicBrowser;
 type TProps = {
   queryParam?: string;
   isFetching: boolean;
+  isFetchingNextPage: boolean;
   pages: TNoMusicPaginated[];
 };
