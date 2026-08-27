@@ -10,6 +10,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Added a title search box to `/nomusic`, next to the language filter. Search runs only when the search button is pressed (not live as-you-type) to limit database load, and includes a clear button to reset it.
 
+### Fixed
+
+- Fixed the NoMusic language filter's selected value overflowing its pill instead of truncating when space is tight.
+
 ## [0.3.7] - 2026-07-31
 
 ### Changed
