@@ -256,6 +256,10 @@ export interface Request {
   status?: ('pending' | 'approved' | 'rejected') | null;
   message?: string | null;
   url?: string | null;
+  /**
+   * In-app link to the added track/library, used as the return link in the approval email. Falls back to the generic NoMusic page when empty.
+   */
+  link?: string | null;
   name?: string | null;
   email?: string | null;
   emailAction?: ('none' | 'send' | 'resend') | null;
@@ -502,6 +506,7 @@ export interface RequestsSelect<T extends boolean = true> {
   status?: T;
   message?: T;
   url?: T;
+  link?: T;
   name?: T;
   email?: T;
   emailAction?: T;

@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added a `link` field to Requests (Email Settings), for the in-app destination to use as the return link in the request-approved email.
+
+### Fixed
+
+- Fixed the request-approved email's return link using the requester's original YouTube/Spotify URL instead of a link back into the app.
+
 ## [0.3.9] - 2026-08-27
 
 ### Fixed

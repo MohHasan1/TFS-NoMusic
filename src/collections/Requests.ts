@@ -1,13 +1,8 @@
 import type { CollectionConfig } from "payload";
+import { access } from "./access";
+import { EMAIL_ACTION, EMAIL_ACTION_OPTIONS, EMAIL_STATUS, EMAIL_STATUS_OPTIONS } from "./constants/emails";
 import { REQUEST_TYPE_OPTIONS } from "./constants/requests";
 import { fillUserInfoBeforeValidate, sendRequestEmailBeforeChange } from "./hooks/requests";
-import {
-  EMAIL_ACTION,
-  EMAIL_ACTION_OPTIONS,
-  EMAIL_STATUS,
-  EMAIL_STATUS_OPTIONS,
-} from "./constants/emails";
-import { access } from "./access";
 
 export const Requests: CollectionConfig = {
   slug: "requests",
@@ -77,6 +72,13 @@ export const Requests: CollectionConfig = {
       type: "collapsible",
       label: "Email Settings",
       fields: [
+        {
+          name: "link",
+          type: "text",
+          admin: {
+            description: "In-app link to the added track/library, used as the return link in the approval email. Falls back to the generic NoMusic page when empty.",
+          },
+        },
         {
           name: "emailAction",
           type: "select",

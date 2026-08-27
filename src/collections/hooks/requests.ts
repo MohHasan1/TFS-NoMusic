@@ -1,18 +1,14 @@
 import type { CollectionBeforeChangeHook, CollectionBeforeValidateHook } from "payload";
-import RequestedNoMusicAddedEmail from "#emails-templates/RequestedNoMusicAddedEmail";
-import { EMAIL_ACTION, EMAIL_STATUS } from "../constants/emails";
-import { tryCatchResponse } from "#trycatch-response";
-import { shouldSendEmail } from "../helpers/email";
-import { PRIVATE_ROUTES } from "#constants/routes";
-import { Request } from "#payload-types";
 import { render } from "react-email";
+import { PRIVATE_ROUTES } from "#constants/routes";
+import RequestedNoMusicAddedEmail from "#emails-templates/RequestedNoMusicAddedEmail";
+import type { Request } from "#payload-types";
+import { tryCatchResponse } from "#trycatch-response";
 import { isPreviewOrDevEnv } from "@/lib/env";
+import { EMAIL_ACTION, EMAIL_STATUS } from "../constants/emails";
+import { shouldSendEmail } from "../helpers/email";
 
-export const fillUserInfoBeforeValidate: CollectionBeforeValidateHook<Request> = async ({
-  data,
-  operation,
-  req,
-}) => {
+export const fillUserInfoBeforeValidate: CollectionBeforeValidateHook<Request> = async ({ data, operation, req }) => {
   if (!data || data.type !== "nomusic_request" || operation === "update") return data;
 
   const user = req.user;
@@ -27,12 +23,7 @@ export const fillUserInfoBeforeValidate: CollectionBeforeValidateHook<Request> =
   };
 };
 
-export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> = async ({
-  data,
-  originalDoc,
-  operation,
-  req,
-}) => {
+export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> = async ({ data, originalDoc, operation, req }) => {
   if (!data) return data;
 
   // Only admin updates should send request emails
@@ -57,7 +48,9 @@ export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> =
   // Prepare email data
   const name = data.name || originalDoc?.name;
   const email = data.email || originalDoc?.email;
-  const returnUrl = data.url ?? `${process.env.NEXT_PUBLIC_SERVER_URL}${PRIVATE_ROUTES.NOMUSIC}`;
+  // `url` is the requester's original link; `link` is the in-app destination to use in the email.
+  const link = data.link || originalDoc?.link;
+  const returnUrl = link || `${process.env.NEXT_PUBLIC_SERVER_URL}${PRIVATE_ROUTES.NOMUSIC}`;
   if (!email) {
     return {
       ...data,
@@ -66,10 +59,8 @@ export const sendRequestEmailBeforeChange: CollectionBeforeChangeHook<Request> =
     };
   }
 
-  const html = await render(
-    RequestedNoMusicAddedEmail({ name, returnUrl, isPrev: isPreviewOrDevEnv() }),
-  );
-  
+  const html = await render(RequestedNoMusicAddedEmail({ name, returnUrl, isPrev: isPreviewOrDevEnv() }));
+
   const sendEmailResponse = await tryCatchResponse(() =>
     req.payload.sendEmail({
       to: email,
