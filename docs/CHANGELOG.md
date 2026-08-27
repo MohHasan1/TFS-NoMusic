@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.11] - 2026-08-27
+
+### Fixed
+
+- Set the Nepali library id fallback now that the library exists in prod, completing the Nepali language rollout.
+
 ## [0.3.10] - 2026-08-27
 
 ### Added
