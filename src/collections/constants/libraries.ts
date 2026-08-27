@@ -21,5 +21,5 @@ export const LIBRARY_IDS: Partial<Record<TLANGUAGES_VALUES, string>> = {
   hindi: process.env.LIBRARY_HINDI_ID || "6a0a944d4bc0ff07001f3133",
   arabic: process.env.LIBRARY_ARABIC_ID || "6a0a94604bc0ff07001f3146",
   others: process.env.LIBRARY_OTHERS_ID || "6a0a94724bc0ff07001f3156",
-  nepali: process.env.LIBRARY_NEPALI_ID,
+  nepali: process.env.LIBRARY_NEPALI_ID || "6a8fe85a69e6d7103438eef3",
 };
