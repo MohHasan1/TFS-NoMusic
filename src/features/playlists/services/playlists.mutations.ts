@@ -4,7 +4,7 @@ import { APIError } from "payload";
 import { getPayloadClient } from "#payload-client";
 import type { Playlist, User } from "#payload-types";
 import { tryCatchResponse } from "#trycatch-response";
-import { PLAYLIST_LIMITS } from "../constants/playlist";
+import { PLAYLIST_LIMITS } from "@/collections/constants/playlists";
 import type { TPlaylistUpdate, TReorderTracks, TToggleTrack } from "../validations/playlist";
 import { mapPlaylist } from "./playlists.mapper";
 import { PLAYLIST_LIST_SELECT } from "./playlists.select";

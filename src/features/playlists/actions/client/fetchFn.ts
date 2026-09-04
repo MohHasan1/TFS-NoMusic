@@ -3,7 +3,7 @@ import { stringify } from "qs-esm";
 
 import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
 import type { Playlist } from "#payload-types";
-import { PLAYLIST_LIMITS } from "../../constants/playlist";
+import { PLAYLIST_LIMITS } from "@/collections/constants/playlists";
 import { mapPlaylistDetail, mapPlaylists } from "../../services/playlists.mapper";
 import { PLAYLIST_DETAIL_SELECT, PLAYLIST_LIST_SELECT } from "../../services/playlists.select";
 import type { TPlaylist, TPlaylistDetail } from "../../types/playlist";

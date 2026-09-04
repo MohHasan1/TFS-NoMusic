@@ -17,6 +17,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - NoMusic cards have an "add to playlist" button (top-right) that opens a dialog listing the user's playlists (toggle in/out) with an inline "New playlist" create form. The dialog is opened from anywhere via a `usePlaylistAddDialog` store hook and rendered once in the private layout.
 - Creating a playlist from that dialog works: it makes a new private playlist with the track already in it (server action, owner-enforced, capped at `PLAYLIST_LIMITS.perUser`), and the new playlist shows in the list immediately.
 - Toggling a track in or out of an existing playlist from that dialog works: each row is an instant add/remove (server action, owner-enforced), with an optimistic check and a per-row spinner. Adding is a no-op if the track is already there and is blocked once the playlist hits `PLAYLIST_LIMITS.tracks` (100). The dialog knows current membership from a per-track query.
+- A new playlist with no cover of its own is given a random fallback cover on create (from `PLAYLIST_FALLBACK_COVERS`), preferring one the owner isn't already using; the URL is stored on the playlist so it stays stable.
 
 ### Changed
 

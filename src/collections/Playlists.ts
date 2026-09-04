@@ -4,6 +4,7 @@ import { playlistAccess } from "./access/playlist";
 import { PLAYLIST_VISIBILITY_OPTIONS } from "./constants/playlists";
 import { syncUploadImageURLBeforeValidate } from "./hooks/_shared";
 import {
+  assignFallbackCoverBeforeValidate,
   assignOwnerBeforeValidate,
   generateSlugBeforeValidate,
   syncAuthorBeforeValidate,
@@ -32,6 +33,7 @@ export const Playlists: CollectionConfig = {
       syncAuthorBeforeValidate,
       generateSlugBeforeValidate,
       syncUploadImageURLBeforeValidate,
+      assignFallbackCoverBeforeValidate,
     ],
     beforeChange: [syncTrackCountBeforeChange],
   },

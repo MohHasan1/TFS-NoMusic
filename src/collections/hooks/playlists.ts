@@ -1,6 +1,7 @@
 import type { CollectionBeforeChangeHook, CollectionBeforeValidateHook } from "payload";
 import slugify from "slugify";
 import type { Playlist } from "#payload-types";
+import { PLAYLIST_FALLBACK_COVERS, PLAYLIST_LIMITS } from "../constants/playlists";
 
 /**
  * Own the playlist to the creating user. App users always own what they create;
@@ -38,6 +39,43 @@ export const generateSlugBeforeValidate: CollectionBeforeValidateHook<Playlist> 
   if ((operation === "create" || nameChanged) && data.name) {
     data.slug = slugify(data.name, { lower: true, strict: true, trim: true });
   }
+
+  return data;
+};
+
+/**
+ * On create, when the playlist has no cover of its own, assign a random
+ * fallback cover — preferring one the owner isn't already using.
+ */
+export const assignFallbackCoverBeforeValidate: CollectionBeforeValidateHook<Playlist> = async ({
+  data,
+  operation,
+  req,
+}) => {
+  if (!data || operation !== "create") return data;
+  if (data.imageFile || data.uploadedImageURL) return data;
+
+  const ownerRef = data.user ?? req.user?.id;
+  const ownerId = typeof ownerRef === "string" ? ownerRef : ownerRef?.id;
+
+  let pool: readonly string[] = PLAYLIST_FALLBACK_COVERS;
+
+  if (ownerId) {
+    const existing = await req.payload.find({
+      collection: "playlists",
+      where: { user: { equals: ownerId } },
+      depth: 0,
+      limit: PLAYLIST_LIMITS.perUser,
+      select: { uploadedImageURL: true },
+      overrideAccess: true,
+    });
+
+    const used = new Set(existing.docs.map((doc) => doc.uploadedImageURL).filter(Boolean));
+    const unused = PLAYLIST_FALLBACK_COVERS.filter((url) => !used.has(url));
+    if (unused.length > 0) pool = unused;
+  }
+
+  data.uploadedImageURL = pool[Math.floor(Math.random() * pool.length)];
 
   return data;
 };
