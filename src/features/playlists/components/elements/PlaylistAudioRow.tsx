@@ -12,7 +12,7 @@ import type { TNoMusic } from "#types/nomusic";
 
 const isDev = process.env.NODE_ENV === "development";
 
-export function PlaylistTrackRow({ index, track, reorder }: TProps) {
+export function PlaylistAudioRow({ index, track, reorder }: TProps) {
   const gradient = getGradientFromText(`${track.name ?? ""}-${track.artist ?? ""}`);
   const { isActive } = usePlayerPlayback(track.id);
 

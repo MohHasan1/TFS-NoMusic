@@ -1,6 +1,6 @@
 "use client";
 
-import { RiEditLine } from "@remixicon/react";
+import { RiPencilLine } from "@remixicon/react";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "#
 import { Textarea } from "#components/ui/textarea";
 import { PLAYLIST_VISIBILITY_OPTIONS } from "@/collections/constants/playlists";
 import { useUpdatePlaylistMutation } from "../../actions/client/mutation";
-import { PLAYLIST_DESCRIPTION_MAX, PLAYLIST_NAME_MAX } from "../../constants/playlist";
+import { PLAYLIST_FIELD_LIMITS } from "../../constants/playlist";
 import type { TPlaylistDetail } from "../../types/playlist";
 import { PlaylistUpdateSchema } from "../../validations/playlist";
 
@@ -41,9 +41,10 @@ export function PlaylistEditDialog({ playlist }: TProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button variant="outline" size="sm" />}>
-        <RiEditLine className="size-4" />
-        Edit
+      <DialogTrigger
+        render={<Button variant="outline" size="icon-sm" aria-label="Edit playlist details" title="Edit playlist details" />}
+      >
+        <RiPencilLine />
       </DialogTrigger>
 
       <DialogContent className="text-primary-200">
@@ -62,7 +63,7 @@ export function PlaylistEditDialog({ playlist }: TProps) {
             {(field) => (
               <Field className="min-w-0">
                 <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                <Input id={field.name} maxLength={PLAYLIST_NAME_MAX} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} disabled={isPending} />
+                <Input id={field.name} maxLength={PLAYLIST_FIELD_LIMITS.nameMax} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} disabled={isPending} />
                 <FormFieldError errors={field.state.meta.errors} />
               </Field>
             )}
@@ -72,7 +73,7 @@ export function PlaylistEditDialog({ playlist }: TProps) {
             {(field) => (
               <Field className="min-w-0">
                 <FieldLabel htmlFor={field.name}>Description</FieldLabel>
-                <Textarea id={field.name} rows={3} maxLength={PLAYLIST_DESCRIPTION_MAX} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} disabled={isPending} className="wrap-break-word" />
+                <Textarea id={field.name} rows={3} maxLength={PLAYLIST_FIELD_LIMITS.descriptionMax} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} disabled={isPending} className="wrap-break-word" />
                 <FormFieldError errors={field.state.meta.errors} />
               </Field>
             )}

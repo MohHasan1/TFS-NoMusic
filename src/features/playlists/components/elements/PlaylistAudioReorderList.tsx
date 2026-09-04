@@ -1,13 +1,13 @@
 "use client";
 
 import type { TNoMusic } from "#types/nomusic";
-import { PlaylistTrackRow } from "./PlaylistTrackRow";
+import { PlaylistAudioRow } from "./PlaylistAudioRow";
 
-export function PlaylistReorderList({ tracks, onMove, onRemove, disabled }: TProps) {
+export function PlaylistAudioReorderList({ tracks, onMove, onRemove, disabled }: TProps) {
   return (
     <div className="space-y-1.5">
       {tracks.map((track, index) => (
-        <PlaylistTrackRow
+        <PlaylistAudioRow
           key={track.id}
           index={index}
           track={track}

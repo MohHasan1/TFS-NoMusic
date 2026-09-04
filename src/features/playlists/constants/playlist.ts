@@ -1,3 +1,12 @@
-export const PLAYLIST_NAME_MIN = 1;
-export const PLAYLIST_NAME_MAX = 35;
-export const PLAYLIST_DESCRIPTION_MAX = 100;
+// Caps that keep DB size and fetches bounded.
+export const PLAYLIST_LIMITS = {
+  perUser: 10,
+  tracks: 100,
+} as const;
+
+// Form field length constraints.
+export const PLAYLIST_FIELD_LIMITS = {
+  nameMin: 1,
+  nameMax: 35,
+  descriptionMax: 100,
+} as const;

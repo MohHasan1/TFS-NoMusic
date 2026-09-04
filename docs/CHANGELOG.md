@@ -12,7 +12,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - Added the `/playlists` page — it fetches the current user's playlists client-side (TanStack Query) and renders them as cards, with loading, empty, and error states. Added a Playlists entry in the private navbar.
 - Added the `/playlists/[id]` page — fetches one playlist with its tracks in a single client query, renders the hero and track list, and starts playback from a clicked row. Shows a not-found state when the playlist is missing or private.
 - The playlist owner can edit the name, description, and visibility from a dialog on the playlist page (server action, owner-enforced; the card and page update after saving). Name and description limits live in one constant.
-- The playlist owner can enter an "Edit tracks" mode on the playlist page to reorder tracks (up/down) and remove them; changes are local until Save, which persists the whole track list in one server action (owner-enforced). The edit-mode state lives in a `usePlaylistTrackEditor` hook.
+- The playlist owner can enter an "Edit tracks" mode on the playlist page to reorder tracks (up/down) and remove them; changes are local until Save, which persists the whole track list in one server action (owner-enforced). The edit-mode state lives in a `usePlaylistAudioEditor` hook.
+- The playlist page's track section has a toolbar with Play all and Shuffle (both usable by anyone who can view the playlist), plus the owner's edit controls. Playlist count and track-count caps are defined in `PLAYLIST_LIMITS` (10 playlists per user, 100 tracks per playlist).
 
 ### Changed
 
