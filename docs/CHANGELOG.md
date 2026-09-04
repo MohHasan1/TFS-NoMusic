@@ -15,6 +15,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Consolidated the duplicated `syncUploadImageURLBeforeValidate` collection hook (previously copy-pasted in `hooks/Libraries.ts`, `hooks/user.ts`, and `hooks/noMusic.ts`) into a single `src/collections/hooks/_shared.ts`, now used by Libraries, Users, Nomusic, and Playlists.
 
+### Fixed
+
+- `getGradientFromText` returned `undefined` for names shorter than 5 characters (producing an invalid CSS class and no gradient); short strings are now padded before hashing. Existing gradients for longer names are unchanged.
+
 ## [0.3.11] - 2026-08-27
 
 ### Fixed
