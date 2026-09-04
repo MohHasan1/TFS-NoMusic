@@ -13,5 +13,6 @@ export type TPlaylist = {
 };
 
 export type TPlaylistDetail = TPlaylist & {
+  ownerId: string | null;
   tracks: TNoMusic[];
 };

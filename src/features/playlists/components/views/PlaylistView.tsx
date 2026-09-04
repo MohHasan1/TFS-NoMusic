@@ -9,8 +9,10 @@ import { PlaylistNotFoundBox } from "../elements/PlaylistNotFoundBox";
 import { PlaylistAudioSection } from "../sections/PlaylistAudioSection";
 import { PlaylistHeroSection } from "../sections/PlaylistHeroSection";
 
-export function PlaylistView({ id }: TProps) {
+export function PlaylistView({ id, currentUserId }: TProps) {
   const { data: playlist, isPending, isError } = usePlaylistQuery(id);
+
+  const isOwner = Boolean(currentUserId) && playlist?.ownerId === currentUserId;
 
   return (
     <PrivatePageShell>
@@ -23,7 +25,7 @@ export function PlaylistView({ id }: TProps) {
         <PlaylistNotFoundBox />
       ) : (
         <>
-          <PlaylistHeroSection playlist={playlist} />
+          <PlaylistHeroSection playlist={playlist} isOwner={isOwner} />
           <PlaylistAudioSection playlist={playlist} />
         </>
       )}
@@ -33,4 +35,5 @@ export function PlaylistView({ id }: TProps) {
 
 type TProps = {
   id: string;
+  currentUserId: string | null;
 };

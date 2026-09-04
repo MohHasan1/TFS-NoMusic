@@ -15,11 +15,7 @@ export function PlaylistAudioSection({ playlist }: TProps) {
           <span aria-hidden="true" className="hidden md:col-start-4 md:block" />
           <span className="col-start-4 text-right md:col-start-5">Time</span>
         </div>
-        {tracks.length === 0 ? (
-          <PlaylistAudioEmptyBox />
-        ) : (
-          <PlaylistAudioBrowser playlistId={playlist.id} tracks={tracks} />
-        )}
+        {tracks.length === 0 ? <PlaylistAudioEmptyBox /> : <PlaylistAudioBrowser playlistId={playlist.id} tracks={tracks} />}
       </div>
     </section>
   );

@@ -13,5 +13,6 @@ export const PLAYLIST_LIST_SELECT = {
 
 export const PLAYLIST_DETAIL_SELECT = {
   ...PLAYLIST_LIST_SELECT,
+  user: true,
   tracks: true,
 } satisfies PlaylistsSelect<true>;

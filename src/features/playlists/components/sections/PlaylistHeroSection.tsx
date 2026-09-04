@@ -2,8 +2,9 @@ import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
 
 import type { TPlaylistDetail } from "../../types/playlist";
 import { PlaylistCover } from "../elements/PlaylistCover";
+import { PlaylistEditDialog } from "../elements/PlaylistEditDialog";
 
-export function PlaylistHeroSection({ playlist }: TProps) {
+export function PlaylistHeroSection({ playlist, isOwner }: TProps) {
   const count = playlist.trackCount ? (playlist.trackCount > 50 ? 50 : playlist.trackCount) : 0;
   const trackLabel = `${count} NoMusic`;
 
@@ -14,23 +15,25 @@ export function PlaylistHeroSection({ playlist }: TProps) {
 
         <div className="space-y-4 lg:space-y-5 space-x-4">
           <div className="space-y-3">
-            <h1 className="text-3xl font-semibold tracking-tight text-white/95 sm:text-4xl lg:text-5xl">{playlist.name}</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-primary-200 sm:text-4xl lg:text-5xl">{playlist.name}</h1>
 
-            <p className="max-w-2xl text-sm leading-7 text-white/62 sm:text-base">{playlist.description || "Playlist collection."}</p>
+            <p className="max-w-2xl text-sm leading-7 text-primary-200/80 sm:text-base">{playlist.description || "Playlist collection."}</p>
           </div>
 
           <div className="flex justify-between items-center max-w-2xl">
             <div className="space-x-4 ">
-              <div className="inline-flex items-center gap-2 text-sm text-white/60">
+              <div className="inline-flex items-center gap-2 text-sm text-primary-200/80">
                 <RiMusic2Line className="size-4 shrink-0 text-primary-400" />
                 <span className="font-medium">{trackLabel}</span>
               </div>
 
-              <div className="inline-flex items-center gap-2 text-sm text-white/60">
+              <div className="inline-flex items-center gap-2 text-sm text-primary-200/80">
                 <RiUser3Line className="size-4 shrink-0 text-primary-400" />
                 <span className="font-medium">{playlist.author || "-"}</span>
               </div>
             </div>
+
+            {isOwner ? <PlaylistEditDialog playlist={playlist} /> : null}
           </div>
         </div>
       </div>
@@ -40,4 +43,5 @@ export function PlaylistHeroSection({ playlist }: TProps) {
 
 type TProps = {
   playlist: TPlaylistDetail;
+  isOwner: boolean;
 };

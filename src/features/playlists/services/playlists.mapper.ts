@@ -8,12 +8,14 @@ export function mapPlaylists(docs: Playlist[]): TPlaylist[] {
 }
 
 export function mapPlaylistDetail(doc: Playlist): TPlaylistDetail {
-  const trackDocs = (doc.tracks ?? []).flatMap((track) =>
-    track && typeof track === "object" ? [track as Nomusic] : [],
-  );
+  const trackDocs = (doc.tracks ?? []).flatMap((track) => (track && typeof track === "object" ? [track as Nomusic] : []));
+
+  const owner = doc.user;
+  const ownerId = typeof owner === "string" ? owner : (owner?.id ?? null);
 
   return {
     ...mapPlaylist(doc),
+    ownerId,
     tracks: mapNomusic(trackDocs),
   };
 }
