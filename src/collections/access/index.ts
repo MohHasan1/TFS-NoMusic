@@ -1,5 +1,3 @@
-// src/access/index.ts
-import { logInfo } from "#loggers";
 import type { Access } from "payload";
 
 /**
