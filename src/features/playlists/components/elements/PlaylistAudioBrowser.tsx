@@ -2,11 +2,15 @@
 
 import type React from "react";
 
+import { SOURCE_KEYS } from "#constants/private/source";
+import { useTrackPlayback } from "#playback/hooks/useTrackPlayback";
 import type { TNoMusic } from "#types/nomusic";
 
 import { PlaylistTrackRow } from "./PlaylistTrackRow";
 
 export function PlaylistAudioBrowser({ playlistId, tracks }: TProps) {
+  const { start } = useTrackPlayback(SOURCE_KEYS.PLAYLIST_PAGE(playlistId));
+
   const handleRowClick = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.target as HTMLElement;
 
@@ -22,11 +26,11 @@ export function PlaylistAudioBrowser({ playlistId, tracks }: TProps) {
     const selectedTrack = tracks[index];
     if (!selectedTrack) return;
 
-    // TODO: wire playback — start(tracks, selectedTrack) with a playlist source key.
+    start(tracks, selectedTrack);
   };
 
   return (
-    <div className="space-y-1.5" data-playlist-id={playlistId} onClick={handleRowClick}>
+    <div className="space-y-1.5" onClick={handleRowClick}>
       {tracks.map((track, index) => (
         <PlaylistTrackRow key={track.id} index={index} track={track} />
       ))}

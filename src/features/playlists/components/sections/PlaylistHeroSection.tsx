@@ -1,25 +1,16 @@
 import { RiMusic2Line, RiUser3Line } from "@remixicon/react";
 
+import type { TPlaylistDetail } from "../../types/playlist";
 import { PlaylistCover } from "../elements/PlaylistCover";
 
-// TODO: fetch the playlist by id (name / description / cover / trackCount / owner).
-export async function PlaylistHeroSection({ playlistId }: TProps) {
-  const playlist = {
-    name: "Playlist",
-    description: "",
-    uploadedImageURL: null as string | null,
-    trackCount: 0 as number | null,
-    author: "You",
-  };
-
-  const trackCount = playlist.trackCount;
-  const count = trackCount ? (trackCount > 50 ? 50 : trackCount) : 0;
+export function PlaylistHeroSection({ playlist }: TProps) {
+  const count = playlist.trackCount ? (playlist.trackCount > 50 ? 50 : playlist.trackCount) : 0;
   const trackLabel = `${count} NoMusic`;
 
   return (
-    <section className="relative" data-playlist-id={playlistId}>
+    <section className="relative">
       <div className="grid gap-6 lg:grid-cols-[minmax(280px,360px)_minmax(0,1fr)] lg:items-center lg:gap-8">
-        <PlaylistCover src={playlist.uploadedImageURL} alt={`${playlist.name} cover`} name={playlist.name} />
+        <PlaylistCover src={playlist.coverImage} alt={`${playlist.name} cover`} name={playlist.name} />
 
         <div className="space-y-4 lg:space-y-5 space-x-4">
           <div className="space-y-3">
@@ -37,7 +28,7 @@ export async function PlaylistHeroSection({ playlistId }: TProps) {
 
               <div className="inline-flex items-center gap-2 text-sm text-white/60">
                 <RiUser3Line className="size-4 shrink-0 text-primary-400" />
-                <span className="font-medium">{playlist.author}</span>
+                <span className="font-medium">{playlist.author || "-"}</span>
               </div>
             </div>
           </div>
@@ -48,5 +39,5 @@ export async function PlaylistHeroSection({ playlistId }: TProps) {
 }
 
 type TProps = {
-  playlistId: string;
+  playlist: TPlaylistDetail;
 };

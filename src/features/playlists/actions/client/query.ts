@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchMyPlaylistsFn } from "./fetchFn";
+import { fetchMyPlaylistsFn, fetchPlaylistFn } from "./fetchFn";
 import { QUERY_KEYS } from "./keys";
 
 export function useMyPlaylistsQuery() {
@@ -11,5 +11,15 @@ export function useMyPlaylistsQuery() {
     queryFn: fetchMyPlaylistsFn,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 60,
+  });
+}
+
+export function usePlaylistQuery(id: string) {
+  return useQuery({
+    queryKey: QUERY_KEYS.playlist.one(id),
+    queryFn: () => fetchPlaylistFn(id),
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60,
+    retry: false,
   });
 }

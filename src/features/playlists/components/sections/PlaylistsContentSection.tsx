@@ -17,14 +17,7 @@ export default function PlaylistsContentSection() {
   return (
     <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {playlists.map((playlist) => (
-        <PlaylistCard
-          key={playlist.id}
-          href={PRIVATE_ROUTES.PLAYLIST(playlist.id)}
-          name={playlist.name}
-          author={playlist.author ?? ""}
-          trackCount={playlist.trackCount}
-          imageURL={playlist.coverImage}
-        />
+        <PlaylistCard key={playlist.id} href={PRIVATE_ROUTES.PLAYLIST(playlist.id)} name={playlist.name} author={playlist.author ?? ""} trackCount={playlist.trackCount} imageURL={playlist.coverImage} />
       ))}
     </div>
   );

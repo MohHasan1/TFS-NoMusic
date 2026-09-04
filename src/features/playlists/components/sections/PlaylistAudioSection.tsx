@@ -1,10 +1,9 @@
-import type { TNoMusic } from "#types/nomusic";
+import type { TPlaylistDetail } from "../../types/playlist";
 import { PlaylistAudioBrowser } from "../elements/PlaylistAudioBrowser";
 import { PlaylistAudioEmptyBox } from "../elements/PlaylistAudioEmptyBox";
 
-// TODO: fetch the playlist's tracks by id.
-export async function PlaylistAudioSection({ playlistId }: TProps) {
-  const tracks: TNoMusic[] = [];
+export function PlaylistAudioSection({ playlist }: TProps) {
+  const { tracks } = playlist;
 
   return (
     <section className="space-y-4">
@@ -16,12 +15,16 @@ export async function PlaylistAudioSection({ playlistId }: TProps) {
           <span aria-hidden="true" className="hidden md:col-start-4 md:block" />
           <span className="col-start-4 text-right md:col-start-5">Time</span>
         </div>
-        {tracks.length === 0 ? <PlaylistAudioEmptyBox /> : <PlaylistAudioBrowser playlistId={playlistId} tracks={tracks} />}
+        {tracks.length === 0 ? (
+          <PlaylistAudioEmptyBox />
+        ) : (
+          <PlaylistAudioBrowser playlistId={playlist.id} tracks={tracks} />
+        )}
       </div>
     </section>
   );
 }
 
 type TProps = {
-  playlistId: string;
+  playlist: TPlaylistDetail;
 };

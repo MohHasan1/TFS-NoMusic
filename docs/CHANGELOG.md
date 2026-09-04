@@ -9,7 +9,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Added
 
 - Added a `playlists` collection so signed-in users can create their own playlists of NoMusic tracks. Playlists are owned by their creator (owner or admin can edit/delete), carry a `private`/`public`/`unlisted` visibility, an optional cover image (upload only), an auto-synced `trackCount`, and a denormalized `author` name (kept in sync with the owner so lists don't have to populate the relationship). A cosmetic `slug` is generated from the name and kept in sync when the name changes; playlists are addressed by `id`. Admins can also create playlists from the dashboard and pick the owner.
-- Added the `/playlists` page — it fetches the current user's playlists client-side (TanStack Query) and renders them as cards, with loading, empty, and error states. `/playlists/[id]` and a Playlists entry in the private navbar are in place; the detail page's data is not wired up yet.
+- Added the `/playlists` page — it fetches the current user's playlists client-side (TanStack Query) and renders them as cards, with loading, empty, and error states. Added a Playlists entry in the private navbar.
+- Added the `/playlists/[id]` page — fetches one playlist with its tracks in a single client query, renders the hero and track list, and starts playback from a clicked row. Shows a not-found state when the playlist is missing or private.
 
 ### Changed
 
