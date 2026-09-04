@@ -11,9 +11,7 @@ export function PrivatePageHeader({ title, description }: TProps) {
           </span>
         </h1>
 
-        <p className="mt-3 text-sm leading-relaxed text-primary-200 sm:text-base">
-          {description}
-        </p>
+        <p className="mt-3 text-sm leading-relaxed text-primary-200 sm:text-base">{description}</p>
       </div>
     </header>
   );
