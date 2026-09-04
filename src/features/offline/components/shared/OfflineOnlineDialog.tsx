@@ -38,7 +38,7 @@ export function OfflineOnlineDialog({ trigger = "button" }: TProps) {
         }
       />
 
-      <AlertDialogContent size="sm" className={"border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]"}>
+      <AlertDialogContent size="sm">
         <AlertDialogHeader>
           <AlertDialogMedia className="bg-primary/35 text-primary-400">
             <RiWifiLine className="size-6" />

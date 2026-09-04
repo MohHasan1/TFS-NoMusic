@@ -1,21 +1,10 @@
 "use client";
 
 import { RiAlbumFill, RiDeleteBin2Line } from "@remixicon/react";
-import { useState, type MouseEvent } from "react";
+import { type MouseEvent, useState } from "react";
 import { toast } from "sonner";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogMedia,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "#components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogMedia, AlertDialogTitle, AlertDialogTrigger } from "#components/ui/alert-dialog";
 import { Button } from "#components/ui/button";
 import { Spinner } from "#components/ui/spinner";
 import { OFFLINE_ROUTES } from "#constants/routes";
@@ -80,36 +69,21 @@ export function OfflineLibraryRemoveDialog({ library, className }: TProps) {
             title={`Remove ${library.name} from offline downloads`}
             disabled={isRemoving}
             onClick={preventDefault}
-            className={cn(
-              "rounded-full border-primary/40 bg-primary/20 text-primary-200",
-              "shadow-md shadow-primary/20 ring-1 ring-white/5",
-              "hover:border-primary/60 hover:bg-primary/30",
-              className,
-            )}
+            className={cn("rounded-full border-primary/40 bg-primary/20 text-primary-200", "shadow-md shadow-primary/20 ring-1 ring-white/5", "hover:border-primary/60 hover:bg-primary/30", className)}
           >
             {isRemoving ? <Spinner className="size-3" /> : <RiDeleteBin2Line className="size-3" />}
           </Button>
         }
       />
 
-      <AlertDialogContent
-        size="sm"
-        className={
-          "border border-primary-400/20 bg-card-secondary shadow-[0_24px_80px_-40px_var(--color-primary)]"
-        }
-      >
+      <AlertDialogContent size="sm">
         <AlertDialogHeader>
           <AlertDialogMedia className="bg-primary/35 text-primary-400">
             <RiAlbumFill className="size-6" />
           </AlertDialogMedia>
-          <AlertDialogTitle className="text-primary-200">
-            Remove "{library.name}" Library?
-          </AlertDialogTitle>
+          <AlertDialogTitle className="text-primary-200">Remove "{library.name}" Library?</AlertDialogTitle>
 
-          <AlertDialogDescription>
-            This library will be removed from your device, but you can download it again later when
-            you're online.
-          </AlertDialogDescription>
+          <AlertDialogDescription>This library will be removed from your device, but you can download it again later when you're online.</AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
@@ -117,13 +91,7 @@ export function OfflineLibraryRemoveDialog({ library, className }: TProps) {
             Cancel
           </AlertDialogCancel>
 
-          <AlertDialogAction
-            type="button"
-            size={"sm"}
-            disabled={isRemoving}
-            variant="default"
-            onClick={handleClick}
-          >
+          <AlertDialogAction type="button" size={"sm"} disabled={isRemoving} variant="default" onClick={handleClick}>
             {isRemoving && <Spinner data-icon="inline-start" />}
             {isRemoving ? "Removing..." : "Remove"}
           </AlertDialogAction>
