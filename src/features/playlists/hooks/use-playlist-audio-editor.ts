@@ -6,8 +6,6 @@ import { toast } from "sonner";
 import type { TNoMusic } from "#types/nomusic";
 import { useReorderTracksMutation } from "../actions/client/mutation";
 
-// Local edit-mode state for a playlist's track list: enter/cancel, reorder,
-// remove, and save (one mutation) the final order + membership.
 export function usePlaylistAudioEditor(playlistId: string, tracks: TNoMusic[]) {
   const [isEditing, setIsEditing] = useState(false);
   const [draftTracks, setDraftTracks] = useState(tracks);

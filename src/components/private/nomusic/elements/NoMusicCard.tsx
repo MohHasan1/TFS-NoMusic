@@ -1,18 +1,18 @@
 "use client";
 
-import { memo } from "react";
-import Image from "next/image";
 import { RiGlobalLine, RiPlayFill, RiSparkling2Fill, RiUser3Line } from "@remixicon/react";
-
-import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
-import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
-import { Card, CardContent, CardHeader } from "#components/ui/card";
-import { NoMusicDownloadButton } from "./NoMusicDownloadButton";
+import Image from "next/image";
+import { memo } from "react";
 import { Button } from "#components/ui/button";
-import type { TNoMusic } from "#types/nomusic";
-import { NoMusicCover } from "./NoMusicCover";
-import { PlayingBars } from "./PlayingBars";
+import { Card, CardContent, CardHeader } from "#components/ui/card";
+import { formatPlaybackTime, isNewByUpdatedDate } from "#lib/helpers/playback";
 import { cn } from "#lib/utils";
+import { usePlayerPlayback } from "#playback-player/hooks/usePlayerPlayback";
+import type { TNoMusic } from "#types/nomusic";
+import { NoMusicAddToPlaylistButton } from "./NoMusicAddToPlaylistButton";
+import { NoMusicCover } from "./NoMusicCover";
+import { NoMusicDownloadButton } from "./NoMusicDownloadButton";
+import { PlayingBars } from "./PlayingBars";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -35,14 +35,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
       data-ph-capture-attribute-audio-id={noMusic?.id}
       data-ph-capture-attribute-audio-name={noMusic?.name}
     >
-      <Card
-        className={cn(
-          "relative w-full overflow-hidden bg-card transition-all duration-300",
-          isActive
-            ? "border-primary ring-1 ring-primary-400/40"
-            : "border group-hover:border-primary-400/50",
-        )}
-      >
+      <Card className={cn("relative w-full overflow-hidden bg-card transition-all duration-300", isActive ? "border-primary ring-1 ring-primary-400/40" : "border group-hover:border-primary-400/50")}>
         <CardHeader className="relative aspect-square overflow-hidden bg-muted p-0">
           {noMusic?.coverImage ? (
             <Image
@@ -58,19 +51,12 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
             <NoMusicCover name={noMusic?.name} artist={noMusic?.artist} />
           )}
 
-          <div
-            className={cn(
-              "absolute inset-0 flex items-center justify-center bg-card-secondary/60 transition-opacity",
-              isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100",
-            )}
-          >
-            <div className="border size-10 flex items-center justify-center rounded-full bg-primary/80 text-primary-foreground md:group-hover:bg-primary">
-              {isPlaying ? <PlayingBars /> : <RiPlayFill className="size-4 fill-current" />}
-            </div>
+          <div className={cn("absolute inset-0 flex items-center justify-center bg-card-secondary/60 transition-opacity", isActive ? "opacity-100" : "opacity-0 md:group-hover:opacity-100")}>
+            <div className="border size-10 flex items-center justify-center rounded-full bg-primary/80 text-primary-foreground md:group-hover:bg-primary">{isPlaying ? <PlayingBars /> : <RiPlayFill className="size-4 fill-current" />}</div>
           </div>
 
           {isNew && (
-            <div className="absolute right-2 top-2 z-20">
+            <div className="absolute bottom-2 left-2 z-20">
               <span className="flex items-center gap-1 rounded-md bg-primary/60 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-primary-foreground">
                 <RiSparkling2Fill className="size-2 text-yellow-400" />
                 New
@@ -82,16 +68,15 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
             <NoMusicDownloadButton noMusic={noMusic} />
           </div>
 
-          <span className="absolute bg-card-secondary/60 text-primary-200 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">
-            {formatPlaybackTime(noMusic?.duration ?? 0)}
-          </span>
+          <div className="absolute right-0 top-0 z-20 rounded-bl-full bg-card-secondary max-w-10 max-h-10 h-full w-full p-0 flex justify-end items-start">
+            <NoMusicAddToPlaylistButton noMusic={noMusic} />
+          </div>
+
+          <span className="absolute bg-card-secondary/60 text-primary-200 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">{formatPlaybackTime(noMusic?.duration ?? 0)}</span>
         </CardHeader>
 
         <CardContent className="space-y-2 p-3 md:space-y-2.5 md:p-4">
-          <h3
-            className="truncate text-xs md:text-sm font-semibold text-primary-200"
-            title={noMusic?.name}
-          >
+          <h3 className="truncate text-xs md:text-sm font-semibold text-primary-200" title={noMusic?.name}>
             {noMusic?.name ?? "Untitled"}
           </h3>
 
