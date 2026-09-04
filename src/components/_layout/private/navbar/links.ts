@@ -1,4 +1,4 @@
-import { RiAlbumFill, RiMusic2Line, RiPlayListAddLine } from "@remixicon/react";
+import { RiAlbumFill, RiMusic2Line, RiPlayListAddLine, RiPlayListFill } from "@remixicon/react";
 
 import { PRIVATE_ROUTES } from "#constants/routes";
 
@@ -12,6 +12,11 @@ export const privateNavItems = [
     label: "Libraries",
     href: PRIVATE_ROUTES.LIBRARIES,
     icon: RiAlbumFill,
+  },
+  {
+    label: "Playlists",
+    href: PRIVATE_ROUTES.PLAYLISTS,
+    icon: RiPlayListFill,
   },
   {
     label: "Request",

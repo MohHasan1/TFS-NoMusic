@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Added
 
 - Added a `playlists` collection so signed-in users can create their own playlists of NoMusic tracks. Playlists are owned by their creator (owner or admin can edit/delete), carry a `private`/`public`/`unlisted` visibility, an optional cover image (upload only), and an auto-synced `trackCount`. A cosmetic `slug` is generated from the name and kept in sync when the name changes; playlists are addressed by `id`.
+- Added `/playlists` and `/playlists/[id]` pages and a Playlists entry in the private navbar. UI only for now — the list and track data are not wired up yet.
 
 ### Changed
 

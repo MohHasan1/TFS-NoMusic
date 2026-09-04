@@ -19,7 +19,7 @@ export function PrivateMobileBottomNav() {
         isOpen ? "translate-y-[calc(100%+env(safe-area-inset-bottom))]" : "translate-y-0",
       )}
     >
-      <div className="mx-auto grid items-start h-20 max-w-lg grid-cols-3 px-2">
+      <div className="mx-auto grid items-start h-20 max-w-lg grid-cols-4 px-2">
         {privateNavItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;

@@ -19,6 +19,8 @@ const PRIVATE_ROUTES = {
   NOMUSIC_LANGUAGE: (language: string) => `/nomusic/${language}`,
   LIBRARY: (id: string) => `/libraries/${id}`,
   LIBRARIES: "/libraries",
+  PLAYLISTS: "/playlists",
+  PLAYLIST: (id: string) => `/playlists/${id}`,
   PROFILE: "/profile",
   REQUEST_NOMUSIC: "/request-nomusic",
 } as const;
