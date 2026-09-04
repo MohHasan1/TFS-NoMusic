@@ -167,7 +167,7 @@
   }
 
   body {
-    @apply bg-background text-foreground scroll-smooth;
+    @apply bg-background text-primary-200 scroll-smooth;
   }
 
   button:not(:disabled),

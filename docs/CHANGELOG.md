@@ -16,6 +16,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 - Consolidated the duplicated `syncUploadImageURLBeforeValidate` collection hook (previously copy-pasted in `hooks/Libraries.ts`, `hooks/user.ts`, and `hooks/noMusic.ts`) into a single `src/collections/hooks/_shared.ts`, now used by Libraries, Users, Nomusic, and Playlists.
 - Moved the dialog/alert-dialog border and glow shadow into the base `DialogContent` / `AlertDialogContent` so every dialog is consistent, and removed the per-usage copies (and stray `bg-card-secondary` overrides) from the logout, PWA-install, and offline dialogs.
+- Default body text colour is now `primary-200` (the de-facto default) instead of `foreground`; the library detail hero uses the token instead of hardcoded `text-white/*`.
 
 ### Fixed
 
