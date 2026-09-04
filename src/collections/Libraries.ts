@@ -2,7 +2,8 @@ import type { CollectionConfig } from "payload";
 import { access } from "./access";
 import { LIBRARY_TYPES } from "./constants/libraries";
 import { capitalizeFirstLetter } from "./helpers/format";
-import { generateSlugBeforeValidate, revalidateLibraryAfterChange, revalidateLibraryAfterDelete, syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
+import { syncUploadImageURLBeforeValidate } from "./hooks/_shared";
+import { generateSlugBeforeValidate, revalidateLibraryAfterChange, revalidateLibraryAfterDelete } from "./hooks/Libraries";
 
 export const Libraries: CollectionConfig = {
   slug: "libraries",

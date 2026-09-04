@@ -9,7 +9,7 @@ import { isPreviewOrDevEnv } from "@/lib/env";
 import type { User } from "@/payload-types";
 import { access } from "./access";
 import { EMAIL_ACTION, EMAIL_ACTION_OPTIONS, EMAIL_STATUS, EMAIL_STATUS_OPTIONS } from "./constants/emails";
-import { syncUploadImageURLBeforeValidate } from "./hooks/Libraries";
+import { syncUploadImageURLBeforeValidate } from "./hooks/_shared";
 import { sendWelcomeEmailBeforeChange } from "./hooks/user";
 
 export const Users: CollectionConfig = {

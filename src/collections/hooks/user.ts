@@ -1,21 +1,14 @@
-import type { CollectionBeforeChangeHook, CollectionBeforeValidateHook } from "payload";
-import type { User } from "@/payload-types";
+import type { CollectionBeforeChangeHook } from "payload";
 import { render } from "react-email";
-
-import { EMAIL_ACTION, EMAIL_STATUS } from "../constants/emails";
+import { PRIVATE_ROUTES } from "#constants/routes";
 import WelcomeEmail from "#emails-templates/WelcomeEmail";
 import { tryCatchResponse } from "#trycatch-response";
-import { PRIVATE_ROUTES } from "#constants/routes";
-import { shouldSendEmail } from "../helpers/email";
 import { isPreviewOrDevEnv } from "@/lib/env";
-import { isID } from "#lib/utils";
+import type { User } from "@/payload-types";
+import { EMAIL_ACTION, EMAIL_STATUS } from "../constants/emails";
+import { shouldSendEmail } from "../helpers/email";
 
-export const sendWelcomeEmailBeforeChange: CollectionBeforeChangeHook<User> = async ({
-  data,
-  originalDoc,
-  operation,
-  req,
-}) => {
+export const sendWelcomeEmailBeforeChange: CollectionBeforeChangeHook<User> = async ({ data, originalDoc, operation, req }) => {
   if (!data) return data;
 
   // Do not send on first signup create
@@ -67,43 +60,4 @@ export const sendWelcomeEmailBeforeChange: CollectionBeforeChangeHook<User> = as
     emailAction: EMAIL_ACTION.NONE,
     emailStatus: sendEmailResponse.isSuccess ? EMAIL_STATUS.SENT : EMAIL_STATUS.FAILED,
   };
-};
-
-export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<User> = async ({
-  data,
-  req,
-}) => {
-  if (!data?.imageFile) return data;
-  // If uploadedImageURL exist then already synced - To update clear uploadedImageURL and then update.
-  if (data?.uploadedImageURL) return data;
-
-  const imageFile = data.imageFile;
-
-  // -- If the relation is populated, read the media URL directly.
-  if (typeof imageFile === "object" && imageFile !== null && "url" in imageFile) {
-    const mediaURL = typeof imageFile.url === "string" ? imageFile.url : undefined;
-    if (!mediaURL) return data;
-
-    return {
-      ...data,
-      uploadedImageURL: mediaURL,
-    };
-  }
-
-  // -- If the relation is an ID, fetch media first, then copy its URL.
-  if (isID(imageFile)) {
-    const media = await req.payload.findByID({
-      collection: "media",
-      id: imageFile,
-    });
-
-    if (typeof media?.url !== "string") return data;
-
-    return {
-      ...data,
-      uploadedImageURL: media.url,
-    };
-  }
-
-  return data;
 };

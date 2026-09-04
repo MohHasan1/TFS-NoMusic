@@ -1,22 +1,14 @@
-import type {
-  CollectionAfterChangeHook,
-  CollectionAfterDeleteHook,
-  CollectionBeforeValidateHook,
-  Payload,
-} from "payload";
-import { revalidateTag } from "next/cache";
-import { getLibraryIdByLanguage } from "../helpers/library";
-import type { Nomusic, NomusicLibrary } from "@/payload-types";
 import { parseBuffer } from "music-metadata";
+import { revalidateTag } from "next/cache";
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionBeforeValidateHook, Payload } from "payload";
+import { CACHE_TAG } from "#constants/cache-tags";
 import { isID } from "#lib/utils";
 import { tryCatchResponse } from "#trycatch-response";
-import { CACHE_TAG } from "#constants/cache-tags";
+import type { Nomusic, NomusicLibrary } from "@/payload-types";
+import { getLibraryIdByLanguage } from "../helpers/library";
 
 // TODO: make it better
-export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
-  data,
-  req,
-}) => {
+export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data, req }) => {
   if (!data?.audioFile) return data;
   // If uploadedAudioURL exist then already synced - To update clear uploadedAudioURL and then update.
   if (data?.uploadedAudioURL) return data;
@@ -57,9 +49,7 @@ export const syncUploadAudioURLBeforeValidate: CollectionBeforeValidateHook<Nomu
 };
 
 // NOTE: must run after syncUploadAudioURLBeforeValidate
-export const syncAudioDurationBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
-  data,
-}) => {
+export const syncAudioDurationBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({ data }) => {
   // -- If duration exists, do not calculate again.
   if (data?.duration) return data;
 
@@ -84,51 +74,8 @@ export const syncAudioDurationBeforeValidate: CollectionBeforeValidateHook<Nomus
   };
 };
 
-export const syncUploadImageURLBeforeValidate: CollectionBeforeValidateHook<Nomusic> = async ({
-  data,
-  req,
-}) => {
-  if (!data?.imageFile) return data;
-  // If uploadedImageURL exist then already synced - To update clear uploadedImageURL and then update.
-  if (data?.uploadedImageURL) return data;
-
-  const imageFile = data.imageFile;
-
-  // -- If the relation is populated, read the media URL directly.
-  if (typeof imageFile === "object" && imageFile !== null && "url" in imageFile) {
-    const mediaURL = typeof imageFile.url === "string" ? imageFile.url : undefined;
-    if (!mediaURL) return data;
-
-    return {
-      ...data,
-      uploadedImageURL: mediaURL,
-    };
-  }
-
-  // -- If the relation is an ID, fetch media first, then copy its URL.
-  if (isID(imageFile)) {
-    const media = await req.payload.findByID({
-      collection: "media",
-      id: imageFile,
-    });
-
-    if (typeof media?.url !== "string") return data;
-
-    return {
-      ...data,
-      uploadedImageURL: media.url,
-    };
-  }
-
-  return data;
-};
-
 // TODO: optimize itor updates
-export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic> = async ({
-  doc,
-  operation,
-  req,
-}) => {
+export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic> = async ({ doc, operation, req }) => {
   if (operation === "update") return;
 
   if (!doc.language) return;
@@ -148,12 +95,7 @@ export const assignNomusicLibraryAfterChange: CollectionAfterChangeHook<Nomusic>
   // TODO: if smt failed push to queue
 };
 
-export const revalidateNomusicAfterChange: CollectionAfterChangeHook<Nomusic> = async ({
-  doc,
-  previousDoc,
-  operation,
-  req,
-}) => {
+export const revalidateNomusicAfterChange: CollectionAfterChangeHook<Nomusic> = async ({ doc, previousDoc, operation, req }) => {
   revalidateTag(CACHE_TAG.NOMUSIC.LIST(doc.language), "max");
   revalidateTag(CACHE_TAG.NOMUSIC.ALL, "max");
 
@@ -164,10 +106,7 @@ export const revalidateNomusicAfterChange: CollectionAfterChangeHook<Nomusic> = 
   await revalidateLinkedLibraryAudio(req.payload, doc.id);
 };
 
-export const revalidateNomusicAfterDelete: CollectionAfterDeleteHook<Nomusic> = async ({
-  doc,
-  req,
-}) => {
+export const revalidateNomusicAfterDelete: CollectionAfterDeleteHook<Nomusic> = async ({ doc, req }) => {
   revalidateTag(CACHE_TAG.NOMUSIC.LIST(doc.language), "max");
   revalidateTag(CACHE_TAG.NOMUSIC.ALL, "max");
 
