@@ -6,23 +6,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 import FormFieldError from "#components/shared/form/FormFieldError";
 import { Button } from "#components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "#components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "#components/ui/dialog";
 import { Field, FieldLabel } from "#components/ui/field";
 import { Input } from "#components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "#components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "#components/ui/select";
 import { Textarea } from "#components/ui/textarea";
 import { PLAYLIST_VISIBILITY_OPTIONS } from "@/collections/constants/playlists";
 import { useUpdatePlaylistMutation } from "../../actions/client/mutation";
@@ -75,14 +62,7 @@ export function PlaylistEditDialog({ playlist }: TProps) {
             {(field) => (
               <Field className="min-w-0">
                 <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                <Input
-                  id={field.name}
-                  maxLength={PLAYLIST_NAME_MAX}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  disabled={isPending}
-                />
+                <Input id={field.name} maxLength={PLAYLIST_NAME_MAX} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} disabled={isPending} />
                 <FormFieldError errors={field.state.meta.errors} />
               </Field>
             )}
@@ -92,16 +72,7 @@ export function PlaylistEditDialog({ playlist }: TProps) {
             {(field) => (
               <Field className="min-w-0">
                 <FieldLabel htmlFor={field.name}>Description</FieldLabel>
-                <Textarea
-                  id={field.name}
-                  rows={3}
-                  maxLength={PLAYLIST_DESCRIPTION_MAX}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  disabled={isPending}
-                  className="wrap-break-word"
-                />
+                <Textarea id={field.name} rows={3} maxLength={PLAYLIST_DESCRIPTION_MAX} value={field.state.value} onBlur={field.handleBlur} onChange={(e) => field.handleChange(e.target.value)} disabled={isPending} className="wrap-break-word" />
                 <FormFieldError errors={field.state.meta.errors} />
               </Field>
             )}
@@ -111,10 +82,7 @@ export function PlaylistEditDialog({ playlist }: TProps) {
             {(field) => (
               <Field className="min-w-0">
                 <FieldLabel>Visibility</FieldLabel>
-                <Select
-                  value={field.state.value}
-                  onValueChange={(value) => field.handleChange(value as typeof field.state.value)}
-                >
+                <Select value={field.state.value} onValueChange={(value) => field.handleChange(value as typeof field.state.value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

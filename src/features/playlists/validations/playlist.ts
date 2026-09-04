@@ -9,3 +9,10 @@ export const PlaylistUpdateSchema = z.object({
 });
 
 export type TPlaylistUpdate = z.infer<typeof PlaylistUpdateSchema>;
+
+export const ReorderTracksSchema = z.object({
+  // The full desired track list (reordered, minus any removed). May be empty.
+  trackIds: z.array(z.string().min(1)),
+});
+
+export type TReorderTracks = z.infer<typeof ReorderTracksSchema>;

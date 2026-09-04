@@ -26,7 +26,7 @@ export function PlaylistView({ id, currentUserId }: TProps) {
       ) : (
         <>
           <PlaylistHeroSection playlist={playlist} isOwner={isOwner} />
-          <PlaylistAudioSection playlist={playlist} />
+          <PlaylistAudioSection playlist={playlist} isOwner={isOwner} />
         </>
       )}
     </PrivatePageShell>

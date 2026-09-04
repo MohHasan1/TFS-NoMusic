@@ -15,30 +15,16 @@ export function PlaylistCard({ href, name, author, trackCount, imageURL }: TProp
 
   return (
     <article>
-      <Link
-        href={href}
-        className="group block"
-        data-ph-capture-attribute-action="playlist_pressed"
-        data-ph-capture-attribute-playlist-name={name}
-      >
+      <Link href={href} className="group block" data-ph-capture-attribute-action="playlist_pressed" data-ph-capture-attribute-playlist-name={name}>
         <Card className="relative w-full overflow-hidden bg-card transition-all duration-300 hover:border-primary-400/50">
           <CardHeader className="relative block aspect-square overflow-hidden bg-muted p-0">
             <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/55 via-transparent to-transparent" />
 
             <div className="relative size-full overflow-hidden">
               {imageURL ? (
-                <Image
-                  src={imageURL}
-                  alt={`${name} cover`}
-                  fill
-                  unoptimized={isDev}
-                  sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                <Image src={imageURL} alt={`${name} cover`} fill unoptimized={isDev} sizes="(min-width: 1280px) 282px, (min-width: 1040px) calc(33.64vw - 45px), calc(49.44vw - 26px)" className="object-cover transition-transform duration-500 group-hover:scale-105" />
               ) : (
-                <div
-                  className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`}
-                />
+                <div className={`size-full bg-linear-to-br ${gradient} transition-transform duration-500 group-hover:scale-105`} />
               )}
             </div>
 
