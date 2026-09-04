@@ -1,6 +1,6 @@
 "use client";
 
-import { errorResponse } from "#responses";
+import { useCreatePlaylistMutation } from "../../actions/client/mutation";
 import { useMyPlaylistsQuery } from "../../actions/client/query";
 import { usePlaylistAddDialog } from "../../hooks/use-playlist-add-dialog";
 import { PlaylistAddDialog } from "./PlaylistAddDialog";
@@ -9,6 +9,7 @@ import { PlaylistAddDialog } from "./PlaylistAddDialog";
 export function PlaylistAddDialogHost() {
   const { trackId, close } = usePlaylistAddDialog();
   const { data: playlists, isPending } = useMyPlaylistsQuery();
+  const { mutateAsync: createPlaylist } = useCreatePlaylistMutation();
 
   if (!trackId) return null;
 
@@ -25,10 +26,7 @@ export function PlaylistAddDialogHost() {
       onToggle={() => {
         // TODO: add/remove trackId to the playlist, then invalidate queries.
       }}
-      onCreate={async () => {
-        // TODO: create the playlist, add trackId to it.
-        return errorResponse([], "Not wired up yet.");
-      }}
+      onCreate={(name) => createPlaylist({ name, trackId })}
     />
   );
 }

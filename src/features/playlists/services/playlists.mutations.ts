@@ -1,21 +1,48 @@
 import "server-only";
 
+import { APIError } from "payload";
 import { getPayloadClient } from "#payload-client";
 import type { Playlist, User } from "#payload-types";
 import { tryCatchResponse } from "#trycatch-response";
+import { PLAYLIST_LIMITS } from "../constants/playlist";
 import type { TPlaylistUpdate, TReorderTracks } from "../validations/playlist";
 import { mapPlaylist } from "./playlists.mapper";
 import { PLAYLIST_LIST_SELECT } from "./playlists.select";
 
-export async function updatePlaylist({
-  id,
-  user,
-  data,
-}: {
-  id: string;
-  user: User;
-  data: TPlaylistUpdate;
-}) {
+export async function createPlaylist({ user, name, trackId }: { user: User; name: string; trackId?: string }) {
+  const payload = await getPayloadClient();
+
+  return tryCatchResponse(async () => {
+    const { totalDocs } = await payload.count({
+      collection: "playlists",
+      overrideAccess: false,
+      user,
+      where: { user: { equals: user.id } },
+    });
+
+    if (totalDocs >= PLAYLIST_LIMITS.perUser) {
+      throw new APIError(`You can only have ${PLAYLIST_LIMITS.perUser} playlists.`, 400, null, true);
+    }
+
+    const doc = await payload.create({
+      collection: "playlists",
+      overrideAccess: false,
+      user,
+      select: PLAYLIST_LIST_SELECT,
+      data: {
+        name,
+        slug: "", // set by generateSlugBeforeValidate
+        user: user.id,
+        visibility: "private",
+        ...(trackId ? { tracks: [trackId] } : {}),
+      },
+    });
+
+    return mapPlaylist(doc as Playlist);
+  });
+}
+
+export async function updatePlaylist({ id, user, data }: { id: string; user: User; data: TPlaylistUpdate }) {
   const payload = await getPayloadClient();
 
   return tryCatchResponse(async () => {
@@ -32,15 +59,7 @@ export async function updatePlaylist({
   });
 }
 
-export async function reorderTracks({
-  id,
-  user,
-  trackIds,
-}: {
-  id: string;
-  user: User;
-  trackIds: TReorderTracks["trackIds"];
-}) {
+export async function reorderTracks({ id, user, trackIds }: { id: string; user: User; trackIds: TReorderTracks["trackIds"] }) {
   const payload = await getPayloadClient();
 
   return tryCatchResponse(async () => {
@@ -54,9 +73,7 @@ export async function reorderTracks({
       select: { tracks: true },
     });
 
-    const currentIds = ((current as Playlist).tracks ?? []).map((track) =>
-      typeof track === "object" ? track.id : track,
-    );
+    const currentIds = ((current as Playlist).tracks ?? []).map((track) => (typeof track === "object" ? track.id : track));
     const currentSet = new Set(currentIds);
 
     // The client sends the full desired list; keep only ids really on the playlist.
