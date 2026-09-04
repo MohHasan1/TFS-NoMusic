@@ -1,7 +1,10 @@
 "use client";
 
-import { useCreatePlaylistMutation } from "../../actions/client/mutation";
-import { useMyPlaylistsQuery } from "../../actions/client/query";
+import {
+  useCreatePlaylistMutation,
+  useToggleTrackInPlaylistMutation,
+} from "../../actions/client/mutation";
+import { useMyPlaylistsQuery, useTrackPlaylistMembershipQuery } from "../../actions/client/query";
 import { usePlaylistAddDialog } from "../../hooks/use-playlist-add-dialog";
 import { PlaylistAddDialog } from "./PlaylistAddDialog";
 
@@ -9,9 +12,13 @@ import { PlaylistAddDialog } from "./PlaylistAddDialog";
 export function PlaylistAddDialogHost() {
   const { trackId, close } = usePlaylistAddDialog();
   const { data: playlists, isPending } = useMyPlaylistsQuery();
+  const { data: memberIds } = useTrackPlaylistMembershipQuery(trackId);
   const { mutateAsync: createPlaylist } = useCreatePlaylistMutation();
+  const toggle = useToggleTrackInPlaylistMutation(trackId ?? "");
 
   if (!trackId) return null;
+
+  const containingIds = new Set(memberIds ?? []);
 
   return (
     <PlaylistAddDialog
@@ -21,11 +28,11 @@ export function PlaylistAddDialogHost() {
       }}
       playlists={playlists ?? []}
       isLoading={isPending}
-      containingIds={new Set()}
-      togglingId={null}
-      onToggle={() => {
-        // TODO: add/remove trackId to the playlist, then invalidate queries.
-      }}
+      containingIds={containingIds}
+      togglingId={toggle.isPending ? (toggle.variables?.playlistId ?? null) : null}
+      onToggle={(playlistId) =>
+        toggle.mutate({ playlistId, shouldAdd: !containingIds.has(playlistId) })
+      }
       onCreate={(name) => createPlaylist({ name, trackId })}
     />
   );

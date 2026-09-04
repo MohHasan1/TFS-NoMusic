@@ -30,6 +30,28 @@ export async function fetchMyPlaylistsFn(): Promise<TPlaylist[]> {
   return mapPlaylists(result.docs);
 }
 
+export async function fetchTrackPlaylistIdsFn(trackId: string): Promise<string[]> {
+  const query = stringify(
+    {
+      depth: 0,
+      limit: PLAYLIST_LIMITS.perUser,
+      pagination: false,
+      where: { tracks: { in: [trackId] } },
+      select: { id: true },
+    },
+    { addQueryPrefix: true },
+  );
+
+  const response = await fetch(`/api/playlists${query}`);
+  if (!response.ok) {
+    throw new Error("Failed to load playlists.");
+  }
+
+  const result = (await response.json()) as PaginatedDocs<Playlist>;
+
+  return result.docs.map((doc) => doc.id);
+}
+
 export async function fetchPlaylistFn(id: string): Promise<TPlaylistDetail> {
   const query = stringify(
     {

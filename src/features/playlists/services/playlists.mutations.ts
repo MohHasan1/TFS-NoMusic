@@ -5,7 +5,7 @@ import { getPayloadClient } from "#payload-client";
 import type { Playlist, User } from "#payload-types";
 import { tryCatchResponse } from "#trycatch-response";
 import { PLAYLIST_LIMITS } from "../constants/playlist";
-import type { TPlaylistUpdate, TReorderTracks } from "../validations/playlist";
+import type { TPlaylistUpdate, TReorderTracks, TToggleTrack } from "../validations/playlist";
 import { mapPlaylist } from "./playlists.mapper";
 import { PLAYLIST_LIST_SELECT } from "./playlists.select";
 
@@ -53,6 +53,45 @@ export async function updatePlaylist({ id, user, data }: { id: string; user: Use
       user,
       select: PLAYLIST_LIST_SELECT,
       data,
+    });
+
+    return mapPlaylist(doc as Playlist);
+  });
+}
+
+export async function setTrackInPlaylist({ id, user, trackId, shouldAdd }: { id: string; user: User; trackId: TToggleTrack["trackId"]; shouldAdd: boolean }) {
+  const payload = await getPayloadClient();
+
+  return tryCatchResponse(async () => {
+    // Read the current track ids (also enforces owner access).
+    const current = await payload.findByID({
+      collection: "playlists",
+      id,
+      depth: 0,
+      overrideAccess: false,
+      user,
+      select: { tracks: true },
+    });
+
+    const currentIds = ((current as Playlist).tracks ?? []).map((track) => (typeof track === "object" ? track.id : track));
+
+    let next = currentIds;
+    if (shouldAdd && !currentIds.includes(trackId)) {
+      if (currentIds.length >= PLAYLIST_LIMITS.tracks) {
+        throw new APIError(`A playlist can only hold ${PLAYLIST_LIMITS.tracks} tracks.`, 400, null, true);
+      }
+      next = [...currentIds, trackId];
+    } else if (!shouldAdd) {
+      next = currentIds.filter((cur) => cur !== trackId);
+    }
+
+    const doc = await payload.update({
+      collection: "playlists",
+      id,
+      overrideAccess: false,
+      user,
+      select: PLAYLIST_LIST_SELECT,
+      data: { tracks: next },
     });
 
     return mapPlaylist(doc as Playlist);

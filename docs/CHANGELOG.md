@@ -15,7 +15,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 - The playlist owner can enter an "Edit tracks" mode on the playlist page to reorder tracks (up/down) and remove them; changes are local until Save, which persists the whole track list in one server action (owner-enforced). The edit-mode state lives in a `usePlaylistAudioEditor` hook.
 - The playlist page's track section has a toolbar with Play all and Shuffle (both usable by anyone who can view the playlist), plus the owner's edit controls. Playlist count and track-count caps are defined in `PLAYLIST_LIMITS` (10 playlists per user, 100 tracks per playlist).
 - NoMusic cards have an "add to playlist" button (top-right) that opens a dialog listing the user's playlists (toggle in/out) with an inline "New playlist" create form. The dialog is opened from anywhere via a `usePlaylistAddDialog` store hook and rendered once in the private layout.
-- Creating a playlist from that dialog works: it makes a new private playlist with the track already in it (server action, owner-enforced, capped at `PLAYLIST_LIMITS.perUser`), and the new playlist shows in the list immediately. (Toggling a track in/out of an existing playlist is still stubbed.)
+- Creating a playlist from that dialog works: it makes a new private playlist with the track already in it (server action, owner-enforced, capped at `PLAYLIST_LIMITS.perUser`), and the new playlist shows in the list immediately.
+- Toggling a track in or out of an existing playlist from that dialog works: each row is an instant add/remove (server action, owner-enforced), with an optimistic check and a per-row spinner. Adding is a no-op if the track is already there and is blocked once the playlist hits `PLAYLIST_LIMITS.tracks` (100). The dialog knows current membership from a per-track query.
 
 ### Changed
 

@@ -20,3 +20,10 @@ export const ReorderTracksSchema = z.object({
 });
 
 export type TReorderTracks = z.infer<typeof ReorderTracksSchema>;
+
+export const ToggleTrackSchema = z.object({
+  trackId: z.string().min(1),
+  shouldAdd: z.boolean(),
+});
+
+export type TToggleTrack = z.infer<typeof ToggleTrackSchema>;
