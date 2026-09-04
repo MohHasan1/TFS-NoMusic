@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added a `playlists` collection so signed-in users can create their own playlists of NoMusic tracks. Playlists are owned by their creator (owner or admin can edit/delete), carry a `private`/`public`/`unlisted` visibility, an optional cover image (upload only), and an auto-synced `trackCount`. A cosmetic `slug` is generated from the name and kept in sync when the name changes; playlists are addressed by `id`.
+
 ### Changed
 
 - Consolidated the duplicated `syncUploadImageURLBeforeValidate` collection hook (previously copy-pasted in `hooks/Libraries.ts`, `hooks/user.ts`, and `hooks/noMusic.ts`) into a single `src/collections/hooks/_shared.ts`, now used by Libraries, Users, Nomusic, and Playlists.

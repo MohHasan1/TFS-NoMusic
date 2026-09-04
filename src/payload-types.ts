@@ -76,6 +76,7 @@ export interface Config {
     nomusic: Nomusic;
     libraries: Library;
     'nomusic-libraries': NomusicLibrary;
+    playlists: Playlist;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -91,6 +92,7 @@ export interface Config {
     nomusic: NomusicSelect<false> | NomusicSelect<true>;
     libraries: LibrariesSelect<false> | LibrariesSelect<true>;
     'nomusic-libraries': NomusicLibrariesSelect<false> | NomusicLibrariesSelect<true>;
+    playlists: PlaylistsSelect<false> | PlaylistsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -256,12 +258,12 @@ export interface Request {
   status?: ('pending' | 'approved' | 'rejected') | null;
   message?: string | null;
   url?: string | null;
+  name?: string | null;
+  email?: string | null;
   /**
    * In-app link to the added track/library, used as the return link in the approval email. Falls back to the generic NoMusic page when empty.
    */
   link?: string | null;
-  name?: string | null;
-  email?: string | null;
   emailAction?: ('none' | 'send' | 'resend') | null;
   emailStatus?: ('not_sent' | 'sent' | 'failed') | null;
   updatedAt: string;
@@ -322,6 +324,24 @@ export interface NomusicLibrary {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "playlists".
+ */
+export interface Playlist {
+  id: string;
+  name: string;
+  slug: string;
+  user: string | User;
+  description?: string | null;
+  imageFile?: (string | null) | Media;
+  uploadedImageURL?: string | null;
+  visibility: 'private' | 'public' | 'unlisted';
+  tracks?: (string | Nomusic)[] | null;
+  trackCount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -375,6 +395,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'nomusic-libraries';
         value: string | NomusicLibrary;
+      } | null)
+    | ({
+        relationTo: 'playlists';
+        value: string | Playlist;
       } | null);
   globalSlug?: string | null;
   user:
@@ -506,9 +530,9 @@ export interface RequestsSelect<T extends boolean = true> {
   status?: T;
   message?: T;
   url?: T;
-  link?: T;
   name?: T;
   email?: T;
+  link?: T;
   emailAction?: T;
   emailStatus?: T;
   updatedAt?: T;
@@ -579,6 +603,23 @@ export interface NomusicLibrariesSelect<T extends boolean = true> {
   nomusic?: T;
   library?: T;
   sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "playlists_select".
+ */
+export interface PlaylistsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  user?: T;
+  description?: T;
+  imageFile?: T;
+  uploadedImageURL?: T;
+  visibility?: T;
+  tracks?: T;
+  trackCount?: T;
   updatedAt?: T;
   createdAt?: T;
 }
