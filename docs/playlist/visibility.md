@@ -65,6 +65,40 @@ difference between public and unlisted only shows up once the sharing and
 discovery pages are built — see the deferred items in `docs/playlist/v1.md`. At
 that point each listing query decides whether to include `unlisted` rows.
 
+## What happens when someone opens a shared playlist
+
+Everyone using the app has their own account (the `users` collection, auth is
+on). "Another user" always means a signed-in account.
+
+When user B opens user A's public or unlisted playlist:
+
+- Layer 1 lets them read it (it is not private, and B is signed in).
+- B can view and play the tracks.
+- B **cannot edit it** — `update` and `delete` are owner/admin only.
+- **Nothing is saved to B's account.** Opening a playlist is a stateless read.
+
+An account only "holds" playlists the user *created* (`where: { user: me }`). It
+does not remember playlists the user has *opened*. So the only way B gets back to
+A's playlist is by keeping the URL — there is nothing in B's account UI that
+points to it.
+
+Two more things about `unlisted` specifically:
+
+- It is not "shared with specific people". *Any* signed-in user who has the
+  link/id can open it. There is no per-user grant or share token.
+- A logged-out visitor cannot open it at all — `canRead` returns `false` with no
+  user.
+
+### Not built: saving / following someone else's playlist
+
+Letting user B keep A's playlist in their own account is a separate feature, not
+in v1. Two possible shapes:
+
+| Approach        | Behaviour                                                                 |
+| --------------- | ------------------------------------------------------------------------ |
+| Follow / save   | A row in a new `playlist-follows` join collection (user ↔ playlist). Shows in B's "Saved" list. A still owns it; A's edits show up for B. |
+| Clone / copy    | A server action makes a brand-new playlist owned by B with the tracks copied. Independent afterwards — A's later edits do not propagate. |
+
 ## The values live in one place
 
 `src/collections/constants/playlists.ts`:
