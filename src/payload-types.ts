@@ -331,6 +331,7 @@ export interface Playlist {
   name: string;
   slug: string;
   user: string | User;
+  author?: string | null;
   description?: string | null;
   imageFile?: (string | null) | Media;
   uploadedImageURL?: string | null;
@@ -614,6 +615,7 @@ export interface PlaylistsSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
   user?: T;
+  author?: T;
   description?: T;
   imageFile?: T;
   uploadedImageURL?: T;

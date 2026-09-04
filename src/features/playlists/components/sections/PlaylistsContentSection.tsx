@@ -1,35 +1,30 @@
-import { Suspense } from "react";
+"use client";
 
 import { PRIVATE_ROUTES } from "#constants/routes";
+import { useMyPlaylistsQuery } from "../../actions/client/query";
 import { PlaylistCard } from "../elements/PlaylistCard";
 import { PlaylistEmptyBox } from "../elements/PlaylistEmptyBox";
+import { PlaylistErrorBox } from "../elements/PlaylistErrorBox";
 import { PlaylistGridSkeleton } from "../elements/PlaylistGridSkeleton";
 
 export default function PlaylistsContentSection() {
-  return (
-    <Suspense fallback={<PlaylistGridSkeleton />}>
-      <PlaylistsGrid />
-    </Suspense>
-  );
-}
+  const { data: playlists, isPending, isError } = useMyPlaylistsQuery();
 
-type PlaylistItem = {
-  id: string;
-  name: string;
-  trackCount?: number | null;
-  coverImage?: string | null;
-};
-
-async function PlaylistsGrid() {
-  // TODO: fetch the current user's playlists
-  const playlists: PlaylistItem[] = [];
-
+  if (isPending) return <PlaylistGridSkeleton />;
+  if (isError) return <PlaylistErrorBox />;
   if (playlists.length === 0) return <PlaylistEmptyBox />;
 
   return (
     <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       {playlists.map((playlist) => (
-        <PlaylistCard key={playlist.id} href={PRIVATE_ROUTES.PLAYLIST(playlist.id)} name={playlist.name} author="" trackCount={playlist.trackCount} imageURL={playlist.coverImage} />
+        <PlaylistCard
+          key={playlist.id}
+          href={PRIVATE_ROUTES.PLAYLIST(playlist.id)}
+          name={playlist.name}
+          author={playlist.author ?? ""}
+          trackCount={playlist.trackCount}
+          imageURL={playlist.coverImage}
+        />
       ))}
     </div>
   );

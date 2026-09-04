@@ -3,7 +3,12 @@ import { access } from "./access";
 import { playlistAccess } from "./access/playlist";
 import { PLAYLIST_VISIBILITY_OPTIONS } from "./constants/playlists";
 import { syncUploadImageURLBeforeValidate } from "./hooks/_shared";
-import { assignOwnerBeforeValidate, generateSlugBeforeValidate, syncTrackCountBeforeChange } from "./hooks/playlists";
+import {
+  assignOwnerBeforeValidate,
+  generateSlugBeforeValidate,
+  syncAuthorBeforeValidate,
+  syncTrackCountBeforeChange,
+} from "./hooks/playlists";
 
 export const Playlists: CollectionConfig = {
   slug: "playlists",
@@ -22,7 +27,12 @@ export const Playlists: CollectionConfig = {
   },
 
   hooks: {
-    beforeValidate: [assignOwnerBeforeValidate, generateSlugBeforeValidate, syncUploadImageURLBeforeValidate],
+    beforeValidate: [
+      assignOwnerBeforeValidate,
+      syncAuthorBeforeValidate,
+      generateSlugBeforeValidate,
+      syncUploadImageURLBeforeValidate,
+    ],
     beforeChange: [syncTrackCountBeforeChange],
   },
 
@@ -30,6 +40,7 @@ export const Playlists: CollectionConfig = {
     id: true,
     name: true,
     slug: true,
+    author: true,
     description: true,
     visibility: true,
     trackCount: true,
@@ -52,10 +63,13 @@ export const Playlists: CollectionConfig = {
       relationTo: "users",
       required: true,
       index: true,
-      admin: { readOnly: true },
       access: {
-        update: () => false,
+        update: ({ req }) => req.user?.collection === "admins",
       },
+    },
+    {
+      name: "author",
+      type: "text",
     },
     {
       name: "description",
