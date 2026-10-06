@@ -1,12 +1,18 @@
+import type { Metadata } from "next";
+import { cacheLife, cacheTag } from "next/cache";
 import { Suspense } from "react";
 import { LibarayAudioSectionSkeleton } from "#components/private/library/elements/LibarayAudioSectionSkeleton";
 import { LibraryHeroSkeleton } from "#components/private/library/elements/LibraryHeroSkeleton";
 import { LibarayAudioSection } from "#components/private/library/sections/LibarayAudioSection";
 import { LibraryHeroSection } from "#components/private/library/sections/LibraryHeroSection";
 import { PrivatePageShell } from "#components/private/shared/PrivatePageShell";
-import { cacheLife, cacheTag } from "next/cache";
-import { listLibraries } from "#services/libraries/libraries.ports";
 import { CACHE_TAG } from "#constants/cache-tags";
+import { listLibraries } from "#services/libraries/libraries.ports";
+
+export const metadata: Metadata = {
+  title: "Library",
+  description: "Browse tracks in your private NoMusic library.",
+};
 
 export async function generateStaticParams() {
   const res = await listLibraries({ limit: 25 });

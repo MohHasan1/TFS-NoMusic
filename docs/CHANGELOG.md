@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added route-specific browser tab titles and descriptions across the private NoMusic pages, including language-aware titles for filtered NoMusic collections.
+
 ## [0.3.12] - 2026-09-04
 
 ### Added

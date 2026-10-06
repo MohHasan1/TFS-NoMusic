@@ -1,4 +1,5 @@
 import { SerwistProvider } from "@serwist/turbopack/react";
+import type { Metadata } from "next";
 import { PrivateMobileBottomNav } from "#components/_layout/private/mobile-bottom-nav/PrivateMobileBottomNav";
 import { PrivateNavbar } from "#components/_layout/private/navbar/PrivateNavbar";
 import QueryProvider from "#components/private/_providers/QueryProvider";
@@ -7,6 +8,14 @@ import { PlaylistAddDialogHost } from "#features/playlists/components/add-to-pla
 import PlayerBar from "#playback/components/player-bar/PlayerBar";
 import { PlayerDialog } from "#playback/components/player-dialog/PlayerDialog";
 import PlaybackInitializer from "#playback/initializer";
+
+export const metadata: Metadata = {
+  title: {
+    default: "NoMusic",
+    template: "%s | NoMusic",
+  },
+  description: "Your private space for clean vocal tracks, libraries, and playlists.",
+};
 
 export default function PrivateLayout({ children }: TProps) {
   return (
