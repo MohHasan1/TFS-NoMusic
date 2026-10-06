@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Added
 
 - Added route-specific browser tab titles and descriptions across the private NoMusic pages, including language-aware titles and track-specific metadata for NoMusic searches.
+- Added browser tab titles and descriptions for the public and authentication pages.
 
 ## [0.3.12] - 2026-09-04
 
