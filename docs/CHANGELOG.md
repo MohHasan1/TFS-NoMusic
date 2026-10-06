@@ -6,6 +6,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.17] - 2026-10-06
+
+### Changed
+
+- Changed GitHub Actions deployments from local prebuilt output to Vercel-hosted builds so encrypted project environment variables remain available.
+- Kept the previous prebuilt workflow as a non-executable learning reference.
+
 ## [0.3.16] - 2026-10-06
 
 ### Fixed
