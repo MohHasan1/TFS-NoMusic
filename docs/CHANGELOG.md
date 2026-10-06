@@ -6,6 +6,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.15] - 2026-10-06
+
+### Added
+
+- Added GitHub Actions type-checking and branch-based Vercel deployments for `dev` previews and `main` production releases.
+- Documented the planned Instagram Story image-sharing flow, platform limitations, and implementation checklist.
+
 ## [0.3.14] - 2026-10-06
 
 ### Added
