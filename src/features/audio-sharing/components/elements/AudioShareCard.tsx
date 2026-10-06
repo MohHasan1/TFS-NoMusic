@@ -6,11 +6,11 @@ import { Button } from "#components/ui/button";
 import { Card, CardContent, CardHeader } from "#components/ui/card";
 import { PRIVATE_ROUTES } from "#constants/routes";
 import { formatPlaybackTime } from "#lib/helpers/playback";
-import type { TNoMusicShare } from "#types/nomusic-share";
+import type { TAudioShare } from "../../types/audio-share";
 
 const shouldSkipImageOptimization = process.env.NODE_ENV === "development";
 
-export function NoMusicShareCard({ track }: TProps) {
+export function AudioShareCard({ track }: TProps) {
   const artist = track.artist || "Unknown artist";
   const destination = `${PRIVATE_ROUTES.NOMUSIC_LANGUAGE(track.language)}?q=${encodeURIComponent(track.name)}`;
 
@@ -59,7 +59,7 @@ function ShareDetail({ icon, label, value }: TDetailProps) {
 }
 
 type TProps = {
-  track: TNoMusicShare;
+  track: TAudioShare;
 };
 
 type TDetailProps = {

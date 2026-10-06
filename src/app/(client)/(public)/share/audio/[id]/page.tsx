@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { NoMusicShareFallback } from "#components/public/share/elements/NoMusicShareFallback";
-import { getSharedTrack, NoMusicShareView } from "#components/public/share/views/NoMusicShareView";
+import { AudioShareFallback } from "#features/audio-sharing/components/elements/AudioShareFallback";
+import { AudioShareView, getSharedAudio } from "#features/audio-sharing/components/views/AudioShareView";
 
 export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   const { id } = await params;
-  const response = await getSharedTrack(id);
+  const response = await getSharedAudio(id);
 
   // Not found
   if (!response.isSuccess || !response.data) {
@@ -44,8 +44,8 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
 
 export default function AudioSharePage({ params }: TProps) {
   return (
-    <Suspense fallback={<NoMusicShareFallback />}>
-      <NoMusicShareView params={params} />
+    <Suspense fallback={<AudioShareFallback />}>
+      <AudioShareView params={params} />
     </Suspense>
   );
 }

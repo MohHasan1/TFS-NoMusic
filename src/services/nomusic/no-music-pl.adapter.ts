@@ -6,7 +6,6 @@ import type { Nomusic } from "#payload-types";
 import { errorResponse, successResponse } from "#responses";
 import { tryCatchResponse } from "#trycatch-response";
 import type { TNoMusicPaginated } from "#types/nomusic";
-import type { TNoMusicShare } from "#types/nomusic-share";
 import { mapNomusic } from "./no-music.mapper";
 
 export async function listNomusicAdapter(limit: number) {
@@ -37,46 +36,6 @@ export async function listNomusicAdapter(limit: number) {
 
   const mapped = mapNomusic(res.data.docs as Nomusic[]);
   return successResponse(mapped);
-}
-
-export async function findPublicAudioShareByIdAdapter(id: string) {
-  const payload = await getPayloadClient();
-
-  const res = await tryCatchResponse(() =>
-    payload.find({
-      collection: "nomusic",
-      depth: 0,
-      limit: 1,
-      pagination: false,
-      overrideAccess: true,
-      where: {
-        and: [{ id: { equals: id } }, { visibility: { equals: "public" } }],
-      },
-      select: {
-        name: true,
-        artist: true,
-        duration: true,
-        language: true,
-        externalImageURL: true,
-        uploadedImageURL: true,
-      },
-    }),
-  );
-
-  if (!res.isSuccess) return errorResponse(res.errors, res.message);
-
-  const [track] = res.data.docs;
-
-  if (!track) return successResponse<TNoMusicShare | null>(null);
-
-  return successResponse<TNoMusicShare>({
-    id: track.id,
-    name: track.name,
-    artist: track.artist,
-    duration: track.duration,
-    language: track.language,
-    coverImage: track.uploadedImageURL || track.externalImageURL,
-  });
 }
 
 export async function listNomusicPaginatedAdapter({ page = 1, limit = 50, language }: TListNomusicArg = {}) {
