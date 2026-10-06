@@ -1,12 +1,13 @@
-import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import type { Where } from "payload";
 import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
+import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { getPayloadClient } from "#payload-client";
+import type { Nomusic } from "#payload-types";
 import { errorResponse, successResponse } from "#responses";
 import { tryCatchResponse } from "#trycatch-response";
-import { TNoMusicPaginated } from "#types/nomusic";
-import { getPayloadClient } from "#payload-client";
+import type { TNoMusicPaginated } from "#types/nomusic";
+import { escapeRegExp } from "@/utils";
 import { mapNomusic } from "./no-music.mapper";
-import { Nomusic } from "#payload-types";
-import type { Where } from "payload";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
@@ -38,11 +39,29 @@ export async function listNomusicAdapter(limit: number) {
   return successResponse(mapped);
 }
 
-export async function listNomusicPaginatedAdapter({
-  page = 1,
-  limit = 50,
-  language,
-}: TListNomusicArg = {}) {
+export async function findAudioBySearchQueryAdapter(searchQuery: string, language?: TLANGUAGES_VALUES) {
+  const payload = await getPayloadClient();
+  const pattern = escapeRegExp(searchQuery);
+  const searchWhere: Where = { or: [{ name: { like: pattern } }, { artist: { like: pattern } }] };
+
+  const res = await tryCatchResponse(() =>
+    payload.find({
+      collection: "nomusic",
+      depth: 0,
+      limit: 1,
+      pagination: false,
+      where: language ? { and: [{ language: { equals: language } }, searchWhere] } : searchWhere,
+      select: NOMUSIC_DEFAULT_SELECT,
+    }),
+  );
+  if (!res.isSuccess) return errorResponse(res.errors, res.message);
+
+  const [track] = mapNomusic(res.data.docs as Nomusic[]);
+
+  return successResponse(track ?? null);
+}
+
+export async function listNomusicPaginatedAdapter({ page = 1, limit = 50, language }: TListNomusicArg = {}) {
   const payload = await getPayloadClient();
 
   // -- Authentication

@@ -1,10 +1,12 @@
+import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import { NOMUSIC_PAGINATION } from "#constants/private/pagination";
-// import { cacheLife, cacheTag } from "next/cache";
-import {
-  listNomusicAdapter,
-  listNomusicPaginatedAdapter,
-  TListNomusicArg,
-} from "./no-music-pl.adapter";
+import { findAudioBySearchQueryAdapter, listNomusicAdapter, listNomusicPaginatedAdapter, type TListNomusicArg } from "./no-music-pl.adapter";
+
+// TODO: Migrate from nomusic naming to audio
+
+export async function findAudioBySearchQuery(searchQuery: string, language?: TLANGUAGES_VALUES) {
+  return findAudioBySearchQueryAdapter(searchQuery, language);
+}
 
 export async function listNomusic(limit: number = NOMUSIC_PAGINATION.LIMIT) {
   // "use cache";
