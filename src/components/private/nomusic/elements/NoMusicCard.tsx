@@ -12,6 +12,7 @@ import type { TNoMusic } from "#types/nomusic";
 import { NoMusicAddToPlaylistButton } from "./NoMusicAddToPlaylistButton";
 import { NoMusicCover } from "./NoMusicCover";
 import { NoMusicDownloadButton } from "./NoMusicDownloadButton";
+import { NoMusicShareButton } from "./NoMusicShareButton";
 import { PlayingBars } from "./PlayingBars";
 
 const isDev = process.env.NODE_ENV === "development";
@@ -56,7 +57,7 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
           </div>
 
           {isNew && (
-            <div className="absolute bottom-2 left-2 z-20">
+            <div className="absolute bottom-2 left-12 z-20">
               <span className="flex items-center gap-1 rounded-md bg-primary/60 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wide text-primary-foreground">
                 <RiSparkling2Fill className="size-2 text-yellow-400" />
                 New
@@ -72,6 +73,10 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
             <NoMusicAddToPlaylistButton noMusic={noMusic} />
           </div>
 
+          <div className="absolute bottom-0 left-0 z-20 flex size-full max-h-10 max-w-10 items-end justify-start rounded-tr-full bg-card-secondary p-0">
+            <NoMusicShareButton noMusic={noMusic} />
+          </div>
+
           <span className="absolute bg-card-secondary/60 text-primary-200 right-2 bottom-2 rounded-md px-1.5 py-0.5 text-xs tabular-nums">{formatPlaybackTime(noMusic?.duration ?? 0)}</span>
         </CardHeader>
 
@@ -85,9 +90,9 @@ const NoMusicCardComponent = ({ index, noMusic }: TProps) => {
             <span className="truncate">{noMusic?.artist || "Unknown Artist"}</span>
           </div>
 
-          <div className="flex items-center justify-start gap-2 text-[10px] md:text-xs text-primary-200/80 capitalize">
+          <div className="flex items-center justify-start gap-2 text-[10px] text-primary-200/80 capitalize md:text-xs">
             <RiGlobalLine className="size-3 shrink-0 text-primary-400" />
-            {noMusic?.language ?? "unknown"}
+            <span className="truncate">{noMusic?.language ?? "unknown"}</span>
           </div>
         </CardContent>
       </Card>

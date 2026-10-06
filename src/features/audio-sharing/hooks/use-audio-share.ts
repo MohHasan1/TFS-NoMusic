@@ -1,38 +1,49 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import type { TNoMusic } from "#types/nomusic";
 import { getAudioShareUrl } from "../utils/get-audio-share-url";
 
 export function useAudioShare(audio: TNoMusic) {
-  const shareAudio = useCallback(async () => {
-    const url = getAudioShareUrl(audio.id);
+  const [isNativeShareSupported, setIsNativeShareSupported] = useState(false);
+  const url = getAudioShareUrl(audio.id);
+  const shareData = useMemo(() => {
     const artist = audio.artist || "Unknown artist";
-    const shareData = {
+
+    return {
       title: `${audio.name} — ${artist}`,
       text: `Listen to “${audio.name}” by ${artist} on NoMusic.`,
       url,
-    };
+    } satisfies ShareData;
+  }, [audio.artist, audio.name, url]);
 
-    if (canShareNatively(shareData)) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch (error) {
-        if (isShareCancelled(error)) return;
-      }
+  useEffect(() => {
+    setIsNativeShareSupported(canShareNatively(shareData));
+  }, [shareData]);
+
+  const shareAudio = useCallback(async () => {
+    if (!canShareNatively(shareData)) return;
+
+    try {
+      await navigator.share(shareData);
+    } catch (error) {
+      if (isShareCancelled(error)) return;
+
+      toast.error("Couldn't share this track.");
     }
+  }, [shareData]);
 
+  const copyAudioLink = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(url);
       toast.success("Share link copied.");
     } catch {
-      toast.error("Couldn't share this track.");
+      toast.error("Couldn't copy the share link.");
     }
-  }, [audio.artist, audio.id, audio.name]);
+  }, [url]);
 
-  return { shareAudio };
+  return { copyAudioLink, isNativeShareSupported, shareAudio };
 }
 
 function canShareNatively(data: ShareData) {

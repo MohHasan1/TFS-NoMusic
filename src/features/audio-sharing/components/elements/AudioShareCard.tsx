@@ -15,9 +15,9 @@ export function AudioShareCard({ track }: TProps) {
   const destination = `${PRIVATE_ROUTES.NOMUSIC_LANGUAGE(track.language)}?q=${encodeURIComponent(track.name)}`;
 
   return (
-    <section className="relative z-10 mx-auto flex w-full max-w-4xl flex-1 items-center px-4 py-12 sm:px-6 lg:px-8">
+    <section className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 items-center px-4 py-12 sm:px-6 lg:px-8">
       <Card className="grid w-full overflow-hidden border-border/70 bg-card/90 backdrop-blur-xl md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <CardHeader className="relative aspect-square overflow-hidden bg-muted p-0 md:aspect-auto md:min-h-112">
+        <CardHeader className="relative aspect-square w-full self-center overflow-hidden bg-muted p-0">
           {track.coverImage ? <Image src={track.coverImage} alt={`${track.name} cover`} fill priority unoptimized={shouldSkipImageOptimization} sizes="(min-width: 768px) 448px, 100vw" className="object-cover" /> : <NoMusicCover name={track.name} artist={track.artist} />}
         </CardHeader>
 

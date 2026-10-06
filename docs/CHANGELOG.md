@@ -9,10 +9,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 ### Added
 
 - Added a public `/share/audio/[id]` preview page with safe track details, social metadata, cover fallback, and a sign-in-to-listen path back to the private collection.
+- Added a share menu to NoMusic cards with native device sharing and an explicit copy-link action.
 
 ### Changed
 
 - Simplified private NoMusic collection metadata to stay route-level; track-specific social metadata now lives exclusively on public audio share pages.
+- Enlarged the public audio share card on desktop and kept its cover artwork square to avoid cropping.
 
 ## [0.3.13] - 2026-10-06
 
