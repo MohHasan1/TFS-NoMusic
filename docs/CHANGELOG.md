@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.16] - 2026-10-06
+
+### Fixed
+
+- Fixed Vercel CI deployments failing with `spawn pnpm ENOENT` by setting up pnpm and Node.js in the isolated deploy runner.
+
 ## [0.3.15] - 2026-10-06
 
 ### Added
