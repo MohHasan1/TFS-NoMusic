@@ -6,7 +6,7 @@ import type { Nomusic } from "#payload-types";
 import { errorResponse, successResponse } from "#responses";
 import { tryCatchResponse } from "#trycatch-response";
 import type { TNoMusicPaginated } from "#types/nomusic";
-import { escapeRegExp } from "@/utils";
+import type { TNoMusicShare } from "#types/nomusic-share";
 import { mapNomusic } from "./no-music.mapper";
 
 export async function listNomusicAdapter(limit: number) {
@@ -39,10 +39,8 @@ export async function listNomusicAdapter(limit: number) {
   return successResponse(mapped);
 }
 
-export async function findAudioBySearchQueryAdapter(searchQuery: string, language?: TLANGUAGES_VALUES) {
+export async function findPublicAudioShareByIdAdapter(id: string) {
   const payload = await getPayloadClient();
-  const pattern = escapeRegExp(searchQuery);
-  const searchWhere: Where = { or: [{ name: { like: pattern } }, { artist: { like: pattern } }] };
 
   const res = await tryCatchResponse(() =>
     payload.find({
@@ -50,15 +48,35 @@ export async function findAudioBySearchQueryAdapter(searchQuery: string, languag
       depth: 0,
       limit: 1,
       pagination: false,
-      where: language ? { and: [{ language: { equals: language } }, searchWhere] } : searchWhere,
-      select: NOMUSIC_DEFAULT_SELECT,
+      overrideAccess: true,
+      where: {
+        and: [{ id: { equals: id } }, { visibility: { equals: "public" } }],
+      },
+      select: {
+        name: true,
+        artist: true,
+        duration: true,
+        language: true,
+        externalImageURL: true,
+        uploadedImageURL: true,
+      },
     }),
   );
+
   if (!res.isSuccess) return errorResponse(res.errors, res.message);
 
-  const [track] = mapNomusic(res.data.docs as Nomusic[]);
+  const [track] = res.data.docs;
 
-  return successResponse(track ?? null);
+  if (!track) return successResponse<TNoMusicShare | null>(null);
+
+  return successResponse<TNoMusicShare>({
+    id: track.id,
+    name: track.name,
+    artist: track.artist,
+    duration: track.duration,
+    language: track.language,
+    coverImage: track.uploadedImageURL || track.externalImageURL,
+  });
 }
 
 export async function listNomusicPaginatedAdapter({ page = 1, limit = 50, language }: TListNomusicArg = {}) {

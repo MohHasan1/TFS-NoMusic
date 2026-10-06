@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+### Added
+
+- Added a public `/share/audio/[id]` preview page with safe track details, social metadata, cover fallback, and a sign-in-to-listen path back to the private collection.
+
+### Changed
+
+- Simplified private NoMusic collection metadata to stay route-level; track-specific social metadata now lives exclusively on public audio share pages.
+
 ## [0.3.13] - 2026-10-06
 
 ### Added
