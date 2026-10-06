@@ -1,12 +1,12 @@
-import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import type { Where } from "payload";
 import { NOMUSIC_DEFAULT_SELECT } from "#collection-default-select/nomusic";
+import type { TLANGUAGES_VALUES } from "#constants/private/nomusic-language";
+import { getPayloadClient } from "#payload-client";
+import type { Nomusic } from "#payload-types";
 import { errorResponse, successResponse } from "#responses";
 import { tryCatchResponse } from "#trycatch-response";
-import { TNoMusicPaginated } from "#types/nomusic";
-import { getPayloadClient } from "#payload-client";
+import type { TNoMusicPaginated } from "#types/nomusic";
 import { mapNomusic } from "./no-music.mapper";
-import { Nomusic } from "#payload-types";
-import type { Where } from "payload";
 
 export async function listNomusicAdapter(limit: number) {
   const payload = await getPayloadClient();
@@ -38,11 +38,7 @@ export async function listNomusicAdapter(limit: number) {
   return successResponse(mapped);
 }
 
-export async function listNomusicPaginatedAdapter({
-  page = 1,
-  limit = 50,
-  language,
-}: TListNomusicArg = {}) {
+export async function listNomusicPaginatedAdapter({ page = 1, limit = 50, language }: TListNomusicArg = {}) {
   const payload = await getPayloadClient();
 
   // -- Authentication

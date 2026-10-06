@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import SigninSection from "@/components/auth/signin/sections/SigninSection";
+
+export const metadata: Metadata = {
+  title: "Sign In",
+  description: "Sign in to your private NoMusic listening space.",
+};
 
 const SigninPage = async ({ searchParams }: TProps) => {
   const params = await searchParams;

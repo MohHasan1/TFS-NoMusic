@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { BrandLogo } from "#components/shared/BrandLogo";
+
+export const metadata: Metadata = {
+  title: "App",
+  description: "Open the NoMusic private listening app.",
+};
 
 export default function PwaSplashPage() {
   return (

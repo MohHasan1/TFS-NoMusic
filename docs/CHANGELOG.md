@@ -6,6 +6,46 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add
 
 ## Unreleased
 
+## [0.3.17] - 2026-10-06
+
+### Changed
+
+- Changed GitHub Actions deployments from local prebuilt output to Vercel-hosted builds so encrypted project environment variables remain available.
+- Kept the previous prebuilt workflow as a non-executable learning reference.
+
+## [0.3.16] - 2026-10-06
+
+### Fixed
+
+- Fixed Vercel CI deployments failing with `spawn pnpm ENOENT` by setting up pnpm and Node.js in the isolated deploy runner.
+
+## [0.3.15] - 2026-10-06
+
+### Added
+
+- Added GitHub Actions type-checking and branch-based Vercel deployments for `dev` previews and `main` production releases.
+- Documented the planned Instagram Story image-sharing flow, platform limitations, and implementation checklist.
+
+## [0.3.14] - 2026-10-06
+
+### Added
+
+- Added a public `/share/audio/[id]` preview page with safe track details, social metadata, cover fallback, and a sign-in-to-listen path back to the private collection.
+- Added a share menu to NoMusic cards with native device sharing and an explicit copy-link action.
+
+### Changed
+
+- Simplified private NoMusic collection metadata to stay route-level; track-specific social metadata now lives exclusively on public audio share pages.
+- Enlarged the public audio share card on desktop and kept its cover artwork square to avoid cropping.
+- Updated app notifications to use the shared themed toaster with the app's primary text styling.
+
+## [0.3.13] - 2026-10-06
+
+### Added
+
+- Added route-specific browser tab titles and descriptions across the private NoMusic pages, including language-aware titles and track-specific metadata for NoMusic searches.
+- Added browser tab titles and descriptions for the public and authentication pages.
+
 ## [0.3.12] - 2026-09-04
 
 ### Added

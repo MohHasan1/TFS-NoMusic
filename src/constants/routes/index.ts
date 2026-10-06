@@ -10,6 +10,7 @@ const PUBLIC_ROUTES = {
 
   REQUEST_ACCESS: "/request-access",
   CHECK_EMAIL: "/check-email",
+  SHARE_AUDIO: (id: string) => `/share/audio/${id}`,
 
   API_HEALTH: "/api/health",
 } as const;

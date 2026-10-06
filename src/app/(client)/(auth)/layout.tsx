@@ -1,6 +1,15 @@
+import type { Metadata } from "next";
 import { Footer } from "@/components/_layout/public/Footer";
 import { Header } from "@/components/_layout/public/Header";
 import { GlowOrb } from "@/components/shared/GlowOrb";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Account | NoMusic",
+    template: "%s | NoMusic",
+  },
+  description: "Access your private NoMusic listening space.",
+};
 
 export default function PrivateLayout({ children }: TProps) {
   return (

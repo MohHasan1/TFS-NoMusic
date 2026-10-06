@@ -1,8 +1,29 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { NoMusicView } from "#components/private/nomusic/views/NoMusicView";
 import { isLanguage, LANGUAGES_VALUES } from "#constants/private/nomusic-language";
 import { PRIVATE_ROUTES } from "#constants/routes";
+import { capitalizeFirstLetter } from "#lib/utils";
+
+export async function generateMetadata({ params }: TProps): Promise<Metadata> {
+  const { language } = await params;
+
+  // Unknown language
+  if (!isLanguage(language)) {
+    return {
+      title: "Unknown NoMusic",
+      description: "Explore private NoMusic vocals in one clean collection.",
+    };
+  }
+
+  const languageLabel = capitalizeFirstLetter(language);
+
+  return {
+    title: `${languageLabel} NoMusic`,
+    description: `Explore private ${languageLabel} NoMusic vocals in one clean collection.`,
+  };
+}
 
 export function generateStaticParams() {
   return LANGUAGES_VALUES.map((language) => ({ language }));
